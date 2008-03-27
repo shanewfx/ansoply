@@ -184,6 +184,8 @@ public:
 	LONG SetMediaFilePath(LPCTSTR sFilePathName);
 	LONG SetDefaultVideoSize(ULONG uGroupID, ULONG uX, ULONG uY);
 	static void __cdecl SetDefaultThread(LPVOID param);
+
+	void Close();
 protected:
 	TCHAR   m_MediaFilePath[MAX_PATH];
 	HRESULT DDARGB32SurfaceInit(

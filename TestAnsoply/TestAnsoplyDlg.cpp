@@ -84,6 +84,7 @@ BEGIN_MESSAGE_MAP(CTestAnsoplyDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON13, OnBnClickedButton13)
 	ON_BN_CLICKED(IDC_BUTTON14, OnBnClickedButton14)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_GROUP_LIST, OnLvnItemchangedGroupList)
+	ON_BN_CLICKED(IDCANCEL, OnBnClickedCancel)
 END_MESSAGE_MAP()
 
 
@@ -206,7 +207,7 @@ void CTestAnsoplyDlg::OnBnClickedButton1()
 
 	try 
 	{
-		ULONG uGroupID = 0;
+		LONG uGroupID = 0;
 		m_ansoply.GetFirstVideoGroupID(&uGroupID);
 
 		while( uGroupID != -1 ) 
@@ -379,8 +380,9 @@ void CTestAnsoplyDlg::OnLvnItemchangedGroupList(NMHDR *pNMHDR, LRESULT *pResult)
 		m_ansoply.GetFirstVideoObjectID(nGroupID, &uFileID);
 		do
 		{
-			CHAR fileName[MAX_PATH] = {0};
-			m_ansoply.GetVideoObjectFileName(nGroupID, uFileID, (signed char*)fileName);
+//			CHAR fileName[MAX_PATH] = {0};
+			BSTR fileName;
+			m_ansoply.GetVideoObjectFileName(nGroupID, uFileID, &fileName);
 			CString sFileName;
 			CString sFileID;
 			sFileName = fileName;
@@ -392,4 +394,11 @@ void CTestAnsoplyDlg::OnLvnItemchangedGroupList(NMHDR *pNMHDR, LRESULT *pResult)
 	}
 
 	*pResult = 0;
+}
+
+void CTestAnsoplyDlg::OnBnClickedCancel()
+{
+	// TODO: Add your control notification handler code here
+	m_ansoply.Close();
+	OnCancel();
 }

@@ -489,3 +489,12 @@ STDMETHODIMP CAnsoplyInterface::GetNextVideoGroupID(LONG * uGroupID)
 	m_pMultiSAP->GetNextVideoGroupID(*uGroupID);
 	return S_OK;
 }
+
+STDMETHODIMP CAnsoplyInterface::Close(void)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	m_pMultiSAP->Close();
+	return S_OK;
+}
