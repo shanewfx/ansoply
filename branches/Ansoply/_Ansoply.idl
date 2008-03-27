@@ -1,0 +1,90 @@
+import "D:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\include\prsht.idl";
+import "D:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\include\mshtml.idl";
+import "d:\program files\microsoft visual studio .net 2003\vc7\platformsdk\include\dimm.idl";
+import "D:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\include\mshtmhst.idl";
+import "d:\program files\microsoft visual studio .net 2003\vc7\platformsdk\include\docobj.idl";
+import "D:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\include\exdisp.idl";
+import "D:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\include\objsafe.idl";
+
+[
+	object,
+	uuid(016AACB4-4B78-40E7-9903-9D73AD75DAC5),
+	dual,
+	helpstring("IAnsoplyInterface Interface"),
+	pointer_default(unique)
+] 
+#line 16 "d:\\project\\ansoply\\ansoply\\ansoplyinterface.h"
+interface IAnsoplyInterface : IDispatch {
+#line 18 "d:\\project\\ansoply\\ansoply\\ansoplyinterface.h"
+	[id(1),helpstring("method CreateVideoGroup")] HRESULT  CreateVideoGroup([in]ULONG *uNewGroupID);
+	[id(2),helpstring("method DelVideoGroup")] HRESULT  DelVideoGroup([in]ULONG uGroupID);
+	[id(3),helpstring("method AddVideoFile")] HRESULT  AddVideoFile([in]ULONG uGroupID, [in]BSTR sFilePathName, [in]ULONG *uFileObjectID);
+	[id(4),helpstring("method DelVideoFile")] HRESULT  DelVideoFile([in]ULONG uGroupID, [in]ULONG uFileID);
+	[id(5),helpstring("method GetVideoObjectCount")] HRESULT  GetVideoObjectCount([in]ULONG uGroupID, [in]ULONG *uFileCount);
+	[id(6),helpstring("method GetFirstVideoObjectID")] HRESULT  GetFirstVideoObjectID([in]ULONG uGroupID, [in]ULONG *uFileID);
+	[id(7),helpstring("method GetNextVideoObjectID")] HRESULT  GetNextVideoObjectID([in]ULONG uGroupID, [in]ULONG *uFileID);
+	[id(8),helpstring("method GetVideoObjectFileName")] HRESULT  GetVideoObjectFileName([in]ULONG uGroupID, [in]ULONG uFileID, [out] BSTR *ch );
+	[id(9),helpstring("method SetObjectLevel")] HRESULT  SetObjectLevel([in]ULONG uObjectID, [in]ULONG uLevel);
+	[id(10),helpstring("method GetObjectLevel")] HRESULT  GetObjectLevel([in]ULONG uObjectID, [in]ULONG *uLevel);
+	[id(11),helpstring("method Play")] HRESULT  Play([in]ULONG uGroupID);
+	[id(12),helpstring("method Pause")] HRESULT  Pause([in]ULONG uGroupID);
+	[id(13),helpstring("method Stop")] HRESULT  Stop([in]ULONG uGroupID);
+	[id(14),helpstring("method Next")] HRESULT  Next([in]ULONG uGroupID);
+	[id(15),helpstring("method Previous")] HRESULT  Previous([in]ULONG uGroupID);
+	[id(16),helpstring("method Seek")] HRESULT  Seek([in]ULONG GroupID, [in]ULONG uPosition);
+	[id(17),helpstring("method SavePlayList")] HRESULT  SavePlayList([in] BSTR sFilePathName);
+	[id(18),helpstring("method LoadPlayList")] HRESULT  LoadPlayList([in]BSTR sFilePathName);
+	[id(19),helpstring("method SetVideoPosition")] HRESULT  SetVideoPosition([in] ULONG uGroupID, [in] ULONG uX, [in] ULONG uY);
+	[id(20),helpstring("method GetVideoPosition")] HRESULT  GetVideoPosition([in] ULONG uGroupID, [in]ULONG *uX, [in]ULONG *uY);
+	[id(21),helpstring("method SetVideoPosAndSize")] HRESULT  SetVideoPosAndSize([in] ULONG uGroupID, [in]ULONG uX, [in]ULONG uY, [in] ULONG uWeight, [in] ULONG uHeight);
+	[id(22),helpstring("method GetVideoPositionAndSize")] HRESULT  GetVideoPositionAndSize([in] ULONG uGroupID, [in] ULONG *uX, [in]ULONG *uY, [in] ULONG *uWeight, [in]ULONG *uHeight);
+	[id(23),helpstring("method SetVideoAlpha")] HRESULT  SetVideoAlpha([in] ULONG GroupID, [in] ULONG uAlpha);
+	[id(24),helpstring("method GetVideoAlpha")] HRESULT  GetVideoAlpha([in] ULONG uGroupID, [in]ULONG *uAlpha);
+	[id(25),helpstring("method SetBitmap")] HRESULT  SetBitmap([in]ULONG *uBitmapID, [in] BSTR sBitmapFilePath, [in] ULONG uAlpha, [in] ULONG uTransparentColor, [in] ULONG uX, [in] ULONG uY, [in]ULONG uWidth, [in]ULONG uHeight, [in]ULONG uOriginalSize);
+	[id(26),helpstring("method GetBitmap")] HRESULT  GetBitmap([in] ULONG uBitmapID, [in]BSTR *sBitmapFilePath , [in] ULONG *uAlpha, [in]ULONG *uTransparentColor, [in]ULONG *uX, [in]ULONG *uY);
+	[id(27),helpstring("method DelBitmap")] HRESULT  DelBitmap([in] ULONG uBitmapID);
+	[id(28),helpstring("method SetDynamicBitmap")] HRESULT  SetDynamicBitmap([in]ULONG *uBitmapID, [in] BSTR sBitmapFilePath, [in] ULONG uAlpha, [in] ULONG uTransparentColor, [in] ULONG uX, [in] ULONG uY, [in] ULONG uMilliSec);
+	[id(29),helpstring("method GetDynamicBitmap")] HRESULT  GetDynamicBitmap([in]ULONG uBitmapID, [in]BSTR *sBitmapFilePath , [in]ULONG *uAlpha, [in]ULONG *uTransparentColor, [in]ULONG *uX, [in]ULONG *uY, [in]ULONG *uMilliSec);
+	[id(30),helpstring("method SetText")] HRESULT  SetText([in] ULONG uX, [in] ULONG uY, [in] BSTR sOutputText, [in] BSTR sFaceName, [in] ULONG uItalic, [in] ULONG uBold, [in] ULONG uUnderLine, [in] ULONG uWidth, [in] ULONG uHeight, [in] ULONG uColor, [in] ULONG *uObjectID);
+	[id(31),helpstring("method GetText")] HRESULT  GetText([in] ULONG uObjectID, [in]ULONG *uX, [in]ULONG *uY, [in]BSTR *sOutputText , [in]BSTR *sFaceName , [in]ULONG *uItalic, [in]ULONG *uBold, [in]ULONG *uUnderLine, [in]ULONG *uWidth, [in]ULONG *uHeight, [in]ULONG *uColor);
+	[id(32),helpstring("method DelText")] HRESULT  DelText([in]ULONG uGroupID);
+	[id(33),helpstring("method GetLastError")] HRESULT  GetLastError();
+	[id(34),helpstring("method Init")] HRESULT  Init([in] LONG hWnd, [in]ULONG uWidth, [in]ULONG uHeight);
+	[id(35),helpstring("method SetPlayRate")] HRESULT  SetPlayRate([in] ULONG uGroupID, [in] DOUBLE dRate);
+	[id(36),helpstring("method SelectVideoGroupByCoordinate")] HRESULT  SelectVideoGroupByCoordinate([in] ULONG *uGroupID, [in] ULONG cX, [in] ULONG cY, [in] ULONG uFrameColor);
+	[id(37),helpstring("method SelectVideoGroup")] HRESULT  SelectVideoGroup([in] ULONG uGroupID, [in] ULONG uFrameColor);
+	[id(38),helpstring("method BringToFront")] HRESULT  BringToFront([in] ULONG uObjectID);
+	[id(39),helpstring("method SendToBack")] HRESULT  SendToBack([in] ULONG uObjectID);
+	[id(40),helpstring("method BringUp")] HRESULT  BringUp([in] ULONG uObjectID);
+	[id(41),helpstring("method SendBack")] HRESULT  SendBack([in] ULONG uObjectID);
+	[id(42),helpstring("method SetPlayMode")] HRESULT  SetPlayMode([in] ULONG uGroupID, [in] ULONG uPlayMode);
+	[id(43),helpstring("method GetVideoLength")] HRESULT  GetVideoLength([in] ULONG uGroupID, [in] ULONG uFileID, [in] DOUBLE *uLength);
+	[id(44),helpstring("method GetVideoGroupZOrder")] HRESULT  GetVideoGroupZOrder([in] ULONG uGroupID, [in] ULONG *uZOrder);
+	[id(45),helpstring("method UnSelectVideoGroup")] HRESULT  UnSelectVideoGroup();
+	[id(46),helpstring("method SetMediaFilePath")] HRESULT  SetMediaFilePath([in]BSTR sFilePathName);
+	[id(47),helpstring("method SetDefaultVideoSize")] HRESULT  SetDefaultVideoSize([in]ULONG uGroupID, [in]ULONG uX, [in]ULONG uY);
+	[id(48),helpstring("method GetVideoGroupCount")] HRESULT  GetVideoGroupCount([in]ULONG *uGroupCount);
+	[id(49),helpstring("method GetFirstVideoGroupID")] HRESULT  GetFirstVideoGroupID([in]LONG *uGroupID);
+	[id(50),helpstring("method GetNextVideoGroupID")] HRESULT  GetNextVideoGroupID([in]LONG *uGroupID);
+	[id(51),helpstring("method Close")] HRESULT  Close();
+};
+
+
+[ version(1.0), uuid(C972C363-8914-44AD-B197-5EE3561D95BF), helpstring("Ansoply 1.0 Type Library") ]
+library Ansoply
+{
+	importlib("stdole2.tlb");
+	importlib("olepro32.dll");
+
+	[
+		version(1.0),
+		uuid(D1EBA581-03B3-42EA-B097-7F97F0ADB87B),
+		helpstring("AnsoplyInterface Class")
+	] 
+#line 84 "d:\\project\\ansoply\\ansoply\\ansoplyinterface.h"
+	coclass CAnsoplyInterface {
+		interface IAnsoplyInterface;
+	};
+
+}
+
