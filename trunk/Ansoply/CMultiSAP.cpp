@@ -83,22 +83,37 @@ CMultiSAP::CMultiSAP(HWND hwndApplication, HRESULT *phr, ULONG uWidth, ULONG uHe
 //-------------------------------------------------------------------------
 CMultiSAP::~CMultiSAP()
 {
-    
-    delete m_pD3DHelper;
-    m_pD3DHelper = NULL;
-    
-    delete m_pSparkle;
-    m_pSparkle = NULL;
-    m_lpDDObj = NULL;    
-    m_pWC = NULL;
-    m_pPresenter = NULL;
-    m_lpBackBuffer = NULL;
+    Close();
+}
 
-    if (m_pAlloc) 
-    {
-        m_pAlloc->FreeSurface(0);
-        m_pAlloc = NULL;
-    }  
+void CMultiSAP::Close()
+{
+	if (m_hThread) TerminateThread(m_hThread, 0);
+	m_hThread = NULL;
+
+	POSITION pos = m_videoGroups.GetHeadPosition();
+	while (pos)
+	{
+		CVideoGroup* pVideoGroup = m_videoGroups.GetNext(pos);
+		delete pVideoGroup;
+	}
+	m_videoGroups.RemoveAll();
+
+	if (m_pD3DHelper) delete m_pD3DHelper;
+	m_pD3DHelper = NULL;
+
+	if (m_pSparkle) delete m_pSparkle;
+	m_pSparkle = NULL;
+	m_lpDDObj = NULL;    
+	m_pWC = NULL;
+	m_pPresenter = NULL;
+	m_lpBackBuffer = NULL;
+
+	if (m_pAlloc) 
+	{
+		m_pAlloc->FreeSurface(0);
+		m_pAlloc = NULL;
+	}  
 	GdiplusShutdown(m_gdiplusToken);
 
 	DeleteCriticalSection(&m_videoGroupsCS);

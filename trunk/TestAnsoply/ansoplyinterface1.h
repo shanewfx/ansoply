@@ -81,9 +81,9 @@ public:
 		static BYTE parms[] = VTS_UI4 VTS_PUI4 ;
 		InvokeHelper(0x7, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uFileID);
 	}
-	void GetVideoObjectFileName(unsigned long uGroupID, unsigned long uFileID, signed char * ch)
+	void GetVideoObjectFileName(unsigned long uGroupID, unsigned long uFileID, BSTR * ch)
 	{
-		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_PI1 ;
+		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_PBSTR ;
 		InvokeHelper(0x8, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uFileID, ch);
 	}
 	void SetObjectLevel(unsigned long uObjectID, unsigned long uLevel)
@@ -230,25 +230,25 @@ public:
 		static BYTE parms[] = VTS_UI4 VTS_UI4 ;
 		InvokeHelper(0x25, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uFrameColor);
 	}
-	void BringToFront(unsigned long uGroupID)
+	void BringToFront(unsigned long uObjectID)
 	{
 		static BYTE parms[] = VTS_UI4 ;
-		InvokeHelper(0x26, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID);
+		InvokeHelper(0x26, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uObjectID);
 	}
-	void SendToBack(unsigned long uGroupID)
+	void SendToBack(unsigned long uObjectID)
 	{
 		static BYTE parms[] = VTS_UI4 ;
-		InvokeHelper(0x27, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID);
+		InvokeHelper(0x27, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uObjectID);
 	}
-	void BringUp(unsigned long uGroup)
+	void BringUp(unsigned long uObjectID)
 	{
 		static BYTE parms[] = VTS_UI4 ;
-		InvokeHelper(0x28, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroup);
+		InvokeHelper(0x28, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uObjectID);
 	}
-	void SendBack(unsigned long uGroupID)
+	void SendBack(unsigned long uObjectID)
 	{
 		static BYTE parms[] = VTS_UI4 ;
-		InvokeHelper(0x29, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID);
+		InvokeHelper(0x29, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uObjectID);
 	}
 	void SetPlayMode(unsigned long uGroupID, unsigned long uPlayMode)
 	{
@@ -284,15 +284,19 @@ public:
 		static BYTE parms[] = VTS_PUI4 ;
 		InvokeHelper(0x30, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupCount);
 	}
-	void GetFirstVideoGroupID(unsigned long * uGroupID)
+	void GetFirstVideoGroupID(long * uGroupID)
 	{
-		static BYTE parms[] = VTS_PUI4 ;
+		static BYTE parms[] = VTS_PI4 ;
 		InvokeHelper(0x31, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID);
 	}
-	void GetNextVideoGroupID(unsigned long * uGroupID)
+	void GetNextVideoGroupID(long * uGroupID)
 	{
-		static BYTE parms[] = VTS_PUI4 ;
+		static BYTE parms[] = VTS_PI4 ;
 		InvokeHelper(0x32, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID);
+	}
+	void Close()
+	{
+		InvokeHelper(0x33, DISPATCH_METHOD, VT_EMPTY, NULL, NULL);
 	}
 
 // Properties

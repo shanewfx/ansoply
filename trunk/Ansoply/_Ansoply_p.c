@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Wed Mar 26 00:18:03 2008
+/* at Thu Mar 27 23:31:22 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -44,7 +44,7 @@
 #include "_Ansoply.h"
 
 #define TYPE_FORMAT_STRING_SIZE   69                                
-#define PROC_FORMAT_STRING_SIZE   2287                              
+#define PROC_FORMAT_STRING_SIZE   2317                              
 #define TRANSMIT_AS_TABLE_SIZE    0            
 #define WIRE_MARSHAL_TABLE_SIZE   1            
 
@@ -2199,6 +2199,30 @@ static const MIDL_PROC_FORMAT_STRING __MIDL_ProcFormatString =
 /* 2284 */	0x8,		/* FC_LONG */
 			0x0,		/* 0 */
 
+	/* Procedure Close */
+
+/* 2286 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2288 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2292 */	NdrFcShort( 0x39 ),	/* 57 */
+/* 2294 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2296 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2298 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2300 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x1,		/* 1 */
+/* 2302 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 2304 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2306 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2308 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Return value */
+
+/* 2310 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2312 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2314 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
 			0x0
         }
     };
@@ -2345,7 +2369,8 @@ static const unsigned short IAnsoplyInterface_FormatStringOffsetTable[] =
     2130,
     2178,
     2214,
-    2250
+    2250,
+    2286
     };
 
 static const MIDL_STUBLESS_PROXY_INFO IAnsoplyInterface_ProxyInfo =
@@ -2369,7 +2394,7 @@ static const MIDL_SERVER_INFO IAnsoplyInterface_ServerInfo =
     0,
     0,
     0};
-CINTERFACE_PROXY_VTABLE(57) _IAnsoplyInterfaceProxyVtbl = 
+CINTERFACE_PROXY_VTABLE(58) _IAnsoplyInterfaceProxyVtbl = 
 {
     &IAnsoplyInterface_ProxyInfo,
     &IID_IAnsoplyInterface,
@@ -2429,7 +2454,8 @@ CINTERFACE_PROXY_VTABLE(57) _IAnsoplyInterfaceProxyVtbl =
     (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetDefaultVideoSize */ ,
     (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetVideoGroupCount */ ,
     (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetFirstVideoGroupID */ ,
-    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetNextVideoGroupID */
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetNextVideoGroupID */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::Close */
 };
 
 
@@ -2488,6 +2514,7 @@ static const PRPC_STUB_FUNCTION IAnsoplyInterface_table[] =
     NdrStubCall2,
     NdrStubCall2,
     NdrStubCall2,
+    NdrStubCall2,
     NdrStubCall2
 };
 
@@ -2495,7 +2522,7 @@ CInterfaceStubVtbl _IAnsoplyInterfaceStubVtbl =
 {
     &IID_IAnsoplyInterface,
     &IAnsoplyInterface_ServerInfo,
-    57,
+    58,
     &IAnsoplyInterface_table[-3],
     CStdStubBuffer_DELEGATING_METHODS
 };

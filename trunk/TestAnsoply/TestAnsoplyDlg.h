@@ -61,4 +61,5 @@ public:
 	afx_msg void OnLvnItemchangedGroupList(NMHDR *pNMHDR, LRESULT *pResult);
 	CListCtrl m_bitmapList;
 	CListCtrl m_textList;
+	afx_msg void OnBnClickedCancel();
 };

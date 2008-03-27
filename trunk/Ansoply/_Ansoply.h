@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Wed Mar 26 00:18:03 2008
+/* at Thu Mar 27 23:31:22 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -322,6 +322,8 @@ EXTERN_C const IID IID_IAnsoplyInterface;
         
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetNextVideoGroupID( 
             /* [in] */ LONG *uGroupID) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Close( void) = 0;
         
     };
     
@@ -652,6 +654,9 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             IAnsoplyInterface * This,
             /* [in] */ LONG *uGroupID);
         
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *Close )( 
+            IAnsoplyInterface * This);
+        
         END_INTERFACE
     } IAnsoplyInterfaceVtbl;
 
@@ -837,6 +842,9 @@ EXTERN_C const IID IID_IAnsoplyInterface;
 
 #define IAnsoplyInterface_GetNextVideoGroupID(This,uGroupID)	\
     (This)->lpVtbl -> GetNextVideoGroupID(This,uGroupID)
+
+#define IAnsoplyInterface_Close(This)	\
+    (This)->lpVtbl -> Close(This)
 
 #endif /* COBJMACROS */
 
@@ -1520,6 +1528,17 @@ void __RPC_STUB IAnsoplyInterface_GetFirstVideoGroupID_Stub(
 
 
 void __RPC_STUB IAnsoplyInterface_GetNextVideoGroupID_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_Close_Proxy( 
+    IAnsoplyInterface * This);
+
+
+void __RPC_STUB IAnsoplyInterface_Close_Stub(
     IRpcStubBuffer *This,
     IRpcChannelBuffer *_pRpcChannelBuffer,
     PRPC_MESSAGE _pRpcMessage,
