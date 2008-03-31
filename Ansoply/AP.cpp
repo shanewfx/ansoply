@@ -1007,8 +1007,8 @@ void CMultiSAP::ComposeAndRender()
 {
     HRESULT hr = S_OK;
 
-    RECT rcSrc;
-    SetRect(&rcSrc, 0, 0, WIDTH(&m_rcDst), HEIGHT(&m_rcDst));
+//    RECT rcSrc;
+//    SetRect(&rcSrc, 0, 0, WIDTH(&m_rcDst), HEIGHT(&m_rcDst));
 
     // check if we need to change the movie
 /*
@@ -1049,6 +1049,15 @@ void CMultiSAP::ComposeAndRender()
         }
     }// if we have no effect or it is time to change effect
 */
+/*	static DWORD nStart = GetTickCount();
+	if( GetTickCount() - nStart > 2000 )
+	{
+		InvalidateRect( m_hwndApp, NULL, TRUE );
+		nStart = GetTickCount();
+	}
+*/
+//	DWORD nEnd   = GetTickCount();
+//	ATLTRACE("%d    %d\n", nStart, nEnd);
 	// clear the background to black or sparkles source filter
 	hr = m_pD3DHelper->ClearScene(RGB(0x00, 0x00, 0x00));
 	if (hr != DD_OK) 
@@ -1069,17 +1078,17 @@ void CMultiSAP::ComposeAndRender()
     }
 
     // draw frames; at this point they are sordet in z-order
-    int nFrame = -1;
-    BOOL bSelectedChannel = FALSE;
-	CVideoGroup * pVideoGroup = NULL;
+ //   int nFrame = -1;
+//    BOOL bSelectedChannel = FALSE;
+//	CVideoGroup * pVideoGroup = NULL;
 
 	EnterCriticalSection(&m_videoGroupsCS);
 	POSITION pos = m_drawList.GetTailPosition();  // the tail is the bottom
-	ATLTRACE("Start\n");
+	//ATLTRACE("Start\n");
 	while( pos )
 	{
 		CAnsoplyObject * pObject = m_drawList.GetPrev( pos );
-		ATLTRACE("ID:%d\n", pObject->GetObjectID());
+		//ATLTRACE("ID:%d\n", pObject->GetObjectID());
 		pObject->Draw();
 	}
 /*	POSITION pos = m_videoGroups.GetHeadPosition();
