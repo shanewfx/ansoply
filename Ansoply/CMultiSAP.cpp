@@ -2650,3 +2650,19 @@ void CMultiSAP::SetDefaultThread(LPVOID param)
 
 	CoUninitialize();
 }
+
+void CMultiSAP::Refresh()
+{
+	if( m_pWC )
+	{
+		HDC hDC = ::GetDC(m_hwndApp);
+		//m_pWC->RepaintVideo(m_hwndApp, hDC);
+		//if( hDC )
+		CRect   rc;   
+		GetClientRect(&rc);   
+		ScreenToClient(&rc);   
+
+		::ExcludeClipRec(hDC, &rc);   
+		OutputDebugString("Refresh");
+	}
+}

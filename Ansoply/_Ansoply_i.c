@@ -1,16 +1,17 @@
 
+#pragma warning( disable: 4049 )  /* more than 64k source lines */
 
 /* this ALWAYS GENERATED file contains the IIDs and CLSIDs */
 
 /* link this file in with the server and any clients */
 
 
- /* File created by MIDL compiler version 6.00.0361 */
-/* at Sat Mar 29 22:29:32 2008
+ /* File created by MIDL compiler version 6.00.0347 */
+/* at Wed Apr 02 17:48:22 2008
  */
 /* Compiler settings for _Ansoply.idl:
-    Oicf, W1, Zp8, env=Win32 (32b run)
-    protocol : dce , ms_ext, c_ext, robust
+    Os, W1, Zp8, env=Win32 (32b run)
+    protocol : dce , ms_ext, c_ext
     error checks: allocation ref bounds_check enum stub_data 
     VC __declspec() decoration level: 
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
@@ -19,10 +20,6 @@
 //@@MIDL_FILE_HEADING(  )
 
 #if !defined(_M_IA64) && !defined(_M_AMD64)
-
-
-#pragma warning( disable: 4049 )  /* more than 64k source lines */
-
 
 #ifdef __cplusplus
 extern "C"{

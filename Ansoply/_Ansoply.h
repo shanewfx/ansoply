@@ -1,14 +1,15 @@
 
+#pragma warning( disable: 4049 )  /* more than 64k source lines */
 
 /* this ALWAYS GENERATED file contains the definitions for the interfaces */
 
 
- /* File created by MIDL compiler version 6.00.0361 */
-/* at Sat Mar 29 22:29:32 2008
+ /* File created by MIDL compiler version 6.00.0347 */
+/* at Wed Apr 02 17:48:22 2008
  */
 /* Compiler settings for _Ansoply.idl:
-    Oicf, W1, Zp8, env=Win32 (32b run)
-    protocol : dce , ms_ext, c_ext, robust
+    Os, W1, Zp8, env=Win32 (32b run)
+    protocol : dce , ms_ext, c_ext
     error checks: allocation ref bounds_check enum stub_data 
     VC __declspec() decoration level: 
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
@@ -16,12 +17,10 @@
 */
 //@@MIDL_FILE_HEADING(  )
 
-#pragma warning( disable: 4049 )  /* more than 64k source lines */
-
 
 /* verify that the <rpcndr.h> version is high enough to compile this file*/
 #ifndef __REQUIRED_RPCNDR_H_VERSION__
-#define __REQUIRED_RPCNDR_H_VERSION__ 475
+#define __REQUIRED_RPCNDR_H_VERSION__ 440
 #endif
 
 #include "rpc.h"
@@ -324,6 +323,8 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ LONG *uGroupID) = 0;
         
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Close( void) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Refresh( void) = 0;
         
     };
     
@@ -657,6 +658,9 @@ EXTERN_C const IID IID_IAnsoplyInterface;
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *Close )( 
             IAnsoplyInterface * This);
         
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *Refresh )( 
+            IAnsoplyInterface * This);
+        
         END_INTERFACE
     } IAnsoplyInterfaceVtbl;
 
@@ -845,6 +849,9 @@ EXTERN_C const IID IID_IAnsoplyInterface;
 
 #define IAnsoplyInterface_Close(This)	\
     (This)->lpVtbl -> Close(This)
+
+#define IAnsoplyInterface_Refresh(This)	\
+    (This)->lpVtbl -> Refresh(This)
 
 #endif /* COBJMACROS */
 
@@ -1539,6 +1546,17 @@ void __RPC_STUB IAnsoplyInterface_GetNextVideoGroupID_Stub(
 
 
 void __RPC_STUB IAnsoplyInterface_Close_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_Refresh_Proxy( 
+    IAnsoplyInterface * This);
+
+
+void __RPC_STUB IAnsoplyInterface_Refresh_Stub(
     IRpcStubBuffer *This,
     IRpcChannelBuffer *_pRpcChannelBuffer,
     PRPC_MESSAGE _pRpcMessage,
