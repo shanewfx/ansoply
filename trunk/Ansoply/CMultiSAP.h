@@ -179,6 +179,8 @@ public:
 	void RenderBitmap();
 	void RenderDynamicBitmap();
 
+	void Refresh();
+
 	LONG SavePlayList(LPCTSTR sFile);
 	LONG LoadPlayList(LPCTSTR sFile);
 	LONG SetMediaFilePath(LPCTSTR sFilePathName);

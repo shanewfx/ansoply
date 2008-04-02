@@ -499,3 +499,12 @@ STDMETHODIMP CAnsoplyInterface::Close(void)
 	delete m_pMultiSAP;
 	return S_OK;
 }
+
+STDMETHODIMP CAnsoplyInterface::Refresh(void)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	m_pMultiSAP->Refresh();
+	return S_OK;
+}
