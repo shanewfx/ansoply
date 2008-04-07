@@ -80,4 +80,7 @@ private:
 	ULONG		m_uWidth;
 	ULONG		m_uHeight;
 	BOOL        m_bDefaultOutput;
+public:
+	LONG GetCurrentFileID(LONG * uFileID);
+	LONG GetCurrentPlayingPos(ULONG * uCurPos);
 };

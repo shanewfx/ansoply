@@ -1,15 +1,14 @@
 
-#pragma warning( disable: 4049 )  /* more than 64k source lines */
 
 /* this ALWAYS GENERATED file contains the definitions for the interfaces */
 
 
- /* File created by MIDL compiler version 6.00.0347 */
-/* at Wed Apr 02 17:48:22 2008
+ /* File created by MIDL compiler version 6.00.0361 */
+/* at Mon Apr 07 23:46:35 2008
  */
 /* Compiler settings for _Ansoply.idl:
-    Os, W1, Zp8, env=Win32 (32b run)
-    protocol : dce , ms_ext, c_ext
+    Oicf, W1, Zp8, env=Win32 (32b run)
+    protocol : dce , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 
     VC __declspec() decoration level: 
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
@@ -17,10 +16,12 @@
 */
 //@@MIDL_FILE_HEADING(  )
 
+#pragma warning( disable: 4049 )  /* more than 64k source lines */
+
 
 /* verify that the <rpcndr.h> version is high enough to compile this file*/
 #ifndef __REQUIRED_RPCNDR_H_VERSION__
-#define __REQUIRED_RPCNDR_H_VERSION__ 440
+#define __REQUIRED_RPCNDR_H_VERSION__ 475
 #endif
 
 #include "rpc.h"
@@ -325,6 +326,14 @@ EXTERN_C const IID IID_IAnsoplyInterface;
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Close( void) = 0;
         
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE Refresh( void) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetCurrentFileID( 
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ LONG *uFileID) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetCurrentPlayingPos( 
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ ULONG *uCurPos) = 0;
         
     };
     
@@ -661,6 +670,16 @@ EXTERN_C const IID IID_IAnsoplyInterface;
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *Refresh )( 
             IAnsoplyInterface * This);
         
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetCurrentFileID )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ LONG *uFileID);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetCurrentPlayingPos )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ ULONG *uCurPos);
+        
         END_INTERFACE
     } IAnsoplyInterfaceVtbl;
 
@@ -852,6 +871,12 @@ EXTERN_C const IID IID_IAnsoplyInterface;
 
 #define IAnsoplyInterface_Refresh(This)	\
     (This)->lpVtbl -> Refresh(This)
+
+#define IAnsoplyInterface_GetCurrentFileID(This,uGroupID,uFileID)	\
+    (This)->lpVtbl -> GetCurrentFileID(This,uGroupID,uFileID)
+
+#define IAnsoplyInterface_GetCurrentPlayingPos(This,uGroupID,uCurPos)	\
+    (This)->lpVtbl -> GetCurrentPlayingPos(This,uGroupID,uCurPos)
 
 #endif /* COBJMACROS */
 
@@ -1557,6 +1582,32 @@ void __RPC_STUB IAnsoplyInterface_Close_Stub(
 
 
 void __RPC_STUB IAnsoplyInterface_Refresh_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetCurrentFileID_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uGroupID,
+    /* [in] */ LONG *uFileID);
+
+
+void __RPC_STUB IAnsoplyInterface_GetCurrentFileID_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetCurrentPlayingPos_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uGroupID,
+    /* [in] */ ULONG *uCurPos);
+
+
+void __RPC_STUB IAnsoplyInterface_GetCurrentPlayingPos_Stub(
     IRpcStubBuffer *This,
     IRpcChannelBuffer *_pRpcChannelBuffer,
     PRPC_MESSAGE _pRpcMessage,

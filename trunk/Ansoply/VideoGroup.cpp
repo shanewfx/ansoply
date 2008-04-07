@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "project.h"
 #include "videogroup.h"
+#include ".\videogroup.h"
 
 CVideoGroup::CVideoGroup() : 
 	m_hThread(NULL),
@@ -166,6 +167,10 @@ DWORD CVideoGroup::SmoothPlayThread(LPVOID param)
 				{
 					WaitForSingleObject(pVideoGroup->m_PlayPauseEvent, INFINITE);
 					pVideoGroup->m_playEvent = PLAY_NONE;
+					continue;
+				}
+				if (pVideoGroup->m_playEvent == PLAY_PREVIOUS)
+				{
 					continue;
 				}
 				i++;
@@ -425,4 +430,21 @@ void CVideoGroup::Draw()
 		uAlpha,
 		bSelectedChannel,
 		m_pMultiSAP->m_uSelectFrameColor);
+}
+LONG CVideoGroup::GetCurrentFileID(LONG * uFileID)
+{
+	if( m_curVideoObj )
+		*uFileID = m_curVideoObj->GetObjectID();
+	else
+		*uFileID = -1;
+	return 0;
+}
+
+LONG CVideoGroup::GetCurrentPlayingPos(ULONG * uCurPos)
+{
+	if( m_curVideoObj )
+		*uCurPos = m_curVideoObj->GetCurrentPlayingPos();
+	else
+		*uCurPos = 0;
+	return 0;
 }

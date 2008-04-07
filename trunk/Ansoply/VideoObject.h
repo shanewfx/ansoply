@@ -11,4 +11,5 @@ public:
 	virtual ~CVideoObject(void);
 
 	virtual void Draw()	{ }
+	ULONG GetCurrentPlayingPos(void);
 };

@@ -508,3 +508,21 @@ STDMETHODIMP CAnsoplyInterface::Refresh(void)
 	m_pMultiSAP->Refresh();
 	return S_OK;
 }
+
+STDMETHODIMP CAnsoplyInterface::GetCurrentFileID(ULONG uGroupID, LONG* uFileID)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+    m_pMultiSAP->GetCurrentFileID(uGroupID, uFileID);
+	return S_OK;
+}
+
+STDMETHODIMP CAnsoplyInterface::GetCurrentPlayingPos(ULONG uGroupID, ULONG * uCurPos)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	m_pMultiSAP->GetCurrentPlayingPos(uGroupID, uCurPos);
+	return S_OK;
+}

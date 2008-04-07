@@ -295,7 +295,8 @@ void CTestAnsoplyDlg::OnBnClickedButton6()
 void CTestAnsoplyDlg::OnBnClickedButton7()
 {
 	// TODO: Add your control notification handler code here
-	m_ansoply.SavePlayList("c:\\abc.xml");
+	//m_ansoply.SavePlayList("c:\\abc.xml");
+	m_ansoply.Previous(m_uGroupID);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton8()
