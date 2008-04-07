@@ -61,6 +61,8 @@ public:
 		LPWSTR sFilePathName
 		);
 	LONG GetVideoLength(ULONG uGroupID, ULONG uFileID, DOUBLE* uLength);
+	LONG GetCurrentFileID(ULONG uGroupID, LONG * uFileID);
+	LONG GetCurrentPlayingPos(ULONG uGroupID, ULONG * uCurPos);
 
 	LONG Play(ULONG uGroupID);
 	LONG Pause(ULONG uGroupID);

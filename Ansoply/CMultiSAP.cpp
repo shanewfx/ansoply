@@ -2230,6 +2230,26 @@ LONG CMultiSAP::GetVideoLength(ULONG uGroupID, ULONG uFileID, DOUBLE* uLength)
 	return -1;
 }
 
+LONG CMultiSAP::GetCurrentFileID(ULONG uGroupID, LONG * uFileID)
+{
+	CVideoGroup * pVideoGroup = FindGroup(uGroupID);
+	if( pVideoGroup )
+	{
+		return pVideoGroup->GetCurrentFileID(uFileID);
+	}
+	return -1;
+}
+
+LONG CMultiSAP::GetCurrentPlayingPos(ULONG uGroupID, ULONG * uCurPos)
+{
+	CVideoGroup * pVideoGroup = FindGroup(uGroupID);
+	if( pVideoGroup )
+	{
+		return pVideoGroup->GetCurrentPlayingPos(uCurPos);
+	}
+	return -1;
+}
+
 LONG CMultiSAP::SelectVideoGroup(ULONG uGroupID, ULONG uFrameColor)
 {
 	CVideoGroup* pVideoGroup = FindGroup(uGroupID);
@@ -2573,7 +2593,7 @@ LONG CMultiSAP::LoadPlayList(LPCTSTR sFile)
 							{
 								TCHAR szFileName[500] = {0};
 								_tcsncpy(szFileName, m_MediaFilePath, _tcslen(m_MediaFilePath));
-								_tcscpy(szFileName + _tcslen(m_MediaFilePath), "\\");
+								//_tcscpy(szFileName + _tcslen(m_MediaFilePath), "\\");
 								_tcscpy(szFileName + _tcslen(m_MediaFilePath) + 1, pVideoFile->FirstChild()->Value());
 								AddVideoFile(nGroupID, szFileName);
 								pVideoFile = pVideoFile->NextSiblingElement();
@@ -2658,11 +2678,11 @@ void CMultiSAP::Refresh()
 		HDC hDC = ::GetDC(m_hwndApp);
 		//m_pWC->RepaintVideo(m_hwndApp, hDC);
 		//if( hDC )
-		CRect   rc;   
+		/*CRect   rc;   
 		GetClientRect(&rc);   
 		ScreenToClient(&rc);   
 
 		::ExcludeClipRec(hDC, &rc);   
-		OutputDebugString("Refresh");
+		OutputDebugString("Refresh");*/
 	}
 }

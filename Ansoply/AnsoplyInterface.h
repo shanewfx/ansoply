@@ -67,6 +67,8 @@ __interface IAnsoplyInterface : public IDispatch
 	[id(50), helpstring("method GetNextVideoGroupID")] HRESULT GetNextVideoGroupID(LONG * uGroupID);
 	[id(51), helpstring("method Close")] HRESULT Close(void);
 	[id(52), helpstring("method Refresh")] HRESULT Refresh(void);
+	[id(53), helpstring("method GetCurrentFileID")] HRESULT GetCurrentFileID(ULONG uGroupID, LONG* uFileID);
+	[id(54), helpstring("method GetCurrentPlayingPos")] HRESULT GetCurrentPlayingPos(ULONG uGroupID, ULONG * uCurPos);
 };
 
 
@@ -232,5 +234,7 @@ public:
 	STDMETHOD(GetNextVideoGroupID)(LONG * uGroupID);
 	STDMETHOD(Close)(void);
 	STDMETHOD(Refresh)(void);
+	STDMETHOD(GetCurrentFileID)(ULONG uGroupID, LONG* uFileID);
+	STDMETHOD(GetCurrentPlayingPos)(ULONG uGroupID, ULONG * uCurPos);
 };
 
