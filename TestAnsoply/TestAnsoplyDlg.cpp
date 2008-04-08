@@ -296,7 +296,8 @@ void CTestAnsoplyDlg::OnBnClickedButton7()
 {
 	// TODO: Add your control notification handler code here
 	//m_ansoply.SavePlayList("c:\\abc.xml");
-	m_ansoply.Previous(m_uGroupID);
+//	m_ansoply.Previous(m_uGroupID);
+	m_ansoply.DelVideoFile(m_uGroupID, m_uFileID);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton8()
@@ -316,8 +317,8 @@ void CTestAnsoplyDlg::OnBnClickedButton10()
 {
 	// TODO: Add your control notification handler code here
 //	m_ansoply.SetDefaultVideoSize(m_uGroupID, 0, 0);
-	m_ansoply.SetMediaFilePath("D:\\movie");
-	m_ansoply.LoadPlayList("c:\\abc.xml");
+	m_ansoply.SetMediaFilePath("c:\\");
+	m_ansoply.LoadPlayList("D:\\Ansoply Project\\abc2.xml");
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton11()

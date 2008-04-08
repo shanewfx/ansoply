@@ -2586,6 +2586,8 @@ LONG CMultiSAP::LoadPlayList(LPCTSTR sFile)
 	TiXmlDocument xmlDoc;
 	if (xmlDoc.LoadFile(sFile))
 	{
+		EnterCriticalSection(&m_videoGroupsCS);
+
 		TiXmlNode* pChildNode = xmlDoc.FirstChildElement();
 		if (pChildNode) 
 		{
@@ -2630,7 +2632,7 @@ LONG CMultiSAP::LoadPlayList(LPCTSTR sFile)
 								TCHAR szFileName[500] = {0};
 								_tcsncpy(szFileName, m_MediaFilePath, _tcslen(m_MediaFilePath));
 								//_tcscpy(szFileName + _tcslen(m_MediaFilePath), "\\");
-								_tcscpy(szFileName + _tcslen(m_MediaFilePath) + 1, pVideoFile->FirstChild()->Value());
+								_tcscpy(szFileName + _tcslen(m_MediaFilePath), pVideoFile->FirstChild()->Value());
 								AddVideoFile(nGroupID, szFileName);
 								pVideoFile = pVideoFile->NextSiblingElement();
 							}
@@ -2642,6 +2644,7 @@ LONG CMultiSAP::LoadPlayList(LPCTSTR sFile)
 			//			pChildNode = xmlDoc.NextSibling();
 		} 
 
+		LeaveCriticalSection(&m_videoGroupsCS);
 		return 0;
 	}
 	return -1;
