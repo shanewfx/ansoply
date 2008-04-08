@@ -1,20 +1,14 @@
 
-#pragma warning( disable: 4049 )  /* more than 64k source lines */
 
 /* this ALWAYS GENERATED file contains the proxy stub code */
 
 
-<<<<<<< .mine
- /* File created by MIDL compiler version 6.00.0347 */
-/* at Tue Apr 08 09:20:13 2008
-=======
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Tue Apr 08 14:07:33 2008
->>>>>>> .r13
+/* at Tue Apr 08 23:20:17 2008
  */
 /* Compiler settings for _Ansoply.idl:
-    Os, W1, Zp8, env=Win32 (32b run)
-    protocol : dce , ms_ext, c_ext
+    Oicf, W1, Zp8, env=Win32 (32b run)
+    protocol : dce , ms_ext, c_ext, robust
     error checks: allocation ref bounds_check enum stub_data 
     VC __declspec() decoration level: 
          __declspec(uuid()), __declspec(selectany), __declspec(novtable)
@@ -24,9 +18,20 @@
 
 #if !defined(_M_IA64) && !defined(_M_AMD64)
 
+
+#pragma warning( disable: 4049 )  /* more than 64k source lines */
+#if _MSC_VER >= 1200
+#pragma warning(push)
+#endif
+#pragma warning( disable: 4100 ) /* unreferenced arguments in x86 call */
+#pragma warning( disable: 4211 )  /* redefine extent to static */
+#pragma warning( disable: 4232 )  /* dllimport identity*/
+#define USE_STUBLESS_PROXY
+
+
 /* verify that the <rpcproxy.h> version is high enough to compile this file*/
 #ifndef __REDQ_RPCPROXY_H_VERSION__
-#define __REQUIRED_RPCPROXY_H_VERSION__ 440
+#define __REQUIRED_RPCPROXY_H_VERSION__ 475
 #endif
 
 
@@ -38,8 +43,8 @@
 
 #include "_Ansoply.h"
 
-#define TYPE_FORMAT_STRING_SIZE   67                                
-#define PROC_FORMAT_STRING_SIZE   305                               
+#define TYPE_FORMAT_STRING_SIZE   69                                
+#define PROC_FORMAT_STRING_SIZE   2431                              
 #define TRANSMIT_AS_TABLE_SIZE    0            
 #define WIRE_MARSHAL_TABLE_SIZE   1            
 
@@ -71,7595 +76,15 @@ extern const MIDL_SERVER_INFO IAnsoplyInterface_ServerInfo;
 extern const MIDL_STUBLESS_PROXY_INFO IAnsoplyInterface_ProxyInfo;
 
 
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_CreateVideoGroup_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG *uNewGroupID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      7);
-        
-        
-        
-        if(!uNewGroupID)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 28;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uNewGroupID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[0] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_CreateVideoGroup_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG *uNewGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    ( ULONG * )uNewGroupID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[0] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uNewGroupID = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> CreateVideoGroup((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,uNewGroupID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_DelVideoGroup_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      8);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 8;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_DelVideoGroup_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> DelVideoGroup((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,uGroupID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_AddVideoFile_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ BSTR sFilePathName,
-    /* [in] */ ULONG *uFileObjectID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      9);
-        
-        
-        
-        if(!uFileObjectID)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 36;
-            NdrUserMarshalBufferSize( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                      (unsigned char *)&sFilePathName,
-                                      (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            NdrUserMarshalMarshall( (PMIDL_STUB_MESSAGE)& _StubMsg,
-                                    (unsigned char *)&sFilePathName,
-                                    (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uFileObjectID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[10] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_AddVideoFile_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    void *_p_sFilePathName;
-    BSTR sFilePathName;
-    ULONG *uFileObjectID;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    _p_sFilePathName = &sFilePathName;
-    MIDL_memset(
-               _p_sFilePathName,
-               0,
-               sizeof( BSTR  ));
-    ( ULONG * )uFileObjectID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[10] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        NdrUserMarshalUnmarshall( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                  (unsigned char * *)&_p_sFilePathName,
-                                  (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30],
-                                  (unsigned char)0 );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uFileObjectID = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> AddVideoFile(
-                (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                uGroupID,
-                sFilePathName,
-                uFileObjectID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        NdrUserMarshalFree( &_StubMsg,
-                            (unsigned char *)&sFilePathName,
-                            &__MIDL_TypeFormatString.Format[30] );
-        
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_DelVideoFile_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ ULONG uFileID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      10);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 16;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uFileID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[22] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_DelVideoFile_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uFileID;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    uFileID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[22] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uFileID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> DelVideoFile(
-                (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                uGroupID,
-                uFileID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetVideoObjectCount_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ ULONG *uFileCount)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      11);
-        
-        
-        
-        if(!uFileCount)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 36;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uFileCount;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[28] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetVideoObjectCount_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG *uFileCount;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    ( ULONG * )uFileCount = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[28] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uFileCount = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetVideoObjectCount(
-                       (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                       uGroupID,
-                       uFileCount);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetFirstVideoObjectID_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ ULONG *uFileID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      12);
-        
-        
-        
-        if(!uFileID)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 36;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uFileID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[28] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetFirstVideoObjectID_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG *uFileID;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    ( ULONG * )uFileID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[28] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uFileID = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetFirstVideoObjectID(
-                         (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                         uGroupID,
-                         uFileID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetNextVideoObjectID_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ ULONG *uFileID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      13);
-        
-        
-        
-        if(!uFileID)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 36;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uFileID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[28] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetNextVideoObjectID_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG *uFileID;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    ( ULONG * )uFileID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[28] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uFileID = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetNextVideoObjectID(
-                        (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                        uGroupID,
-                        uFileID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetVideoObjectFileName_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ ULONG uFileID,
-    /* [out] */ BSTR *ch)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    if(ch)
-        {
-        MIDL_memset(
-               ch,
-               0,
-               sizeof( BSTR  ));
-        }
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      14);
-        
-        
-        
-        if(!ch)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 16;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uFileID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[36] );
-            
-            NdrUserMarshalUnmarshall( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                      (unsigned char * *)&ch,
-                                      (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[48],
-                                      (unsigned char)0 );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        NdrClearOutParameters(
-                         ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                         ( PFORMAT_STRING  )&__MIDL_TypeFormatString.Format[40],
-                         ( void * )ch);
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetVideoObjectFileName_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    BSTR _M0;
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    BSTR *ch;
-    ULONG uFileID;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    uFileID = 0;
-    ( BSTR * )ch = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[36] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uFileID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        ch = &_M0;
-        MIDL_memset(
-               ch,
-               0,
-               sizeof( BSTR  ));
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetVideoObjectFileName(
-                          (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                          uGroupID,
-                          uFileID,
-                          ch);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrUserMarshalBufferSize( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                  (unsigned char *)ch,
-                                  (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[48] );
-        
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        NdrUserMarshalMarshall( (PMIDL_STUB_MESSAGE)& _StubMsg,
-                                (unsigned char *)ch,
-                                (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[48] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        NdrPointerFree( &_StubMsg,
-                        (unsigned char *)ch,
-                        &__MIDL_TypeFormatString.Format[40] );
-        
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetObjectLevel_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uObjectID,
-    /* [in] */ ULONG uLevel)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      15);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 16;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uObjectID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uLevel;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[22] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_SetObjectLevel_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uLevel;
-    ULONG uObjectID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uObjectID = 0;
-    uLevel = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[22] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uObjectID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uLevel = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> SetObjectLevel(
-                  (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                  uObjectID,
-                  uLevel);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetObjectLevel_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uObjectID,
-    /* [in] */ ULONG *uLevel)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      16);
-        
-        
-        
-        if(!uLevel)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 36;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uObjectID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uLevel;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[28] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetObjectLevel_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG *uLevel;
-    ULONG uObjectID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uObjectID = 0;
-    ( ULONG * )uLevel = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[28] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uObjectID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uLevel = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetObjectLevel(
-                  (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                  uObjectID,
-                  uLevel);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_Play_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      17);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 8;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_Play_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> Play((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,uGroupID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_Pause_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      18);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 8;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_Pause_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> Pause((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,uGroupID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_Stop_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      19);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 8;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_Stop_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> Stop((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,uGroupID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_Next_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      20);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 8;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_Next_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> Next((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,uGroupID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_Previous_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      21);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 8;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_Previous_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> Previous((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,uGroupID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_Seek_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG GroupID,
-    /* [in] */ ULONG uPosition)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      22);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 16;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = GroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uPosition;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[22] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_Seek_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    ULONG GroupID;
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uPosition;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    GroupID = 0;
-    uPosition = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[22] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        GroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uPosition = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> Seek(
-        (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-        GroupID,
-        uPosition);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SavePlayList_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ BSTR sFilePathName)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      23);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 0;
-            NdrUserMarshalBufferSize( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                      (unsigned char *)&sFilePathName,
-                                      (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrProxyGetBuffer(This, &_StubMsg);
-            NdrUserMarshalMarshall( (PMIDL_STUB_MESSAGE)& _StubMsg,
-                                    (unsigned char *)&sFilePathName,
-                                    (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[46] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_SavePlayList_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    void *_p_sFilePathName;
-    BSTR sFilePathName;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    _p_sFilePathName = &sFilePathName;
-    MIDL_memset(
-               _p_sFilePathName,
-               0,
-               sizeof( BSTR  ));
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[46] );
-        
-        NdrUserMarshalUnmarshall( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                  (unsigned char * *)&_p_sFilePathName,
-                                  (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30],
-                                  (unsigned char)0 );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> SavePlayList((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,sFilePathName);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        NdrUserMarshalFree( &_StubMsg,
-                            (unsigned char *)&sFilePathName,
-                            &__MIDL_TypeFormatString.Format[30] );
-        
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_LoadPlayList_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ BSTR sFilePathName)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      24);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 0;
-            NdrUserMarshalBufferSize( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                      (unsigned char *)&sFilePathName,
-                                      (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrProxyGetBuffer(This, &_StubMsg);
-            NdrUserMarshalMarshall( (PMIDL_STUB_MESSAGE)& _StubMsg,
-                                    (unsigned char *)&sFilePathName,
-                                    (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[46] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_LoadPlayList_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    void *_p_sFilePathName;
-    BSTR sFilePathName;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    _p_sFilePathName = &sFilePathName;
-    MIDL_memset(
-               _p_sFilePathName,
-               0,
-               sizeof( BSTR  ));
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[46] );
-        
-        NdrUserMarshalUnmarshall( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                  (unsigned char * *)&_p_sFilePathName,
-                                  (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30],
-                                  (unsigned char)0 );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> LoadPlayList((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,sFilePathName);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        NdrUserMarshalFree( &_StubMsg,
-                            (unsigned char *)&sFilePathName,
-                            &__MIDL_TypeFormatString.Format[30] );
-        
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetVideoPosition_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ ULONG uX,
-    /* [in] */ ULONG uY)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      25);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 24;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uX;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uY;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[52] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_SetVideoPosition_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uGroupID;
-    ULONG uX;
-    ULONG uY;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    uX = 0;
-    uY = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[52] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uX = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uY = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> SetVideoPosition(
-                    (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                    uGroupID,
-                    uX,
-                    uY);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetVideoPosition_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ ULONG *uX,
-    /* [in] */ ULONG *uY)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      26);
-        
-        
-        
-        if(!uX)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uY)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 64;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uX;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uY;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[60] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetVideoPosition_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uGroupID;
-    ULONG *uX;
-    ULONG *uY;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    ( ULONG * )uX = 0;
-    ( ULONG * )uY = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[60] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uX = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uY = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetVideoPosition(
-                    (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                    uGroupID,
-                    uX,
-                    uY);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetVideoPosAndSize_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ ULONG uX,
-    /* [in] */ ULONG uY,
-    /* [in] */ ULONG uWeight,
-    /* [in] */ ULONG uHeight)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      27);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 40;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uX;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uY;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uWeight;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uHeight;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[72] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_SetVideoPosAndSize_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uGroupID;
-    ULONG uHeight;
-    ULONG uWeight;
-    ULONG uX;
-    ULONG uY;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    uX = 0;
-    uY = 0;
-    uWeight = 0;
-    uHeight = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[72] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uX = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uY = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uWeight = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uHeight = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> SetVideoPosAndSize(
-                      (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                      uGroupID,
-                      uX,
-                      uY,
-                      uWeight,
-                      uHeight);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetVideoPositionAndSize_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ ULONG *uX,
-    /* [in] */ ULONG *uY,
-    /* [in] */ ULONG *uWeight,
-    /* [in] */ ULONG *uHeight)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      28);
-        
-        
-        
-        if(!uX)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uY)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uWeight)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uHeight)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 120;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uX;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uY;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uWeight;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uHeight;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[84] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetVideoPositionAndSize_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uGroupID;
-    ULONG *uHeight;
-    ULONG *uWeight;
-    ULONG *uX;
-    ULONG *uY;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    ( ULONG * )uX = 0;
-    ( ULONG * )uY = 0;
-    ( ULONG * )uWeight = 0;
-    ( ULONG * )uHeight = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[84] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uX = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uY = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uWeight = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uHeight = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetVideoPositionAndSize(
-                           (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                           uGroupID,
-                           uX,
-                           uY,
-                           uWeight,
-                           uHeight);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetVideoAlpha_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG GroupID,
-    /* [in] */ ULONG uAlpha)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      29);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 16;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = GroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uAlpha;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[22] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_SetVideoAlpha_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    ULONG GroupID;
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uAlpha;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    GroupID = 0;
-    uAlpha = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[22] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        GroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uAlpha = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> SetVideoAlpha(
-                 (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                 GroupID,
-                 uAlpha);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetVideoAlpha_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ ULONG *uAlpha)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      30);
-        
-        
-        
-        if(!uAlpha)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 36;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uAlpha;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[28] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetVideoAlpha_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG *uAlpha;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    ( ULONG * )uAlpha = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[28] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uAlpha = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetVideoAlpha(
-                 (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                 uGroupID,
-                 uAlpha);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetBitmap_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG *uBitmapID,
-    /* [in] */ BSTR sBitmapFilePath,
-    /* [in] */ ULONG uAlpha,
-    /* [in] */ ULONG uTransparentColor,
-    /* [in] */ ULONG uX,
-    /* [in] */ ULONG uY,
-    /* [in] */ ULONG uWidth,
-    /* [in] */ ULONG uHeight,
-    /* [in] */ ULONG uOriginalSize)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      31);
-        
-        
-        
-        if(!uBitmapID)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 84;
-            NdrUserMarshalBufferSize( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                      (unsigned char *)&sBitmapFilePath,
-                                      (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uBitmapID;
-            
-            NdrUserMarshalMarshall( (PMIDL_STUB_MESSAGE)& _StubMsg,
-                                    (unsigned char *)&sBitmapFilePath,
-                                    (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uAlpha;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uTransparentColor;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uX;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uY;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uWidth;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uHeight;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uOriginalSize;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[104] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_SetBitmap_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    void *_p_sBitmapFilePath;
-    BSTR sBitmapFilePath;
-    ULONG uAlpha;
-    ULONG *uBitmapID;
-    ULONG uHeight;
-    ULONG uOriginalSize;
-    ULONG uTransparentColor;
-    ULONG uWidth;
-    ULONG uX;
-    ULONG uY;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    ( ULONG * )uBitmapID = 0;
-    _p_sBitmapFilePath = &sBitmapFilePath;
-    MIDL_memset(
-               _p_sBitmapFilePath,
-               0,
-               sizeof( BSTR  ));
-    uAlpha = 0;
-    uTransparentColor = 0;
-    uX = 0;
-    uY = 0;
-    uWidth = 0;
-    uHeight = 0;
-    uOriginalSize = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[104] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uBitmapID = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        NdrUserMarshalUnmarshall( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                  (unsigned char * *)&_p_sBitmapFilePath,
-                                  (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30],
-                                  (unsigned char)0 );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uAlpha = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uTransparentColor = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uX = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uY = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uWidth = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uHeight = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uOriginalSize = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> SetBitmap(
-             (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-             uBitmapID,
-             sBitmapFilePath,
-             uAlpha,
-             uTransparentColor,
-             uX,
-             uY,
-             uWidth,
-             uHeight,
-             uOriginalSize);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        NdrUserMarshalFree( &_StubMsg,
-                            (unsigned char *)&sBitmapFilePath,
-                            &__MIDL_TypeFormatString.Format[30] );
-        
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetBitmap_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uBitmapID,
-    /* [in] */ BSTR *sBitmapFilePath,
-    /* [in] */ ULONG *uAlpha,
-    /* [in] */ ULONG *uTransparentColor,
-    /* [in] */ ULONG *uX,
-    /* [in] */ ULONG *uY)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      32);
-        
-        
-        
-        if(!sBitmapFilePath)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uAlpha)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uTransparentColor)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uX)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uY)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 120;
-            NdrUserMarshalBufferSize( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                      (unsigned char *)sBitmapFilePath,
-                                      (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uBitmapID;
-            
-            NdrUserMarshalMarshall( (PMIDL_STUB_MESSAGE)& _StubMsg,
-                                    (unsigned char *)sBitmapFilePath,
-                                    (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uAlpha;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uTransparentColor;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uX;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uY;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[128] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetBitmap_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    BSTR *sBitmapFilePath;
-    ULONG *uAlpha;
-    ULONG uBitmapID;
-    ULONG *uTransparentColor;
-    ULONG *uX;
-    ULONG *uY;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uBitmapID = 0;
-    ( BSTR * )sBitmapFilePath = 0;
-    ( ULONG * )uAlpha = 0;
-    ( ULONG * )uTransparentColor = 0;
-    ( ULONG * )uX = 0;
-    ( ULONG * )uY = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[128] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uBitmapID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        NdrUserMarshalUnmarshall( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                  (unsigned char * *)&sBitmapFilePath,
-                                  (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30],
-                                  (unsigned char)0 );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uAlpha = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uTransparentColor = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uX = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uY = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetBitmap(
-             (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-             uBitmapID,
-             sBitmapFilePath,
-             uAlpha,
-             uTransparentColor,
-             uX,
-             uY);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        NdrPointerFree( &_StubMsg,
-                        (unsigned char *)sBitmapFilePath,
-                        &__MIDL_TypeFormatString.Format[58] );
-        
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_DelBitmap_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uBitmapID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      33);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 8;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uBitmapID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_DelBitmap_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uBitmapID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uBitmapID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uBitmapID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> DelBitmap((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,uBitmapID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetDynamicBitmap_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG *uBitmapID,
-    /* [in] */ BSTR sBitmapFilePath,
-    /* [in] */ ULONG uAlpha,
-    /* [in] */ ULONG uTransparentColor,
-    /* [in] */ ULONG uX,
-    /* [in] */ ULONG uY,
-    /* [in] */ ULONG uMilliSec)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      34);
-        
-        
-        
-        if(!uBitmapID)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 68;
-            NdrUserMarshalBufferSize( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                      (unsigned char *)&sBitmapFilePath,
-                                      (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uBitmapID;
-            
-            NdrUserMarshalMarshall( (PMIDL_STUB_MESSAGE)& _StubMsg,
-                                    (unsigned char *)&sBitmapFilePath,
-                                    (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uAlpha;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uTransparentColor;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uX;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uY;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uMilliSec;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[152] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_SetDynamicBitmap_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    void *_p_sBitmapFilePath;
-    BSTR sBitmapFilePath;
-    ULONG uAlpha;
-    ULONG *uBitmapID;
-    ULONG uMilliSec;
-    ULONG uTransparentColor;
-    ULONG uX;
-    ULONG uY;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    ( ULONG * )uBitmapID = 0;
-    _p_sBitmapFilePath = &sBitmapFilePath;
-    MIDL_memset(
-               _p_sBitmapFilePath,
-               0,
-               sizeof( BSTR  ));
-    uAlpha = 0;
-    uTransparentColor = 0;
-    uX = 0;
-    uY = 0;
-    uMilliSec = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[152] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uBitmapID = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        NdrUserMarshalUnmarshall( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                  (unsigned char * *)&_p_sBitmapFilePath,
-                                  (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30],
-                                  (unsigned char)0 );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uAlpha = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uTransparentColor = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uX = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uY = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uMilliSec = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> SetDynamicBitmap(
-                    (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                    uBitmapID,
-                    sBitmapFilePath,
-                    uAlpha,
-                    uTransparentColor,
-                    uX,
-                    uY,
-                    uMilliSec);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        NdrUserMarshalFree( &_StubMsg,
-                            (unsigned char *)&sBitmapFilePath,
-                            &__MIDL_TypeFormatString.Format[30] );
-        
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetDynamicBitmap_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uBitmapID,
-    /* [in] */ BSTR *sBitmapFilePath,
-    /* [in] */ ULONG *uAlpha,
-    /* [in] */ ULONG *uTransparentColor,
-    /* [in] */ ULONG *uX,
-    /* [in] */ ULONG *uY,
-    /* [in] */ ULONG *uMilliSec)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      35);
-        
-        
-        
-        if(!sBitmapFilePath)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uAlpha)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uTransparentColor)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uX)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uY)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uMilliSec)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 148;
-            NdrUserMarshalBufferSize( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                      (unsigned char *)sBitmapFilePath,
-                                      (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uBitmapID;
-            
-            NdrUserMarshalMarshall( (PMIDL_STUB_MESSAGE)& _StubMsg,
-                                    (unsigned char *)sBitmapFilePath,
-                                    (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uAlpha;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uTransparentColor;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uX;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uY;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uMilliSec;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[172] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetDynamicBitmap_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    BSTR *sBitmapFilePath;
-    ULONG *uAlpha;
-    ULONG uBitmapID;
-    ULONG *uMilliSec;
-    ULONG *uTransparentColor;
-    ULONG *uX;
-    ULONG *uY;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uBitmapID = 0;
-    ( BSTR * )sBitmapFilePath = 0;
-    ( ULONG * )uAlpha = 0;
-    ( ULONG * )uTransparentColor = 0;
-    ( ULONG * )uX = 0;
-    ( ULONG * )uY = 0;
-    ( ULONG * )uMilliSec = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[172] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uBitmapID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        NdrUserMarshalUnmarshall( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                  (unsigned char * *)&sBitmapFilePath,
-                                  (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30],
-                                  (unsigned char)0 );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uAlpha = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uTransparentColor = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uX = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uY = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uMilliSec = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetDynamicBitmap(
-                    (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                    uBitmapID,
-                    sBitmapFilePath,
-                    uAlpha,
-                    uTransparentColor,
-                    uX,
-                    uY,
-                    uMilliSec);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        NdrPointerFree( &_StubMsg,
-                        (unsigned char *)sBitmapFilePath,
-                        &__MIDL_TypeFormatString.Format[58] );
-        
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetText_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uX,
-    /* [in] */ ULONG uY,
-    /* [in] */ BSTR sOutputText,
-    /* [in] */ BSTR sFaceName,
-    /* [in] */ ULONG uItalic,
-    /* [in] */ ULONG uBold,
-    /* [in] */ ULONG uUnderLine,
-    /* [in] */ ULONG uWidth,
-    /* [in] */ ULONG uHeight,
-    /* [in] */ ULONG uColor,
-    /* [in] */ ULONG *uObjectID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      36);
-        
-        
-        
-        if(!uObjectID)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 92;
-            NdrUserMarshalBufferSize( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                      (unsigned char *)&sOutputText,
-                                      (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrUserMarshalBufferSize( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                      (unsigned char *)&sFaceName,
-                                      (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uX;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uY;
-            
-            NdrUserMarshalMarshall( (PMIDL_STUB_MESSAGE)& _StubMsg,
-                                    (unsigned char *)&sOutputText,
-                                    (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrUserMarshalMarshall( (PMIDL_STUB_MESSAGE)& _StubMsg,
-                                    (unsigned char *)&sFaceName,
-                                    (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uItalic;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uBold;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uUnderLine;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uWidth;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uHeight;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uColor;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uObjectID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[200] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_SetText_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    void *_p_sFaceName;
-    void *_p_sOutputText;
-    BSTR sFaceName;
-    BSTR sOutputText;
-    ULONG uBold;
-    ULONG uColor;
-    ULONG uHeight;
-    ULONG uItalic;
-    ULONG *uObjectID;
-    ULONG uUnderLine;
-    ULONG uWidth;
-    ULONG uX;
-    ULONG uY;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uX = 0;
-    uY = 0;
-    _p_sOutputText = &sOutputText;
-    MIDL_memset(
-               _p_sOutputText,
-               0,
-               sizeof( BSTR  ));
-    _p_sFaceName = &sFaceName;
-    MIDL_memset(
-               _p_sFaceName,
-               0,
-               sizeof( BSTR  ));
-    uItalic = 0;
-    uBold = 0;
-    uUnderLine = 0;
-    uWidth = 0;
-    uHeight = 0;
-    uColor = 0;
-    ( ULONG * )uObjectID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[200] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uX = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uY = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        NdrUserMarshalUnmarshall( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                  (unsigned char * *)&_p_sOutputText,
-                                  (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30],
-                                  (unsigned char)0 );
-        
-        NdrUserMarshalUnmarshall( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                  (unsigned char * *)&_p_sFaceName,
-                                  (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30],
-                                  (unsigned char)0 );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uItalic = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uBold = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uUnderLine = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uWidth = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uHeight = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uColor = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uObjectID = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> SetText(
-           (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-           uX,
-           uY,
-           sOutputText,
-           sFaceName,
-           uItalic,
-           uBold,
-           uUnderLine,
-           uWidth,
-           uHeight,
-           uColor,
-           uObjectID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        NdrUserMarshalFree( &_StubMsg,
-                            (unsigned char *)&sOutputText,
-                            &__MIDL_TypeFormatString.Format[30] );
-        
-        NdrUserMarshalFree( &_StubMsg,
-                            (unsigned char *)&sFaceName,
-                            &__MIDL_TypeFormatString.Format[30] );
-        
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetText_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uObjectID,
-    /* [in] */ ULONG *uX,
-    /* [in] */ ULONG *uY,
-    /* [in] */ BSTR *sOutputText,
-    /* [in] */ BSTR *sFaceName,
-    /* [in] */ ULONG *uItalic,
-    /* [in] */ ULONG *uBold,
-    /* [in] */ ULONG *uUnderLine,
-    /* [in] */ ULONG *uWidth,
-    /* [in] */ ULONG *uHeight,
-    /* [in] */ ULONG *uColor)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      37);
-        
-        
-        
-        if(!uX)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uY)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!sOutputText)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!sFaceName)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uItalic)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uBold)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uUnderLine)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uWidth)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uHeight)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        if(!uColor)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 232;
-            NdrUserMarshalBufferSize( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                      (unsigned char *)sOutputText,
-                                      (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrUserMarshalBufferSize( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                      (unsigned char *)sFaceName,
-                                      (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uObjectID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uX;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uY;
-            
-            NdrUserMarshalMarshall( (PMIDL_STUB_MESSAGE)& _StubMsg,
-                                    (unsigned char *)sOutputText,
-                                    (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrUserMarshalMarshall( (PMIDL_STUB_MESSAGE)& _StubMsg,
-                                    (unsigned char *)sFaceName,
-                                    (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uItalic;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uBold;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uUnderLine;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uWidth;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uHeight;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uColor;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[230] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetText_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    BSTR *sFaceName;
-    BSTR *sOutputText;
-    ULONG *uBold;
-    ULONG *uColor;
-    ULONG *uHeight;
-    ULONG *uItalic;
-    ULONG uObjectID;
-    ULONG *uUnderLine;
-    ULONG *uWidth;
-    ULONG *uX;
-    ULONG *uY;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uObjectID = 0;
-    ( ULONG * )uX = 0;
-    ( ULONG * )uY = 0;
-    ( BSTR * )sOutputText = 0;
-    ( BSTR * )sFaceName = 0;
-    ( ULONG * )uItalic = 0;
-    ( ULONG * )uBold = 0;
-    ( ULONG * )uUnderLine = 0;
-    ( ULONG * )uWidth = 0;
-    ( ULONG * )uHeight = 0;
-    ( ULONG * )uColor = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[230] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uObjectID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uX = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uY = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        NdrUserMarshalUnmarshall( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                  (unsigned char * *)&sOutputText,
-                                  (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30],
-                                  (unsigned char)0 );
-        
-        NdrUserMarshalUnmarshall( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                  (unsigned char * *)&sFaceName,
-                                  (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30],
-                                  (unsigned char)0 );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uItalic = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uBold = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uUnderLine = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uWidth = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uHeight = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uColor = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetText(
-           (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-           uObjectID,
-           uX,
-           uY,
-           sOutputText,
-           sFaceName,
-           uItalic,
-           uBold,
-           uUnderLine,
-           uWidth,
-           uHeight,
-           uColor);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        NdrPointerFree( &_StubMsg,
-                        (unsigned char *)sOutputText,
-                        &__MIDL_TypeFormatString.Format[58] );
-        
-        NdrPointerFree( &_StubMsg,
-                        (unsigned char *)sFaceName,
-                        &__MIDL_TypeFormatString.Format[58] );
-        
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_DelText_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      38);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 8;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_DelText_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> DelText((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,uGroupID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetLastError_Proxy( 
-    IAnsoplyInterface * This)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      39);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 0;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[274] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetLastError_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    RpcTryFinally
-        {
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetLastError((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_Init_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ LONG hWnd,
-    /* [in] */ ULONG uWidth,
-    /* [in] */ ULONG uHeight)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      40);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 24;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( LONG * )_StubMsg.Buffer)++ = hWnd;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uWidth;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uHeight;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[52] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_Init_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    LONG hWnd;
-    ULONG uHeight;
-    ULONG uWidth;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    hWnd = 0;
-    uWidth = 0;
-    uHeight = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[52] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        hWnd = *(( LONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uWidth = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uHeight = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> Init(
-        (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-        hWnd,
-        uWidth,
-        uHeight);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetPlayRate_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ DOUBLE dRate)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      41);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 24;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 7) & ~ 0x7);
-            *(( DOUBLE * )_StubMsg.Buffer)++ = dRate;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[276] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_SetPlayRate_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    DOUBLE dRate;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    dRate = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[276] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 7) & ~ 0x7);
-        
-        if(_StubMsg.Buffer + 8 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        dRate = *(( DOUBLE * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> SetPlayRate(
-               (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-               uGroupID,
-               dRate);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SelectVideoGroupByCoordinate_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG *uGroupID,
-    /* [in] */ ULONG cX,
-    /* [in] */ ULONG cY,
-    /* [in] */ ULONG uFrameColor)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      42);
-        
-        
-        
-        if(!uGroupID)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 52;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = cX;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = cY;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uFrameColor;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[282] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_SelectVideoGroupByCoordinate_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG cX;
-    ULONG cY;
-    ULONG uFrameColor;
-    ULONG *uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    ( ULONG * )uGroupID = 0;
-    cX = 0;
-    cY = 0;
-    uFrameColor = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[282] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uGroupID = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        cX = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        cY = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uFrameColor = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> SelectVideoGroupByCoordinate(
-                                (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                                uGroupID,
-                                cX,
-                                cY,
-                                uFrameColor);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SelectVideoGroup_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ ULONG uFrameColor)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      43);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 16;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uFrameColor;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[22] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_SelectVideoGroup_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uFrameColor;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    uFrameColor = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[22] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uFrameColor = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> SelectVideoGroup(
-                    (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                    uGroupID,
-                    uFrameColor);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_BringToFront_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uObjectID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      44);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 8;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uObjectID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_BringToFront_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uObjectID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uObjectID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uObjectID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> BringToFront((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,uObjectID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SendToBack_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uObjectID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      45);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 8;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uObjectID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_SendToBack_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uObjectID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uObjectID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uObjectID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> SendToBack((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,uObjectID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_BringUp_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uObjectID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      46);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 8;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uObjectID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_BringUp_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uObjectID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uObjectID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uObjectID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> BringUp((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,uObjectID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SendBack_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uObjectID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      47);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 8;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uObjectID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_SendBack_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uObjectID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uObjectID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[6] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uObjectID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> SendBack((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,uObjectID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetPlayMode_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ ULONG uPlayMode)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      48);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 16;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uPlayMode;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[22] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_SetPlayMode_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uGroupID;
-    ULONG uPlayMode;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    uPlayMode = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[22] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uPlayMode = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> SetPlayMode(
-               (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-               uGroupID,
-               uPlayMode);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetVideoLength_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ ULONG uFileID,
-    /* [in] */ DOUBLE *uLength)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      49);
-        
-        
-        
-        if(!uLength)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 52;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uFileID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 7) & ~ 0x7);
-            *(( DOUBLE * )_StubMsg.Buffer)++ = *uLength;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[294] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetVideoLength_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uFileID;
-    ULONG uGroupID;
-    DOUBLE *uLength;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    uFileID = 0;
-    ( DOUBLE * )uLength = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[294] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uFileID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 7) & ~ 0x7);
-        uLength = ( DOUBLE * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( DOUBLE  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetVideoLength(
-                  (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                  uGroupID,
-                  uFileID,
-                  uLength);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetVideoGroupZOrder_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ ULONG *uZOrder)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      50);
-        
-        
-        
-        if(!uZOrder)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 36;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uZOrder;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[28] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetVideoGroupZOrder_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uGroupID;
-    ULONG *uZOrder;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    ( ULONG * )uZOrder = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[28] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uZOrder = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetVideoGroupZOrder(
-                       (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                       uGroupID,
-                       uZOrder);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_UnSelectVideoGroup_Proxy( 
-    IAnsoplyInterface * This)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      51);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 0;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[274] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_UnSelectVideoGroup_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    RpcTryFinally
-        {
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> UnSelectVideoGroup((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetMediaFilePath_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ BSTR sFilePathName)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      52);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 0;
-            NdrUserMarshalBufferSize( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                      (unsigned char *)&sFilePathName,
-                                      (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrProxyGetBuffer(This, &_StubMsg);
-            NdrUserMarshalMarshall( (PMIDL_STUB_MESSAGE)& _StubMsg,
-                                    (unsigned char *)&sFilePathName,
-                                    (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30] );
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[46] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_SetMediaFilePath_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    void *_p_sFilePathName;
-    BSTR sFilePathName;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    _p_sFilePathName = &sFilePathName;
-    MIDL_memset(
-               _p_sFilePathName,
-               0,
-               sizeof( BSTR  ));
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[46] );
-        
-        NdrUserMarshalUnmarshall( (PMIDL_STUB_MESSAGE) &_StubMsg,
-                                  (unsigned char * *)&_p_sFilePathName,
-                                  (PFORMAT_STRING) &__MIDL_TypeFormatString.Format[30],
-                                  (unsigned char)0 );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> SetMediaFilePath((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,sFilePathName);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        NdrUserMarshalFree( &_StubMsg,
-                            (unsigned char *)&sFilePathName,
-                            &__MIDL_TypeFormatString.Format[30] );
-        
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetDefaultVideoSize_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ ULONG uX,
-    /* [in] */ ULONG uY)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      53);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 24;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uX;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uY;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[52] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_SetDefaultVideoSize_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG uGroupID;
-    ULONG uX;
-    ULONG uY;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    uX = 0;
-    uY = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[52] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uX = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uY = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> SetDefaultVideoSize(
-                       (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                       uGroupID,
-                       uX,
-                       uY);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetVideoGroupCount_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG *uGroupCount)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      54);
-        
-        
-        
-        if(!uGroupCount)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 28;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uGroupCount;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[0] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetVideoGroupCount_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG *uGroupCount;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    ( ULONG * )uGroupCount = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[0] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uGroupCount = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetVideoGroupCount((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,uGroupCount);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetFirstVideoGroupID_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ LONG *uGroupID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      55);
-        
-        
-        
-        if(!uGroupID)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 28;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( LONG * )_StubMsg.Buffer)++ = *uGroupID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[0] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetFirstVideoGroupID_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    LONG *uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    ( LONG * )uGroupID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[0] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uGroupID = ( LONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( LONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetFirstVideoGroupID((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,uGroupID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetNextVideoGroupID_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ LONG *uGroupID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      56);
-        
-        
-        
-        if(!uGroupID)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 28;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( LONG * )_StubMsg.Buffer)++ = *uGroupID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[0] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetNextVideoGroupID_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    LONG *uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    ( LONG * )uGroupID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[0] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uGroupID = ( LONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( LONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetNextVideoGroupID((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,uGroupID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_Close_Proxy( 
-    IAnsoplyInterface * This)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      57);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 0;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[274] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_Close_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    RpcTryFinally
-        {
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> Close((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_Refresh_Proxy( 
-    IAnsoplyInterface * This)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      58);
-        
-        
-        
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 0;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[274] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_Refresh_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    RpcTryFinally
-        {
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> Refresh((IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetCurrentFileID_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ LONG *uFileID)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      59);
-        
-        
-        
-        if(!uFileID)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 36;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( LONG * )_StubMsg.Buffer)++ = *uFileID;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[28] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetCurrentFileID_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    LONG *uFileID;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    ( LONG * )uFileID = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[28] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uFileID = ( LONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( LONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetCurrentFileID(
-                    (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                    uGroupID,
-                    uFileID);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetCurrentPlayingPos_Proxy( 
-    IAnsoplyInterface * This,
-    /* [in] */ ULONG uGroupID,
-    /* [in] */ ULONG *uCurPos)
-{
-
-    HRESULT _RetVal;
-    
-    RPC_MESSAGE _RpcMessage;
-    
-    MIDL_STUB_MESSAGE _StubMsg;
-    
-    RpcTryExcept
-        {
-        NdrProxyInitialize(
-                      ( void *  )This,
-                      ( PRPC_MESSAGE  )&_RpcMessage,
-                      ( PMIDL_STUB_MESSAGE  )&_StubMsg,
-                      ( PMIDL_STUB_DESC  )&Object_StubDesc,
-                      60);
-        
-        
-        
-        if(!uCurPos)
-            {
-            RpcRaiseException(RPC_X_NULL_REF_POINTER);
-            }
-        RpcTryFinally
-            {
-            
-            _StubMsg.BufferLength = 36;
-            NdrProxyGetBuffer(This, &_StubMsg);
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = uGroupID;
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            *(( ULONG * )_StubMsg.Buffer)++ = *uCurPos;
-            
-            NdrProxySendReceive(This, &_StubMsg);
-            
-            _StubMsg.BufferStart = (unsigned char *) _RpcMessage.Buffer; 
-            _StubMsg.BufferEnd   = _StubMsg.BufferStart + _RpcMessage.BufferLength;
-            
-            if ( (_RpcMessage.DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-                NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[28] );
-            
-            _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-            
-            if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-                {
-                RpcRaiseException(RPC_X_BAD_STUB_DATA);
-                }
-            _RetVal = *(( HRESULT * )_StubMsg.Buffer)++;
-            
-            }
-        RpcFinally
-            {
-            NdrProxyFreeBuffer(This, &_StubMsg);
-            
-            }
-        RpcEndFinally
-        
-        }
-    RpcExcept(_StubMsg.dwStubPhase != PROXY_SENDRECEIVE)
-        {
-        _RetVal = NdrProxyErrorHandler(RpcExceptionCode());
-        }
-    RpcEndExcept
-    return _RetVal;
-}
-
-void __RPC_STUB IAnsoplyInterface_GetCurrentPlayingPos_Stub(
-    IRpcStubBuffer *This,
-    IRpcChannelBuffer *_pRpcChannelBuffer,
-    PRPC_MESSAGE _pRpcMessage,
-    DWORD *_pdwStubPhase)
-{
-    HRESULT _RetVal;
-    MIDL_STUB_MESSAGE _StubMsg;
-    ULONG *uCurPos;
-    ULONG uGroupID;
-    
-NdrStubInitialize(
-                     _pRpcMessage,
-                     &_StubMsg,
-                     &Object_StubDesc,
-                     _pRpcChannelBuffer);
-    uGroupID = 0;
-    ( ULONG * )uCurPos = 0;
-    RpcTryFinally
-        {
-        if ( (_pRpcMessage->DataRepresentation & 0X0000FFFFUL) != NDR_LOCAL_DATA_REPRESENTATION )
-            NdrConvert( (PMIDL_STUB_MESSAGE) &_StubMsg, (PFORMAT_STRING) &__MIDL_ProcFormatString.Format[28] );
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        
-        if(_StubMsg.Buffer + 4 > _StubMsg.BufferEnd)
-            {
-            RpcRaiseException(RPC_X_BAD_STUB_DATA);
-            }
-        uGroupID = *(( ULONG * )_StubMsg.Buffer)++;
-        
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        uCurPos = ( ULONG * )_StubMsg.Buffer;
-        _StubMsg.Buffer += sizeof( ULONG  );
-        
-        
-        *_pdwStubPhase = STUB_CALL_SERVER;
-        _RetVal = (((IAnsoplyInterface*) ((CStdStubBuffer *)This)->pvServerObject)->lpVtbl) -> GetCurrentPlayingPos(
-                        (IAnsoplyInterface *) ((CStdStubBuffer *)This)->pvServerObject,
-                        uGroupID,
-                        uCurPos);
-        
-        *_pdwStubPhase = STUB_MARSHAL;
-        
-        _StubMsg.BufferLength = 8;
-        NdrStubGetBuffer(This, _pRpcChannelBuffer, &_StubMsg);
-        _StubMsg.Buffer = (unsigned char *)(((long)_StubMsg.Buffer + 3) & ~ 0x3);
-        *(( HRESULT * )_StubMsg.Buffer)++ = _RetVal;
-        
-        }
-    RpcFinally
-        {
-        }
-    RpcEndFinally
-    _pRpcMessage->BufferLength = 
-        (unsigned int)(_StubMsg.Buffer - (unsigned char *)_pRpcMessage->Buffer);
-    
-}
-
-
 extern const USER_MARSHAL_ROUTINE_QUADRUPLE UserMarshalRoutines[ WIRE_MARSHAL_TABLE_SIZE ];
 
 #if !defined(__RPC_WIN32__)
 #error  Invalid build platform for this stub.
 #endif
 
-#if !(TARGET_IS_NT40_OR_LATER)
-#error You need a Windows NT 4.0 or later to run this stub because it uses these features:
-#error   [wire_marshal] or [user_marshal] attribute.
+#if !(TARGET_IS_NT50_OR_LATER)
+#error You need a Windows 2000 or later to run this stub because it uses these features:
+#error   /robust command line switch.
 #error However, your C/C++ compilation flags indicate you intend to run this app on earlier systems.
 #error This app will die there with the RPC_X_WRONG_STUB_VERSION error.
 #endif
@@ -7669,310 +94,2234 @@ static const MIDL_PROC_FORMAT_STRING __MIDL_ProcFormatString =
     {
         0,
         {
-			
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/*  2 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/*  4 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/*  6 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/*  8 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 10 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 12 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 14 */	NdrFcShort( 0x1e ),	/* Type Offset=30 */
-/* 16 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 18 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 20 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 22 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 24 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 26 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 28 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 30 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 32 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 34 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 36 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 38 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 40 */	
-			0x51,		/* FC_OUT_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 42 */	NdrFcShort( 0x28 ),	/* Type Offset=40 */
-/* 44 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 46 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 48 */	NdrFcShort( 0x1e ),	/* Type Offset=30 */
-/* 50 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 52 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 54 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 56 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 58 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 60 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 62 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 64 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 66 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 68 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 70 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 72 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 74 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 76 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 78 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 80 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 82 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 84 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 86 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 88 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 90 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 92 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 94 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 96 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 98 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 100 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 102 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 104 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 106 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 108 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 110 */	NdrFcShort( 0x1e ),	/* Type Offset=30 */
-/* 112 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 114 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 116 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 118 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 120 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 122 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 124 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 126 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 128 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 130 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 132 */	NdrFcShort( 0x3a ),	/* Type Offset=58 */
-/* 134 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 136 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 138 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 140 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 142 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 144 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 146 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 148 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 150 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 152 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 154 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 156 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 158 */	NdrFcShort( 0x1e ),	/* Type Offset=30 */
-/* 160 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 162 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 164 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 166 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 168 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 170 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 172 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 174 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 176 */	NdrFcShort( 0x3a ),	/* Type Offset=58 */
-/* 178 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 180 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 182 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 184 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 186 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 188 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 190 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 192 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 194 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 196 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 198 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 200 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 202 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 204 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 206 */	NdrFcShort( 0x1e ),	/* Type Offset=30 */
-/* 208 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 210 */	NdrFcShort( 0x1e ),	/* Type Offset=30 */
-/* 212 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 214 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 216 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 218 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 220 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 222 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 224 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 226 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 228 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 230 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 232 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 234 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 236 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 238 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 240 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 242 */	NdrFcShort( 0x3a ),	/* Type Offset=58 */
-/* 244 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 246 */	NdrFcShort( 0x3a ),	/* Type Offset=58 */
-/* 248 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 250 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 252 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 254 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 256 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 258 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 260 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 262 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 264 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 266 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 268 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 270 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 272 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 274 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 276 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 278 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0xc,		/* FC_DOUBLE */
-/* 280 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 282 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 284 */	NdrFcShort( 0x2 ),	/* Type Offset=2 */
-/* 286 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 288 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 290 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 292 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 294 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 296 */	0x4e,		/* FC_IN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
-/* 298 */	
-			0x4d,		/* FC_IN_PARAM */
-			0x1,		/* x86 stack size = 1 */
-/* 300 */	NdrFcShort( 0x3e ),	/* Type Offset=62 */
-/* 302 */	0x53,		/* FC_RETURN_PARAM_BASETYPE */
-			0x8,		/* FC_LONG */
+
+	/* Procedure CreateVideoGroup */
+
+			0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/*  2 */	NdrFcLong( 0x0 ),	/* 0 */
+/*  6 */	NdrFcShort( 0x7 ),	/* 7 */
+/*  8 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 10 */	NdrFcShort( 0x1c ),	/* 28 */
+/* 12 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 14 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 16 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 18 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 20 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 22 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uNewGroupID */
+
+/* 24 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 26 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 28 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 30 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 32 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 34 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure DelVideoGroup */
+
+/* 36 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 38 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 42 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 44 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 46 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 48 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 50 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 52 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 54 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 56 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 58 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 60 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 62 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 64 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 66 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 68 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 70 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure AddVideoFile */
+
+/* 72 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 74 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 78 */	NdrFcShort( 0x9 ),	/* 9 */
+/* 80 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 82 */	NdrFcShort( 0x24 ),	/* 36 */
+/* 84 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 86 */	0x46,		/* Oi2 Flags:  clt must size, has return, has ext, */
+			0x4,		/* 4 */
+/* 88 */	0x8,		/* 8 */
+			0x5,		/* Ext Flags:  new corr desc, srv corr check, */
+/* 90 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 92 */	NdrFcShort( 0x1 ),	/* 1 */
+/* 94 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 96 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 98 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 100 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter sFilePathName */
+
+/* 102 */	NdrFcShort( 0x8b ),	/* Flags:  must size, must free, in, by val, */
+/* 104 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 106 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Parameter uFileObjectID */
+
+/* 108 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 110 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 112 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 114 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 116 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 118 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure DelVideoFile */
+
+/* 120 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 122 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 126 */	NdrFcShort( 0xa ),	/* 10 */
+/* 128 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 130 */	NdrFcShort( 0x10 ),	/* 16 */
+/* 132 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 134 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 136 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 138 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 140 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 142 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 144 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 146 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 148 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uFileID */
+
+/* 150 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 152 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 154 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 156 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 158 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 160 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetVideoObjectCount */
+
+/* 162 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 164 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 168 */	NdrFcShort( 0xb ),	/* 11 */
+/* 170 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 172 */	NdrFcShort( 0x24 ),	/* 36 */
+/* 174 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 176 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 178 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 180 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 182 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 184 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 186 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 188 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 190 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uFileCount */
+
+/* 192 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 194 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 196 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 198 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 200 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 202 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetFirstVideoObjectID */
+
+/* 204 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 206 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 210 */	NdrFcShort( 0xc ),	/* 12 */
+/* 212 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 214 */	NdrFcShort( 0x24 ),	/* 36 */
+/* 216 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 218 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 220 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 222 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 224 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 226 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 228 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 230 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 232 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uFileID */
+
+/* 234 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 236 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 238 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 240 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 242 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 244 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetNextVideoObjectID */
+
+/* 246 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 248 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 252 */	NdrFcShort( 0xd ),	/* 13 */
+/* 254 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 256 */	NdrFcShort( 0x24 ),	/* 36 */
+/* 258 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 260 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 262 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 264 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 266 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 268 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 270 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 272 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 274 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uFileID */
+
+/* 276 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 278 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 280 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 282 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 284 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 286 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetVideoObjectFileName */
+
+/* 288 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 290 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 294 */	NdrFcShort( 0xe ),	/* 14 */
+/* 296 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 298 */	NdrFcShort( 0x10 ),	/* 16 */
+/* 300 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 302 */	0x45,		/* Oi2 Flags:  srv must size, has return, has ext, */
+			0x4,		/* 4 */
+/* 304 */	0x8,		/* 8 */
+			0x3,		/* Ext Flags:  new corr desc, clt corr check, */
+/* 306 */	NdrFcShort( 0x1 ),	/* 1 */
+/* 308 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 310 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 312 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 314 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 316 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uFileID */
+
+/* 318 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 320 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 322 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter ch */
+
+/* 324 */	NdrFcShort( 0x2113 ),	/* Flags:  must size, must free, out, simple ref, srv alloc size=8 */
+/* 326 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 328 */	NdrFcShort( 0x32 ),	/* Type Offset=50 */
+
+	/* Return value */
+
+/* 330 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 332 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 334 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SetObjectLevel */
+
+/* 336 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 338 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 342 */	NdrFcShort( 0xf ),	/* 15 */
+/* 344 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 346 */	NdrFcShort( 0x10 ),	/* 16 */
+/* 348 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 350 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 352 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 354 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 356 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 358 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uObjectID */
+
+/* 360 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 362 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 364 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uLevel */
+
+/* 366 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 368 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 370 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 372 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 374 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 376 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetObjectLevel */
+
+/* 378 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 380 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 384 */	NdrFcShort( 0x10 ),	/* 16 */
+/* 386 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 388 */	NdrFcShort( 0x24 ),	/* 36 */
+/* 390 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 392 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 394 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 396 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 398 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 400 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uObjectID */
+
+/* 402 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 404 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 406 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uLevel */
+
+/* 408 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 410 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 412 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 414 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 416 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 418 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure Play */
+
+/* 420 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 422 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 426 */	NdrFcShort( 0x11 ),	/* 17 */
+/* 428 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 430 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 432 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 434 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 436 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 438 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 440 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 442 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 444 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 446 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 448 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 450 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 452 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 454 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure Pause */
+
+/* 456 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 458 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 462 */	NdrFcShort( 0x12 ),	/* 18 */
+/* 464 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 466 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 468 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 470 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 472 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 474 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 476 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 478 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 480 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 482 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 484 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 486 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 488 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 490 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure Stop */
+
+/* 492 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 494 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 498 */	NdrFcShort( 0x13 ),	/* 19 */
+/* 500 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 502 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 504 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 506 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 508 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 510 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 512 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 514 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 516 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 518 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 520 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 522 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 524 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 526 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure Next */
+
+/* 528 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 530 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 534 */	NdrFcShort( 0x14 ),	/* 20 */
+/* 536 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 538 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 540 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 542 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 544 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 546 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 548 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 550 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 552 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 554 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 556 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 558 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 560 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 562 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure Previous */
+
+/* 564 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 566 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 570 */	NdrFcShort( 0x15 ),	/* 21 */
+/* 572 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 574 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 576 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 578 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 580 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 582 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 584 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 586 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 588 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 590 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 592 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 594 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 596 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 598 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure Seek */
+
+/* 600 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 602 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 606 */	NdrFcShort( 0x16 ),	/* 22 */
+/* 608 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 610 */	NdrFcShort( 0x10 ),	/* 16 */
+/* 612 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 614 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 616 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 618 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 620 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 622 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter GroupID */
+
+/* 624 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 626 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 628 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uPosition */
+
+/* 630 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 632 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 634 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 636 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 638 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 640 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SavePlayList */
+
+/* 642 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 644 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 648 */	NdrFcShort( 0x17 ),	/* 23 */
+/* 650 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 652 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 654 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 656 */	0x46,		/* Oi2 Flags:  clt must size, has return, has ext, */
+			0x2,		/* 2 */
+/* 658 */	0x8,		/* 8 */
+			0x5,		/* Ext Flags:  new corr desc, srv corr check, */
+/* 660 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 662 */	NdrFcShort( 0x1 ),	/* 1 */
+/* 664 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter sFilePathName */
+
+/* 666 */	NdrFcShort( 0x8b ),	/* Flags:  must size, must free, in, by val, */
+/* 668 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 670 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Return value */
+
+/* 672 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 674 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 676 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure LoadPlayList */
+
+/* 678 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 680 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 684 */	NdrFcShort( 0x18 ),	/* 24 */
+/* 686 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 688 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 690 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 692 */	0x46,		/* Oi2 Flags:  clt must size, has return, has ext, */
+			0x2,		/* 2 */
+/* 694 */	0x8,		/* 8 */
+			0x5,		/* Ext Flags:  new corr desc, srv corr check, */
+/* 696 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 698 */	NdrFcShort( 0x1 ),	/* 1 */
+/* 700 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter sFilePathName */
+
+/* 702 */	NdrFcShort( 0x8b ),	/* Flags:  must size, must free, in, by val, */
+/* 704 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 706 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Return value */
+
+/* 708 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 710 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 712 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SetVideoPosition */
+
+/* 714 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 716 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 720 */	NdrFcShort( 0x19 ),	/* 25 */
+/* 722 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 724 */	NdrFcShort( 0x18 ),	/* 24 */
+/* 726 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 728 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x4,		/* 4 */
+/* 730 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 732 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 734 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 736 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 738 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 740 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 742 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uX */
+
+/* 744 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 746 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 748 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uY */
+
+/* 750 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 752 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 754 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 756 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 758 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 760 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetVideoPosition */
+
+/* 762 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 764 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 768 */	NdrFcShort( 0x1a ),	/* 26 */
+/* 770 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 772 */	NdrFcShort( 0x40 ),	/* 64 */
+/* 774 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 776 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x4,		/* 4 */
+/* 778 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 780 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 782 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 784 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 786 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 788 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 790 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uX */
+
+/* 792 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 794 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 796 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uY */
+
+/* 798 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 800 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 802 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 804 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 806 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 808 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SetVideoPosAndSize */
+
+/* 810 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 812 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 816 */	NdrFcShort( 0x1b ),	/* 27 */
+/* 818 */	NdrFcShort( 0x1c ),	/* x86 Stack size/offset = 28 */
+/* 820 */	NdrFcShort( 0x28 ),	/* 40 */
+/* 822 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 824 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x6,		/* 6 */
+/* 826 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 828 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 830 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 832 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 834 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 836 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 838 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uX */
+
+/* 840 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 842 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 844 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uY */
+
+/* 846 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 848 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 850 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uWeight */
+
+/* 852 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 854 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 856 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uHeight */
+
+/* 858 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 860 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 862 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 864 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 866 */	NdrFcShort( 0x18 ),	/* x86 Stack size/offset = 24 */
+/* 868 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetVideoPositionAndSize */
+
+/* 870 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 872 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 876 */	NdrFcShort( 0x1c ),	/* 28 */
+/* 878 */	NdrFcShort( 0x1c ),	/* x86 Stack size/offset = 28 */
+/* 880 */	NdrFcShort( 0x78 ),	/* 120 */
+/* 882 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 884 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x6,		/* 6 */
+/* 886 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 888 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 890 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 892 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 894 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 896 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 898 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uX */
+
+/* 900 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 902 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 904 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uY */
+
+/* 906 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 908 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 910 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uWeight */
+
+/* 912 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 914 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 916 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uHeight */
+
+/* 918 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 920 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 922 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 924 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 926 */	NdrFcShort( 0x18 ),	/* x86 Stack size/offset = 24 */
+/* 928 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SetVideoAlpha */
+
+/* 930 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 932 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 936 */	NdrFcShort( 0x1d ),	/* 29 */
+/* 938 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 940 */	NdrFcShort( 0x10 ),	/* 16 */
+/* 942 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 944 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 946 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 948 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 950 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 952 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter GroupID */
+
+/* 954 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 956 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 958 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uAlpha */
+
+/* 960 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 962 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 964 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 966 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 968 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 970 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetVideoAlpha */
+
+/* 972 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 974 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 978 */	NdrFcShort( 0x1e ),	/* 30 */
+/* 980 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 982 */	NdrFcShort( 0x24 ),	/* 36 */
+/* 984 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 986 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 988 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 990 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 992 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 994 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 996 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 998 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1000 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uAlpha */
+
+/* 1002 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1004 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1006 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1008 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1010 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1012 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SetBitmap */
+
+/* 1014 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1016 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1020 */	NdrFcShort( 0x1f ),	/* 31 */
+/* 1022 */	NdrFcShort( 0x2c ),	/* x86 Stack size/offset = 44 */
+/* 1024 */	NdrFcShort( 0x54 ),	/* 84 */
+/* 1026 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1028 */	0x46,		/* Oi2 Flags:  clt must size, has return, has ext, */
+			0xa,		/* 10 */
+/* 1030 */	0x8,		/* 8 */
+			0x5,		/* Ext Flags:  new corr desc, srv corr check, */
+/* 1032 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1034 */	NdrFcShort( 0x1 ),	/* 1 */
+/* 1036 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uBitmapID */
+
+/* 1038 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1040 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1042 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter sBitmapFilePath */
+
+/* 1044 */	NdrFcShort( 0x8b ),	/* Flags:  must size, must free, in, by val, */
+/* 1046 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1048 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Parameter uAlpha */
+
+/* 1050 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1052 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1054 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uTransparentColor */
+
+/* 1056 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1058 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 1060 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uX */
+
+/* 1062 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1064 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 1066 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uY */
+
+/* 1068 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1070 */	NdrFcShort( 0x18 ),	/* x86 Stack size/offset = 24 */
+/* 1072 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uWidth */
+
+/* 1074 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1076 */	NdrFcShort( 0x1c ),	/* x86 Stack size/offset = 28 */
+/* 1078 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uHeight */
+
+/* 1080 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1082 */	NdrFcShort( 0x20 ),	/* x86 Stack size/offset = 32 */
+/* 1084 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uOriginalSize */
+
+/* 1086 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1088 */	NdrFcShort( 0x24 ),	/* x86 Stack size/offset = 36 */
+/* 1090 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1092 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1094 */	NdrFcShort( 0x28 ),	/* x86 Stack size/offset = 40 */
+/* 1096 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetBitmap */
+
+/* 1098 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1100 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1104 */	NdrFcShort( 0x20 ),	/* 32 */
+/* 1106 */	NdrFcShort( 0x20 ),	/* x86 Stack size/offset = 32 */
+/* 1108 */	NdrFcShort( 0x78 ),	/* 120 */
+/* 1110 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1112 */	0x46,		/* Oi2 Flags:  clt must size, has return, has ext, */
+			0x7,		/* 7 */
+/* 1114 */	0x8,		/* 8 */
+			0x5,		/* Ext Flags:  new corr desc, srv corr check, */
+/* 1116 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1118 */	NdrFcShort( 0x1 ),	/* 1 */
+/* 1120 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uBitmapID */
+
+/* 1122 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1124 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1126 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter sBitmapFilePath */
+
+/* 1128 */	NdrFcShort( 0x10b ),	/* Flags:  must size, must free, in, simple ref, */
+/* 1130 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1132 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Parameter uAlpha */
+
+/* 1134 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1136 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1138 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uTransparentColor */
+
+/* 1140 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1142 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 1144 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uX */
+
+/* 1146 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1148 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 1150 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uY */
+
+/* 1152 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1154 */	NdrFcShort( 0x18 ),	/* x86 Stack size/offset = 24 */
+/* 1156 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1158 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1160 */	NdrFcShort( 0x1c ),	/* x86 Stack size/offset = 28 */
+/* 1162 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure DelBitmap */
+
+/* 1164 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1166 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1170 */	NdrFcShort( 0x21 ),	/* 33 */
+/* 1172 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1174 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1176 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1178 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 1180 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 1182 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1184 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1186 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uBitmapID */
+
+/* 1188 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1190 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1192 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1194 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1196 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1198 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SetDynamicBitmap */
+
+/* 1200 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1202 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1206 */	NdrFcShort( 0x22 ),	/* 34 */
+/* 1208 */	NdrFcShort( 0x24 ),	/* x86 Stack size/offset = 36 */
+/* 1210 */	NdrFcShort( 0x44 ),	/* 68 */
+/* 1212 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1214 */	0x46,		/* Oi2 Flags:  clt must size, has return, has ext, */
+			0x8,		/* 8 */
+/* 1216 */	0x8,		/* 8 */
+			0x5,		/* Ext Flags:  new corr desc, srv corr check, */
+/* 1218 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1220 */	NdrFcShort( 0x1 ),	/* 1 */
+/* 1222 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uBitmapID */
+
+/* 1224 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1226 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1228 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter sBitmapFilePath */
+
+/* 1230 */	NdrFcShort( 0x8b ),	/* Flags:  must size, must free, in, by val, */
+/* 1232 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1234 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Parameter uAlpha */
+
+/* 1236 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1238 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1240 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uTransparentColor */
+
+/* 1242 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1244 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 1246 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uX */
+
+/* 1248 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1250 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 1252 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uY */
+
+/* 1254 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1256 */	NdrFcShort( 0x18 ),	/* x86 Stack size/offset = 24 */
+/* 1258 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uMilliSec */
+
+/* 1260 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1262 */	NdrFcShort( 0x1c ),	/* x86 Stack size/offset = 28 */
+/* 1264 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1266 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1268 */	NdrFcShort( 0x20 ),	/* x86 Stack size/offset = 32 */
+/* 1270 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetDynamicBitmap */
+
+/* 1272 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1274 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1278 */	NdrFcShort( 0x23 ),	/* 35 */
+/* 1280 */	NdrFcShort( 0x24 ),	/* x86 Stack size/offset = 36 */
+/* 1282 */	NdrFcShort( 0x94 ),	/* 148 */
+/* 1284 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1286 */	0x46,		/* Oi2 Flags:  clt must size, has return, has ext, */
+			0x8,		/* 8 */
+/* 1288 */	0x8,		/* 8 */
+			0x5,		/* Ext Flags:  new corr desc, srv corr check, */
+/* 1290 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1292 */	NdrFcShort( 0x1 ),	/* 1 */
+/* 1294 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uBitmapID */
+
+/* 1296 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1298 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1300 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter sBitmapFilePath */
+
+/* 1302 */	NdrFcShort( 0x10b ),	/* Flags:  must size, must free, in, simple ref, */
+/* 1304 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1306 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Parameter uAlpha */
+
+/* 1308 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1310 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1312 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uTransparentColor */
+
+/* 1314 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1316 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 1318 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uX */
+
+/* 1320 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1322 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 1324 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uY */
+
+/* 1326 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1328 */	NdrFcShort( 0x18 ),	/* x86 Stack size/offset = 24 */
+/* 1330 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uMilliSec */
+
+/* 1332 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1334 */	NdrFcShort( 0x1c ),	/* x86 Stack size/offset = 28 */
+/* 1336 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1338 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1340 */	NdrFcShort( 0x20 ),	/* x86 Stack size/offset = 32 */
+/* 1342 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SetText */
+
+/* 1344 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1346 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1350 */	NdrFcShort( 0x24 ),	/* 36 */
+/* 1352 */	NdrFcShort( 0x34 ),	/* x86 Stack size/offset = 52 */
+/* 1354 */	NdrFcShort( 0x5c ),	/* 92 */
+/* 1356 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1358 */	0x46,		/* Oi2 Flags:  clt must size, has return, has ext, */
+			0xc,		/* 12 */
+/* 1360 */	0x8,		/* 8 */
+			0x5,		/* Ext Flags:  new corr desc, srv corr check, */
+/* 1362 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1364 */	NdrFcShort( 0x2 ),	/* 2 */
+/* 1366 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uX */
+
+/* 1368 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1370 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1372 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uY */
+
+/* 1374 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1376 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1378 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter sOutputText */
+
+/* 1380 */	NdrFcShort( 0x8b ),	/* Flags:  must size, must free, in, by val, */
+/* 1382 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1384 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Parameter sFaceName */
+
+/* 1386 */	NdrFcShort( 0x8b ),	/* Flags:  must size, must free, in, by val, */
+/* 1388 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 1390 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Parameter uItalic */
+
+/* 1392 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1394 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 1396 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uBold */
+
+/* 1398 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1400 */	NdrFcShort( 0x18 ),	/* x86 Stack size/offset = 24 */
+/* 1402 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uUnderLine */
+
+/* 1404 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1406 */	NdrFcShort( 0x1c ),	/* x86 Stack size/offset = 28 */
+/* 1408 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uWidth */
+
+/* 1410 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1412 */	NdrFcShort( 0x20 ),	/* x86 Stack size/offset = 32 */
+/* 1414 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uHeight */
+
+/* 1416 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1418 */	NdrFcShort( 0x24 ),	/* x86 Stack size/offset = 36 */
+/* 1420 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uColor */
+
+/* 1422 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1424 */	NdrFcShort( 0x28 ),	/* x86 Stack size/offset = 40 */
+/* 1426 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uObjectID */
+
+/* 1428 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1430 */	NdrFcShort( 0x2c ),	/* x86 Stack size/offset = 44 */
+/* 1432 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1434 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1436 */	NdrFcShort( 0x30 ),	/* x86 Stack size/offset = 48 */
+/* 1438 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetText */
+
+/* 1440 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1442 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1446 */	NdrFcShort( 0x25 ),	/* 37 */
+/* 1448 */	NdrFcShort( 0x34 ),	/* x86 Stack size/offset = 52 */
+/* 1450 */	NdrFcShort( 0xe8 ),	/* 232 */
+/* 1452 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1454 */	0x46,		/* Oi2 Flags:  clt must size, has return, has ext, */
+			0xc,		/* 12 */
+/* 1456 */	0x8,		/* 8 */
+			0x5,		/* Ext Flags:  new corr desc, srv corr check, */
+/* 1458 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1460 */	NdrFcShort( 0x2 ),	/* 2 */
+/* 1462 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uObjectID */
+
+/* 1464 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1466 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1468 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uX */
+
+/* 1470 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1472 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1474 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uY */
+
+/* 1476 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1478 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1480 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter sOutputText */
+
+/* 1482 */	NdrFcShort( 0x10b ),	/* Flags:  must size, must free, in, simple ref, */
+/* 1484 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 1486 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Parameter sFaceName */
+
+/* 1488 */	NdrFcShort( 0x10b ),	/* Flags:  must size, must free, in, simple ref, */
+/* 1490 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 1492 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Parameter uItalic */
+
+/* 1494 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1496 */	NdrFcShort( 0x18 ),	/* x86 Stack size/offset = 24 */
+/* 1498 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uBold */
+
+/* 1500 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1502 */	NdrFcShort( 0x1c ),	/* x86 Stack size/offset = 28 */
+/* 1504 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uUnderLine */
+
+/* 1506 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1508 */	NdrFcShort( 0x20 ),	/* x86 Stack size/offset = 32 */
+/* 1510 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uWidth */
+
+/* 1512 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1514 */	NdrFcShort( 0x24 ),	/* x86 Stack size/offset = 36 */
+/* 1516 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uHeight */
+
+/* 1518 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1520 */	NdrFcShort( 0x28 ),	/* x86 Stack size/offset = 40 */
+/* 1522 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uColor */
+
+/* 1524 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1526 */	NdrFcShort( 0x2c ),	/* x86 Stack size/offset = 44 */
+/* 1528 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1530 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1532 */	NdrFcShort( 0x30 ),	/* x86 Stack size/offset = 48 */
+/* 1534 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure DelText */
+
+/* 1536 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1538 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1542 */	NdrFcShort( 0x26 ),	/* 38 */
+/* 1544 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1546 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1548 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1550 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 1552 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 1554 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1556 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1558 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 1560 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1562 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1564 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1566 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1568 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1570 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetLastError */
+
+/* 1572 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1574 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1578 */	NdrFcShort( 0x27 ),	/* 39 */
+/* 1580 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1582 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1584 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1586 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x1,		/* 1 */
+/* 1588 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 1590 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1592 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1594 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Return value */
+
+/* 1596 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1598 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1600 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure Init */
+
+/* 1602 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1604 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1608 */	NdrFcShort( 0x28 ),	/* 40 */
+/* 1610 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 1612 */	NdrFcShort( 0x18 ),	/* 24 */
+/* 1614 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1616 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x4,		/* 4 */
+/* 1618 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 1620 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1622 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1624 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter hWnd */
+
+/* 1626 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1628 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1630 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uWidth */
+
+/* 1632 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1634 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1636 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uHeight */
+
+/* 1638 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1640 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1642 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1644 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1646 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 1648 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SetPlayRate */
+
+/* 1650 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1652 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1656 */	NdrFcShort( 0x29 ),	/* 41 */
+/* 1658 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 1660 */	NdrFcShort( 0x18 ),	/* 24 */
+/* 1662 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1664 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 1666 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 1668 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1670 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1672 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 1674 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1676 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1678 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter dRate */
+
+/* 1680 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1682 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1684 */	0xc,		/* FC_DOUBLE */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1686 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1688 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 1690 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SelectVideoGroupByCoordinate */
+
+/* 1692 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1694 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1698 */	NdrFcShort( 0x2a ),	/* 42 */
+/* 1700 */	NdrFcShort( 0x18 ),	/* x86 Stack size/offset = 24 */
+/* 1702 */	NdrFcShort( 0x34 ),	/* 52 */
+/* 1704 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1706 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x5,		/* 5 */
+/* 1708 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 1710 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1712 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1714 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 1716 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 1718 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1720 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter cX */
+
+/* 1722 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1724 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1726 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter cY */
+
+/* 1728 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1730 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1732 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uFrameColor */
+
+/* 1734 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1736 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 1738 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1740 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1742 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 1744 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SelectVideoGroup */
+
+/* 1746 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1748 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1752 */	NdrFcShort( 0x2b ),	/* 43 */
+/* 1754 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 1756 */	NdrFcShort( 0x10 ),	/* 16 */
+/* 1758 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1760 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 1762 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 1764 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1766 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1768 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 1770 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1772 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1774 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uFrameColor */
+
+/* 1776 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1778 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1780 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1782 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1784 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1786 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure BringToFront */
+
+/* 1788 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1790 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1794 */	NdrFcShort( 0x2c ),	/* 44 */
+/* 1796 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1798 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1800 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1802 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 1804 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 1806 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1808 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1810 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uObjectID */
+
+/* 1812 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1814 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1816 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1818 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1820 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1822 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SendToBack */
+
+/* 1824 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1826 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1830 */	NdrFcShort( 0x2d ),	/* 45 */
+/* 1832 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1834 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1836 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1838 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 1840 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 1842 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1844 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1846 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uObjectID */
+
+/* 1848 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1850 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1852 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1854 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1856 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1858 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure BringUp */
+
+/* 1860 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1862 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1866 */	NdrFcShort( 0x2e ),	/* 46 */
+/* 1868 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1870 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1872 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1874 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 1876 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 1878 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1880 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1882 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uObjectID */
+
+/* 1884 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1886 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1888 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1890 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1892 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1894 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SendBack */
+
+/* 1896 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1898 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1902 */	NdrFcShort( 0x2f ),	/* 47 */
+/* 1904 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1906 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1908 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1910 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 1912 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 1914 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1916 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1918 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uObjectID */
+
+/* 1920 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1922 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1924 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1926 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1928 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1930 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SetPlayMode */
+
+/* 1932 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1934 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1938 */	NdrFcShort( 0x30 ),	/* 48 */
+/* 1940 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 1942 */	NdrFcShort( 0x10 ),	/* 16 */
+/* 1944 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1946 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 1948 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 1950 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1952 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1954 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 1956 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1958 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 1960 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uPlayMode */
+
+/* 1962 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 1964 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 1966 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 1968 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 1970 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 1972 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetVideoLength */
+
+/* 1974 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 1976 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 1980 */	NdrFcShort( 0x31 ),	/* 49 */
+/* 1982 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 1984 */	NdrFcShort( 0x34 ),	/* 52 */
+/* 1986 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 1988 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x4,		/* 4 */
+/* 1990 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 1992 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1994 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 1996 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 1998 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2000 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2002 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uFileID */
+
+/* 2004 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2006 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2008 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uLength */
+
+/* 2010 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 2012 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 2014 */	0xc,		/* FC_DOUBLE */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 2016 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2018 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 2020 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetVideoGroupZOrder */
+
+/* 2022 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2024 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2028 */	NdrFcShort( 0x32 ),	/* 50 */
+/* 2030 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 2032 */	NdrFcShort( 0x24 ),	/* 36 */
+/* 2034 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2036 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 2038 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 2040 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2042 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2044 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 2046 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2048 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2050 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uZOrder */
+
+/* 2052 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 2054 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2056 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 2058 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2060 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 2062 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure UnSelectVideoGroup */
+
+/* 2064 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2066 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2070 */	NdrFcShort( 0x33 ),	/* 51 */
+/* 2072 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2074 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2076 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2078 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x1,		/* 1 */
+/* 2080 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 2082 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2084 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2086 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Return value */
+
+/* 2088 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2090 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2092 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SetMediaFilePath */
+
+/* 2094 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2096 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2100 */	NdrFcShort( 0x34 ),	/* 52 */
+/* 2102 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 2104 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2106 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2108 */	0x46,		/* Oi2 Flags:  clt must size, has return, has ext, */
+			0x2,		/* 2 */
+/* 2110 */	0x8,		/* 8 */
+			0x5,		/* Ext Flags:  new corr desc, srv corr check, */
+/* 2112 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2114 */	NdrFcShort( 0x1 ),	/* 1 */
+/* 2116 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter sFilePathName */
+
+/* 2118 */	NdrFcShort( 0x8b ),	/* Flags:  must size, must free, in, by val, */
+/* 2120 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2122 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Return value */
+
+/* 2124 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2126 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2128 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SetDefaultVideoSize */
+
+/* 2130 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2132 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2136 */	NdrFcShort( 0x35 ),	/* 53 */
+/* 2138 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 2140 */	NdrFcShort( 0x18 ),	/* 24 */
+/* 2142 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2144 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x4,		/* 4 */
+/* 2146 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 2148 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2150 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2152 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 2154 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2156 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2158 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uX */
+
+/* 2160 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2162 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2164 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uY */
+
+/* 2166 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2168 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 2170 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 2172 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2174 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 2176 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetVideoGroupCount */
+
+/* 2178 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2180 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2184 */	NdrFcShort( 0x36 ),	/* 54 */
+/* 2186 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 2188 */	NdrFcShort( 0x1c ),	/* 28 */
+/* 2190 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2192 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 2194 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 2196 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2198 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2200 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupCount */
+
+/* 2202 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 2204 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2206 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 2208 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2210 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2212 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetFirstVideoGroupID */
+
+/* 2214 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2216 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2220 */	NdrFcShort( 0x37 ),	/* 55 */
+/* 2222 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 2224 */	NdrFcShort( 0x1c ),	/* 28 */
+/* 2226 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2228 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 2230 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 2232 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2234 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2236 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 2238 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 2240 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2242 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 2244 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2246 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2248 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetNextVideoGroupID */
+
+/* 2250 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2252 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2256 */	NdrFcShort( 0x38 ),	/* 56 */
+/* 2258 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 2260 */	NdrFcShort( 0x1c ),	/* 28 */
+/* 2262 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2264 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 2266 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 2268 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2270 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2272 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 2274 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 2276 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2278 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 2280 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2282 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2284 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure Close */
+
+/* 2286 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2288 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2292 */	NdrFcShort( 0x39 ),	/* 57 */
+/* 2294 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2296 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2298 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2300 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x1,		/* 1 */
+/* 2302 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 2304 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2306 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2308 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Return value */
+
+/* 2310 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2312 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2314 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure Refresh */
+
+/* 2316 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2318 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2322 */	NdrFcShort( 0x3a ),	/* 58 */
+/* 2324 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2326 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2328 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2330 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x1,		/* 1 */
+/* 2332 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 2334 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2336 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2338 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Return value */
+
+/* 2340 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2342 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2344 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetCurrentFileID */
+
+/* 2346 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2348 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2352 */	NdrFcShort( 0x3b ),	/* 59 */
+/* 2354 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 2356 */	NdrFcShort( 0x24 ),	/* 36 */
+/* 2358 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2360 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 2362 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 2364 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2366 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2368 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 2370 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2372 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2374 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uFileID */
+
+/* 2376 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 2378 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2380 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 2382 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2384 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 2386 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure GetCurrentPlayingPos */
+
+/* 2388 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2390 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2394 */	NdrFcShort( 0x3c ),	/* 60 */
+/* 2396 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 2398 */	NdrFcShort( 0x24 ),	/* 36 */
+/* 2400 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2402 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 2404 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 2406 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2408 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2410 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 2412 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2414 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2416 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uCurPos */
+
+/* 2418 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 2420 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2422 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 2424 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2426 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 2428 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
 
 			0x0
         }
@@ -7989,7 +2338,7 @@ static const MIDL_TYPE_FORMAT_STRING __MIDL_TypeFormatString =
 			0x5c,		/* FC_PAD */
 /*  6 */	
 			0x12, 0x0,	/* FC_UP */
-/*  8 */	NdrFcShort( 0xc ),	/* Offset= 12 (20) */
+/*  8 */	NdrFcShort( 0xe ),	/* Offset= 14 (22) */
 /* 10 */	
 			0x1b,		/* FC_CARRAY */
 			0x1,		/* 1 */
@@ -7997,41 +2346,42 @@ static const MIDL_TYPE_FORMAT_STRING __MIDL_TypeFormatString =
 /* 14 */	0x9,		/* Corr desc: FC_ULONG */
 			0x0,		/*  */
 /* 16 */	NdrFcShort( 0xfffc ),	/* -4 */
-/* 18 */	0x6,		/* FC_SHORT */
+/* 18 */	NdrFcShort( 0x1 ),	/* Corr flags:  early, */
+/* 20 */	0x6,		/* FC_SHORT */
 			0x5b,		/* FC_END */
-/* 20 */	
+/* 22 */	
 			0x17,		/* FC_CSTRUCT */
 			0x3,		/* 3 */
-/* 22 */	NdrFcShort( 0x8 ),	/* 8 */
-/* 24 */	NdrFcShort( 0xfffffff2 ),	/* Offset= -14 (10) */
-/* 26 */	0x8,		/* FC_LONG */
+/* 24 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 26 */	NdrFcShort( 0xfff0 ),	/* Offset= -16 (10) */
+/* 28 */	0x8,		/* FC_LONG */
 			0x8,		/* FC_LONG */
-/* 28 */	0x5c,		/* FC_PAD */
+/* 30 */	0x5c,		/* FC_PAD */
 			0x5b,		/* FC_END */
-/* 30 */	0xb4,		/* FC_USER_MARSHAL */
+/* 32 */	0xb4,		/* FC_USER_MARSHAL */
 			0x83,		/* 131 */
-/* 32 */	NdrFcShort( 0x0 ),	/* 0 */
-/* 34 */	NdrFcShort( 0x4 ),	/* 4 */
-/* 36 */	NdrFcShort( 0x0 ),	/* 0 */
-/* 38 */	NdrFcShort( 0xffffffe0 ),	/* Offset= -32 (6) */
-/* 40 */	
+/* 34 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 36 */	NdrFcShort( 0x4 ),	/* 4 */
+/* 38 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 40 */	NdrFcShort( 0xffde ),	/* Offset= -34 (6) */
+/* 42 */	
 			0x11, 0x4,	/* FC_RP [alloced_on_stack] */
-/* 42 */	NdrFcShort( 0x6 ),	/* Offset= 6 (48) */
-/* 44 */	
+/* 44 */	NdrFcShort( 0x6 ),	/* Offset= 6 (50) */
+/* 46 */	
 			0x13, 0x0,	/* FC_OP */
-/* 46 */	NdrFcShort( 0xffffffe6 ),	/* Offset= -26 (20) */
-/* 48 */	0xb4,		/* FC_USER_MARSHAL */
+/* 48 */	NdrFcShort( 0xffe6 ),	/* Offset= -26 (22) */
+/* 50 */	0xb4,		/* FC_USER_MARSHAL */
 			0x83,		/* 131 */
-/* 50 */	NdrFcShort( 0x0 ),	/* 0 */
-/* 52 */	NdrFcShort( 0x4 ),	/* 4 */
-/* 54 */	NdrFcShort( 0x0 ),	/* 0 */
-/* 56 */	NdrFcShort( 0xfffffff4 ),	/* Offset= -12 (44) */
-/* 58 */	
+/* 52 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 54 */	NdrFcShort( 0x4 ),	/* 4 */
+/* 56 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 58 */	NdrFcShort( 0xfff4 ),	/* Offset= -12 (46) */
+/* 60 */	
 			0x11, 0x0,	/* FC_RP */
-/* 60 */	NdrFcShort( 0xffffffe2 ),	/* Offset= -30 (30) */
-/* 62 */	
+/* 62 */	NdrFcShort( 0xffe2 ),	/* Offset= -30 (32) */
+/* 64 */	
 			0x11, 0x8,	/* FC_RP [simple_pointer] */
-/* 64 */	0xc,		/* FC_DOUBLE */
+/* 66 */	0xc,		/* FC_DOUBLE */
 			0x5c,		/* FC_PAD */
 
 			0x0
@@ -8071,59 +2421,59 @@ static const unsigned short IAnsoplyInterface_FormatStringOffsetTable[] =
     (unsigned short) -1,
     (unsigned short) -1,
     0,
-    6,
-    10,
-    22,
-    28,
-    28,
-    28,
     36,
-    22,
-    28,
-    6,
-    6,
-    6,
-    6,
-    6,
-    22,
-    46,
-    46,
-    52,
-    60,
     72,
-    84,
-    22,
-    28,
-    104,
-    128,
-    6,
-    152,
-    172,
-    200,
-    230,
-    6,
-    274,
-    52,
-    276,
-    282,
-    22,
-    6,
-    6,
-    6,
-    6,
-    22,
-    294,
-    28,
-    274,
-    46,
-    52,
-    0,
-    0,
-    0,
-    274,
-    274,
-    28,
-    28
+    120,
+    162,
+    204,
+    246,
+    288,
+    336,
+    378,
+    420,
+    456,
+    492,
+    528,
+    564,
+    600,
+    642,
+    678,
+    714,
+    762,
+    810,
+    870,
+    930,
+    972,
+    1014,
+    1098,
+    1164,
+    1200,
+    1272,
+    1344,
+    1440,
+    1536,
+    1572,
+    1602,
+    1650,
+    1692,
+    1746,
+    1788,
+    1824,
+    1860,
+    1896,
+    1932,
+    1974,
+    2022,
+    2064,
+    2094,
+    2130,
+    2178,
+    2214,
+    2250,
+    2286,
+    2316,
+    2346,
+    2388
     };
 
 static const MIDL_STUBLESS_PROXY_INFO IAnsoplyInterface_ProxyInfo =
@@ -8149,68 +2499,69 @@ static const MIDL_SERVER_INFO IAnsoplyInterface_ServerInfo =
     0};
 CINTERFACE_PROXY_VTABLE(61) _IAnsoplyInterfaceProxyVtbl = 
 {
+    &IAnsoplyInterface_ProxyInfo,
     &IID_IAnsoplyInterface,
     IUnknown_QueryInterface_Proxy,
     IUnknown_AddRef_Proxy,
     IUnknown_Release_Proxy ,
-    0 /* IDispatch_GetTypeInfoCount_Proxy */ ,
-    0 /* IDispatch_GetTypeInfo_Proxy */ ,
-    0 /* IDispatch_GetIDsOfNames_Proxy */ ,
+    0 /* (void *) (INT_PTR) -1 /* IDispatch::GetTypeInfoCount */ ,
+    0 /* (void *) (INT_PTR) -1 /* IDispatch::GetTypeInfo */ ,
+    0 /* (void *) (INT_PTR) -1 /* IDispatch::GetIDsOfNames */ ,
     0 /* IDispatch_Invoke_Proxy */ ,
-    IAnsoplyInterface_CreateVideoGroup_Proxy ,
-    IAnsoplyInterface_DelVideoGroup_Proxy ,
-    IAnsoplyInterface_AddVideoFile_Proxy ,
-    IAnsoplyInterface_DelVideoFile_Proxy ,
-    IAnsoplyInterface_GetVideoObjectCount_Proxy ,
-    IAnsoplyInterface_GetFirstVideoObjectID_Proxy ,
-    IAnsoplyInterface_GetNextVideoObjectID_Proxy ,
-    IAnsoplyInterface_GetVideoObjectFileName_Proxy ,
-    IAnsoplyInterface_SetObjectLevel_Proxy ,
-    IAnsoplyInterface_GetObjectLevel_Proxy ,
-    IAnsoplyInterface_Play_Proxy ,
-    IAnsoplyInterface_Pause_Proxy ,
-    IAnsoplyInterface_Stop_Proxy ,
-    IAnsoplyInterface_Next_Proxy ,
-    IAnsoplyInterface_Previous_Proxy ,
-    IAnsoplyInterface_Seek_Proxy ,
-    IAnsoplyInterface_SavePlayList_Proxy ,
-    IAnsoplyInterface_LoadPlayList_Proxy ,
-    IAnsoplyInterface_SetVideoPosition_Proxy ,
-    IAnsoplyInterface_GetVideoPosition_Proxy ,
-    IAnsoplyInterface_SetVideoPosAndSize_Proxy ,
-    IAnsoplyInterface_GetVideoPositionAndSize_Proxy ,
-    IAnsoplyInterface_SetVideoAlpha_Proxy ,
-    IAnsoplyInterface_GetVideoAlpha_Proxy ,
-    IAnsoplyInterface_SetBitmap_Proxy ,
-    IAnsoplyInterface_GetBitmap_Proxy ,
-    IAnsoplyInterface_DelBitmap_Proxy ,
-    IAnsoplyInterface_SetDynamicBitmap_Proxy ,
-    IAnsoplyInterface_GetDynamicBitmap_Proxy ,
-    IAnsoplyInterface_SetText_Proxy ,
-    IAnsoplyInterface_GetText_Proxy ,
-    IAnsoplyInterface_DelText_Proxy ,
-    IAnsoplyInterface_GetLastError_Proxy ,
-    IAnsoplyInterface_Init_Proxy ,
-    IAnsoplyInterface_SetPlayRate_Proxy ,
-    IAnsoplyInterface_SelectVideoGroupByCoordinate_Proxy ,
-    IAnsoplyInterface_SelectVideoGroup_Proxy ,
-    IAnsoplyInterface_BringToFront_Proxy ,
-    IAnsoplyInterface_SendToBack_Proxy ,
-    IAnsoplyInterface_BringUp_Proxy ,
-    IAnsoplyInterface_SendBack_Proxy ,
-    IAnsoplyInterface_SetPlayMode_Proxy ,
-    IAnsoplyInterface_GetVideoLength_Proxy ,
-    IAnsoplyInterface_GetVideoGroupZOrder_Proxy ,
-    IAnsoplyInterface_UnSelectVideoGroup_Proxy ,
-    IAnsoplyInterface_SetMediaFilePath_Proxy ,
-    IAnsoplyInterface_SetDefaultVideoSize_Proxy ,
-    IAnsoplyInterface_GetVideoGroupCount_Proxy ,
-    IAnsoplyInterface_GetFirstVideoGroupID_Proxy ,
-    IAnsoplyInterface_GetNextVideoGroupID_Proxy ,
-    IAnsoplyInterface_Close_Proxy ,
-    IAnsoplyInterface_Refresh_Proxy ,
-    IAnsoplyInterface_GetCurrentFileID_Proxy ,
-    IAnsoplyInterface_GetCurrentPlayingPos_Proxy
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::CreateVideoGroup */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::DelVideoGroup */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::AddVideoFile */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::DelVideoFile */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetVideoObjectCount */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetFirstVideoObjectID */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetNextVideoObjectID */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetVideoObjectFileName */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetObjectLevel */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetObjectLevel */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::Play */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::Pause */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::Stop */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::Next */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::Previous */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::Seek */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SavePlayList */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::LoadPlayList */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetVideoPosition */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetVideoPosition */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetVideoPosAndSize */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetVideoPositionAndSize */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetVideoAlpha */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetVideoAlpha */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetBitmap */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetBitmap */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::DelBitmap */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetDynamicBitmap */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetDynamicBitmap */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetText */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetText */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::DelText */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetLastError */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::Init */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetPlayRate */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SelectVideoGroupByCoordinate */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SelectVideoGroup */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::BringToFront */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SendToBack */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::BringUp */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SendBack */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetPlayMode */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetVideoLength */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetVideoGroupZOrder */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::UnSelectVideoGroup */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetMediaFilePath */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetDefaultVideoSize */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetVideoGroupCount */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetFirstVideoGroupID */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetNextVideoGroupID */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::Close */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::Refresh */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetCurrentFileID */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetCurrentPlayingPos */
 };
 
 
@@ -8220,60 +2571,60 @@ static const PRPC_STUB_FUNCTION IAnsoplyInterface_table[] =
     STUB_FORWARDING_FUNCTION,
     STUB_FORWARDING_FUNCTION,
     STUB_FORWARDING_FUNCTION,
-    IAnsoplyInterface_CreateVideoGroup_Stub,
-    IAnsoplyInterface_DelVideoGroup_Stub,
-    IAnsoplyInterface_AddVideoFile_Stub,
-    IAnsoplyInterface_DelVideoFile_Stub,
-    IAnsoplyInterface_GetVideoObjectCount_Stub,
-    IAnsoplyInterface_GetFirstVideoObjectID_Stub,
-    IAnsoplyInterface_GetNextVideoObjectID_Stub,
-    IAnsoplyInterface_GetVideoObjectFileName_Stub,
-    IAnsoplyInterface_SetObjectLevel_Stub,
-    IAnsoplyInterface_GetObjectLevel_Stub,
-    IAnsoplyInterface_Play_Stub,
-    IAnsoplyInterface_Pause_Stub,
-    IAnsoplyInterface_Stop_Stub,
-    IAnsoplyInterface_Next_Stub,
-    IAnsoplyInterface_Previous_Stub,
-    IAnsoplyInterface_Seek_Stub,
-    IAnsoplyInterface_SavePlayList_Stub,
-    IAnsoplyInterface_LoadPlayList_Stub,
-    IAnsoplyInterface_SetVideoPosition_Stub,
-    IAnsoplyInterface_GetVideoPosition_Stub,
-    IAnsoplyInterface_SetVideoPosAndSize_Stub,
-    IAnsoplyInterface_GetVideoPositionAndSize_Stub,
-    IAnsoplyInterface_SetVideoAlpha_Stub,
-    IAnsoplyInterface_GetVideoAlpha_Stub,
-    IAnsoplyInterface_SetBitmap_Stub,
-    IAnsoplyInterface_GetBitmap_Stub,
-    IAnsoplyInterface_DelBitmap_Stub,
-    IAnsoplyInterface_SetDynamicBitmap_Stub,
-    IAnsoplyInterface_GetDynamicBitmap_Stub,
-    IAnsoplyInterface_SetText_Stub,
-    IAnsoplyInterface_GetText_Stub,
-    IAnsoplyInterface_DelText_Stub,
-    IAnsoplyInterface_GetLastError_Stub,
-    IAnsoplyInterface_Init_Stub,
-    IAnsoplyInterface_SetPlayRate_Stub,
-    IAnsoplyInterface_SelectVideoGroupByCoordinate_Stub,
-    IAnsoplyInterface_SelectVideoGroup_Stub,
-    IAnsoplyInterface_BringToFront_Stub,
-    IAnsoplyInterface_SendToBack_Stub,
-    IAnsoplyInterface_BringUp_Stub,
-    IAnsoplyInterface_SendBack_Stub,
-    IAnsoplyInterface_SetPlayMode_Stub,
-    IAnsoplyInterface_GetVideoLength_Stub,
-    IAnsoplyInterface_GetVideoGroupZOrder_Stub,
-    IAnsoplyInterface_UnSelectVideoGroup_Stub,
-    IAnsoplyInterface_SetMediaFilePath_Stub,
-    IAnsoplyInterface_SetDefaultVideoSize_Stub,
-    IAnsoplyInterface_GetVideoGroupCount_Stub,
-    IAnsoplyInterface_GetFirstVideoGroupID_Stub,
-    IAnsoplyInterface_GetNextVideoGroupID_Stub,
-    IAnsoplyInterface_Close_Stub,
-    IAnsoplyInterface_Refresh_Stub,
-    IAnsoplyInterface_GetCurrentFileID_Stub,
-    IAnsoplyInterface_GetCurrentPlayingPos_Stub
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2
 };
 
 CInterfaceStubVtbl _IAnsoplyInterfaceStubVtbl =
@@ -8297,9 +2648,9 @@ static const MIDL_STUB_DESC Object_StubDesc =
     0,
     __MIDL_TypeFormatString.Format,
     1, /* -error bounds_check flag */
-    0x20000, /* Ndr library version */
+    0x50002, /* Ndr library version */
     0,
-    0x600015b, /* MIDL Version 6.0.347 */
+    0x6000169, /* MIDL Version 6.0.361 */
     0,
     UserMarshalRoutines,
     0,  /* notify & notify_flag routine table */
@@ -8356,12 +2707,15 @@ const ExtendedProxyFileInfo _Ansoply_ProxyFileInfo =
     (const IID ** ) & __Ansoply_BaseIIDList,
     & __Ansoply_IID_Lookup, 
     1,
-    1,
+    2,
     0, /* table of [async_uuid] interfaces */
     0, /* Filler1 */
     0, /* Filler2 */
     0  /* Filler3 */
 };
+#if _MSC_VER >= 1200
+#pragma warning(pop)
+#endif
 
 
 #endif /* !defined(_M_IA64) && !defined(_M_AMD64)*/
