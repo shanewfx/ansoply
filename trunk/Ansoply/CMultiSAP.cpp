@@ -1400,11 +1400,17 @@ LONG CMultiSAP::SetBitmap(
 //	hr = DDARGB32SurfaceInit(&m_lpDDSBitmapCache, TRUE, 640, 480);
 	HBITMAP hBmp;
 	Color backColor;
-	pBitmapObject->m_pBitmap->GetHBITMAP(backColor, &hBmp);
+
+	BITMAP bm;
+
+	if (uOriginalSize == 1)
+	{
+		pBitmapObject->m_pBitmap->GetHBITMAP(backColor, &hBmp);
+		GetObject( hBmp, sizeof(BITMAP), &bm );
+	}
 
 	// Get the bitmap structure (to extract width, height, and bpp)
-	BITMAP bm;
-	GetObject( hBmp, sizeof(BITMAP), &bm );
+
 
 	ULONG Width, Height;
 	if( uOriginalSize == 1 )
@@ -1431,15 +1437,34 @@ LONG CMultiSAP::SetBitmap(
 		if( NULL == hdcBitmap )
 			return -1;
 
-		SelectObject( hdcBitmap, hBmp );
-
 		if( uOriginalSize == 1)
 		{
+			SelectObject( hdcBitmap, hBmp );
 			BitBlt( hdcDest, 0, 0, Width, Height, hdcBitmap, 0, 0, SRCCOPY );
 		}
 		else
 		{
-			StretchBlt( hdcDest, 0, 0, Width, Height, hdcBitmap, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY );
+			USES_CONVERSION;
+/*
+			Bitmap originalBMP(T2W(sBitmapFilePath));
+			Bitmap resizeBMP(Width, Height);
+			Graphics graphic(&resizeBMP);
+			graphic.DrawImage(&originalBMP, 0, 0, Width, Height, 
+							  originalBMP.GetWidth(),
+							  originalBMP.GetHeight(), UnitPixel);
+*/
+			Bitmap originalBMP(T2W(sBitmapFilePath));
+			Graphics g(hdcDest);
+
+//			g.DrawImage(&originalBMP, 0, 0, Width, Height, 
+//				originalBMP.GetWidth(), originalBMP.GetHeight(), UnitPixel);
+
+			g.DrawImage(&originalBMP, Rect(0, 0, Width, Height), 0, 0, 
+				originalBMP.GetWidth(), originalBMP.GetHeight(), UnitPixel, NULL );
+
+//			BitBlt( hdcDest, 0, 0, Width, Height, g.GetHDC(), 0, 0, SRCCOPY );
+
+//			StretchBlt( hdcDest, 0, 0, Width, Height, hdcBitmap, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY );
 		}
 
 

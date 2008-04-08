@@ -1,10 +1,10 @@
-import "C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\include\prsht.idl";
-import "C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\include\mshtml.idl";
-import "c:\program files\microsoft visual studio .net 2003\vc7\platformsdk\include\dimm.idl";
-import "C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\include\mshtmhst.idl";
-import "c:\program files\microsoft visual studio .net 2003\vc7\platformsdk\include\docobj.idl";
-import "C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\include\exdisp.idl";
-import "C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\include\objsafe.idl";
+import "D:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\include\prsht.idl";
+import "D:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\include\mshtml.idl";
+import "d:\program files\microsoft visual studio .net 2003\vc7\platformsdk\include\dimm.idl";
+import "D:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\include\mshtmhst.idl";
+import "d:\program files\microsoft visual studio .net 2003\vc7\platformsdk\include\docobj.idl";
+import "D:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\include\exdisp.idl";
+import "D:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\include\objsafe.idl";
 
 [
 	object,
@@ -13,9 +13,9 @@ import "C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\inclu
 	helpstring("IAnsoplyInterface Interface"),
 	pointer_default(unique)
 ] 
-#line 16 "d:\\ansoply project\\ansoply project\\ansoply\\ansoplyinterface.h"
+#line 16 "d:\\project\\ansoply\\ansoply\\ansoplyinterface.h"
 interface IAnsoplyInterface : IDispatch {
-#line 18 "d:\\ansoply project\\ansoply project\\ansoply\\ansoplyinterface.h"
+#line 18 "d:\\project\\ansoply\\ansoply\\ansoplyinterface.h"
 	[id(1),helpstring("method CreateVideoGroup")] HRESULT  CreateVideoGroup([in]ULONG *uNewGroupID);
 	[id(2),helpstring("method DelVideoGroup")] HRESULT  DelVideoGroup([in]ULONG uGroupID);
 	[id(3),helpstring("method AddVideoFile")] HRESULT  AddVideoFile([in]ULONG uGroupID, [in]BSTR sFilePathName, [in]ULONG *uFileObjectID);
@@ -84,7 +84,7 @@ library Ansoply
 		uuid(D1EBA581-03B3-42EA-B097-7F97F0ADB87B),
 		helpstring("AnsoplyInterface Class")
 	] 
-#line 87 "d:\\ansoply project\\ansoply project\\ansoply\\ansoplyinterface.h"
+#line 87 "d:\\project\\ansoply\\ansoply\\ansoplyinterface.h"
 	coclass CAnsoplyInterface {
 		interface IAnsoplyInterface;
 	};
