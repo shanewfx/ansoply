@@ -352,6 +352,17 @@ void CMultiSAP::PutMoviePosition(RECT rc)
 {
     CAutoLock Lock(&m_AppImageLock);
     m_pWC->SetVideoPosition(NULL, &rc);
+	PAINTSTRUCT Paint;
+	RECT wRect;
+	HDC hDC = BeginPaint(m_hwndApp, &Paint);
+	GetClientRect(m_hwndApp, &wRect);
+	// Erase if needed
+	if (Paint.fErase)
+	{
+		FillRect(hDC, &wRect, (HBRUSH) GetStockObject(BLACK_BRUSH));
+	}
+	m_pWC->RepaintVideo(m_hwndApp, hDC);
+	EndPaint(m_hwndApp, &Paint);
 }
 
 //-------------------------------------------------------------------------
@@ -2700,14 +2711,21 @@ void CMultiSAP::Refresh()
 {
 	if( m_pWC )
 	{
-		HDC hDC = ::GetDC(m_hwndApp);
-		//m_pWC->RepaintVideo(m_hwndApp, hDC);
-		//if( hDC )
-		/*CRect   rc;   
-		GetClientRect(&rc);   
-		ScreenToClient(&rc);   
+		//HDC hDC = ::GetDC(m_hwndApp);
+		PAINTSTRUCT Paint;
+		RECT wRect;
+		HDC hDC = BeginPaint(m_hwndApp, &Paint);
+		GetClientRect(m_hwndApp, &wRect);
+		// Erase if needed
+		if (Paint.fErase)
+		{
+			FillRect(hDC, &wRect, (HBRUSH) GetStockObject(BLACK_BRUSH));
+		}
+		HRESULT hr = m_pWC->RepaintVideo(m_hwndApp, hDC);
+		EndPaint(m_hwndApp, &Paint);
 
-		::ExcludeClipRec(hDC, &rc);   
-		OutputDebugString("Refresh");*/
+		CString str;
+		str.Format("HRESULT:%d", hr);
+		OutputDebugString(str);
 	}
 }
