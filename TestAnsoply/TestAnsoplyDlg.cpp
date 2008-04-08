@@ -288,7 +288,7 @@ void CTestAnsoplyDlg::OnBnClickedButton6()
 	{
 		CString name = fileDlg.GetPathName();
 		ULONG id;
-		m_ansoply.SetBitmap(&m_uBitmapID, name, 0x80, 0xFFFF00, 0, 0, 50, 50, 1);
+		m_ansoply.SetBitmap(&m_uBitmapID, name, 0x80, 0xFFFF00, 0, 0, 150, 150, 0);
 	}
 }
 
