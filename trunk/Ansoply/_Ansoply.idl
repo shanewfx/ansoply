@@ -13,9 +13,17 @@ import "D:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\inclu
 	helpstring("IAnsoplyInterface Interface"),
 	pointer_default(unique)
 ] 
+<<<<<<< .mine
+#line 16 "d:\\ansoply project\\ansoply\\ansoply\\ansoplyinterface.h"
+=======
 #line 16 "d:\\project\\ansoply\\ansoply\\ansoplyinterface.h"
+>>>>>>> .r13
 interface IAnsoplyInterface : IDispatch {
+<<<<<<< .mine
+#line 18 "d:\\ansoply project\\ansoply\\ansoply\\ansoplyinterface.h"
+=======
 #line 18 "d:\\project\\ansoply\\ansoply\\ansoplyinterface.h"
+>>>>>>> .r13
 	[id(1),helpstring("method CreateVideoGroup")] HRESULT  CreateVideoGroup([in]ULONG *uNewGroupID);
 	[id(2),helpstring("method DelVideoGroup")] HRESULT  DelVideoGroup([in]ULONG uGroupID);
 	[id(3),helpstring("method AddVideoFile")] HRESULT  AddVideoFile([in]ULONG uGroupID, [in]BSTR sFilePathName, [in]ULONG *uFileObjectID);
@@ -84,7 +92,11 @@ library Ansoply
 		uuid(D1EBA581-03B3-42EA-B097-7F97F0ADB87B),
 		helpstring("AnsoplyInterface Class")
 	] 
+<<<<<<< .mine
+#line 87 "d:\\ansoply project\\ansoply\\ansoply\\ansoplyinterface.h"
+=======
 #line 87 "d:\\project\\ansoply\\ansoply\\ansoplyinterface.h"
+>>>>>>> .r13
 	coclass CAnsoplyInterface {
 		interface IAnsoplyInterface;
 	};
