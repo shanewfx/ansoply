@@ -118,7 +118,7 @@ DWORD CVideoGroup::SmoothPlayThread(LPVOID param)
 		}
 
 		list<CVideoObject*>::iterator i = pVideoGroup->m_videos.begin();
-		while ( i != pVideoGroup->m_videos.end() )
+		while ( !pVideoGroup->m_videos.empty() && i != pVideoGroup->m_videos.end() )
 		{
 			CVideoObject* videoObject = NULL;
 			if (pVideoGroup->m_playEvent == PLAY_NONE)
