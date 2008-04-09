@@ -2575,6 +2575,7 @@ LONG CMultiSAP::SavePlayList(LPCTSTR sFile)
 
 LONG CMultiSAP::LoadPlayList(LPCTSTR sFile)
 {
+	EnterCriticalSection(&m_videoGroupsCS);
 	POSITION pos = m_videoGroups.GetHeadPosition();
 	while (pos)
 	{
@@ -2582,11 +2583,27 @@ LONG CMultiSAP::LoadPlayList(LPCTSTR sFile)
 		delete pVideoGroup;
 	}
 	m_videoGroups.RemoveAll();
+	//////////////////////////////////////////////////////////////////////////
+	m_drawList.RemoveAll();
+/*	POSITION pos = m_drawList.GetHeadPosition();
+	while( pos )
+	{
+		POSITION tempPos = pos;
+		CAnsoplyObject * pObject = m_drawList.GetNext( pos );
+		if( pObject && pObject->GetObjectID() == uBitmapID )
+		{
+			m_drawList.RemoveAt( tempPos );
+			ret = 0;
+			break;
+		}
+	}*/
+	//////////////////////////////////////////////////////////////////////////
+	
 
 	TiXmlDocument xmlDoc;
 	if (xmlDoc.LoadFile(sFile))
 	{
-		EnterCriticalSection(&m_videoGroupsCS);
+
 
 		TiXmlNode* pChildNode = xmlDoc.FirstChildElement();
 		if (pChildNode) 
@@ -2647,6 +2664,7 @@ LONG CMultiSAP::LoadPlayList(LPCTSTR sFile)
 		LeaveCriticalSection(&m_videoGroupsCS);
 		return 0;
 	}
+	LeaveCriticalSection(&m_videoGroupsCS);
 	return -1;
 }
 
