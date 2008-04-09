@@ -288,7 +288,7 @@ void CTestAnsoplyDlg::OnBnClickedButton6()
 	{
 		CString name = fileDlg.GetPathName();
 		ULONG id;
-		m_ansoply.SetBitmap(&m_uBitmapID, name, 0x80, 0xFFFF00, 0, 0, 150, 150, 0);
+		m_ansoply.SetBitmap(&m_uBitmapID, name, 0x80, 0xFFFF00, 0, 0, 500, 500, 0);
 	}
 }
 
@@ -310,7 +310,8 @@ void CTestAnsoplyDlg::OnBnClickedButton8()
 void CTestAnsoplyDlg::OnBnClickedButton9()
 {
 	// TODO: Add your control notification handler code here
-	m_ansoply.DelBitmap(m_uBitmapID);
+	//m_ansoply.DelBitmap(m_uBitmapID);
+//	m_ansoply.CreateVideoGroup(&m_uGroupID);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton10()
