@@ -10,13 +10,14 @@ CBitmapObject::CBitmapObject() :
 	m_uY(0),
 	m_pDDS(NULL)
 {
+	SetObjectType(bitmap);
 }
 
 CBitmapObject::~CBitmapObject(void)
 {
 	if (m_pDDS)m_pDDS->Release();
 
-	SetObjectType(bitmap);
+
 }
 
 IDirectDrawSurface7* CBitmapObject::GetSurface()

@@ -53,8 +53,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,31
- PRODUCTVERSION 1,0,0,31
+ FILEVERSION 1,0,0,32
+ PRODUCTVERSION 1,0,0,32
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -71,12 +71,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "TODO: <Company name>"
             VALUE "FileDescription", "TODO: <File description>"
-            VALUE "FileVersion", "1.0.0.31"
+            VALUE "FileVersion", "1.0.0.32"
             VALUE "InternalName", "Ansoply.dll"
             VALUE "LegalCopyright", "TODO: (c) <Company name>.  All rights reserved."
             VALUE "OriginalFilename", "Ansoply.dll"
             VALUE "ProductName", "TODO: <Product name>"
-            VALUE "ProductVersion", "1.0.0.31"
+            VALUE "ProductVersion", "1.0.0.32"
         END
     END
     BLOCK "VarFileInfo"
