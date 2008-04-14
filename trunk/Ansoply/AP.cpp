@@ -1089,8 +1089,25 @@ void CMultiSAP::ComposeAndRender()
 	{
 		CAnsoplyObject * pObject = m_drawList.GetPrev( pos );
 		//ATLTRACE("ID:%d\n", pObject->GetObjectID());
-		pObject->Draw();
+		if (pObject->GetObjectType() == video) pObject->Draw();
 	}
+
+	pos = m_drawList.GetTailPosition();
+	while( pos )
+	{
+		CAnsoplyObject * pObject = m_drawList.GetPrev( pos );
+		//ATLTRACE("ID:%d\n", pObject->GetObjectID());
+		if (pObject->GetObjectType() == bitmap) pObject->Draw();
+	}
+
+	pos = m_drawList.GetTailPosition();
+	while( pos )
+	{
+		CAnsoplyObject * pObject = m_drawList.GetPrev( pos );
+		//ATLTRACE("ID:%d\n", pObject->GetObjectID());
+		if (pObject->GetObjectType() == text) pObject->Draw();
+	}
+
 /*	POSITION pos = m_videoGroups.GetHeadPosition();
 	while ( pos )
 	{

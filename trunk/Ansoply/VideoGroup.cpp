@@ -20,6 +20,8 @@ CVideoGroup::CVideoGroup() :
 	m_pMultiSAP(NULL)
 {
 	m_PlayPauseEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+
+	SetObjectType(video);
 }
 
 CVideoGroup::~CVideoGroup(void)
