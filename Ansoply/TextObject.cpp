@@ -15,6 +15,8 @@ m_uColor(0)
 {
 	ZeroMemory(m_facename, 32);
 	ZeroMemory(&m_logFont, sizeof(m_logFont));
+
+	SetObjectType(text);
 }
 
 CTextObject::~CTextObject(void)

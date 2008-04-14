@@ -266,7 +266,7 @@ void CTestAnsoplyDlg::OnBnClickedButton4()
 	// TODO: Add your control notification handler code here
 	m_ansoply.SetVideoPosAndSize(m_uGroupID, 0, 0, 400, 300);
 	//m_ansoply.SetDefaultVideoSize(m_uGroupID, 0, 0);
-	m_ansoply.SetVideoAlpha(m_uGroupID, 0xFF);
+	m_ansoply.SetVideoAlpha(m_uGroupID, 0x7F);
 	m_ansoply.Play(m_uGroupID);
 }
 
