@@ -1252,7 +1252,7 @@ LONG CMultiSAP::AddVideoFile(ULONG uGroupID, LPCTSTR sFilePathName)
 			m_pEffect->Invalidate();
 		}
 
-		// not to play at this
+		// not to play at this time
 		//pVideoObject->PlayMovie();
 		pVideoGroup->AddVideoObject(pVideoObject);
 		return pVideoObject->GetObjectID();
@@ -1628,7 +1628,7 @@ LONG CMultiSAP::BringUp(ULONG uGroupID)
 		CAnsoplyObject * pObject = m_drawList.GetAt(m_drawList.FindIndex(i));
 		int j = 0;
 	}*/
-	EnterCriticalSection(&m_videoGroupsCS);
+//	EnterCriticalSection(&m_videoGroupsCS);
 	for ( int i = 0; i < m_drawList.GetCount(); i++ )
 	{
 		CAnsoplyObject * pObject = m_drawList.GetAt(m_drawList.FindIndex(i));
@@ -1642,7 +1642,7 @@ LONG CMultiSAP::BringUp(ULONG uGroupID)
 			break;
 		}
 	}
-	LeaveCriticalSection(&m_videoGroupsCS);
+//	LeaveCriticalSection(&m_videoGroupsCS);
 	return 0;
 }
 
@@ -2575,7 +2575,7 @@ LONG CMultiSAP::SavePlayList(LPCTSTR sFile)
 
 LONG CMultiSAP::LoadPlayList(LPCTSTR sFile)
 {
-	EnterCriticalSection(&m_videoGroupsCS);
+//	EnterCriticalSection(&m_videoGroupsCS);
 	POSITION pos = m_videoGroups.GetHeadPosition();
 	while (pos)
 	{
@@ -2603,8 +2603,6 @@ LONG CMultiSAP::LoadPlayList(LPCTSTR sFile)
 	TiXmlDocument xmlDoc;
 	if (xmlDoc.LoadFile(sFile))
 	{
-
-
 		TiXmlNode* pChildNode = xmlDoc.FirstChildElement();
 		if (pChildNode) 
 		{
@@ -2661,10 +2659,10 @@ LONG CMultiSAP::LoadPlayList(LPCTSTR sFile)
 			//			pChildNode = xmlDoc.NextSibling();
 		} 
 
-		LeaveCriticalSection(&m_videoGroupsCS);
+//		LeaveCriticalSection(&m_videoGroupsCS);
 		return 0;
 	}
-	LeaveCriticalSection(&m_videoGroupsCS);
+//	LeaveCriticalSection(&m_videoGroupsCS);
 	return -1;
 }
 

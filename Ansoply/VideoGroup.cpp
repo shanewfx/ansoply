@@ -93,7 +93,6 @@ LONG CVideoGroup::Play()
 
 	if ( !m_hThread )
 	{
-		ATLTRACE("thread\n");
 		//m_hThread = (HANDLE)_beginthread(SmoothPlayThread, 0, this);
 		m_hThread = CreateThread(NULL, 0, SmoothPlayThread, this, 0, NULL);
 		//  _beginthreadex returns 0 on an error.
@@ -398,6 +397,8 @@ void CVideoGroup::Draw()
 	if (!pMovie)
 		return;
 
+
+
 	BOOL bSelectedChannel = FALSE;
 	if (GetObjectID() == m_pMultiSAP->m_lSelectGroupID)
 		bSelectedChannel = TRUE;
@@ -405,6 +406,8 @@ void CVideoGroup::Draw()
 	ULONG cX, cY, uWidth, uHeight, uAlpha;
 	GetVideoPosAndSize(&cX, &cY, &uWidth, &uHeight);
 	GetVideoAlpha(uAlpha);
+
+	ATLTRACE("Movie: %d X:%d Y:%d Width:%d Height:%d\n", pMovie, cX, cY, uWidth, uHeight);
 
 	pMovie->m_Vcur[0].x = cX;
 	pMovie->m_Vcur[0].y = cY;
