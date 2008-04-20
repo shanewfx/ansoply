@@ -27,6 +27,8 @@ public:
 
 	ULONG m_uTextID;
 
+	void  LoadVideoObject(LONG groupID);
+
 // й╣ож
 protected:
 	HICON m_hIcon;

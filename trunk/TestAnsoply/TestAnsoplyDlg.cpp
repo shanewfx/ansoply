@@ -266,7 +266,7 @@ void CTestAnsoplyDlg::OnBnClickedButton4()
 	// TODO: Add your control notification handler code here
 	m_ansoply.SetVideoPosAndSize(m_uGroupID, 0, 0, 400, 300);
 	//m_ansoply.SetDefaultVideoSize(m_uGroupID, 0, 0);
-	m_ansoply.SetVideoAlpha(m_uGroupID, 0x7F);
+	m_ansoply.SetVideoAlpha(m_uGroupID, 0xFF);
 	m_ansoply.Play(m_uGroupID);
 }
 
@@ -288,7 +288,7 @@ void CTestAnsoplyDlg::OnBnClickedButton6()
 	{
 		CString name = fileDlg.GetPathName();
 		ULONG id;
-		m_ansoply.SetBitmap(&m_uBitmapID, name, 0x80, 0xFFFF00, 0, 0, 500, 500, 0);
+		m_ansoply.SetBitmap(&m_uBitmapID, name, 0xFF, 0xFFFF00, 0, 0, 500, 500, 0);
 	}
 }
 
@@ -320,6 +320,51 @@ void CTestAnsoplyDlg::OnBnClickedButton10()
 //	m_ansoply.SetDefaultVideoSize(m_uGroupID, 0, 0);
 	m_ansoply.SetMediaFilePath("c:\\");
 	m_ansoply.LoadPlayList("D:\\Ansoply Project\\abc2.xml");
+/*
+	LONG videoGroupFirstGroupID = 0;
+	LONG videoGroupNextGroupID = 0;
+
+	ULONG uGroupCount = 0;
+	m_ansoply.GetVideoGroupCount(&uGroupCount);
+
+	if (uGroupCount > 0)
+	{
+		m_ansoply.GetFirstVideoGroupID(&videoGroupFirstGroupID);
+		videoGroupNextGroupID = videoGroupFirstGroupID;
+
+		LoadVideoObject(videoGroupFirstGroupID);
+
+		for (int i = 1; i < uGroupCount; i++)
+		{
+			m_ansoply.GetNextVideoGroupID(&videoGroupNextGroupID);
+			LoadVideoObject(videoGroupNextGroupID);
+		}
+	}*/
+}
+
+void  CTestAnsoplyDlg::LoadVideoObject(LONG groupID)
+{
+	ULONG videoFileCount = 0;
+	ULONG videoFileFirstFileID = 0;
+	ULONG videoFileNextFileID = 0;
+	m_ansoply.GetVideoObjectCount(groupID, &videoFileCount);
+
+	if (videoFileCount > 0)
+	{
+		m_ansoply.GetFirstVideoObjectID(groupID, &videoFileFirstFileID);
+		videoFileNextFileID = videoFileFirstFileID;
+
+		BSTR fileName;
+		m_ansoply.GetVideoObjectFileName(groupID, videoFileFirstFileID, &fileName);
+
+		for (int i = 1; i < videoFileCount; i++)
+		{
+			m_ansoply.GetNextVideoObjectID(groupID, &videoFileNextFileID);
+
+			BSTR fileName2;
+			m_ansoply.GetVideoObjectFileName(groupID, videoFileNextFileID, &fileName2);
+		}
+	}
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton11()
@@ -332,7 +377,7 @@ void CTestAnsoplyDlg::OnBnClickedButton12()
 {
 	// TODO: Add your control notification handler code here
 //	m_ansoply.SetPlayRate(m_uGroupID, 1.50);
-	m_ansoply.BringUp(m_uTextID);
+	m_ansoply.BringUp(m_uGroupID);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton13()

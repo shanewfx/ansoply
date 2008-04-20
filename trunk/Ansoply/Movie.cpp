@@ -373,22 +373,21 @@ HRESULT CMovie::CloseMovie()
 HRESULT CMovie::PlayMovie(BOOL bPause)
 {
     HRESULT hr = S_OK;
- //   LONGLONG llCur = 0L;
-//    LONGLONG llD = 0L;
+//  LONGLONG llCur = 0L;
+//  LONGLONG llD = 0L;
 
     if( !m_Mc )
         return E_POINTER;
 
     if( m_Ms && !bPause )
     {
-		ATLTRACE("Pause\n");
- //       hr = m_Ms->GetCurrentPosition( &llCur);
- //       hr = m_Ms->GetDuration( &llD);
- //       if( llCur >= llD )
- //       {
-            LONGLONG llStart = 0L;
-            hr = m_Ms->SetPositions(&llStart, AM_SEEKING_AbsolutePositioning, NULL, AM_SEEKING_NoPositioning);
- //       }
+//       hr = m_Ms->GetCurrentPosition( &llCur);
+//       hr = m_Ms->GetDuration( &llD);
+//       if( llCur >= llD )
+//       {
+		LONGLONG llStart = 0L;
+		hr = m_Ms->SetPositions(&llStart, AM_SEEKING_AbsolutePositioning, NULL, AM_SEEKING_NoPositioning);
+//       }
     }
 
     hr = m_Mc->Run();

@@ -1078,12 +1078,22 @@ void CMultiSAP::ComposeAndRender()
     }
 
     // draw frames; at this point they are sordet in z-order
- //   int nFrame = -1;
-//    BOOL bSelectedChannel = FALSE;
+//  int nFrame = -1;
+//  BOOL bSelectedChannel = FALSE;
 //	CVideoGroup * pVideoGroup = NULL;
 
 	EnterCriticalSection(&m_videoGroupsCS);
+
 	POSITION pos = m_drawList.GetTailPosition();  // the tail is the bottom
+	//ATLTRACE("Start\n");
+	while( pos )
+	{
+		CAnsoplyObject * pObject = m_drawList.GetPrev( pos );
+		//ATLTRACE("ID:%d\n", pObject->GetObjectID());
+		pObject->Draw();
+	}
+
+/*	POSITION pos = m_drawList.GetTailPosition();  // the tail is the bottom
 	//ATLTRACE("Start\n");
 	while( pos )
 	{
@@ -1107,7 +1117,7 @@ void CMultiSAP::ComposeAndRender()
 		//ATLTRACE("ID:%d\n", pObject->GetObjectID());
 		if (pObject->GetObjectType() == text) pObject->Draw();
 	}
-
+*/
 /*	POSITION pos = m_videoGroups.GetHeadPosition();
 	while ( pos )
 	{
@@ -1158,8 +1168,8 @@ void CMultiSAP::ComposeAndRender()
 	}
 */
 	LeaveCriticalSection(&m_videoGroupsCS);
-
-/*	RenderDynamicBitmap();
+/*
+	RenderDynamicBitmap();
 	RenderBitmap();
 	RenderText();
 */
