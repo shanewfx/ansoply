@@ -203,6 +203,7 @@ protected:
 
 	static void ChangeDynamicBitmap(void* param);
 private:
+	CVideoGroup *                   m_pBGVideo;
 	CAtlList<CVideoGroup*>			m_videoGroups;
 	CRITICAL_SECTION                m_videoGroupsCS;
 

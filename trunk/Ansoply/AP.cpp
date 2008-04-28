@@ -1084,6 +1084,9 @@ void CMultiSAP::ComposeAndRender()
 
 	EnterCriticalSection(&m_videoGroupsCS);
 
+	if( NULL != m_pBGVideo )
+		m_pBGVideo->Draw();
+
 	POSITION pos = m_drawList.GetTailPosition();  // the tail is the bottom
 	//ATLTRACE("Start\n");
 	while( pos )

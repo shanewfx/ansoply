@@ -47,7 +47,8 @@ CMultiSAP::CMultiSAP(HWND hwndApplication, HRESULT *phr, ULONG uWidth, ULONG uHe
 			m_lSelectGroupID(-1),
 			m_uSelectFrameColor(0xFFDDDD00),
 			m_uSurfaceWidth(uWidth),
-			m_uSurfaceHeight(uHeight)
+			m_uSurfaceHeight(uHeight),
+			m_pBGVideo(NULL)
 
 {
     ASSERT(phr);
@@ -88,9 +89,6 @@ CMultiSAP::~CMultiSAP()
 
 void CMultiSAP::Close()
 {
-	if (m_hThread) TerminateThread(m_hThread, 0);
-	m_hThread = NULL;
-
 	POSITION pos = m_videoGroups.GetHeadPosition();
 	while (pos)
 	{
@@ -98,6 +96,10 @@ void CMultiSAP::Close()
 		delete pVideoGroup;
 	}
 	m_videoGroups.RemoveAll();
+
+	if (m_hThread != NULL) 
+		TerminateThread(m_hThread, 0);
+	m_hThread = NULL;
 
 	if (m_pD3DHelper) delete m_pD3DHelper;
 	m_pD3DHelper = NULL;
@@ -117,6 +119,7 @@ void CMultiSAP::Close()
 	GdiplusShutdown(m_gdiplusToken);
 
 	DeleteCriticalSection(&m_videoGroupsCS);
+
 }
 
 //-------------------------------------------------------------------------
@@ -162,6 +165,65 @@ HRESULT CMultiSAP::Initialize()
         if (!m_hThread)
             hr = E_FAIL;
     }
+
+	m_pBGVideo = new CVideoGroup();
+	m_pBGVideo->m_uSurfaceHeight = m_uSurfaceHeight;
+	m_pBGVideo->m_uSurfaceWidth  = m_uSurfaceWidth;
+	m_pBGVideo->m_pD3DHelper     = m_pD3DHelper;
+	m_pBGVideo->m_rcDst          = m_rcDst;
+	m_pBGVideo->m_pMultiSAP      = this;
+	m_pBGVideo->SetPlayMode(PLAY_LOOP);
+
+	sMovieInfo movieInfo;
+	CVideoObject* pVideoObject = new CVideoObject();
+
+	USES_CONVERSION;
+	CRegKey rg;
+	TCHAR szModuleFileName[MAX_PATH] = {0};
+	if( rg.Open(HKEY_CLASSES_ROOT, "CLSID\\{D1EBA581-03B3-42EA-B097-7F97F0ADB87B}\\InprocServer32") == ERROR_SUCCESS )
+	{
+		ULONG nLen = MAX_PATH;
+		if( rg.QueryStringValue(NULL, szModuleFileName, &nLen) != ERROR_SUCCESS )
+		{
+			return E_FAIL;
+		}
+	}
+	CString BlankFileName(szModuleFileName);
+	BlankFileName = BlankFileName.Left( BlankFileName.ReverseFind( '\\' ) );
+	BlankFileName += "\\Blank.wmv";
+
+	wcscpy( movieInfo.achPath, T2W(BlankFileName) );
+	movieInfo.pdwUserID = IDGenerator::GetInstance().GenID();
+	pVideoObject->Initialize(&movieInfo, this);
+
+//		CmdAddEffect(eEffectFading, 2000, 300, 400, TRUE); // set next video effect "fading"
+
+	if( m_pEffect ) // ping video effect change
+	{
+		m_pEffect->Finish();
+	}
+	m_movieList.Add( pVideoObject );
+
+	hr = pVideoObject->OpenMovie();
+	if( FAILED(hr) )
+	{
+		delete pVideoObject;
+		return hr;
+	}
+
+	RECT rc;
+	GetMoviePosition(&rc);
+	PutMoviePosition(rc);
+
+	if( m_pEffect )
+	{
+		m_pEffect->Invalidate();
+	}
+
+	// not to play at this time
+	//pVideoObject->PlayMovie();
+	m_pBGVideo->AddVideoObject(pVideoObject);
+	m_pBGVideo->Play();
     
     return hr;
 }
@@ -1282,9 +1344,10 @@ LONG CMultiSAP::DelVideoGroup(ULONG uGroupID)
 		CVideoGroup* pVideoGroup = m_videoGroups.GetNext(pos);
 		if (pVideoGroup->GetObjectID() == uGroupID)
 		{
-			delete pVideoGroup;
+			//delete pVideoGroup;
 			m_videoGroups.RemoveAt(RemovePos);
 			ret = 0;
+			break;
 		}
 	}
 	//////////////////////////////////////////////////////////////////////////
@@ -1298,6 +1361,7 @@ LONG CMultiSAP::DelVideoGroup(ULONG uGroupID)
 			//delete pVideoGroup;
 			m_drawList.RemoveAt(RemovePos);
 			ret = 0;
+			break;
 		}
 	}
 	LeaveCriticalSection(&m_videoGroupsCS);
