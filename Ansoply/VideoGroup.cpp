@@ -30,6 +30,11 @@ CVideoGroup::~CVideoGroup(void)
 	{
 		m_curVideoObj->StopMovie();
 	}
+
+	if ( m_hThread != NULL )
+		TerminateThread(m_hThread, 0);
+
+
 }
 
 LONG CVideoGroup::AddVideoObject(CVideoObject* pVideoObject)
@@ -67,12 +72,12 @@ LONG CVideoGroup::DelVideoFile(ULONG uID)
 		CVideoObject* pVideoObject = *i;
 		if (pVideoObject->GetObjectID() == uID )
 		{
+			//delete pVideoObject;
+			m_threadIter = m_videos.erase(i);
 			if( pVideoObject == m_curVideoObj )  // if del the current playing video
 			{
 				Next();
 			}
-			//delete pVideoObject;
-			m_videos.erase(i);
 			return 0;
 		}
 		// Silly BUG!!!!!!!
@@ -114,26 +119,26 @@ DWORD CVideoGroup::SmoothPlayThread(LPVOID param)
 	{
 		if (pVideoGroup->m_videos.empty())
 		{
-			//ATLTRACE("empty\n");
 			break;
 		}
 
-		list<CVideoObject*>::iterator i = pVideoGroup->m_videos.begin();
-		while ( !pVideoGroup->m_videos.empty() && i != pVideoGroup->m_videos.end() )
+		//list<CVideoObject*>::iterator i = pVideoGroup->m_videos.begin();
+		pVideoGroup->m_threadIter = pVideoGroup->m_videos.begin();
+		while ( !pVideoGroup->m_videos.empty() && pVideoGroup->m_threadIter != pVideoGroup->m_videos.end() )
 		{
 			CVideoObject* videoObject = NULL;
 			if (pVideoGroup->m_playEvent == PLAY_NONE)
 			{
-				videoObject = *i;
+				videoObject = *pVideoGroup->m_threadIter;
 				pVideoGroup->m_curVideoObj = videoObject;
 			}
 			else if (pVideoGroup->m_playEvent == PLAY_PREVIOUS)
 			{
 				pVideoGroup->m_playEvent = PLAY_NONE;
-				if (i != pVideoGroup->m_videos.begin())
+				if (pVideoGroup->m_threadIter != pVideoGroup->m_videos.begin())
 				{
-					i--;
-					videoObject = *i;//pVideoGroup->m_videos.GetPreValue( pos );
+					pVideoGroup->m_threadIter--;
+					videoObject = *pVideoGroup->m_threadIter;//pVideoGroup->m_videos.GetPreValue( pos );
 					pVideoGroup->m_curVideoObj = videoObject;
 				}				
 			}
@@ -174,7 +179,9 @@ DWORD CVideoGroup::SmoothPlayThread(LPVOID param)
 				{
 					continue;
 				}
-				i++;
+				if( pVideoGroup->m_threadIter == pVideoGroup->m_videos.end() )
+					break;
+				pVideoGroup->m_threadIter++;
 			}
 		}
 	}while ( pVideoGroup->m_playType == PLAY_LOOP );

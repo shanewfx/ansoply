@@ -56,6 +56,8 @@ public:
 	CD3DHelper* m_pD3DHelper;
 	RECT        m_rcDst;
 	CMultiSAP * m_pMultiSAP;
+
+	list<CVideoObject*>::iterator m_threadIter;
 protected:
 	static DWORD WINAPI SmoothPlayThread(LPVOID param);
 
