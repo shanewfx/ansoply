@@ -1,5 +1,4 @@
 #include "StdAfx.h"
-#include "project.h"
 #include "dynamicbitmap.h"
 
 CDynamicBitmap::CDynamicBitmap(void)
@@ -12,7 +11,7 @@ CDynamicBitmap::~CDynamicBitmap(void)
 {
 }
 
-LONG CDynamicBitmap::SetDynamicBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uMilli)
+LONG CDynamicBitmap::SetDynamicBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uMilli)
 {
 	USES_CONVERSION;
 /*	string str = sBitmapFilePath;
@@ -38,8 +37,9 @@ LONG CDynamicBitmap::SetDynamicBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULO
 		//m_bitmapFileArray.Add( fileName );
 		m_bitmapFileArray.push_back( fileName );
 
+		BitmapType bmpType;
 		Bitmap * pBitmap = Bitmap::FromFile( T2W(fileName), FALSE );
-		m_BitmapList.push_back( pBitmap );
+		bmpType.pBitmap = pBitmap;
 
 		HBITMAP hBmp;
 		Color backColor;
@@ -47,8 +47,13 @@ LONG CDynamicBitmap::SetDynamicBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULO
 		// Get the bitmap structure (to extract width, height, and bpp)
 		BITMAP bm;
 		GetObject( hBmp, sizeof(BITMAP), &bm );
-		if( m_uWidth  < bm.bmWidth ) m_uWidth = bm.bmWidth;
-		if( m_uHeight < bm.bmHeight) m_uHeight = bm.bmHeight;
+
+//		if( m_uWidth  < bm.bmWidth ) m_uWidth = bm.bmWidth;
+//		if( m_uHeight < bm.bmHeight) m_uHeight = bm.bmHeight;
+
+		bmpType.uWidth = bm.bmWidth;
+		bmpType.uHeight = bm.bmHeight;
+		m_BitmapList.push_back( bmpType );
 
 		str = str.Right( str.GetLength() - index - 1 );
 		index = str.Find(';');
@@ -58,6 +63,9 @@ LONG CDynamicBitmap::SetDynamicBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULO
 	m_uTransparentColor = uTransparentColor;
 	m_uX = uX;
 	m_uY = uY;
+	m_uWidth = uWidth;
+	m_uHeight = uHeight;
+	m_uOriginalSize = uOriginalSize;
 	m_MilliSec = uMilli;
 
 	return 0;

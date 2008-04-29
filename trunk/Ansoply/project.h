@@ -93,6 +93,13 @@ typedef struct sMovieInfo
 
 } sMovieInfo;
 
+typedef struct Tag_BitmapType_
+{
+	Bitmap * pBitmap;
+	ULONG    uWidth;
+	ULONG    uHeight;
+}BitmapType;
+
 #define MOVIEINFO_PATH_CHARS    MAX_PATH
 
 // this line defines if there is "sparkles" source filter on the background

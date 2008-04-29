@@ -101,6 +101,9 @@ public:
 		ULONG uTransparentColor,   
 		ULONG uX,
 		ULONG uY,
+		ULONG uWidth,
+		ULONG uHeight,
+		ULONG uOriginalSize,
 		ULONG uMilli);
 
 	LONG BringToFront(ULONG uGroupID);

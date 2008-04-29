@@ -304,7 +304,7 @@ void CTestAnsoplyDlg::OnBnClickedButton8()
 {
 	// TODO: Add your control notification handler code here
 	ULONG id = 0;
-	m_ansoply.SetDynamicBitmap(&id, "f:\\pic.bmp;f:\\shopflag.jpg;", 0xA0, RGB(255, 255, 0), 0, 0, 1000);
+	m_ansoply.SetDynamicBitmap(&id, "f:\\pic.bmp;f:\\shopflag.jpg;", 0xA0, RGB(255, 255, 0), 0, 0, 100, 100, 1, 1000);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton9()

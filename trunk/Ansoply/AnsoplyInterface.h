@@ -42,7 +42,7 @@ __interface IAnsoplyInterface : public IDispatch
 	[id(25), helpstring("method SetBitmap")] HRESULT SetBitmap(ULONG* uBitmapID, [in] BSTR sBitmapFilePath, [in] ULONG uAlpha, [in] ULONG uTransparentColor, [in] ULONG uX, [in] ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize);
 	[id(26), helpstring("method GetBitmap")] HRESULT GetBitmap([in] ULONG uBitmapID, BSTR* sBitmapFilePath, [in] ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uX, ULONG* uY);
 	[id(27), helpstring("method DelBitmap")] HRESULT DelBitmap([in] ULONG uBitmapID);
-	[id(28), helpstring("method SetDynamicBitmap")] HRESULT SetDynamicBitmap(ULONG * uBitmapID, [in] BSTR sBitmapFilePath, [in] ULONG uAlpha, [in] ULONG uTransparentColor, [in] ULONG uX, [in] ULONG uY, [in] ULONG uMilliSec);
+	[id(28), helpstring("method SetDynamicBitmap")] HRESULT SetDynamicBitmap(ULONG * uBitmapID, [in] BSTR sBitmapFilePath, [in] ULONG uAlpha, [in] ULONG uTransparentColor, [in] ULONG uX, [in] ULONG uY, [in] ULONG uWidth, [in] ULONG uHeight, [in] ULONG uOriginalSize, [in] ULONG uMilliSec);
 	[id(29), helpstring("method GetDynamicBitmap")] HRESULT GetDynamicBitmap(ULONG uBitmapID, BSTR* sBitmapFilePath, ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uX, ULONG* uY, ULONG* uMilliSec);
 	[id(30), helpstring("method SetText")] HRESULT SetText([in] ULONG uX, [in] ULONG uY, [in] BSTR sOutputText, [in] BSTR sFaceName, [in] ULONG uItalic, [in] ULONG uBold, [in] ULONG uUnderLine, [in]ULONG uWidth, [in] ULONG uHeight, [in] ULONG uColor, [in] ULONG* uObjectID);
 	[id(31), helpstring("method GetText")] HRESULT GetText([in] ULONG uObjectID, ULONG* uX, ULONG* uY, BSTR* sOutputText, BSTR* sFaceName, ULONG* uItalic, ULONG* uBold, ULONG* uUnderLine, ULONG* uWidth, ULONG* uHeight, ULONG* uColor);
@@ -209,7 +209,7 @@ public:
 	STDMETHOD(SetBitmap)(ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize);
 	STDMETHOD(GetBitmap)(ULONG uBitmapID, BSTR* sBitmapFilePath, ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uX, ULONG* uY);
 	STDMETHOD(DelBitmap)(ULONG uBitmapID);
-	STDMETHOD(SetDynamicBitmap)(ULONG * uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uMilliSec);
+	STDMETHOD(SetDynamicBitmap)(ULONG * uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uMilliSec);
 	STDMETHOD(GetDynamicBitmap)(ULONG uBitmapID, BSTR* sBitmapFilePath, ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uX, ULONG* uY, ULONG* uMilliSec);
 	STDMETHOD(SetText)(ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID);
 	STDMETHOD(GetText)(ULONG uObjectID, ULONG* uX, ULONG* uY, BSTR* sOutputText, BSTR* sFaceName, ULONG* uItalic, ULONG* uBold, ULONG* uUnderLine, ULONG* uWidth, ULONG* uHeight, ULONG* uColor);
