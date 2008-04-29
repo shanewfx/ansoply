@@ -181,10 +181,10 @@ public:
 		static BYTE parms[] = VTS_UI4 ;
 		InvokeHelper(0x1b, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uBitmapID);
 	}
-	void SetDynamicBitmap(unsigned long * uBitmapID, LPCTSTR sBitmapFilePath, unsigned long uAlpha, unsigned long uTransparentColor, unsigned long uX, unsigned long uY, unsigned long uMilliSec)
+	void SetDynamicBitmap(unsigned long * uBitmapID, LPCTSTR sBitmapFilePath, unsigned long uAlpha, unsigned long uTransparentColor, unsigned long uX, unsigned long uY, unsigned long uWidth, unsigned long uHeight, unsigned long uOriginalSize, unsigned long uMilliSec)
 	{
-		static BYTE parms[] = VTS_PUI4 VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
-		InvokeHelper(0x1c, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uBitmapID, sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uMilliSec);
+		static BYTE parms[] = VTS_PUI4 VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x1c, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uBitmapID, sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uMilliSec);
 	}
 	void GetDynamicBitmap(unsigned long uBitmapID, BSTR * sBitmapFilePath, unsigned long * uAlpha, unsigned long * uTransparentColor, unsigned long * uX, unsigned long * uY, unsigned long * uMilliSec)
 	{
@@ -297,6 +297,20 @@ public:
 	void Close()
 	{
 		InvokeHelper(0x33, DISPATCH_METHOD, VT_EMPTY, NULL, NULL);
+	}
+	void Refresh()
+	{
+		InvokeHelper(0x34, DISPATCH_METHOD, VT_EMPTY, NULL, NULL);
+	}
+	void GetCurrentFileID(unsigned long uGroupID, long * uFileID)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_PI4 ;
+		InvokeHelper(0x35, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uFileID);
+	}
+	void GetCurrentPlayingPos(unsigned long uGroupID, unsigned long * uCurPos)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_PUI4 ;
+		InvokeHelper(0x36, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uCurPos);
 	}
 
 // Properties

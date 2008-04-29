@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Mon Apr 28 23:15:00 2008
+/* at Tue Apr 29 23:57:10 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -218,6 +218,9 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uTransparentColor,
             /* [in] */ ULONG uX,
             /* [in] */ ULONG uY,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uOriginalSize,
             /* [in] */ ULONG uMilliSec) = 0;
         
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetDynamicBitmap( 
@@ -537,6 +540,9 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uTransparentColor,
             /* [in] */ ULONG uX,
             /* [in] */ ULONG uY,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uOriginalSize,
             /* [in] */ ULONG uMilliSec);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetDynamicBitmap )( 
@@ -797,8 +803,8 @@ EXTERN_C const IID IID_IAnsoplyInterface;
 #define IAnsoplyInterface_DelBitmap(This,uBitmapID)	\
     (This)->lpVtbl -> DelBitmap(This,uBitmapID)
 
-#define IAnsoplyInterface_SetDynamicBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uMilliSec)	\
-    (This)->lpVtbl -> SetDynamicBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uMilliSec)
+#define IAnsoplyInterface_SetDynamicBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize,uMilliSec)	\
+    (This)->lpVtbl -> SetDynamicBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize,uMilliSec)
 
 #define IAnsoplyInterface_GetDynamicBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uMilliSec)	\
     (This)->lpVtbl -> GetDynamicBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uMilliSec)
@@ -1255,6 +1261,9 @@ void __RPC_STUB IAnsoplyInterface_DelBitmap_Stub(
     /* [in] */ ULONG uTransparentColor,
     /* [in] */ ULONG uX,
     /* [in] */ ULONG uY,
+    /* [in] */ ULONG uWidth,
+    /* [in] */ ULONG uHeight,
+    /* [in] */ ULONG uOriginalSize,
     /* [in] */ ULONG uMilliSec);
 
 

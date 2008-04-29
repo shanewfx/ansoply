@@ -2455,10 +2455,13 @@ LONG CMultiSAP::SetDynamicBitmap(
 					  ULONG uTransparentColor,   
 					  ULONG uX,
 					  ULONG uY,
+					  ULONG uWidth,
+					  ULONG uHeight,
+					  ULONG uOriginalSize,
 					  ULONG uMilli)
 {
 	CDynamicBitmap* pDyanmicBitmapObject = new CDynamicBitmap();
-	pDyanmicBitmapObject->SetDynamicBitmap(sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uMilli);
+	pDyanmicBitmapObject->SetDynamicBitmap(sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uMilli);
 
 	pDyanmicBitmapObject->SetAlphaBlt(m_pAlphaBlt);
 
@@ -2501,7 +2504,7 @@ void CMultiSAP::ChangeDynamicBitmap(LPVOID param)
 	if( !pMultiSAP->m_dynamicBitmap.Lookup(key, pDynamicBitmap) )
 		return;
 
-	std::list<Bitmap*>::iterator iter = pDynamicBitmap->m_BitmapList.begin();
+	std::list<BitmapType>::iterator iter = pDynamicBitmap->m_BitmapList.begin();
 	while( true )
 	{
 		HDC hdcDest;
@@ -2509,7 +2512,8 @@ void CMultiSAP::ChangeDynamicBitmap(LPVOID param)
 		pDDS->GetDC(&hdcDest);
 		Color backColor;
 		HBITMAP hBmp;
-		Bitmap * bmp = (*iter);
+		BitmapType bmpType = (*iter);
+		Bitmap * bmp = bmpType.pBitmap;
 		bmp->GetHBITMAP(backColor, &hBmp);
 		// Get the bitmap structure (to extract width, height, and bpp)
 		BITMAP bm;
@@ -2522,7 +2526,21 @@ void CMultiSAP::ChangeDynamicBitmap(LPVOID param)
 
 		SelectObject( hdcBitmap, hBmp );
 
-		BitBlt( hdcDest, 0, 0, bm.bmWidth, bm.bmHeight, hdcBitmap, 0, 0, SRCCOPY );
+		if( pDynamicBitmap->m_uOriginalSize == 1 )
+		{
+			pDynamicBitmap->m_uWidth = bm.bmWidth;
+			pDynamicBitmap->m_uHeight = bm.bmHeight;
+			BitBlt( hdcDest, 0, 0, bm.bmWidth, bm.bmHeight, hdcBitmap, 0, 0, SRCCOPY );
+		}
+		else
+		{
+			USES_CONVERSION;
+			//Bitmap originalBMP(T2W(sBitmapFilePath));
+			Graphics g(hdcDest);
+
+			g.DrawImage(bmp, Rect(0, 0, pDynamicBitmap->m_uWidth, pDynamicBitmap->m_uHeight), 0, 0, 
+				bmp->GetWidth(), bmp->GetHeight(), UnitPixel, NULL );
+		}
 
 		pDDS->ReleaseDC(hdcDest);
 

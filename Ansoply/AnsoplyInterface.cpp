@@ -273,14 +273,23 @@ STDMETHODIMP CAnsoplyInterface::DelBitmap(ULONG uBitmapID)
 	return m_pMultiSAP->DelBitmap(uBitmapID);
 }
 
-STDMETHODIMP CAnsoplyInterface::SetDynamicBitmap(ULONG * uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uMilliSec)
+STDMETHODIMP CAnsoplyInterface::SetDynamicBitmap(ULONG * uBitmapID,
+												 BSTR sBitmapFilePath,
+												 ULONG uAlpha, 
+												 ULONG uTransparentColor,
+												 ULONG uX, 
+												 ULONG uY, 	
+												 ULONG uWidth,
+												 ULONG uHeight,
+												 ULONG uOriginalSize,
+											     ULONG uMilliSec)
 {
 	// TODO: Add your implementation code here
 	if( !m_pMultiSAP )
 		return E_FAIL;
 	return m_pMultiSAP->SetDynamicBitmap(uBitmapID, 
 		_com_util::ConvertBSTRToString(sBitmapFilePath),
-		uAlpha, uTransparentColor, uX, uY, uMilliSec);
+		uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uMilliSec);
 }
 
 STDMETHODIMP CAnsoplyInterface::GetDynamicBitmap(ULONG uBitmapID, BSTR* sBitmapFilePath, ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uX, ULONG* uY, ULONG* uMilliSec)
