@@ -1542,7 +1542,10 @@ LONG CMultiSAP::SetBitmap(
 //			StretchBlt( hdcDest, 0, 0, Width, Height, hdcBitmap, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY );
 		}
 
-
+		if( uOriginalSize == 1)
+		{
+			DeleteObject( hBmp );
+		}
 		pDDS->ReleaseDC(hdcDest);
 
 		DWORD dwFlags = D3DTEXTR_TRANSPARENTWHITE;
@@ -1587,6 +1590,7 @@ LONG CMultiSAP::SetBitmap(
 				}
 			}
 			pDDS->Unlock( NULL );
+			DeleteDC( hdcBitmap );
 			pDDS->ReleaseDC(hdcDest);
 		}
 		pDDS->ReleaseDC(hdcDest);
@@ -2184,14 +2188,14 @@ LONG CMultiSAP::SetText(
 	if( uItalic == 1) lfChar.lfItalic         = TRUE;
 	if( uUnderLine == 1) lfChar.lfUnderline   = TRUE;
 	lfChar.lfCharSet        = DEFAULT_CHARSET;
-	lfChar.lfPitchAndFamily = FIXED_PITCH | FF_MODERN ;
+	lfChar.lfPitchAndFamily = DEFAULT_PITCH;
 	StringCchCopy(lfChar.lfFaceName, NUMELMS(lfChar.lfFaceName), sFaceName);
 	if( uBold == 1)	
 		lfChar.lfWeight        = FW_BOLD;
 	else	
 		lfChar.lfWeight        = FW_NORMAL;
-	lfChar.lfOutPrecision  = OUT_STRING_PRECIS;
-	lfChar.lfClipPrecision = CLIP_STROKE_PRECIS;
+	lfChar.lfOutPrecision  = OUT_DEFAULT_PRECIS;
+	lfChar.lfClipPrecision = CLIP_DEFAULT_PRECIS;
 	lfChar.lfQuality       = ANTIALIASED_QUALITY;
 	pTextObject->SetLogFont( &lfChar );
 
@@ -2522,7 +2526,10 @@ void CMultiSAP::ChangeDynamicBitmap(LPVOID param)
 		// Get a DC for the bitmap
 		HDC hdcBitmap = CreateCompatibleDC( NULL );
 		if( NULL == hdcBitmap )
-			return ;
+		{
+			Sleep(milli);
+			continue;
+		}
 
 		SelectObject( hdcBitmap, hBmp );
 
@@ -2541,6 +2548,9 @@ void CMultiSAP::ChangeDynamicBitmap(LPVOID param)
 			g.DrawImage(bmp, Rect(0, 0, pDynamicBitmap->m_uWidth, pDynamicBitmap->m_uHeight), 0, 0, 
 				bmp->GetWidth(), bmp->GetHeight(), UnitPixel, NULL );
 		}
+
+		//SelectObject( hdcBitmap, oldhBmp);
+		DeleteObject( hBmp );
 
 		pDDS->ReleaseDC(hdcDest);
 
@@ -2585,6 +2595,7 @@ void CMultiSAP::ChangeDynamicBitmap(LPVOID param)
 			}
 			pDDS->Unlock( NULL );
 		}
+		DeleteDC( hdcBitmap );
 		pDDS->ReleaseDC(hdcDest);
 
 		if ( ++iter == pDynamicBitmap->m_BitmapList.end() )

@@ -297,7 +297,8 @@ void CTestAnsoplyDlg::OnBnClickedButton7()
 	// TODO: Add your control notification handler code here
 	//m_ansoply.SavePlayList("c:\\abc.xml");
 //	m_ansoply.Previous(m_uGroupID);
-	m_ansoply.DelVideoFile(m_uGroupID, m_uFileID);
+//	m_ansoply.DelVideoFile(m_uGroupID, m_uFileID);
+	m_ansoply.SetPlayRate(m_uGroupID, 2.0);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton8()
