@@ -505,7 +505,7 @@ STDMETHODIMP CAnsoplyInterface::Close(void)
 	if( !m_pMultiSAP )
 		return E_FAIL;
 	m_pMultiSAP->Close();
-	delete m_pMultiSAP;
+//	delete m_pMultiSAP;
 	return S_OK;
 }
 

@@ -117,6 +117,6 @@ void CTextObject::Draw()
 	IDirectDrawSurface7* pDDS = GetDDSFontCache();
 	if (pDDS)
 	{
-		hr = m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0xFF);
+		hr = m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0x00);
 	}
 }

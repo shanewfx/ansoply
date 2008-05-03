@@ -256,6 +256,136 @@ private:
         return hr;
     }
 
+	HRESULT FrameRect(LPRECT lpDst, D3DCOLOR clr)
+	{
+		struct 
+		{
+			float x, y, z, rhw;
+			D3DCOLOR clr;
+
+		} pVertices[5];
+
+		m_pD3DDevice->BeginScene();
+		m_pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+		m_pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_DIFFUSE);
+
+		pVertices[0].x   = (float)lpDst->left;
+		pVertices[0].y   = (float)lpDst->top;
+		pVertices[0].z   = 0.5f;
+		pVertices[0].rhw = 2.0f;
+		pVertices[0].clr = clr;
+
+		pVertices[1].x   = (float)lpDst->right;
+		pVertices[1].y   = (float)lpDst->top;
+		pVertices[1].z   = 0.5f;
+		pVertices[1].rhw = 2.0f;
+		pVertices[1].clr = clr;
+
+		pVertices[2].x   = (float)lpDst->right;
+		pVertices[2].y   = (float)lpDst->bottom;
+		pVertices[2].z   = 0.5f;
+		pVertices[2].rhw = 2.0f;
+		pVertices[2].clr = clr;
+
+		pVertices[3].x   = (float)lpDst->left;
+		pVertices[3].y   = (float)lpDst->bottom;
+		pVertices[3].z   = 0.5f;
+		pVertices[3].rhw = 2.0f;
+		pVertices[3].clr = clr;
+
+		pVertices[4] = pVertices[0];
+
+		HRESULT hr = m_pD3DDevice->DrawPrimitive(D3DPT_LINESTRIP,
+			D3DFVF_XYZRHW | D3DFVF_DIFFUSE,
+			pVertices, 5, D3DDP_WAIT);
+
+		m_pD3DDevice->EndScene();
+
+		return hr;
+	}
+
+	HRESULT FrameRect(FLOAT fLeft, FLOAT fTop, FLOAT fRight, 
+		FLOAT fBottom, D3DCOLOR clr, long lPenWidth)
+	{
+		struct 
+		{
+			float x, y, z, rhw;
+			D3DCOLOR clr;
+
+		} pVertices[10];
+
+		m_pD3DDevice->BeginScene();
+
+		// 1st Triangle V0, V1, V2
+		pVertices[0].x   = fLeft;
+		pVertices[0].y   = fTop;
+		pVertices[0].z   = 0.5f;
+		pVertices[0].rhw = 2.0f;
+		pVertices[0].clr = clr;
+
+		pVertices[1].x   = fLeft + (FLOAT)lPenWidth;
+		pVertices[1].y   = fTop  + (FLOAT)lPenWidth;
+		pVertices[1].z   = 0.5f;
+		pVertices[1].rhw = 2.0f;
+		pVertices[1].clr = clr;
+
+		pVertices[2].x   = fRight;
+		pVertices[2].y   = fTop;
+		pVertices[2].z   = 0.5f;
+		pVertices[2].rhw = 2.0f;
+		pVertices[2].clr = clr;
+
+		// 2nd Triangle V1, V2, V3
+		pVertices[3].x   = fRight - (FLOAT)lPenWidth;
+		pVertices[3].y   = fTop   + (FLOAT)lPenWidth;
+		pVertices[3].z   = 0.5f;
+		pVertices[3].rhw = 2.0f;
+		pVertices[3].clr = clr;
+
+		// 3rd Triangle V2, V3, V4
+		pVertices[4].x   = fRight;
+		pVertices[4].y   = fBottom;
+		pVertices[4].z   = 0.5f;
+		pVertices[4].rhw = 2.0f;
+		pVertices[4].clr = clr;
+
+		// 4th Triangle V3, V4, V5
+		pVertices[5].x   = fRight  - (FLOAT)lPenWidth;
+		pVertices[5].y   = fBottom - (FLOAT)lPenWidth;
+		pVertices[5].z   = 0.5f;
+		pVertices[5].rhw = 2.0f;
+		pVertices[5].clr = clr;
+
+		// 5th Triangle V4, V5, V6
+		pVertices[6].x   = fLeft;
+		pVertices[6].y   = fBottom;
+		pVertices[6].z   = 0.5f;
+		pVertices[6].rhw = 2.0f;
+		pVertices[6].clr = clr;
+
+		// 6th Triangle V5, V6, V7
+		pVertices[7].x   = fLeft  + (FLOAT)lPenWidth;
+		pVertices[7].y   = fBottom - (FLOAT)lPenWidth;
+		pVertices[7].z   = 0.5f;
+		pVertices[7].rhw = 2.0f;
+		pVertices[7].clr = clr;
+
+		// 7th Triangle V6, V7, V8
+		pVertices[8] = pVertices[0];
+
+		// 8th Triangle V7, V8, V9
+		pVertices[9] = pVertices[1];
+
+		m_pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+		m_pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_DIFFUSE);
+		HRESULT hr = m_pD3DDevice->DrawPrimitive(D3DPT_TRIANGLESTRIP,
+			D3DFVF_XYZRHW | D3DFVF_DIFFUSE,
+			pVertices, 10, D3DDP_WAIT);
+
+		m_pD3DDevice->EndScene();
+		return hr;
+	}
+
 public:
 
     ~CAlphaBlt()
@@ -435,6 +565,10 @@ public:
                                                     D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1,
                                                     pVertices, 4, D3DDP_WAIT));
             CHECK_HR(hr = m_pD3DDevice->EndScene());
+
+			D3DCOLOR clrFrame = 0xFFFFFF00;; // color of the frame
+			int nFrameThickness = 2; 
+			FrameRect(lpDst->left, lpDst->top, lpDst->right, lpDst->bottom, clrFrame, nFrameThickness);
 
         } __finally {
             m_pD3DDevice->SetTexture(0, NULL);

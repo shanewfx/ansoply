@@ -42,5 +42,7 @@ public:
 	ULONG           m_MilliSec;
 	vector<CString> m_bitmapFileArray;
 	CAlphaBlt *     m_pAlphaBlt;
+
+	CRITICAL_SECTION  m_CS;
 //	CStringArray  m_bitmapFileArray;
 };

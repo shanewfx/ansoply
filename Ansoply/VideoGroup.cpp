@@ -366,7 +366,7 @@ BOOL CVideoGroup::SelectGroup(LONG cX, LONG cY)
 
 LONG CVideoGroup::SetRate(DOUBLE rate)
 {
-	m_uRate = rate;
+	m_rate = rate;
 	if ( m_curVideoObj && m_curVideoObj->m_Ms )
 	{
 		return m_curVideoObj->m_Ms->SetRate(rate);
@@ -404,8 +404,6 @@ void CVideoGroup::Draw()
 	if (!pMovie)
 		return;
 
-
-
 	BOOL bSelectedChannel = FALSE;
 	if (GetObjectID() == m_pMultiSAP->m_lSelectGroupID)
 		bSelectedChannel = TRUE;
@@ -419,20 +417,20 @@ void CVideoGroup::Draw()
 	pMovie->m_Vcur[0].x = cX;
 	pMovie->m_Vcur[0].y = cY;
 
-	pMovie->m_Vcur[1].x = uWidth;
+	pMovie->m_Vcur[1].x = cX + uWidth;
 	pMovie->m_Vcur[1].y = cY;
 
 	pMovie->m_Vcur[2].x = cX;
-	pMovie->m_Vcur[2].y = uHeight;
+	pMovie->m_Vcur[2].y = cY + uHeight;
 
-	pMovie->m_Vcur[3].x = uWidth;
-	pMovie->m_Vcur[3].y = uHeight;
+	pMovie->m_Vcur[3].x = cX + uWidth;
+	pMovie->m_Vcur[3].y = cY + uHeight;
 
 	RECT rt;
 	rt.left = cX;
 	rt.top = cY;
-	rt.right = m_uSurfaceWidth;
-	rt.bottom = m_uSurfaceHeight;
+	rt.right = cX + m_uSurfaceWidth;
+	rt.bottom = cY + m_uSurfaceHeight;
 
 	m_pD3DHelper->RenderFrame( pMovie->m_lpDDTexture, 
 		pMovie->m_Vcur, 

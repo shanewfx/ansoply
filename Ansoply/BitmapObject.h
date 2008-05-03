@@ -18,7 +18,7 @@ public:
 
 	void SetSurface(IDirectDrawSurface7* pSurface);
 	IDirectDrawSurface7* GetSurface();
-	LONG SetBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY);
+	LONG SetBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize);
 
 	void  SetAlphaBlt(CAlphaBlt * pAlphaBlt)
 	{
