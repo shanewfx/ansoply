@@ -5,10 +5,12 @@ CDynamicBitmap::CDynamicBitmap(void)
 {
 	m_uWidth  = 0;
 	m_uHeight = 0;
+	InitializeCriticalSection(&m_CS);
 }
 
 CDynamicBitmap::~CDynamicBitmap(void)
 {
+	DeleteCriticalSection(&m_CS);
 }
 
 LONG CDynamicBitmap::SetDynamicBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uMilli)
@@ -83,6 +85,7 @@ void CDynamicBitmap::SetSurface(IDirectDrawSurface7* pSurface)
 
 void CDynamicBitmap::Draw()
 {
+	EnterCriticalSection(&m_CS);
 	IDirectDrawSurface7* pDDS = GetSurface();
 	if (pDDS)
 	{
@@ -94,8 +97,9 @@ void CDynamicBitmap::Draw()
 		RECT dstRECT = {
 			m_uX,
 			m_uY,
-			m_uWidth, 
-			m_uHeight};
-		m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0x00);
+			m_uX + m_uWidth, 
+			m_uY + m_uHeight};
+		m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0xFF);
 	}
+	LeaveCriticalSection(&m_CS);
 }

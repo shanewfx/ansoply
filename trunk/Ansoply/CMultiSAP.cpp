@@ -84,7 +84,7 @@ CMultiSAP::CMultiSAP(HWND hwndApplication, HRESULT *phr, ULONG uWidth, ULONG uHe
 //-------------------------------------------------------------------------
 CMultiSAP::~CMultiSAP()
 {
-    Close();
+ //   Close();
 }
 
 void CMultiSAP::Close()
@@ -188,6 +188,7 @@ HRESULT CMultiSAP::Initialize()
 			return E_FAIL;
 		}
 	}
+
 	CString BlankFileName(szModuleFileName);
 	BlankFileName = BlankFileName.Left( BlankFileName.ReverseFind( '\\' ) );
 	BlankFileName += "\\Blank.wmv";
@@ -224,7 +225,7 @@ HRESULT CMultiSAP::Initialize()
 	//pVideoObject->PlayMovie();
 	m_pBGVideo->AddVideoObject(pVideoObject);
 	m_pBGVideo->Play();
-    
+
     return hr;
 }
 
@@ -1464,7 +1465,7 @@ LONG CMultiSAP::SetBitmap(
 {
 	CBitmapObject* pBitmapObject = new CBitmapObject();
 
-	if ( pBitmapObject->SetBitmap(sBitmapFilePath, uAlpha, uTransparentColor, uX, uY) == -1)
+	if ( pBitmapObject->SetBitmap(sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize) == -1)
 		return -1;
 
 	pBitmapObject->SetAlphaBlt(m_pAlphaBlt);
@@ -2511,9 +2512,12 @@ void CMultiSAP::ChangeDynamicBitmap(LPVOID param)
 	std::list<BitmapType>::iterator iter = pDynamicBitmap->m_BitmapList.begin();
 	while( true )
 	{
+		EnterCriticalSection(&pDynamicBitmap->m_CS);
 		HDC hdcDest;
 		IDirectDrawSurface7 * pDDS = pDynamicBitmap->GetSurface();
-		pDDS->GetDC(&hdcDest);
+		if( DD_OK != pDDS->GetDC(&hdcDest) )
+			return;
+
 		Color backColor;
 		HBITMAP hBmp;
 		BitmapType bmpType = (*iter);
@@ -2526,15 +2530,11 @@ void CMultiSAP::ChangeDynamicBitmap(LPVOID param)
 		// Get a DC for the bitmap
 		HDC hdcBitmap = CreateCompatibleDC( NULL );
 		if( NULL == hdcBitmap )
-		{
-			Sleep(milli);
-			continue;
-		}
-
-		SelectObject( hdcBitmap, hBmp );
+			return;
 
 		if( pDynamicBitmap->m_uOriginalSize == 1 )
 		{
+			SelectObject( hdcBitmap, hBmp );
 			pDynamicBitmap->m_uWidth = bm.bmWidth;
 			pDynamicBitmap->m_uHeight = bm.bmHeight;
 			BitBlt( hdcDest, 0, 0, bm.bmWidth, bm.bmHeight, hdcBitmap, 0, 0, SRCCOPY );
@@ -2597,10 +2597,12 @@ void CMultiSAP::ChangeDynamicBitmap(LPVOID param)
 		}
 		DeleteDC( hdcBitmap );
 		pDDS->ReleaseDC(hdcDest);
+		DeleteDC( hdcDest );
 
 		if ( ++iter == pDynamicBitmap->m_BitmapList.end() )
 			iter = pDynamicBitmap->m_BitmapList.begin();
 
+		LeaveCriticalSection(&pDynamicBitmap->m_CS);
 		Sleep(milli);
 	}
 }

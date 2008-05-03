@@ -30,7 +30,7 @@ void CBitmapObject::SetSurface(IDirectDrawSurface7* pSurface)
 	m_pDDS = pSurface;
 }
 
-LONG CBitmapObject::SetBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY)
+LONG CBitmapObject::SetBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize)
 {
 	USES_CONVERSION;
 	m_pBitmap = Bitmap::FromFile( T2W(sBitmapFilePath), FALSE );
@@ -42,14 +42,22 @@ LONG CBitmapObject::SetBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTran
 		m_uX = uX;
 		m_uY = uY;
 
-		HBITMAP hBmp;
-		Color backColor;
-		m_pBitmap->GetHBITMAP(backColor, &hBmp);
-		// Get the bitmap structure (to extract width, height, and bpp)
-		BITMAP bm;
-		GetObject( hBmp, sizeof(BITMAP), &bm );
-		m_uWidth = bm.bmWidth;
-		m_uHeight = bm.bmHeight;
+		if( uOriginalSize == 1 )
+		{
+			HBITMAP hBmp;
+			Color backColor;
+			m_pBitmap->GetHBITMAP(backColor, &hBmp);
+			// Get the bitmap structure (to extract width, height, and bpp)
+			BITMAP bm;
+			GetObject( hBmp, sizeof(BITMAP), &bm );
+			m_uWidth = bm.bmWidth;
+			m_uHeight = bm.bmHeight;
+		}
+		else
+		{
+			m_uWidth = uWidth;
+			m_uHeight = uHeight;
+		}
 		return 0;
 	}
 	return -1;
@@ -68,8 +76,8 @@ void CBitmapObject::Draw()
 		RECT dstRECT = {
 		    m_uX,
 		 	m_uY,
-			m_uWidth, 
-			m_uHeight};
+			m_uX + m_uWidth, 
+			m_uY + m_uHeight};
 
 		m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0x00);
 	}

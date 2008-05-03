@@ -76,7 +76,7 @@ private:
 	DOUBLE		m_rate;
 	ULONG       m_uLevel;
 	ULONG		m_uAlpha;
-	ULONG		m_uRate;
+	//ULONG		m_uRate;
 	ULONG		m_uX;
 	ULONG		m_uY;
 	ULONG		m_uWidth;
