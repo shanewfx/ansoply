@@ -466,7 +466,9 @@ public:
     AlphaBlt(RECT* lpDst,
              LPDIRECTDRAWSURFACE7 lpDDSSrc,
              RECT* lpSrc,
-             BYTE  bAlpha
+             BYTE  bAlpha,
+			 BOOL  bSelected,
+			 D3DCOLOR uFrameColor
              )
     {
         HRESULT hr=S_OK;
@@ -566,9 +568,12 @@ public:
                                                     pVertices, 4, D3DDP_WAIT));
             CHECK_HR(hr = m_pD3DDevice->EndScene());
 
-			D3DCOLOR clrFrame = 0xFFFFFF00;; // color of the frame
-			int nFrameThickness = 2; 
-			FrameRect(lpDst->left, lpDst->top, lpDst->right, lpDst->bottom, clrFrame, nFrameThickness);
+			//D3DCOLOR clrFrame = 0xFFFFFF00;; // color of the frame
+			if( bSelected )
+			{
+				int nFrameThickness = 2; 
+				FrameRect(lpDst->left, lpDst->top, lpDst->right, lpDst->bottom, uFrameColor, nFrameThickness);
+			}
 
         } __finally {
             m_pD3DDevice->SetTexture(0, NULL);

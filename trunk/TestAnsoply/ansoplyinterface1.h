@@ -220,12 +220,12 @@ public:
 		static BYTE parms[] = VTS_UI4 VTS_R8 ;
 		InvokeHelper(0x23, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, dRate);
 	}
-	void SelectVideoGroupByCoordinate(unsigned long * uGroupID, unsigned long cX, unsigned long cY, unsigned long uFrameColor)
+	void SelectObjectByCoordinate(unsigned long * uGroupID, unsigned long * uObjectType, unsigned long cX, unsigned long cY, unsigned long uFrameColor)
 	{
-		static BYTE parms[] = VTS_PUI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
-		InvokeHelper(0x24, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, cX, cY, uFrameColor);
+		static BYTE parms[] = VTS_PUI4 VTS_PUI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x24, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uObjectType, cX, cY, uFrameColor);
 	}
-	void SelectVideoGroup(unsigned long uGroupID, unsigned long uFrameColor)
+	void SelectObject(unsigned long uGroupID, unsigned long uFrameColor)
 	{
 		static BYTE parms[] = VTS_UI4 VTS_UI4 ;
 		InvokeHelper(0x25, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uFrameColor);

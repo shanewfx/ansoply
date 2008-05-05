@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Sat May 03 20:48:13 2008
+/* at Sun May 04 22:44:26 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -272,13 +272,14 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uGroupID,
             /* [in] */ DOUBLE dRate) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SelectVideoGroupByCoordinate( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SelectObjectByCoordinate( 
             /* [in] */ ULONG *uGroupID,
+            /* [in] */ ULONG *uObjectType,
             /* [in] */ ULONG cX,
             /* [in] */ ULONG cY,
             /* [in] */ ULONG uFrameColor) = 0;
         
-        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SelectVideoGroup( 
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SelectObject( 
             /* [in] */ ULONG uGroupID,
             /* [in] */ ULONG uFrameColor) = 0;
         
@@ -601,14 +602,15 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uGroupID,
             /* [in] */ DOUBLE dRate);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SelectVideoGroupByCoordinate )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SelectObjectByCoordinate )( 
             IAnsoplyInterface * This,
             /* [in] */ ULONG *uGroupID,
+            /* [in] */ ULONG *uObjectType,
             /* [in] */ ULONG cX,
             /* [in] */ ULONG cY,
             /* [in] */ ULONG uFrameColor);
         
-        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SelectVideoGroup )( 
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SelectObject )( 
             IAnsoplyInterface * This,
             /* [in] */ ULONG uGroupID,
             /* [in] */ ULONG uFrameColor);
@@ -827,11 +829,11 @@ EXTERN_C const IID IID_IAnsoplyInterface;
 #define IAnsoplyInterface_SetPlayRate(This,uGroupID,dRate)	\
     (This)->lpVtbl -> SetPlayRate(This,uGroupID,dRate)
 
-#define IAnsoplyInterface_SelectVideoGroupByCoordinate(This,uGroupID,cX,cY,uFrameColor)	\
-    (This)->lpVtbl -> SelectVideoGroupByCoordinate(This,uGroupID,cX,cY,uFrameColor)
+#define IAnsoplyInterface_SelectObjectByCoordinate(This,uGroupID,uObjectType,cX,cY,uFrameColor)	\
+    (This)->lpVtbl -> SelectObjectByCoordinate(This,uGroupID,uObjectType,cX,cY,uFrameColor)
 
-#define IAnsoplyInterface_SelectVideoGroup(This,uGroupID,uFrameColor)	\
-    (This)->lpVtbl -> SelectVideoGroup(This,uGroupID,uFrameColor)
+#define IAnsoplyInterface_SelectObject(This,uGroupID,uFrameColor)	\
+    (This)->lpVtbl -> SelectObject(This,uGroupID,uFrameColor)
 
 #define IAnsoplyInterface_BringToFront(This,uObjectID)	\
     (This)->lpVtbl -> BringToFront(This,uObjectID)
@@ -1386,28 +1388,29 @@ void __RPC_STUB IAnsoplyInterface_SetPlayRate_Stub(
     DWORD *_pdwStubPhase);
 
 
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SelectVideoGroupByCoordinate_Proxy( 
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SelectObjectByCoordinate_Proxy( 
     IAnsoplyInterface * This,
     /* [in] */ ULONG *uGroupID,
+    /* [in] */ ULONG *uObjectType,
     /* [in] */ ULONG cX,
     /* [in] */ ULONG cY,
     /* [in] */ ULONG uFrameColor);
 
 
-void __RPC_STUB IAnsoplyInterface_SelectVideoGroupByCoordinate_Stub(
+void __RPC_STUB IAnsoplyInterface_SelectObjectByCoordinate_Stub(
     IRpcStubBuffer *This,
     IRpcChannelBuffer *_pRpcChannelBuffer,
     PRPC_MESSAGE _pRpcMessage,
     DWORD *_pdwStubPhase);
 
 
-/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SelectVideoGroup_Proxy( 
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SelectObject_Proxy( 
     IAnsoplyInterface * This,
     /* [in] */ ULONG uGroupID,
     /* [in] */ ULONG uFrameColor);
 
 
-void __RPC_STUB IAnsoplyInterface_SelectVideoGroup_Stub(
+void __RPC_STUB IAnsoplyInterface_SelectObject_Stub(
     IRpcStubBuffer *This,
     IRpcChannelBuffer *_pRpcChannelBuffer,
     PRPC_MESSAGE _pRpcMessage,
