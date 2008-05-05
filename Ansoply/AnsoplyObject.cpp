@@ -18,3 +18,13 @@ void CAnsoplyObject::SetObjectType(AnsoplyObjectType type)
 {
 	m_objectType = type;
 }
+
+BOOL CAnsoplyObject::SelectGroup(LONG cX, LONG cY)
+{
+	if (cX >= m_uX && cX <= m_uWidth + m_uX &&
+		cY >= m_uY && cY <= m_uHeight + m_uY)
+	{
+		return TRUE;
+	}
+	return FALSE;
+}

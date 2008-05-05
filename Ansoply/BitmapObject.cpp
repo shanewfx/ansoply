@@ -6,8 +6,8 @@ CBitmapObject::CBitmapObject() :
 	m_pBitmap(NULL),
 	m_uAlpha(0),
 	m_uTransparentColor(0),
-	m_uX(0),
-	m_uY(0),
+	//m_uX(0),
+	//m_uY(0),
 	m_pDDS(NULL)
 {
 	SetObjectType(bitmap);
@@ -79,6 +79,10 @@ void CBitmapObject::Draw()
 			m_uX + m_uWidth, 
 			m_uY + m_uHeight};
 
-		m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0x00);
+		BOOL bSelected = FALSE;
+		if( m_pMultiSAP->m_lSelectGroupID == GetObjectID() )
+			bSelected = TRUE;
+
+		m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0x00, bSelected, m_pMultiSAP->m_uSelectFrameColor);
 	}
 }

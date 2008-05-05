@@ -32,6 +32,9 @@ class CMultiSAP :
         public IAMGraphBuilderCallback
 {
 	friend class CVideoGroup;
+	friend class CBitmapObject;
+	friend class CTextObject;
+	friend class CDynamicBitmap;
 public:
 #if 0
 	CVideoGroup*    m_movieListArray[8];
@@ -121,12 +124,13 @@ public:
 	// If NULL, we get to the last
 	CVideoGroup * GetNextGroup( ULONG & uGroupID );
 
-	LONG SelectVideoGroup(ULONG uGroupID, ULONG uFrameColor);
+	LONG SelectObject(ULONG uGroupID, ULONG uFrameColor);
 
 	LONG UnSelectVideoGroup();
 
-	LONG SelectVideoGroupByCoordinate(
-		ULONG * uGroupID,
+	LONG SelectObjectByCoordinate(
+		ULONG * uObjectID,
+		ULONG * uObjectType,
 		ULONG uX,
 		ULONG  uY,
 		ULONG uFrameColor

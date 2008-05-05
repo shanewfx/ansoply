@@ -117,6 +117,10 @@ void CTextObject::Draw()
 	IDirectDrawSurface7* pDDS = GetDDSFontCache();
 	if (pDDS)
 	{
-		hr = m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0x00);
+		BOOL bSelected = FALSE;
+		if( m_pMultiSAP->m_lSelectGroupID == GetObjectID() )
+			bSelected = TRUE;
+
+		hr = m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0x00, bSelected, m_pMultiSAP->m_uSelectFrameColor);
 	}
 }

@@ -45,7 +45,7 @@ public:
 	LONG	Previous();
 	LONG	Next();
 	LONG	Seek(ULONG uPosition);
-	BOOL	SelectGroup(LONG cX, LONG cY);
+//	BOOL	SelectGroup(LONG cX, LONG cY);
 	LONG	SetRate(DOUBLE rate);
 	LONG	GetRate(DOUBLE& rate);
 	LONG	GetVideoLength(ULONG uFileID, DOUBLE* uLength);
@@ -76,11 +76,14 @@ private:
 	DOUBLE		m_rate;
 	ULONG       m_uLevel;
 	ULONG		m_uAlpha;
+
 	//ULONG		m_uRate;
-	ULONG		m_uX;
-	ULONG		m_uY;
-	ULONG		m_uWidth;
-	ULONG		m_uHeight;
+
+	//ULONG		m_uX;
+	//ULONG		m_uY;
+	//ULONG		m_uWidth;
+	//ULONG		m_uHeight;
+
 	BOOL        m_bDefaultOutput;
 public:
 	LONG GetCurrentFileID(LONG * uFileID);

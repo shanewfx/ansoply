@@ -376,20 +376,20 @@ STDMETHODIMP CAnsoplyInterface::SetPlayRate(ULONG uGroupID, DOUBLE dRate)
 	return m_pMultiSAP->SetPlayRate(uGroupID, dRate);
 }
 
-STDMETHODIMP CAnsoplyInterface::SelectVideoGroupByCoordinate(ULONG * uGroupID, ULONG cX, ULONG cY, ULONG uFrameColor)
+STDMETHODIMP CAnsoplyInterface::SelectObjectByCoordinate(ULONG * uObjectID ,ULONG * uObjectType, ULONG cX, ULONG cY, ULONG uFrameColor)
 {
 	// TODO: Add your implementation code here
 	if( !m_pMultiSAP )
 		return E_FAIL;
-	return m_pMultiSAP->SelectVideoGroupByCoordinate(uGroupID, cX, cY, uFrameColor);
+	return m_pMultiSAP->SelectObjectByCoordinate(uObjectID, uObjectType, cX, cY, uFrameColor);
 }
 
-STDMETHODIMP CAnsoplyInterface::SelectVideoGroup(ULONG uGroupID, ULONG uFrameColor)
+STDMETHODIMP CAnsoplyInterface::SelectObject(ULONG uGroupID, ULONG uFrameColor)
 {
 	// TODO: Add your implementation code here
 	if( !m_pMultiSAP )
 		return E_FAIL;
-	return m_pMultiSAP->SelectVideoGroup(uGroupID, uFrameColor);
+	return m_pMultiSAP->SelectObject(uGroupID, uFrameColor);
 }
 
 STDMETHODIMP CAnsoplyInterface::BringToFront(ULONG uObjectID)

@@ -12,6 +12,7 @@ typedef enum _TRANSPARENT_TYPE_
 class CBitmapObject :
 	public CAnsoplyObject
 {
+	friend class CMultiSAP;
 public:
 	CBitmapObject();
 	virtual ~CBitmapObject(void);
@@ -29,13 +30,14 @@ private:
 	TRANSPARENT_TYPE m_TransparentType;
 	CAlphaBlt* m_pAlphaBlt;
 public:
+	CMultiSAP * m_pMultiSAP;
 	basic_string<TCHAR> m_sFilePath;
 	IDirectDrawSurface7* m_pDDS;
 	Bitmap* m_pBitmap;
 	ULONG m_uAlpha;
 	ULONG m_uTransparentColor;
-	ULONG m_uX; 
-	ULONG m_uY;
-	ULONG m_uWidth;
-	ULONG m_uHeight;
+	//ULONG m_uX; 
+	//ULONG m_uY;
+	//ULONG m_uWidth;
+	//ULONG m_uHeight;
 };

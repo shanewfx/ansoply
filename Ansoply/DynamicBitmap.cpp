@@ -6,6 +6,7 @@ CDynamicBitmap::CDynamicBitmap(void)
 	m_uWidth  = 0;
 	m_uHeight = 0;
 	InitializeCriticalSection(&m_CS);
+	SetObjectType(dynamicbitmap);
 }
 
 CDynamicBitmap::~CDynamicBitmap(void)
@@ -99,7 +100,12 @@ void CDynamicBitmap::Draw()
 			m_uY,
 			m_uX + m_uWidth, 
 			m_uY + m_uHeight};
-		m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0xFF);
+
+		BOOL bSelected = FALSE;
+		if( m_pMultiSAP->m_lSelectGroupID == GetObjectID() )
+				bSelected = TRUE;
+
+		m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0xFF, bSelected, m_pMultiSAP->m_uSelectFrameColor);
 	}
 	LeaveCriticalSection(&m_CS);
 }

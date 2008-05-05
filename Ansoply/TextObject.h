@@ -4,6 +4,7 @@
 class CTextObject : 
 	public CAnsoplyObject
 {
+	friend class CMultiSAP;
 public:
 	CTextObject();
 	~CTextObject(void);
@@ -57,6 +58,7 @@ private:
 	ULONG       m_uHeight;
 	ULONG       m_uColor;
 
+	CMultiSAP * m_pMultiSAP;
 
 	CAlphaBlt* m_pAlphaBlt;
 };

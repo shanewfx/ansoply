@@ -288,7 +288,7 @@ void CTestAnsoplyDlg::OnBnClickedButton6()
 	{
 		CString name = fileDlg.GetPathName();
 		ULONG id;
-		m_ansoply.SetBitmap(&m_uBitmapID, name, 0xFF, 0xFFFF00, 0, 0, 500, 500, 0);
+		m_ansoply.SetBitmap(&m_uBitmapID, name, 0xFF, 0xFFFF00, 0, 0, 500, 500, 1);
 	}
 }
 
@@ -298,7 +298,8 @@ void CTestAnsoplyDlg::OnBnClickedButton7()
 	//m_ansoply.SavePlayList("c:\\abc.xml");
 //	m_ansoply.Previous(m_uGroupID);
 //	m_ansoply.DelVideoFile(m_uGroupID, m_uFileID);
-	m_ansoply.SetPlayRate(m_uGroupID, 2.0);
+//	m_ansoply.SetPlayRate(m_uGroupID, 2.0);
+	m_ansoply.SelectObject(m_uBitmapID, 0xFFFFFF00);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton8()
@@ -313,6 +314,7 @@ void CTestAnsoplyDlg::OnBnClickedButton9()
 	// TODO: Add your control notification handler code here
 	//m_ansoply.DelBitmap(m_uBitmapID);
 //	m_ansoply.CreateVideoGroup(&m_uGroupID);
+	m_ansoply.SelectObject(m_uGroupID, 0xFFFFFF00);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton10()
@@ -378,7 +380,10 @@ void CTestAnsoplyDlg::OnBnClickedButton12()
 {
 	// TODO: Add your control notification handler code here
 //	m_ansoply.SetPlayRate(m_uGroupID, 1.50);
-	m_ansoply.BringUp(m_uGroupID);
+//	m_ansoply.BringUp(m_uGroupID);
+	ULONG uID = 0;
+	ULONG uType = 0;
+	m_ansoply.SelectObjectByCoordinate(&uID, &uType, 10, 10, 0xFFFFFF00);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton13()

@@ -8,10 +8,10 @@ CVideoGroup::CVideoGroup() :
 	m_curVideoObj(NULL),
 	m_playType(PLAY_THROUGH),
 	m_playEvent(PLAY_NONE),
-	m_uX(0),
-	m_uY(0),
-	m_uWidth(0),
-	m_uHeight(0),
+	//m_uX(0),
+	//m_uY(0),
+	//m_uWidth(0),
+	//m_uHeight(0),
 	m_uAlpha(0),
 	m_rate(1.0),
 	m_bDefaultOutput(FALSE),
@@ -352,16 +352,6 @@ LONG CVideoGroup::Seek(ULONG uPosition)
 		return 0;
 	}
 	return -1;	
-}
-
-BOOL CVideoGroup::SelectGroup(LONG cX, LONG cY)
-{
-	if (cX >= m_uX && cX <= m_uWidth + m_uX &&
-		cY >= m_uY && cY <= m_uHeight + m_uY)
-	{
-		return TRUE;
-	}
-	return FALSE;
 }
 
 LONG CVideoGroup::SetRate(DOUBLE rate)

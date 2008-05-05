@@ -1468,6 +1468,7 @@ LONG CMultiSAP::SetBitmap(
 	if ( pBitmapObject->SetBitmap(sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize) == -1)
 		return -1;
 
+	pBitmapObject->m_pMultiSAP = this;
 	pBitmapObject->SetAlphaBlt(m_pAlphaBlt);
 
 	HRESULT hr = DD_OK;
@@ -1515,7 +1516,7 @@ LONG CMultiSAP::SetBitmap(
 
 		if( uOriginalSize == 1)
 		{
-			SelectObject( hdcBitmap, hBmp );
+			::SelectObject( hdcBitmap, hBmp );
 			BitBlt( hdcDest, 0, 0, Width, Height, hdcBitmap, 0, 0, SRCCOPY );
 		}
 		else
@@ -1858,7 +1859,7 @@ void CMultiSAP::RenderText()
 		IDirectDrawSurface7* pDDS = pTextObject->GetDDSFontCache();
 		if (pDDS)
 		{
-			hr = m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0x80);
+//			hr = m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0x80);
 		}
 	}
 }
@@ -1893,7 +1894,7 @@ void CMultiSAP::RenderBitmap()
 				pBitmapObject->m_uWidth, 
 				pBitmapObject->m_uHeight};
 
-			hr = m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0x00);
+//			hr = m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0x00);
 		}
 	}
 }
@@ -1926,7 +1927,7 @@ void CMultiSAP::RenderDynamicBitmap()
 				pBitmap->m_uY,
 				pBitmap->m_uWidth, 
 				pBitmap->m_uHeight};
-			hr = m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0x00);
+//			hr = m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0x00);
 		}
 	}
 }
@@ -2027,10 +2028,10 @@ CMultiSAP::CreateFontCache(int cyFont, CTextObject* pTextObject, IDirectDrawSurf
 	//
 	SIZE size;
 	HDC hdcWin = GetDC(NULL);
-	hFont = (HFONT)SelectObject(hdcWin, hFont);
+	hFont = (HFONT)::SelectObject(hdcWin, hFont);
 	GetTextExtentPoint32(hdcWin, TEXT("A"), 1, &size);
 
-	hFont = (HFONT)SelectObject(hdcWin, hFont);
+	hFont = (HFONT)::SelectObject(hdcWin, hFont);
 	ReleaseDC(NULL, hdcWin);
 
 	//
@@ -2068,7 +2069,7 @@ CMultiSAP::CreateFontCache(int cyFont, CTextObject* pTextObject, IDirectDrawSurf
 		//
 		// Select the font into the DDraw surface and draw the characters
 		//
-		m_hFont = (HFONT)SelectObject(hdcDest, m_hFont);
+		m_hFont = (HFONT)::SelectObject(hdcDest, m_hFont);
 		SetTextColor(hdcDest, RGB(255, 255, 255));
 		SetBkColor(hdcDest, RGB(0,0,0));
 		SetBkMode(hdcDest, TRANSPARENT);
@@ -2176,6 +2177,8 @@ LONG CMultiSAP::SetText(
 	CTextObject* pTextObject = new CTextObject();
 	m_textObject[pTextObject->GetObjectID()] = pTextObject;
 	*uID = pTextObject->GetObjectID();
+
+	pTextObject->m_pMultiSAP = this;
 
 	pTextObject->SetAlphaBlt(m_pAlphaBlt);
 	pTextObject->m_uSurfaceWidth  = m_uSurfaceWidth;
@@ -2355,16 +2358,16 @@ LONG CMultiSAP::GetCurrentPlayingPos(ULONG uGroupID, ULONG * uCurPos)
 	return -1;
 }
 
-LONG CMultiSAP::SelectVideoGroup(ULONG uGroupID, ULONG uFrameColor)
+LONG CMultiSAP::SelectObject(ULONG uGroupID, ULONG uFrameColor)
 {
-	CVideoGroup* pVideoGroup = FindGroup(uGroupID);
-	if (pVideoGroup)
+//	CVideoGroup* pVideoGroup = FindGroup(uGroupID);
+//	if (pVideoGroup)
 	{
 		m_lSelectGroupID = uGroupID;
 		m_uSelectFrameColor = uFrameColor;
 		return 0;
 	}
-	return -1;
+//	return -1;
 }
 
 LONG CMultiSAP::UnSelectVideoGroup()
@@ -2373,15 +2376,16 @@ LONG CMultiSAP::UnSelectVideoGroup()
 	return 0;
 }
 
-LONG CMultiSAP::SelectVideoGroupByCoordinate(
-	ULONG * uGroupID,
+LONG CMultiSAP::SelectObjectByCoordinate(
+	ULONG * uObjectID,
+	ULONG * uObjectType,
 	ULONG uX,
 	ULONG  uY,
 	ULONG uFrameColor
 	)
 {
 	m_lSelectGroupID = -1;
-	POSITION pos = m_videoGroups.GetHeadPosition();
+/*	POSITION pos = m_videoGroups.GetHeadPosition();
 	while (pos)
 	{
 		CVideoGroup* pVideoGroup = m_videoGroups.GetNext(pos);
@@ -2389,6 +2393,20 @@ LONG CMultiSAP::SelectVideoGroupByCoordinate(
 		{
 			*uGroupID = pVideoGroup->GetObjectID();
 			m_lSelectGroupID = pVideoGroup->GetObjectID();
+			m_uSelectFrameColor = uFrameColor;
+			return 0;
+		}
+	}
+*/
+	POSITION pos = m_drawList.GetHeadPosition();  // the tail is the bottom
+	while( pos )
+	{
+		CAnsoplyObject * pObject = m_drawList.GetNext( pos );
+		if( pObject && pObject->SelectGroup(uX, uY) )
+		{
+			*uObjectID          = pObject->GetObjectID();
+			*uObjectType        = (ULONG)pObject->GetObjectType();
+			m_lSelectGroupID    = pObject->GetObjectID();
 			m_uSelectFrameColor = uFrameColor;
 			return 0;
 		}
@@ -2468,6 +2486,7 @@ LONG CMultiSAP::SetDynamicBitmap(
 	CDynamicBitmap* pDyanmicBitmapObject = new CDynamicBitmap();
 	pDyanmicBitmapObject->SetDynamicBitmap(sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uMilli);
 
+	pDyanmicBitmapObject->m_pMultiSAP = this;
 	pDyanmicBitmapObject->SetAlphaBlt(m_pAlphaBlt);
 
 	HRESULT hr = DD_OK;
@@ -2534,7 +2553,7 @@ void CMultiSAP::ChangeDynamicBitmap(LPVOID param)
 
 		if( pDynamicBitmap->m_uOriginalSize == 1 )
 		{
-			SelectObject( hdcBitmap, hBmp );
+			::SelectObject( hdcBitmap, hBmp );
 			pDynamicBitmap->m_uWidth = bm.bmWidth;
 			pDynamicBitmap->m_uHeight = bm.bmHeight;
 			BitBlt( hdcDest, 0, 0, bm.bmWidth, bm.bmHeight, hdcBitmap, 0, 0, SRCCOPY );

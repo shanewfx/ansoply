@@ -50,8 +50,8 @@ __interface IAnsoplyInterface : public IDispatch
 	[id(33), helpstring("method GetLastError")] HRESULT GetLastError(void);
 	[id(34), helpstring("method Init")] HRESULT Init([in] LONG hWnd, ULONG uWidth, ULONG uHeight);
 	[id(35), helpstring("method SetPlayRate")] HRESULT SetPlayRate([in] ULONG uGroupID, [in] DOUBLE dRate);
-	[id(36), helpstring("method SelectVideoGroupByCoordinate")] HRESULT SelectVideoGroupByCoordinate([in] ULONG * uGroupID, [in] ULONG cX, [in] ULONG cY, [in] ULONG uFrameColor);
-	[id(37), helpstring("method SelectVideoGroup")] HRESULT SelectVideoGroup([in] ULONG uGroupID, [in] ULONG uFrameColor);
+	[id(36), helpstring("method SelectObjectByCoordinate")] HRESULT SelectObjectByCoordinate([in] ULONG * uGroupID, [in] ULONG * uObjectType, [in] ULONG cX, [in] ULONG cY, [in] ULONG uFrameColor);
+	[id(37), helpstring("method SelectObject")] HRESULT SelectObject([in] ULONG uGroupID, [in] ULONG uFrameColor);
 	[id(38), helpstring("method BringToFront")] HRESULT BringToFront([in] ULONG uObjectID);
 	[id(39), helpstring("method SendToBack")] HRESULT SendToBack([in] ULONG uObjectID);
 	[id(40), helpstring("method BringUp")] HRESULT BringUp([in] ULONG uObjectID);
@@ -217,8 +217,8 @@ public:
 	STDMETHOD(GetLastError)(void);
 	STDMETHOD(Init)(LONG hWnd, ULONG uWidth, ULONG uHeight);
 	STDMETHOD(SetPlayRate)(ULONG uGroupID, DOUBLE dRate);
-	STDMETHOD(SelectVideoGroupByCoordinate)(ULONG * uGroupID, ULONG cX, ULONG cY, ULONG uFrameColor);
-	STDMETHOD(SelectVideoGroup)(ULONG uGroupID, ULONG uFrameColor);
+	STDMETHOD(SelectObjectByCoordinate)(ULONG * uGroupID, ULONG * uObjectType, ULONG cX, ULONG cY, ULONG uFrameColor);
+	STDMETHOD(SelectObject)(ULONG uGroupID, ULONG uFrameColor);
 	STDMETHOD(BringToFront)(ULONG uObjectID);
 	STDMETHOD(SendToBack)(ULONG uObjectID);
 	STDMETHOD(BringUp)(ULONG uObjectID);
