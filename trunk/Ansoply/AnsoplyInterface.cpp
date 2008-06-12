@@ -535,3 +535,22 @@ STDMETHODIMP CAnsoplyInterface::GetCurrentPlayingPos(ULONG uGroupID, ULONG * uCu
 	m_pMultiSAP->GetCurrentPlayingPos(uGroupID, uCurPos);
 	return S_OK;
 }
+
+STDMETHODIMP CAnsoplyInterface::SetTextInRegion(ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->SetTextInRegion(uX, uY,
+		_com_util::ConvertBSTRToString(sOutputText),
+		_com_util::ConvertBSTRToString(sFaceName),
+		uItalic,
+		uBold,
+		uUnderLine,
+		uWidth,
+		uHeight,
+		uColor, 
+		uObjectID,
+		uRegionWidth,
+		uRegionHeight);
+}

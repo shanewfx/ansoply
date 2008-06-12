@@ -69,6 +69,7 @@ __interface IAnsoplyInterface : public IDispatch
 	[id(52), helpstring("method Refresh")] HRESULT Refresh(void);
 	[id(53), helpstring("method GetCurrentFileID")] HRESULT GetCurrentFileID(ULONG uGroupID, LONG* uFileID);
 	[id(54), helpstring("method GetCurrentPlayingPos")] HRESULT GetCurrentPlayingPos(ULONG uGroupID, ULONG * uCurPos);
+	[id(55), helpstring("method SetTextInRegion")] HRESULT SetTextInRegion(ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight);
 };
 
 
@@ -236,5 +237,6 @@ public:
 	STDMETHOD(Refresh)(void);
 	STDMETHOD(GetCurrentFileID)(ULONG uGroupID, LONG* uFileID);
 	STDMETHOD(GetCurrentPlayingPos)(ULONG uGroupID, ULONG * uCurPos);
+	STDMETHOD(SetTextInRegion)(ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight);
 };
 

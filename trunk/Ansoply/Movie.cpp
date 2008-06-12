@@ -75,7 +75,7 @@ void CMovie::Release()
         m_Mc->Stop();
     }
 
-    SAFERELEASE( m_pAP);
+    SAFERELEASE( m_pAP );
     m_bInitialized = false;
 }
 
@@ -166,18 +166,40 @@ HRESULT CMovie::OpenMovie()
         hres = m_Gb->RenderFile(FileName, NULL);
         if(FAILED(hres) || VFW_E_NOT_CONNECTED == CheckVMRConnection())
         {
-            if( m_SAN )
-            {
-                m_SAN->AdviseSurfaceAllocator(m_dwUserID, NULL);
-            }
-            pObjWithSite = NULL;
-            m_Fg = NULL;
-            m_Gb = NULL;
-            m_SAN = NULL;
-            if( SUCCEEDED(hres))
-            {
-                hres = VFW_E_NOT_CONNECTED;
-            }
+			IEnumFilters *pEnum = NULL;
+			HRESULT hr = m_Gb->EnumFilters(&pEnum);
+			if (SUCCEEDED(hr))
+			{
+				IBaseFilter *pFilter = NULL;
+				CComPtr<IGraphConfig>              GC; 
+				m_Gb->QueryInterface(IID_IGraphConfig, (LPVOID *)&GC);
+				while (S_OK == pEnum->Next(1, &pFilter, NULL))
+				{
+					// Remove the filter.
+					//pVideoObject->m_Gb->RemoveFilter(pFilter);
+					GC->RemoveFilterEx(pFilter, 0);
+					// Reset the enumerator.
+					pEnum->Reset();
+					pFilter->Release();
+				}
+				pEnum->Release();
+			}
+			//m_SAN->AdviseSurfaceAllocator(m_dwUserID, NULL);
+
+			m_Gb = NULL;
+			m_Bf = NULL;
+			m_Fg = NULL;
+			m_SAN = NULL;
+			m_pAP = NULL;
+
+			m_lpDDTexture = NULL ;
+			m_lpDDDecode = NULL;
+
+			if( SUCCEEDED(hres))
+			{
+				hres = VFW_E_NOT_CONNECTED;
+			}
+
             return hres;
         }
 
@@ -211,8 +233,8 @@ HRESULT CMovie::OpenMovie()
             m_Ms->GetDuration( &m_llDuration );
         }
 
-        GetMovieEventHandle();
-        pUnk = NULL;
+        //GetMovieEventHandle();
+        //pUnk = NULL;
 
         return S_OK;
 
@@ -246,19 +268,19 @@ HRESULT CMovie::AddVideoMixingRendererToFG()
             IVMRFilterConfig* pConfig = NULL;
             hRes = m_Bf->QueryInterface(__uuidof(IVMRFilterConfig), (LPVOID *)&pConfig);
 
-			hRes = m_Bf->QueryInterface(IID_IVMRMixerBitmap, (void**)&m_pAP->m_pBMP);
+			/*hRes = m_Bf->QueryInterface(IID_IVMRMixerBitmap, (void**)&m_pAP->m_pBMP);
 			if(SUCCEEDED(hRes))
 			{
-			}
+			}*/
 
             if(SUCCEEDED(hRes))
             {
                 pConfig->SetRenderingMode(VMRMode_Renderless);
-                pConfig->SetNumberOfStreams(2);
+                pConfig->SetNumberOfStreams(1);
                 pConfig->Release();
             }
 
-            if(SUCCEEDED(hRes))
+			if(SUCCEEDED(hRes))
             {
                 hRes = m_Bf->QueryInterface(__uuidof(IVMRSurfaceAllocatorNotify),
                                           (LPVOID *)&m_SAN);
@@ -821,11 +843,11 @@ BOOL CMovieList::SelectMovie( DWORD_PTR pdwID)
 //-------------------------------------------------------------------------
 BOOL CMovieList::Add( CMovie *pmovie)
 {
-    if( m_nsize >= MaxNumberOfMovies )
+ /*   if( m_nsize >= MaxNumberOfMovies )
     {
         return FALSE;
     }
-
+*/
     m_ppMovies[m_nsize++] = pmovie;
     if( 1 == m_nsize ) // first movie becomes selected by default
     {
@@ -873,7 +895,7 @@ BOOL CMovieList::Delete( DWORD_PTR dwID)
             }
         }
         
-        delete pres;
+      //  delete pres;
         
         for( int i = nIndex; i < m_nsize - 1; i++)
         {

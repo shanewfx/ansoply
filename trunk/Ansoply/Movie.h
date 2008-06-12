@@ -11,7 +11,7 @@
 struct sMovieInfo;
 class CMultiSAP;
 class CEffect;
-const int MaxNumberOfMovies = 8;
+const int MaxNumberOfMovies = 1024;
 
 //----------------------------------------------------------------------------
 //  Class:  CMovie

@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Sun May 04 22:44:26 2008
+/* at Mon Jun 09 18:09:27 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -44,7 +44,7 @@
 #include "_Ansoply.h"
 
 #define TYPE_FORMAT_STRING_SIZE   69                                
-#define PROC_FORMAT_STRING_SIZE   2455                              
+#define PROC_FORMAT_STRING_SIZE   2563                              
 #define TRANSMIT_AS_TABLE_SIZE    0            
 #define WIRE_MARSHAL_TABLE_SIZE   1            
 
@@ -2351,6 +2351,119 @@ static const MIDL_PROC_FORMAT_STRING __MIDL_ProcFormatString =
 /* 2452 */	0x8,		/* FC_LONG */
 			0x0,		/* 0 */
 
+	/* Procedure SetTextInRegion */
+
+/* 2454 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2456 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2460 */	NdrFcShort( 0x3d ),	/* 61 */
+/* 2462 */	NdrFcShort( 0x3c ),	/* x86 Stack size/offset = 60 */
+/* 2464 */	NdrFcShort( 0x6c ),	/* 108 */
+/* 2466 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2468 */	0x46,		/* Oi2 Flags:  clt must size, has return, has ext, */
+			0xe,		/* 14 */
+/* 2470 */	0x8,		/* 8 */
+			0x5,		/* Ext Flags:  new corr desc, srv corr check, */
+/* 2472 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2474 */	NdrFcShort( 0x2 ),	/* 2 */
+/* 2476 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uX */
+
+/* 2478 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2480 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2482 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uY */
+
+/* 2484 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2486 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2488 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter sOutputText */
+
+/* 2490 */	NdrFcShort( 0x8b ),	/* Flags:  must size, must free, in, by val, */
+/* 2492 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 2494 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Parameter sFaceName */
+
+/* 2496 */	NdrFcShort( 0x8b ),	/* Flags:  must size, must free, in, by val, */
+/* 2498 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 2500 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Parameter uItalic */
+
+/* 2502 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2504 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 2506 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uBold */
+
+/* 2508 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2510 */	NdrFcShort( 0x18 ),	/* x86 Stack size/offset = 24 */
+/* 2512 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uUnderLine */
+
+/* 2514 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2516 */	NdrFcShort( 0x1c ),	/* x86 Stack size/offset = 28 */
+/* 2518 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uWidth */
+
+/* 2520 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2522 */	NdrFcShort( 0x20 ),	/* x86 Stack size/offset = 32 */
+/* 2524 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uHeight */
+
+/* 2526 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2528 */	NdrFcShort( 0x24 ),	/* x86 Stack size/offset = 36 */
+/* 2530 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uColor */
+
+/* 2532 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2534 */	NdrFcShort( 0x28 ),	/* x86 Stack size/offset = 40 */
+/* 2536 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uObjectID */
+
+/* 2538 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 2540 */	NdrFcShort( 0x2c ),	/* x86 Stack size/offset = 44 */
+/* 2542 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uRegionWidth */
+
+/* 2544 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2546 */	NdrFcShort( 0x30 ),	/* x86 Stack size/offset = 48 */
+/* 2548 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uRegionHeight */
+
+/* 2550 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2552 */	NdrFcShort( 0x34 ),	/* x86 Stack size/offset = 52 */
+/* 2554 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 2556 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2558 */	NdrFcShort( 0x38 ),	/* x86 Stack size/offset = 56 */
+/* 2560 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
 			0x0
         }
     };
@@ -2501,7 +2614,8 @@ static const unsigned short IAnsoplyInterface_FormatStringOffsetTable[] =
     2310,
     2340,
     2370,
-    2412
+    2412,
+    2454
     };
 
 static const MIDL_STUBLESS_PROXY_INFO IAnsoplyInterface_ProxyInfo =
@@ -2525,7 +2639,7 @@ static const MIDL_SERVER_INFO IAnsoplyInterface_ServerInfo =
     0,
     0,
     0};
-CINTERFACE_PROXY_VTABLE(61) _IAnsoplyInterfaceProxyVtbl = 
+CINTERFACE_PROXY_VTABLE(62) _IAnsoplyInterfaceProxyVtbl = 
 {
     &IAnsoplyInterface_ProxyInfo,
     &IID_IAnsoplyInterface,
@@ -2589,7 +2703,8 @@ CINTERFACE_PROXY_VTABLE(61) _IAnsoplyInterfaceProxyVtbl =
     (void *) (INT_PTR) -1 /* IAnsoplyInterface::Close */ ,
     (void *) (INT_PTR) -1 /* IAnsoplyInterface::Refresh */ ,
     (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetCurrentFileID */ ,
-    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetCurrentPlayingPos */
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetCurrentPlayingPos */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetTextInRegion */
 };
 
 
@@ -2652,6 +2767,7 @@ static const PRPC_STUB_FUNCTION IAnsoplyInterface_table[] =
     NdrStubCall2,
     NdrStubCall2,
     NdrStubCall2,
+    NdrStubCall2,
     NdrStubCall2
 };
 
@@ -2659,7 +2775,7 @@ CInterfaceStubVtbl _IAnsoplyInterfaceStubVtbl =
 {
     &IID_IAnsoplyInterface,
     &IAnsoplyInterface_ServerInfo,
-    61,
+    62,
     &IAnsoplyInterface_table[-3],
     CStdStubBuffer_DELEGATING_METHODS
 };

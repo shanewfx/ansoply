@@ -61,6 +61,8 @@ public:
 protected:
 	static DWORD WINAPI SmoothPlayThread(LPVOID param);
 
+	void   ReleaseFilter(CVideoObject * pObject);
+
 private:
 	HANDLE m_hThread;
 //	CAtlList<ULONG, CVideoObject*> m_videos;

@@ -266,7 +266,7 @@ void CTestAnsoplyDlg::OnBnClickedButton4()
 	// TODO: Add your control notification handler code here
 	m_ansoply.SetVideoPosAndSize(m_uGroupID, 0, 0, 400, 300);
 	//m_ansoply.SetDefaultVideoSize(m_uGroupID, 0, 0);
-	m_ansoply.SetVideoAlpha(m_uGroupID, 0xFF);
+	m_ansoply.SetVideoAlpha(m_uGroupID, 0x96);
 	m_ansoply.Play(m_uGroupID);
 }
 
@@ -274,10 +274,12 @@ void CTestAnsoplyDlg::OnBnClickedButton5()
 {
 	// TODO: Add your control notification handler code here
 
-	ULONG id;
-	static int i = 0;
-	m_ansoply.SetText(50 + i, 50 + i, "宋体", "宋体\0", 0, 0, 0, 100, 100, RGB(255, 255, 0), &m_uTextID);
-	i += 50;
+	m_ansoply.DelVideoFile(m_uGroupID, m_uFileID);
+
+	//ULONG id;
+	//static int i = 0;
+	//m_ansoply.SetText(50 + i, 50 + i, "宋体", "宋体\0", 0, 0, 0, 100, 100, RGB(255, 255, 0), &m_uTextID);
+	//i += 50;
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton6()
