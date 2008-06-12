@@ -181,6 +181,21 @@ public:
 		ULONG uColor,
 		ULONG* uID);
 
+	LONG SetTextInRegion(
+		ULONG uX,
+		ULONG uY,
+		LPCTSTR sOutputText,
+		LPCTSTR  sFaceName,
+		ULONG    uItalic,
+		ULONG    uBold,
+		ULONG    uUnderLine,
+		ULONG    uWidth,
+		ULONG    uHeight,
+		ULONG    uColor,
+		ULONG*   uID,
+		ULONG    uRegionWidth,
+		ULONG    uRegionHeight);
+
 	LONG DelText(ULONG uID);
 
 	void RenderVideo();
@@ -206,10 +221,10 @@ protected:
 		DWORD cy
 		);
 
-	HRESULT CreateFontCache(int cyFont, CTextObject* pTextObject, IDirectDrawSurface7** pDDSurface);
+	HRESULT CreateFontCache(int cyFont, CTextObject* pTextObject, IDirectDrawSurface7** pDDSurface, BOOL bRegion);
 
 	static void ChangeDynamicBitmap(void* param);
-private:
+public:
 	CVideoGroup *                   m_pBGVideo;
 	CAtlList<CVideoGroup*>			m_videoGroups;
 	CRITICAL_SECTION                m_videoGroupsCS;

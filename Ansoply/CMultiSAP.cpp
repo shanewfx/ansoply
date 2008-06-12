@@ -89,22 +89,24 @@ CMultiSAP::~CMultiSAP()
 
 void CMultiSAP::Close()
 {
-	POSITION pos = m_videoGroups.GetHeadPosition();
-	while (pos)
-	{
-		CVideoGroup* pVideoGroup = m_videoGroups.GetNext(pos);
-		delete pVideoGroup;
-	}
-	m_videoGroups.RemoveAll();
+	//POSITION pos = m_videoGroups.GetHeadPosition();
+	//while (pos)
+	//{
+	//	CVideoGroup* pVideoGroup = m_videoGroups.GetNext(pos);
+	//	delete pVideoGroup;
+	//}
+	//m_videoGroups.RemoveAll();
 
 	if (m_hThread != NULL) 
 		TerminateThread(m_hThread, 0);
 	m_hThread = NULL;
 
-	if (m_pD3DHelper) delete m_pD3DHelper;
+	if (m_pD3DHelper)
+		delete m_pD3DHelper;
 	m_pD3DHelper = NULL;
 
-	if (m_pSparkle) delete m_pSparkle;
+	if (m_pSparkle)
+		delete m_pSparkle;
 	m_pSparkle = NULL;
 	m_lpDDObj = NULL;    
 	m_pWC = NULL;
@@ -115,7 +117,16 @@ void CMultiSAP::Close()
 	{
 		m_pAlloc->FreeSurface(0);
 		m_pAlloc = NULL;
-	}  
+	}
+
+	POSITION pos = m_drawList.GetHeadPosition();
+	while (pos)
+	{
+		CAnsoplyObject* pAObject = m_drawList.GetNext(pos);
+		delete pAObject;
+	}
+	m_drawList.RemoveAll();
+
 	GdiplusShutdown(m_gdiplusToken);
 
 	DeleteCriticalSection(&m_videoGroupsCS);
@@ -208,7 +219,9 @@ HRESULT CMultiSAP::Initialize()
 	hr = pVideoObject->OpenMovie();
 	if( FAILED(hr) )
 	{
-		delete pVideoObject;
+		//pVideoObject->Release();
+		//m_movieList.Delete(pVideoObject->m_dwUserID);
+		//delete pVideoObject;
 		return hr;
 	}
 
@@ -355,6 +368,8 @@ HRESULT CMultiSAP::InitializeEnvironment()
     
     
     m_lpBackBuffer->GetDDInterface((LPVOID *)&m_lpDDObj);
+
+	//hr = m_lpDDObj->SetCooperativeLevel(m_hwndApp, DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN);
     
     //
     // get the h/w caps for this device
@@ -1302,8 +1317,20 @@ LONG CMultiSAP::AddVideoFile(ULONG uGroupID, LPCTSTR sFilePathName)
 		HRESULT hr = pVideoObject->OpenMovie();
 		if( FAILED(hr) )
 		{
+			//DDCAPS_DX7 hwCaps;
+			//ZeroMemory( &hwCaps, sizeof(DDCAPS_DX7));
+			//hwCaps.dwSize = sizeof(DDCAPS_DX7);
+			//m_lpDDObj->GetCaps( &hwCaps, NULL );
+
+
+			//char msg[100] = {0};
+			//sprintf(msg, "Total Video Memory:%d   Free Video Memory:%d", hwCaps.dwVidMemTotal, hwCaps.dwVidMemFree);
+			//MessageBox(NULL, msg, "free", MB_OK);
+
+
+			m_movieList.Delete(pVideoObject->m_dwUserID);
 			delete pVideoObject;
-			return hr;
+			return -1;
 		}
 
 		RECT rc;
@@ -1359,7 +1386,7 @@ LONG CMultiSAP::DelVideoGroup(ULONG uGroupID)
 		CAnsoplyObject* pObject = m_drawList.GetNext(pos);
 		if (pObject->GetObjectID() == uGroupID)
 		{
-			//delete pVideoGroup;
+			delete pObject;
 			m_drawList.RemoveAt(RemovePos);
 			ret = 0;
 			break;
@@ -2003,7 +2030,7 @@ CMultiSAP::DDARGB32SurfaceInit(
 }
 
 HRESULT
-CMultiSAP::CreateFontCache(int cyFont, CTextObject* pTextObject, IDirectDrawSurface7** pDDSurface)
+CMultiSAP::CreateFontCache(int cyFont, CTextObject* pTextObject, IDirectDrawSurface7** pDDSurface, BOOL bRegion)
 {
 	//
 	// Initialize the LOGFONT structure - we want to
@@ -2026,14 +2053,14 @@ CMultiSAP::CreateFontCache(int cyFont, CTextObject* pTextObject, IDirectDrawSurf
 	// the font in a DDraw Surface.  The doc's say that this is only
 	// necessary in Win9X - but Win2K seems to require it too.
 	//
-	SIZE size;
+/*	SIZE size;
 	HDC hdcWin = GetDC(NULL);
 	hFont = (HFONT)::SelectObject(hdcWin, hFont);
 	GetTextExtentPoint32(hdcWin, TEXT("A"), 1, &size);
 
 	hFont = (HFONT)::SelectObject(hdcWin, hFont);
 	ReleaseDC(NULL, hdcWin);
-
+*/
 	//
 	// Make sure that the font doesn't get too big.
 	//
@@ -2078,9 +2105,24 @@ CMultiSAP::CreateFontCache(int cyFont, CTextObject* pTextObject, IDirectDrawSurf
 		//		while (pos)
 		//		{
 		//			CTextObject* pTextObject = m_textObject.GetNextValue(pos);
-		int row = pTextObject->GetYCoordinate();
-		int col = pTextObject->GetXCoordinate();
-		TextOut(hdcDest, col, row, pTextObject->GetText(), pTextObject->GetTextLen());
+		if( !bRegion )
+		{
+			int row = pTextObject->GetYCoordinate();
+			int col = pTextObject->GetXCoordinate();
+			TextOut(hdcDest, col, row, pTextObject->GetText(), pTextObject->GetTextLen());
+		}
+		else
+		{
+			RECT rt;
+			rt.top = pTextObject->GetYCoordinate();
+			rt.left = pTextObject->GetXCoordinate();
+			rt.right = pTextObject->GetXCoordinate() + pTextObject->m_uRegionWidth;
+			rt.bottom = pTextObject->GetYCoordinate() + pTextObject->m_uRegionHeight;
+			DrawText(hdcDest, pTextObject->GetText(), pTextObject->GetTextLen(), &rt, DT_WORDBREAK);
+		}
+
+
+		
 		//		}
 
 		//m_hFont = (HFONT)SelectObject(hdcDest, m_hFont);
@@ -2206,7 +2248,62 @@ LONG CMultiSAP::SetText(
 	hr = pTextObject->SetText(uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor);
 	//	if (m_lpDDSFontCache != NULL) m_lpDDSFontCache.Release();
 	IDirectDrawSurface7* pDDS = NULL;
-	hr = CreateFontCache(32, pTextObject, &pDDS);
+	hr = CreateFontCache(32, pTextObject, &pDDS, FALSE);
+	pTextObject->SetDDSFontCache(pDDS);
+	return hr;
+}
+
+LONG CMultiSAP::SetTextInRegion(
+						ULONG uX,
+						ULONG uY,
+						LPCTSTR sOutputText,
+						LPCTSTR  sFaceName,
+						ULONG    uItalic,
+						ULONG   uBold,
+						ULONG   uUnderLine,
+						ULONG   uWidth,
+						ULONG   uHeight,
+						ULONG   uColor,
+						ULONG*  uID,
+						ULONG   uRegionWidth,
+						ULONG   uRegionHeight)
+{
+	HRESULT hr;
+	CTextObject* pTextObject = new CTextObject();
+	m_textObject[pTextObject->GetObjectID()] = pTextObject;
+	*uID = pTextObject->GetObjectID();
+
+	pTextObject->m_pMultiSAP = this;
+
+	pTextObject->SetAlphaBlt(m_pAlphaBlt);
+	pTextObject->m_uSurfaceWidth  = m_uSurfaceWidth;
+	pTextObject->m_uSurfaceHeight = m_uSurfaceHeight;
+	pTextObject->m_uRegionWidth   = uRegionWidth;
+	pTextObject->m_uRegionHeight  = uRegionHeight;
+	m_drawList.AddHead(pTextObject);
+
+	LOGFONT lfChar;
+	ZeroMemory(&lfChar, sizeof(lfChar));
+	lfChar.lfWidth          = uWidth;
+	lfChar.lfHeight         = uHeight;
+	if( uItalic == 1) lfChar.lfItalic         = TRUE;
+	if( uUnderLine == 1) lfChar.lfUnderline   = TRUE;
+	lfChar.lfCharSet        = DEFAULT_CHARSET;
+	lfChar.lfPitchAndFamily = DEFAULT_PITCH;
+	StringCchCopy(lfChar.lfFaceName, NUMELMS(lfChar.lfFaceName), sFaceName);
+	if( uBold == 1)	
+		lfChar.lfWeight        = FW_BOLD;
+	else	
+		lfChar.lfWeight        = FW_NORMAL;
+	lfChar.lfOutPrecision  = OUT_DEFAULT_PRECIS;
+	lfChar.lfClipPrecision = CLIP_DEFAULT_PRECIS;
+	lfChar.lfQuality       = ANTIALIASED_QUALITY;
+	pTextObject->SetLogFont( &lfChar );
+
+	hr = pTextObject->SetText(uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor);
+	//	if (m_lpDDSFontCache != NULL) m_lpDDSFontCache.Release();
+	IDirectDrawSurface7* pDDS = NULL;
+	hr = CreateFontCache(32, pTextObject, &pDDS, TRUE);
 	pTextObject->SetDDSFontCache(pDDS);
 	return hr;
 }

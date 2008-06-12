@@ -44,6 +44,10 @@ public:
 
 	ULONG       m_uSurfaceWidth;
 	ULONG       m_uSurfaceHeight;
+
+	ULONG       m_uRegionWidth;
+	ULONG       m_uRegionHeight;
+
 private:
 	IDirectDrawSurface7* m_pDDSFontCache;
 	LOGFONT     m_logFont;
@@ -57,6 +61,8 @@ private:
 	ULONG       m_uWidth;
 	ULONG       m_uHeight;
 	ULONG       m_uColor;
+
+
 
 	CMultiSAP * m_pMultiSAP;
 

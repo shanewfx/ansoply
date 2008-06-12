@@ -34,7 +34,63 @@ CVideoGroup::~CVideoGroup(void)
 	if ( m_hThread != NULL )
 		TerminateThread(m_hThread, 0);
 
+	list<CVideoObject*>::iterator i = m_videos.begin();
 
+	while (i != m_videos.end())
+	{
+		CVideoObject* pVideoObject = *i;//m_videos.GetNextValue(pos);
+		if (pVideoObject)
+		{
+			ReleaseFilter(pVideoObject);
+			m_pMultiSAP->m_movieList.Delete(pVideoObject->m_dwUserID);
+			delete pVideoObject;
+		}
+		i++;
+	}
+}
+
+void   CVideoGroup::ReleaseFilter(CVideoObject * pObject)
+{
+	// Stop the graph.
+	pObject->m_Mc->Stop();
+
+	// Enumerate the filters in the graph.
+	IEnumFilters *pEnum = NULL;
+	HRESULT hr = pObject->m_Gb->EnumFilters(&pEnum);
+	if (SUCCEEDED(hr))
+	{
+		IBaseFilter *pFilter = NULL;
+		CComPtr<IGraphConfig>              GC; 
+		pObject->m_Gb->QueryInterface(IID_IGraphConfig, (LPVOID *)&GC);
+		while (S_OK == pEnum->Next(1, &pFilter, NULL))
+		{
+			// Remove the filter.
+			//pVideoObject->m_Gb->RemoveFilter(pFilter);
+			GC->RemoveFilterEx(pFilter, 0);
+			// Reset the enumerator.
+			pEnum->Reset();
+			pFilter->Release();
+		}
+		pEnum->Release();
+	}
+	pObject->m_SAN->AdviseSurfaceAllocator(pObject->m_dwUserID, NULL);
+
+	pObject->m_Gb = NULL;
+	pObject->m_Bf = NULL;
+	pObject->m_Fg = NULL;
+	pObject->m_SAN = NULL;
+	pObject->m_pAP = NULL;
+
+	pObject->m_lpDDTexture = NULL ;
+	pObject->m_lpDDDecode = NULL;
+
+	//pObject->m_Mc = NULL;
+	//pObject->m_Ms = NULL;
+	//pObject->m_Me = NULL;
+	//pObject->m_SAN->AdviseSurfaceAllocator(pObject->m_dwUserID, NULL);
+
+	//pObject->CloseMovie();
+	//pObject->Release();
 }
 
 LONG CVideoGroup::AddVideoObject(CVideoObject* pVideoObject)
@@ -72,12 +128,73 @@ LONG CVideoGroup::DelVideoFile(ULONG uID)
 		CVideoObject* pVideoObject = *i;
 		if (pVideoObject->GetObjectID() == uID )
 		{
-			//delete pVideoObject;
 			m_threadIter = m_videos.erase(i);
+			m_pMultiSAP->m_movieList.Delete(pVideoObject->m_dwUserID);
 			if( pVideoObject == m_curVideoObj )  // if del the current playing video
 			{
 				Next();
 			}
+
+			//pVideoObject->m_SAN->RestoreDDrawSurfaces();
+
+			ReleaseFilter(pVideoObject);
+		
+			delete pVideoObject;
+
+
+			//pVideoObject->m_SAN->AdviseSurfaceAllocator(pVideoObject->m_dwUserID, NULL);
+			//// Stop the graph.
+			//pVideoObject->m_Mc->Stop();
+
+			//// Enumerate the filters in the graph.
+			//IEnumFilters *pEnum = NULL;
+			//HRESULT hr = pVideoObject->m_Gb->EnumFilters(&pEnum);
+			//CComPtr<IGraphConfig>              GC; 
+			//pVideoObject->m_Gb->QueryInterface(IID_IGraphConfig, (LPVOID *)&GC);
+			//if (SUCCEEDED(hr))
+			//{
+			//	IBaseFilter *pFilter = NULL;
+			//	while (S_OK == pEnum->Next(1, &pFilter, NULL))
+			//	{
+			//		// Remove the filter.
+			//		//pVideoObject->m_Gb->RemoveFilter(pFilter);
+			//		//FILTER_INFO FilterInfo;
+			//		//pFilter->QueryFilterInfo(&FilterInfo);
+			//		//if( NULL == wcsstr(FilterInfo.achName, L"VMRMulti") )
+			//		{
+			//			//MessageBoxW(NULL, FilterInfo.achName, L"F", MB_OK);
+			//			GC->RemoveFilterEx(pFilter, 1);
+			//			// Reset the enumerator.
+			//			pEnum->Reset();
+
+			//		}
+			//		//else
+			//		//{
+			//		//	MessageBoxW(NULL, FilterInfo.achName, L"T", MB_OK);
+			//		//	//pFilter->Release();
+			//		//	pEnum->Skip(0);
+			//		//}
+			//		//if (FilterInfo.pGraph != NULL)
+			//		//{
+			//		//	FilterInfo.pGraph->Release();
+			//		//}
+			//		pFilter->Release();
+			//	}
+			//	pEnum->Release();
+			//}
+			////pVideoObject->m_SAN->AdviseSurfaceAllocator(pVideoObject->m_dwUserID, NULL);
+
+			//pVideoObject->m_Gb = NULL;
+			//pVideoObject->m_Bf = NULL;
+			//pVideoObject->m_Fg = NULL;
+			//pVideoObject->m_SAN = NULL;
+			//pVideoObject->m_pAP = NULL;
+
+			////pVideoObject->m_lpDDTexture = NULL ;
+			//pVideoObject->m_lpDDDecode = NULL;
+
+			//delete pVideoObject;
+
 			return 0;
 		}
 		// Silly BUG!!!!!!!
@@ -391,7 +508,7 @@ void CVideoGroup::Draw()
 {
 	CVideoObject * pMovie = m_curVideoObj;
 
-	if (!pMovie)
+	if( !pMovie || !pMovie->m_lpDDTexture )
 		return;
 
 	BOOL bSelectedChannel = FALSE;
@@ -402,7 +519,7 @@ void CVideoGroup::Draw()
 	GetVideoPosAndSize(&cX, &cY, &uWidth, &uHeight);
 	GetVideoAlpha(uAlpha);
 
-	ATLTRACE("Movie: %d X:%d Y:%d Width:%d Height:%d\n", pMovie, cX, cY, uWidth, uHeight);
+	//ATLTRACE("Movie: %d X:%d Y:%d Width:%d Height:%d\n", pMovie, cX, cY, uWidth, uHeight);
 
 	pMovie->m_Vcur[0].x = cX;
 	pMovie->m_Vcur[0].y = cY;

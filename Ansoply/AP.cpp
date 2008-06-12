@@ -437,6 +437,14 @@ CMultiSAP::AllocateSurfaceWorker(
     hwCaps.dwSize = sizeof(DDCAPS_DX7);
     m_lpDDObj->GetCaps( &hwCaps, NULL );
 
+	//if( hwCaps.dwVidMemFree < 50000000 )
+	//{
+	//	char msg[100] = {0};
+	//	sprintf(msg, "Total Video Memory:%d   Free Video Memory:%d", hwCaps.dwVidMemTotal, hwCaps.dwVidMemFree);
+	//	//MessageBox(NULL, msg, "free", MB_OK);
+	//	return E_FAIL;
+	//}
+
     bool bCanBltFourCCSysMem = false;
     BOOL bStretchCapsOk = TRUE;
 
@@ -686,7 +694,6 @@ CMultiSAP::AllocateOverlaySurface(
         }
 
         hr = m_lpDDObj->CreateSurface(pddsd, &lpSurface7, NULL);
-
         if (hr == DD_OK) 
         {
 
@@ -779,7 +786,9 @@ CMultiSAP::AllocateOffscreenSurface(
 
             hr = m_lpDDObj->CreateSurface(pddsd, &lpSurf7_2, NULL);
             if (hr != DD_OK)
+			{
                 __leave;
+			}
 
             LPDIRECTDRAWSURFACE4 lp4FB;
             lpSurf7->QueryInterface(IID_IDirectDrawSurface4, (LPVOID*)&lp4FB);
@@ -796,7 +805,9 @@ CMultiSAP::AllocateOffscreenSurface(
             RELEASE(lpSurf7_2);
 
             if (hr != DD_OK)
-                __leave;
+			{
+				__leave;
+			}
 
         }
     }

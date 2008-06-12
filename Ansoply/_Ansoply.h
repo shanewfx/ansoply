@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Sun May 04 22:44:26 2008
+/* at Mon Jun 09 18:09:27 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -338,6 +338,21 @@ EXTERN_C const IID IID_IAnsoplyInterface;
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetCurrentPlayingPos( 
             /* [in] */ ULONG uGroupID,
             /* [in] */ ULONG *uCurPos) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetTextInRegion( 
+            /* [in] */ ULONG uX,
+            /* [in] */ ULONG uY,
+            /* [in] */ BSTR sOutputText,
+            /* [in] */ BSTR sFaceName,
+            /* [in] */ ULONG uItalic,
+            /* [in] */ ULONG uBold,
+            /* [in] */ ULONG uUnderLine,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uColor,
+            /* [in] */ ULONG *uObjectID,
+            /* [in] */ ULONG uRegionWidth,
+            /* [in] */ ULONG uRegionHeight) = 0;
         
     };
     
@@ -688,6 +703,22 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uGroupID,
             /* [in] */ ULONG *uCurPos);
         
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SetTextInRegion )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uX,
+            /* [in] */ ULONG uY,
+            /* [in] */ BSTR sOutputText,
+            /* [in] */ BSTR sFaceName,
+            /* [in] */ ULONG uItalic,
+            /* [in] */ ULONG uBold,
+            /* [in] */ ULONG uUnderLine,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uColor,
+            /* [in] */ ULONG *uObjectID,
+            /* [in] */ ULONG uRegionWidth,
+            /* [in] */ ULONG uRegionHeight);
+        
         END_INTERFACE
     } IAnsoplyInterfaceVtbl;
 
@@ -885,6 +916,9 @@ EXTERN_C const IID IID_IAnsoplyInterface;
 
 #define IAnsoplyInterface_GetCurrentPlayingPos(This,uGroupID,uCurPos)	\
     (This)->lpVtbl -> GetCurrentPlayingPos(This,uGroupID,uCurPos)
+
+#define IAnsoplyInterface_SetTextInRegion(This,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight)	\
+    (This)->lpVtbl -> SetTextInRegion(This,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight)
 
 #endif /* COBJMACROS */
 
@@ -1620,6 +1654,30 @@ void __RPC_STUB IAnsoplyInterface_GetCurrentFileID_Stub(
 
 
 void __RPC_STUB IAnsoplyInterface_GetCurrentPlayingPos_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetTextInRegion_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uX,
+    /* [in] */ ULONG uY,
+    /* [in] */ BSTR sOutputText,
+    /* [in] */ BSTR sFaceName,
+    /* [in] */ ULONG uItalic,
+    /* [in] */ ULONG uBold,
+    /* [in] */ ULONG uUnderLine,
+    /* [in] */ ULONG uWidth,
+    /* [in] */ ULONG uHeight,
+    /* [in] */ ULONG uColor,
+    /* [in] */ ULONG *uObjectID,
+    /* [in] */ ULONG uRegionWidth,
+    /* [in] */ ULONG uRegionHeight);
+
+
+void __RPC_STUB IAnsoplyInterface_SetTextInRegion_Stub(
     IRpcStubBuffer *This,
     IRpcChannelBuffer *_pRpcChannelBuffer,
     PRPC_MESSAGE _pRpcMessage,
