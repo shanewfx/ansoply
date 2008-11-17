@@ -274,7 +274,15 @@ void CTestAnsoplyDlg::OnBnClickedButton5()
 {
 	// TODO: Add your control notification handler code here
 
-	m_ansoply.SetPlayTimes(m_uGroupID, 3);
+	//m_ansoply.SetPlayTimes(m_uGroupID, 3);
+
+	CFileDialog fileDlg(TRUE);
+	if(fileDlg.DoModal() == IDOK)
+	{
+		CString name = fileDlg.GetPathName();
+		ULONG id;
+		m_ansoply.SetEffectBitmap(&id, name, 0xFF, 0xFFFF00, 0, 0, 500, 500, 1, 1);
+	}
 
 	//m_ansoply.SetVisibility(m_uGroupID, 0);
 
