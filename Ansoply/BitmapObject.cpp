@@ -65,6 +65,9 @@ LONG CBitmapObject::SetBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTran
 
 void CBitmapObject::Draw()
 {
+	if( !m_bVisibility )
+		return;
+
 	IDirectDrawSurface7* pDDS = GetSurface();
 	if (pDDS)
 	{

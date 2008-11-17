@@ -8,6 +8,8 @@ CAnsoplyObject::CAnsoplyObject()
 	m_uAlpha    = 0;
 	m_uObjectID = IDGenerator::GetInstance().GenID();
 	SetRect(&m_rect, 0, 0, 0, 0);
+	m_bVisibility = TRUE;
+	m_playType = PLAY_THROUGH;
 }
 
 CAnsoplyObject::~CAnsoplyObject(void)

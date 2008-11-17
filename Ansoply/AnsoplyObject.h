@@ -1,5 +1,17 @@
 #pragma once
 
+
+typedef enum _PLAY_TYPE_
+{
+	PLAY_NONE = 0,
+	PLAY_THROUGH,
+	PLAY_PAUSE,
+	PLAY_LOOP,
+	PLAY_PREVIOUS,
+	PLAY_NEXT,
+	PLAY_TERMINATE
+}PLAY_TYPE;
+
 typedef enum _AnsoplyObjectType
 {
 	none,
@@ -22,6 +34,13 @@ public:
 
 	void SetObjectType(AnsoplyObjectType type);
 	AnsoplyObjectType GetObjectType();
+
+	PLAY_TYPE   m_playType;
+	ULONG       m_uPlayTimes;
+	ULONG       m_uPlayBeginTime;  // 当设置次数时,初始化为0
+
+	ULONG       m_StopTimeExpire;
+	BOOL        m_bVisibility;
 protected:
 	ULONG m_uObjectID;
 

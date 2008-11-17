@@ -363,8 +363,17 @@ STDMETHODIMP CAnsoplyInterface::Init(LONG hWnd, ULONG uWidth, ULONG uHeight)
 		m_pMultiSAP = NULL;
 		return E_FAIL;
 	}
-
 	hr = m_pMultiSAP->Initialize();
+
+	//m_pMultiSAP = new CMultiSAP((HWND)hWnd, &hr, uWidth, uHeight);
+	//if ( !m_pMultiSAP || FAILED(hr) ) 
+	//{
+	//	delete m_pMultiSAP;
+	//	m_pMultiSAP = NULL;
+	//	return E_FAIL;
+	//}
+
+	//hr = m_pMultiSAP->Initialize();
 	return hr;
 }
 
@@ -553,4 +562,39 @@ STDMETHODIMP CAnsoplyInterface::SetTextInRegion(ULONG uX, ULONG uY, BSTR sOutput
 		uObjectID,
 		uRegionWidth,
 		uRegionHeight);
+}
+
+STDMETHODIMP CAnsoplyInterface::SetVideoFile(ULONG uGroupID, BSTR sFileName, ULONG uOldFileID, ULONG * uNewFileID)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->SetVideoFile(uGroupID,
+		_com_util::ConvertBSTRToString(sFileName),
+		uOldFileID,
+		uNewFileID);
+}
+
+STDMETHODIMP CAnsoplyInterface::SetVisibility(ULONG uObjectID, ULONG bVisibility)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->SetVisibility(uObjectID, bVisibility);
+}
+
+STDMETHODIMP CAnsoplyInterface::SetPlayTimes(ULONG uGroupID, ULONG uPlayTimes)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->SetPlayTimes(uGroupID, uPlayTimes);
+}
+
+STDMETHODIMP CAnsoplyInterface::SetPlayTimeout(ULONG uGroupID, ULONG uTimeout_s)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->SetPlayTimeout(uGroupID, uTimeout_s);
 }

@@ -110,6 +110,9 @@ ULONG CTextObject::GetColor()
 
 void CTextObject::Draw()
 {
+	if( !m_bVisibility )
+		return;
+
 	HRESULT hr = E_FAIL;
 	RECT srcRECT = {0, 0, m_uSurfaceWidth, m_uSurfaceHeight};
 	RECT dstRECT = {0, 0, m_uSurfaceWidth, m_uSurfaceHeight};

@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Mon Jun 09 18:09:27 2008
+/* at Wed Oct 29 20:48:08 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -44,7 +44,7 @@
 #include "_Ansoply.h"
 
 #define TYPE_FORMAT_STRING_SIZE   69                                
-#define PROC_FORMAT_STRING_SIZE   2563                              
+#define PROC_FORMAT_STRING_SIZE   2743                              
 #define TRANSMIT_AS_TABLE_SIZE    0            
 #define WIRE_MARSHAL_TABLE_SIZE   1            
 
@@ -2464,6 +2464,171 @@ static const MIDL_PROC_FORMAT_STRING __MIDL_ProcFormatString =
 /* 2560 */	0x8,		/* FC_LONG */
 			0x0,		/* 0 */
 
+	/* Procedure SetVideoFile */
+
+/* 2562 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2564 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2568 */	NdrFcShort( 0x3e ),	/* 62 */
+/* 2570 */	NdrFcShort( 0x18 ),	/* x86 Stack size/offset = 24 */
+/* 2572 */	NdrFcShort( 0x2c ),	/* 44 */
+/* 2574 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2576 */	0x46,		/* Oi2 Flags:  clt must size, has return, has ext, */
+			0x5,		/* 5 */
+/* 2578 */	0x8,		/* 8 */
+			0x5,		/* Ext Flags:  new corr desc, srv corr check, */
+/* 2580 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2582 */	NdrFcShort( 0x1 ),	/* 1 */
+/* 2584 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 2586 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2588 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2590 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter sFileName */
+
+/* 2592 */	NdrFcShort( 0x8b ),	/* Flags:  must size, must free, in, by val, */
+/* 2594 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2596 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Parameter uOldFileID */
+
+/* 2598 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2600 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 2602 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uNewFileID */
+
+/* 2604 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 2606 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 2608 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 2610 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2612 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 2614 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SetVisibility */
+
+/* 2616 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2618 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2622 */	NdrFcShort( 0x3f ),	/* 63 */
+/* 2624 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 2626 */	NdrFcShort( 0x10 ),	/* 16 */
+/* 2628 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2630 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 2632 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 2634 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2636 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2638 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uObjectID */
+
+/* 2640 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2642 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2644 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter bVisibility */
+
+/* 2646 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2648 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2650 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 2652 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2654 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 2656 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SetPlayTimes */
+
+/* 2658 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2660 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2664 */	NdrFcShort( 0x40 ),	/* 64 */
+/* 2666 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 2668 */	NdrFcShort( 0x10 ),	/* 16 */
+/* 2670 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2672 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 2674 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 2676 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2678 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2680 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 2682 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2684 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2686 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uPlayTimes */
+
+/* 2688 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2690 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2692 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 2694 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2696 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 2698 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure SetPlayTimeout */
+
+/* 2700 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 2702 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 2706 */	NdrFcShort( 0x41 ),	/* 65 */
+/* 2708 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 2710 */	NdrFcShort( 0x10 ),	/* 16 */
+/* 2712 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 2714 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x3,		/* 3 */
+/* 2716 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 2718 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2720 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 2722 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 2724 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2726 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 2728 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uTimeout_s */
+
+/* 2730 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 2732 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 2734 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 2736 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 2738 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 2740 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
 			0x0
         }
     };
@@ -2615,7 +2780,11 @@ static const unsigned short IAnsoplyInterface_FormatStringOffsetTable[] =
     2340,
     2370,
     2412,
-    2454
+    2454,
+    2562,
+    2616,
+    2658,
+    2700
     };
 
 static const MIDL_STUBLESS_PROXY_INFO IAnsoplyInterface_ProxyInfo =
@@ -2639,7 +2808,7 @@ static const MIDL_SERVER_INFO IAnsoplyInterface_ServerInfo =
     0,
     0,
     0};
-CINTERFACE_PROXY_VTABLE(62) _IAnsoplyInterfaceProxyVtbl = 
+CINTERFACE_PROXY_VTABLE(66) _IAnsoplyInterfaceProxyVtbl = 
 {
     &IAnsoplyInterface_ProxyInfo,
     &IID_IAnsoplyInterface,
@@ -2704,7 +2873,11 @@ CINTERFACE_PROXY_VTABLE(62) _IAnsoplyInterfaceProxyVtbl =
     (void *) (INT_PTR) -1 /* IAnsoplyInterface::Refresh */ ,
     (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetCurrentFileID */ ,
     (void *) (INT_PTR) -1 /* IAnsoplyInterface::GetCurrentPlayingPos */ ,
-    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetTextInRegion */
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetTextInRegion */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetVideoFile */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetVisibility */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetPlayTimes */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetPlayTimeout */
 };
 
 
@@ -2768,6 +2941,10 @@ static const PRPC_STUB_FUNCTION IAnsoplyInterface_table[] =
     NdrStubCall2,
     NdrStubCall2,
     NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
     NdrStubCall2
 };
 
@@ -2775,7 +2952,7 @@ CInterfaceStubVtbl _IAnsoplyInterfaceStubVtbl =
 {
     &IID_IAnsoplyInterface,
     &IAnsoplyInterface_ServerInfo,
-    62,
+    66,
     &IAnsoplyInterface_table[-3],
     CStdStubBuffer_DELEGATING_METHODS
 };
