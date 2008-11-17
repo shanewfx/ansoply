@@ -312,6 +312,31 @@ public:
 		static BYTE parms[] = VTS_UI4 VTS_PUI4 ;
 		InvokeHelper(0x36, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uCurPos);
 	}
+	void SetTextInRegion(unsigned long uX, unsigned long uY, LPCTSTR sOutputText, LPCTSTR sFaceName, unsigned long uItalic, unsigned long uBold, unsigned long uUnderLine, unsigned long uWidth, unsigned long uHeight, unsigned long uColor, unsigned long * uObjectID, unsigned long uRegionWidth, unsigned long uRegionHeight)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_BSTR VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_PUI4 VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x37, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uObjectID, uRegionWidth, uRegionHeight);
+	}
+	void SetVideoFile(unsigned long uGroupID, LPCTSTR sFileName, unsigned long uOldFileID, unsigned long * uNewFileID)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_BSTR VTS_UI4 VTS_PUI4 ;
+		InvokeHelper(0x38, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, sFileName, uOldFileID, uNewFileID);
+	}
+	void SetVisibility(unsigned long uObjectID, unsigned long bVisibility)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x39, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uObjectID, bVisibility);
+	}
+	void SetPlayTimes(unsigned long uGroupID, unsigned long uPlayTimes)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x3a, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uPlayTimes);
+	}
+	void SetPlayTimeout(unsigned long uGroupID, unsigned long uTimeout_s)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x3b, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uTimeout_s);
+	}
 
 // Properties
 //

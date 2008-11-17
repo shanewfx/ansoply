@@ -96,6 +96,7 @@ public:
 		ULONG* uY);
 
 	LONG DelBitmap(ULONG uBitmapID);
+	LONG DelDynamicBitmap(ULONG uDynamicBitmapID);
 
 	LONG SetDynamicBitmap(
 		ULONG *  uObjectID,
@@ -204,6 +205,12 @@ public:
 	void RenderDynamicBitmap();
 
 	void Refresh();
+
+	LONG SetVideoFile(ULONG uGroupID, LPCTSTR sFileName, ULONG uOldFileID, ULONG * uNewFileID);
+
+	LONG SetVisibility(ULONG uObjectID, ULONG bVisibility);
+	LONG SetPlayTimes(ULONG uGroupID, ULONG uPlayTimes);
+	LONG SetPlayTimeout(ULONG uGroupID, ULONG uTimeout_s);
 
 	LONG SavePlayList(LPCTSTR sFile);
 	LONG LoadPlayList(LPCTSTR sFile);
@@ -474,5 +481,7 @@ public:
     void            ReleaseFocus();
     void            DeleteAllMovies();
 };
+
+//extern CMultiSAP * g_pMultiSAP;
 
 #endif

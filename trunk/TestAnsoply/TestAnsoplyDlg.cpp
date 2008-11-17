@@ -274,7 +274,19 @@ void CTestAnsoplyDlg::OnBnClickedButton5()
 {
 	// TODO: Add your control notification handler code here
 
-	m_ansoply.DelVideoFile(m_uGroupID, m_uFileID);
+	m_ansoply.SetPlayTimes(m_uGroupID, 3);
+
+	//m_ansoply.SetVisibility(m_uGroupID, 0);
+
+	//CFileDialog fileDlg(TRUE);
+	//if(fileDlg.DoModal() == IDOK)
+	//{
+	//	ULONG newID;
+	//	CString name = fileDlg.GetPathName();
+	//	m_ansoply.SetVideoFile(m_uGroupID, name, m_uFileID, &newID);
+	//}
+
+	//m_ansoply.DelVideoFile(m_uGroupID, m_uFileID);
 
 	//ULONG id;
 	//static int i = 0;
@@ -285,13 +297,14 @@ void CTestAnsoplyDlg::OnBnClickedButton5()
 void CTestAnsoplyDlg::OnBnClickedButton6()
 {
 	// TODO: Add your control notification handler code here
-	CFileDialog fileDlg(TRUE);
-	if(fileDlg.DoModal() == IDOK)
-	{
-		CString name = fileDlg.GetPathName();
-		ULONG id;
-		m_ansoply.SetBitmap(&m_uBitmapID, name, 0xFF, 0xFFFF00, 0, 0, 500, 500, 1);
-	}
+	m_ansoply.SetVisibility(m_uBitmapID, 0);
+	//CFileDialog fileDlg(TRUE);
+	//if(fileDlg.DoModal() == IDOK)
+	//{
+	//	CString name = fileDlg.GetPathName();
+	//	ULONG id;
+	//	m_ansoply.SetBitmap(&m_uBitmapID, name, 0xFF, 0xFFFF00, 0, 0, 500, 500, 1);
+	//}
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton7()
@@ -301,14 +314,20 @@ void CTestAnsoplyDlg::OnBnClickedButton7()
 //	m_ansoply.Previous(m_uGroupID);
 //	m_ansoply.DelVideoFile(m_uGroupID, m_uFileID);
 //	m_ansoply.SetPlayRate(m_uGroupID, 2.0);
-	m_ansoply.SelectObject(m_uBitmapID, 0xFFFFFF00);
+//	m_ansoply.SelectObject(m_uBitmapID, 0xFFFFFF00);
+
+//	m_ansoply.DelVideoFile(m_uGroupID, m_uFileID);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton8()
 {
 	// TODO: Add your control notification handler code here
 	ULONG id = 0;
-	m_ansoply.SetDynamicBitmap(&id, "f:\\pic.bmp;f:\\shopflag.jpg;", 0xA0, RGB(255, 255, 0), 0, 0, 100, 100, 1, 1000);
+
+	m_ansoply.SetDynamicBitmap(&m_uBitmapID, "F:\\Temp5\\3.jpg;F:\\Temp5\\2.JPG;", 0xA0, RGB(255, 255, 0), 0, 0, 100, 100, 1, 1000);
+//	m_ansoply.SetPlayTimes(m_uBitmapID, 5);
+	m_ansoply.SetPlayMode(m_uBitmapID, 3);
+//	m_ansoply.SetPlayTimeout(m_uBitmapID, 5);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton9()

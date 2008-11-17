@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Mon Jun 09 18:09:27 2008
+/* at Wed Oct 29 20:48:08 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -353,6 +353,24 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG *uObjectID,
             /* [in] */ ULONG uRegionWidth,
             /* [in] */ ULONG uRegionHeight) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetVideoFile( 
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ BSTR sFileName,
+            /* [in] */ ULONG uOldFileID,
+            /* [in] */ ULONG *uNewFileID) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetVisibility( 
+            /* [in] */ ULONG uObjectID,
+            /* [in] */ ULONG bVisibility) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetPlayTimes( 
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ ULONG uPlayTimes) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetPlayTimeout( 
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ ULONG uTimeout_s) = 0;
         
     };
     
@@ -719,6 +737,28 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uRegionWidth,
             /* [in] */ ULONG uRegionHeight);
         
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SetVideoFile )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ BSTR sFileName,
+            /* [in] */ ULONG uOldFileID,
+            /* [in] */ ULONG *uNewFileID);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SetVisibility )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uObjectID,
+            /* [in] */ ULONG bVisibility);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SetPlayTimes )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ ULONG uPlayTimes);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SetPlayTimeout )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ ULONG uTimeout_s);
+        
         END_INTERFACE
     } IAnsoplyInterfaceVtbl;
 
@@ -919,6 +959,18 @@ EXTERN_C const IID IID_IAnsoplyInterface;
 
 #define IAnsoplyInterface_SetTextInRegion(This,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight)	\
     (This)->lpVtbl -> SetTextInRegion(This,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight)
+
+#define IAnsoplyInterface_SetVideoFile(This,uGroupID,sFileName,uOldFileID,uNewFileID)	\
+    (This)->lpVtbl -> SetVideoFile(This,uGroupID,sFileName,uOldFileID,uNewFileID)
+
+#define IAnsoplyInterface_SetVisibility(This,uObjectID,bVisibility)	\
+    (This)->lpVtbl -> SetVisibility(This,uObjectID,bVisibility)
+
+#define IAnsoplyInterface_SetPlayTimes(This,uGroupID,uPlayTimes)	\
+    (This)->lpVtbl -> SetPlayTimes(This,uGroupID,uPlayTimes)
+
+#define IAnsoplyInterface_SetPlayTimeout(This,uGroupID,uTimeout_s)	\
+    (This)->lpVtbl -> SetPlayTimeout(This,uGroupID,uTimeout_s)
 
 #endif /* COBJMACROS */
 
@@ -1678,6 +1730,60 @@ void __RPC_STUB IAnsoplyInterface_GetCurrentPlayingPos_Stub(
 
 
 void __RPC_STUB IAnsoplyInterface_SetTextInRegion_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetVideoFile_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uGroupID,
+    /* [in] */ BSTR sFileName,
+    /* [in] */ ULONG uOldFileID,
+    /* [in] */ ULONG *uNewFileID);
+
+
+void __RPC_STUB IAnsoplyInterface_SetVideoFile_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetVisibility_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uObjectID,
+    /* [in] */ ULONG bVisibility);
+
+
+void __RPC_STUB IAnsoplyInterface_SetVisibility_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetPlayTimes_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uGroupID,
+    /* [in] */ ULONG uPlayTimes);
+
+
+void __RPC_STUB IAnsoplyInterface_SetPlayTimes_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetPlayTimeout_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uGroupID,
+    /* [in] */ ULONG uTimeout_s);
+
+
+void __RPC_STUB IAnsoplyInterface_SetPlayTimeout_Stub(
     IRpcStubBuffer *This,
     IRpcChannelBuffer *_pRpcChannelBuffer,
     PRPC_MESSAGE _pRpcMessage,

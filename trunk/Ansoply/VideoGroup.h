@@ -5,16 +5,6 @@
 #include <list>
 using namespace std;
 
-typedef enum _PLAY_TYPE_
-{
-	PLAY_NONE = 0,
-	PLAY_THROUGH,
-	PLAY_PAUSE,
-	PLAY_LOOP,
-	PLAY_PREVIOUS,
-	PLAY_NEXT,
-	PLAY_TERMINATE
-}PLAY_TYPE;
 
 class CVideoGroup : 
 	public CAnsoplyObject
@@ -49,6 +39,8 @@ public:
 	LONG	SetRate(DOUBLE rate);
 	LONG	GetRate(DOUBLE& rate);
 	LONG	GetVideoLength(ULONG uFileID, DOUBLE* uLength);
+	LONG    SetPlayTimes(ULONG uPlayTimes);
+	LONG    SetPlayTimeout(ULONG uTimeout_s);
 
 	virtual void Draw();
 	ULONG       m_uSurfaceWidth;
@@ -71,7 +63,7 @@ private:
 
 	HANDLE      m_PlayPauseEvent;
 
-	PLAY_TYPE   m_playType;
+
 	PLAY_TYPE	m_playEvent;
 
 	BOOL        m_pauseReset;
@@ -90,4 +82,5 @@ private:
 public:
 	LONG GetCurrentFileID(LONG * uFileID);
 	LONG GetCurrentPlayingPos(ULONG * uCurPos);
+	LONG SetVideoFile(CVideoObject * pObject, ULONG uOldFileID);
 };

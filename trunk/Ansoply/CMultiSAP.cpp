@@ -21,6 +21,7 @@
 #include <string>
 using namespace std;
 
+//CMultiSAP * g_pMultiSAP;
 //-------------------------------------------------------------------------
 //  constructor
 //-------------------------------------------------------------------------
@@ -195,9 +196,7 @@ HRESULT CMultiSAP::Initialize()
 	{
 		ULONG nLen = MAX_PATH;
 		if( rg.QueryStringValue(NULL, szModuleFileName, &nLen) != ERROR_SUCCESS )
-		{
 			return E_FAIL;
-		}
 	}
 
 	CString BlankFileName(szModuleFileName);
@@ -1403,6 +1402,18 @@ LONG CMultiSAP::SetPlayMode(ULONG uGroupID, ULONG uPlayMode)
 	{
 		return pVideoGroup->SetPlayMode(uPlayMode);
 	}
+	CDynamicBitmap * pDynamicBitmap;
+	if( m_dynamicBitmap.Lookup(uGroupID, pDynamicBitmap) )
+	{
+		if (PLAY_THROUGH == uPlayMode || PLAY_LOOP == uPlayMode)
+		{
+			pDynamicBitmap->m_playType = (PLAY_TYPE)uPlayMode;
+			if( PLAY_THROUGH == uPlayMode )
+				pDynamicBitmap->m_uPlayTimes = 0;
+			return 0;
+		}
+	}
+
 	return -1;
 }
 
@@ -2561,6 +2572,35 @@ LONG CMultiSAP::DelBitmap(ULONG uBitmapID)
 	return ret;
 }
 
+LONG CMultiSAP::DelDynamicBitmap(ULONG uDynamicBitmapID)
+{
+	EnterCriticalSection(&m_videoGroupsCS);
+	int ret = -1;
+	CDynamicBitmap* pBitmapObject = m_dynamicBitmap[uDynamicBitmapID];
+	if (pBitmapObject)
+	{
+		// bug!!!!!!
+		//delete pBitmapObject;
+		m_dynamicBitmap.RemoveKey(uDynamicBitmapID);
+		ret = 0;
+	}
+	//////////////////////////////////////////////////////////////////////////
+	POSITION pos = m_drawList.GetHeadPosition();
+	while( pos )
+	{
+		POSITION tempPos = pos;
+		CAnsoplyObject * pObject = m_drawList.GetNext( pos );
+		if( pObject && pObject->GetObjectID() == uDynamicBitmapID )
+		{
+			m_drawList.RemoveAt( tempPos );
+			ret = 0;
+			break;
+		}
+	}
+	LeaveCriticalSection(&m_videoGroupsCS);
+	return ret;
+}
+
 typedef struct _dynamic_struct_
 {
 	CMultiSAP * pMultiSAP;
@@ -2580,7 +2620,7 @@ LONG CMultiSAP::SetDynamicBitmap(
 					  ULONG uOriginalSize,
 					  ULONG uMilli)
 {
-	CDynamicBitmap* pDyanmicBitmapObject = new CDynamicBitmap();
+	CDynamicBitmap * pDyanmicBitmapObject = new CDynamicBitmap();
 	pDyanmicBitmapObject->SetDynamicBitmap(sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uMilli);
 
 	pDyanmicBitmapObject->m_pMultiSAP = this;
@@ -2625,102 +2665,118 @@ void CMultiSAP::ChangeDynamicBitmap(LPVOID param)
 	if( !pMultiSAP->m_dynamicBitmap.Lookup(key, pDynamicBitmap) )
 		return;
 
-	std::list<BitmapType>::iterator iter = pDynamicBitmap->m_BitmapList.begin();
-	while( true )
+	do
 	{
-		EnterCriticalSection(&pDynamicBitmap->m_CS);
-		HDC hdcDest;
-		IDirectDrawSurface7 * pDDS = pDynamicBitmap->GetSurface();
-		if( DD_OK != pDDS->GetDC(&hdcDest) )
-			return;
-
-		Color backColor;
-		HBITMAP hBmp;
-		BitmapType bmpType = (*iter);
-		Bitmap * bmp = bmpType.pBitmap;
-		bmp->GetHBITMAP(backColor, &hBmp);
-		// Get the bitmap structure (to extract width, height, and bpp)
-		BITMAP bm;
-		GetObject( hBmp, sizeof(BITMAP), &bm );
-
-		// Get a DC for the bitmap
-		HDC hdcBitmap = CreateCompatibleDC( NULL );
-		if( NULL == hdcBitmap )
-			return;
-
-		if( pDynamicBitmap->m_uOriginalSize == 1 )
+		BOOL bBreak = FALSE;
+		std::list<BitmapType>::iterator iter = pDynamicBitmap->m_BitmapList.begin();
+		while ( iter != pDynamicBitmap->m_BitmapList.end() )
 		{
-			::SelectObject( hdcBitmap, hBmp );
-			pDynamicBitmap->m_uWidth = bm.bmWidth;
-			pDynamicBitmap->m_uHeight = bm.bmHeight;
-			BitBlt( hdcDest, 0, 0, bm.bmWidth, bm.bmHeight, hdcBitmap, 0, 0, SRCCOPY );
-		}
-		else
-		{
-			USES_CONVERSION;
-			//Bitmap originalBMP(T2W(sBitmapFilePath));
-			Graphics g(hdcDest);
+			EnterCriticalSection(&pDynamicBitmap->m_CS);
+			HDC hdcDest;
+			IDirectDrawSurface7 * pDDS = pDynamicBitmap->GetSurface();
+			if( DD_OK != pDDS->GetDC(&hdcDest) )
+				return;
 
-			g.DrawImage(bmp, Rect(0, 0, pDynamicBitmap->m_uWidth, pDynamicBitmap->m_uHeight), 0, 0, 
-				bmp->GetWidth(), bmp->GetHeight(), UnitPixel, NULL );
-		}
+			Color backColor;
+			HBITMAP hBmp;
+			BitmapType bmpType = (*iter);
+			Bitmap * bmp = bmpType.pBitmap;
+			bmp->GetHBITMAP(backColor, &hBmp);
+			// Get the bitmap structure (to extract width, height, and bpp)
+			BITMAP bm;
+			GetObject( hBmp, sizeof(BITMAP), &bm );
 
-		//SelectObject( hdcBitmap, oldhBmp);
-		DeleteObject( hBmp );
+			// Get a DC for the bitmap
+			HDC hdcBitmap = CreateCompatibleDC( NULL );
+			if( NULL == hdcBitmap )
+				return;
 
-		pDDS->ReleaseDC(hdcDest);
-
-		DWORD dwFlags = D3DTEXTR_TRANSPARENTWHITE;
-		if( dwFlags & (D3DTEXTR_TRANSPARENTWHITE|D3DTEXTR_TRANSPARENTBLACK) )
-		{
-			// Lock the texture surface
-			DDSURFACEDESC2 ddsdAlpha={0};
-			ddsdAlpha.dwSize = sizeof(ddsdAlpha);
-			pDDS->Lock( NULL, &ddsdAlpha, 0, NULL );
-
-			//DWORD dwAlphaMask = ddsdAlpha.ddpfPixelFormat.dwRGBAlphaBitMask;
-			DWORD dwAlphaMask = pDynamicBitmap->m_uAlpha << 24;
-			DWORD dwRGBMask   = ( ddsdAlpha.ddpfPixelFormat.dwRBitMask |
-				ddsdAlpha.ddpfPixelFormat.dwGBitMask |
-				ddsdAlpha.ddpfPixelFormat.dwBBitMask );
-			DWORD dwColorkey  = pDynamicBitmap->m_uTransparentColor; // Colorkey on black
-			//if( dwFlags & D3DTEXTR_TRANSPARENTWHITE )
-			//	dwColorkey = dwRGBMask;     // Colorkey on white
-
-			// Add an opaque alpha value to each non-colorkeyed pixel
-			for( DWORD y = 0; y < bm.bmHeight; y++ )
+			if( pDynamicBitmap->m_uOriginalSize == 1 )
 			{
-				WORD*  p16 =  (WORD*)((BYTE*)ddsdAlpha.lpSurface + y*ddsdAlpha.lPitch);
-				DWORD* p32 = (DWORD*)((BYTE*)ddsdAlpha.lpSurface + y*ddsdAlpha.lPitch);
+				::SelectObject( hdcBitmap, hBmp );
+				pDynamicBitmap->m_uWidth = bm.bmWidth;
+				pDynamicBitmap->m_uHeight = bm.bmHeight;
+				BitBlt( hdcDest, 0, 0, bm.bmWidth, bm.bmHeight, hdcBitmap, 0, 0, SRCCOPY );
+			}
+			else
+			{
+				USES_CONVERSION;
+				//Bitmap originalBMP(T2W(sBitmapFilePath));
+				Graphics g(hdcDest);
 
-				for( DWORD x = 0; x < bm.bmWidth; x++ )
+				g.DrawImage(bmp, Rect(0, 0, pDynamicBitmap->m_uWidth, pDynamicBitmap->m_uHeight), 0, 0, 
+					bmp->GetWidth(), bmp->GetHeight(), UnitPixel, NULL );
+			}
+
+			//SelectObject( hdcBitmap, oldhBmp);
+			DeleteObject( hBmp );
+
+			pDDS->ReleaseDC(hdcDest);
+
+			DWORD dwFlags = D3DTEXTR_TRANSPARENTWHITE;
+			if( dwFlags & (D3DTEXTR_TRANSPARENTWHITE|D3DTEXTR_TRANSPARENTBLACK) )
+			{
+				// Lock the texture surface
+				DDSURFACEDESC2 ddsdAlpha={0};
+				ddsdAlpha.dwSize = sizeof(ddsdAlpha);
+				pDDS->Lock( NULL, &ddsdAlpha, 0, NULL );
+
+				//DWORD dwAlphaMask = ddsdAlpha.ddpfPixelFormat.dwRGBAlphaBitMask;
+				DWORD dwAlphaMask = pDynamicBitmap->m_uAlpha << 24;
+				DWORD dwRGBMask   = ( ddsdAlpha.ddpfPixelFormat.dwRBitMask |
+					ddsdAlpha.ddpfPixelFormat.dwGBitMask |
+					ddsdAlpha.ddpfPixelFormat.dwBBitMask );
+				DWORD dwColorkey  = pDynamicBitmap->m_uTransparentColor; // Colorkey on black
+				//if( dwFlags & D3DTEXTR_TRANSPARENTWHITE )
+				//	dwColorkey = dwRGBMask;     // Colorkey on white
+
+				// Add an opaque alpha value to each non-colorkeyed pixel
+				for( DWORD y = 0; y < bm.bmHeight; y++ )
 				{
-					if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 16 )
+					WORD*  p16 =  (WORD*)((BYTE*)ddsdAlpha.lpSurface + y*ddsdAlpha.lPitch);
+					DWORD* p32 = (DWORD*)((BYTE*)ddsdAlpha.lpSurface + y*ddsdAlpha.lPitch);
+
+					for( DWORD x = 0; x < bm.bmWidth; x++ )
 					{
-						if( ( *p16 &= dwRGBMask ) != dwColorkey )
-							*p16 |= dwAlphaMask;
-						p16++;
-					}
-					if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 32 || ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 24 )
-					{
-						if( ( *p32 &= dwRGBMask ) != dwColorkey )
-							*p32 |= dwAlphaMask;
-						p32++;
+						if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 16 )
+						{
+							if( ( *p16 &= dwRGBMask ) != dwColorkey )
+								*p16 |= dwAlphaMask;
+							p16++;
+						}
+						if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 32 || ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 24 )
+						{
+							if( ( *p32 &= dwRGBMask ) != dwColorkey )
+								*p32 |= dwAlphaMask;
+							p32++;
+						}
 					}
 				}
+				pDDS->Unlock( NULL );
 			}
-			pDDS->Unlock( NULL );
+			DeleteDC( hdcBitmap );
+			pDDS->ReleaseDC(hdcDest);
+			DeleteDC( hdcDest );
+
+			//if ( ++iter == pDynamicBitmap->m_BitmapList.end() )
+			//	iter = pDynamicBitmap->m_BitmapList.begin();
+
+			iter++;
+			OutputDebugString("iter\n");
+
+			LeaveCriticalSection(&pDynamicBitmap->m_CS);
+			Sleep(milli);
+			if( pDynamicBitmap->m_StopTimeExpire &&GetTickCount() > pDynamicBitmap->m_StopTimeExpire )
+			{
+				bBreak = TRUE;
+				break;
+			}
 		}
-		DeleteDC( hdcBitmap );
-		pDDS->ReleaseDC(hdcDest);
-		DeleteDC( hdcDest );
+		if( bBreak )
+			break;
+	}while( pDynamicBitmap->m_playType == PLAY_LOOP || pDynamicBitmap->m_uPlayBeginTime++ < pDynamicBitmap->m_uPlayTimes);
 
-		if ( ++iter == pDynamicBitmap->m_BitmapList.end() )
-			iter = pDynamicBitmap->m_BitmapList.begin();
-
-		LeaveCriticalSection(&pDynamicBitmap->m_CS);
-		Sleep(milli);
-	}
+	pMultiSAP->DelDynamicBitmap(key);
 }
 
 LONG CMultiSAP::SavePlayList(LPCTSTR sFile)
@@ -2959,3 +3015,101 @@ void CMultiSAP::Refresh()
 		OutputDebugString(str);
 	}
 }
+
+LONG CMultiSAP::SetVideoFile(ULONG uGroupID, LPCTSTR sFileName, ULONG uOldFileID, ULONG * uNewFileID)
+{
+	CVideoGroup* pVideoGroup = FindGroup(uGroupID);
+	if ( pVideoGroup )
+	{
+		sMovieInfo movieInfo;
+		CVideoObject* pVideoObject = new CVideoObject();
+
+		USES_CONVERSION;
+		wcscpy( movieInfo.achPath, T2W(sFileName) );
+		movieInfo.pdwUserID = IDGenerator::GetInstance().GenID();
+		pVideoObject->Initialize(&movieInfo, this);
+
+		//		CmdAddEffect(eEffectFading, 2000, 300, 400, TRUE); // set next video effect "fading"
+
+		if( m_pEffect ) // ping video effect change
+		{
+			m_pEffect->Finish();
+		}
+		m_movieList.Add( pVideoObject );
+
+		HRESULT hr = pVideoObject->OpenMovie();
+		if( FAILED(hr) )
+		{
+			m_movieList.Delete(pVideoObject->m_dwUserID);
+			delete pVideoObject;
+			return -1;
+		}
+
+		RECT rc;
+		GetMoviePosition(&rc);
+		PutMoviePosition(rc);
+
+		if( m_pEffect )
+		{
+			m_pEffect->Invalidate();
+		}
+
+		if( pVideoGroup->SetVideoFile(pVideoObject, uOldFileID) == 0 )
+			return pVideoObject->GetObjectID();
+	}
+	return -1;
+}
+
+LONG CMultiSAP::SetVisibility(ULONG uObjectID, ULONG bVisibility)
+{
+	POSITION pos = m_drawList.GetHeadPosition();
+	while (pos)
+	{
+		CAnsoplyObject* pAnsoplyObj = m_drawList.GetNext(pos);
+		if (pAnsoplyObj->GetObjectID() == uObjectID)
+		{
+			pAnsoplyObj->m_bVisibility = (BOOL)bVisibility;
+		}
+	}
+	return 0;
+}
+
+LONG CMultiSAP::SetPlayTimes(ULONG uGroupID, ULONG uPlayTimes)
+{
+	CVideoGroup* pVideoGroup = FindGroup(uGroupID);
+	if ( pVideoGroup )
+	{
+		pVideoGroup->SetPlayTimes(uPlayTimes);
+	}
+	CDynamicBitmap * pDynamicBitmap;
+	if( m_dynamicBitmap.Lookup(uGroupID, pDynamicBitmap) )
+	{
+		pDynamicBitmap->m_uPlayBeginTime = 1;
+		pDynamicBitmap->m_uPlayTimes = uPlayTimes;
+
+		pDynamicBitmap->m_StopTimeExpire = 0;
+
+		pDynamicBitmap->m_playType = (PLAY_TYPE)PLAY_THROUGH;
+		return 0;
+	}
+
+	return 0;
+}
+
+LONG CMultiSAP::SetPlayTimeout(ULONG uGroupID, ULONG uTimeout_s)
+{
+	CVideoGroup* pVideoGroup = FindGroup(uGroupID);
+	if ( pVideoGroup )
+	{
+		pVideoGroup->SetPlayTimeout(uTimeout_s);
+	}
+	CDynamicBitmap * pDynamicBitmap;
+	if( m_dynamicBitmap.Lookup(uGroupID, pDynamicBitmap) )
+	{
+		pDynamicBitmap->m_StopTimeExpire = GetTickCount() + uTimeout_s * 1000;
+		return 0;
+	}
+
+	return 0;
+}
+

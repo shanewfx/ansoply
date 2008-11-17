@@ -6,7 +6,6 @@
 CVideoGroup::CVideoGroup() : 
 	m_hThread(NULL),
 	m_curVideoObj(NULL),
-	m_playType(PLAY_THROUGH),
 	m_playEvent(PLAY_NONE),
 	//m_uX(0),
 	//m_uY(0),
@@ -20,6 +19,8 @@ CVideoGroup::CVideoGroup() :
 	m_pMultiSAP(NULL)
 {
 	m_PlayPauseEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+
+	m_StopTimeExpire = 0;
 
 	SetObjectType(video);
 }
@@ -141,60 +142,6 @@ LONG CVideoGroup::DelVideoFile(ULONG uID)
 		
 			delete pVideoObject;
 
-
-			//pVideoObject->m_SAN->AdviseSurfaceAllocator(pVideoObject->m_dwUserID, NULL);
-			//// Stop the graph.
-			//pVideoObject->m_Mc->Stop();
-
-			//// Enumerate the filters in the graph.
-			//IEnumFilters *pEnum = NULL;
-			//HRESULT hr = pVideoObject->m_Gb->EnumFilters(&pEnum);
-			//CComPtr<IGraphConfig>              GC; 
-			//pVideoObject->m_Gb->QueryInterface(IID_IGraphConfig, (LPVOID *)&GC);
-			//if (SUCCEEDED(hr))
-			//{
-			//	IBaseFilter *pFilter = NULL;
-			//	while (S_OK == pEnum->Next(1, &pFilter, NULL))
-			//	{
-			//		// Remove the filter.
-			//		//pVideoObject->m_Gb->RemoveFilter(pFilter);
-			//		//FILTER_INFO FilterInfo;
-			//		//pFilter->QueryFilterInfo(&FilterInfo);
-			//		//if( NULL == wcsstr(FilterInfo.achName, L"VMRMulti") )
-			//		{
-			//			//MessageBoxW(NULL, FilterInfo.achName, L"F", MB_OK);
-			//			GC->RemoveFilterEx(pFilter, 1);
-			//			// Reset the enumerator.
-			//			pEnum->Reset();
-
-			//		}
-			//		//else
-			//		//{
-			//		//	MessageBoxW(NULL, FilterInfo.achName, L"T", MB_OK);
-			//		//	//pFilter->Release();
-			//		//	pEnum->Skip(0);
-			//		//}
-			//		//if (FilterInfo.pGraph != NULL)
-			//		//{
-			//		//	FilterInfo.pGraph->Release();
-			//		//}
-			//		pFilter->Release();
-			//	}
-			//	pEnum->Release();
-			//}
-			////pVideoObject->m_SAN->AdviseSurfaceAllocator(pVideoObject->m_dwUserID, NULL);
-
-			//pVideoObject->m_Gb = NULL;
-			//pVideoObject->m_Bf = NULL;
-			//pVideoObject->m_Fg = NULL;
-			//pVideoObject->m_SAN = NULL;
-			//pVideoObject->m_pAP = NULL;
-
-			////pVideoObject->m_lpDDTexture = NULL ;
-			//pVideoObject->m_lpDDDecode = NULL;
-
-			//delete pVideoObject;
-
 			return 0;
 		}
 		// Silly BUG!!!!!!!
@@ -257,11 +204,10 @@ DWORD CVideoGroup::SmoothPlayThread(LPVOID param)
 					pVideoGroup->m_threadIter--;
 					videoObject = *pVideoGroup->m_threadIter;//pVideoGroup->m_videos.GetPreValue( pos );
 					pVideoGroup->m_curVideoObj = videoObject;
-				}				
+				}
 			}
 			if (videoObject)
 			{
-
 				videoObject->PlayMovie(pVideoGroup->m_pauseReset);
 				pVideoGroup->SetRate(pVideoGroup->m_rate);
 				if( pVideoGroup->m_bDefaultOutput )
@@ -280,16 +226,31 @@ DWORD CVideoGroup::SmoothPlayThread(LPVOID param)
 				pVideoGroup->m_pauseReset = FALSE;
 
 				long event;
-				videoObject->m_Me->WaitForCompletion(INFINITE, &event);
+				//videoObject->m_Me->WaitForCompletion(INFINITE, &event);
+
+				HRESULT hr = E_ABORT;
+				while ( hr == E_ABORT )
+				{
+					hr = videoObject->m_Me->WaitForCompletion(2000, &event);
+					if( pVideoGroup->m_StopTimeExpire && GetTickCount() > pVideoGroup->m_StopTimeExpire )
+						goto END;
+				}
+
 				if (pVideoGroup->m_playEvent == PLAY_TERMINATE)
 				{
 					pVideoGroup->m_playType = PLAY_THROUGH;
+					pVideoGroup->m_uPlayTimes = 0;
 					break;
 				}
 				if( pVideoGroup->m_playEvent == PLAY_PAUSE )
 				{
+					DWORD dwBegin = GetTickCount();
 					WaitForSingleObject(pVideoGroup->m_PlayPauseEvent, INFINITE);
 					pVideoGroup->m_playEvent = PLAY_NONE;
+					if (pVideoGroup->m_StopTimeExpire)
+					{
+						pVideoGroup->m_StopTimeExpire += (GetTickCount() - dwBegin);
+					}
 					continue;
 				}
 				if (pVideoGroup->m_playEvent == PLAY_PREVIOUS)
@@ -301,8 +262,9 @@ DWORD CVideoGroup::SmoothPlayThread(LPVOID param)
 				pVideoGroup->m_threadIter++;
 			}
 		}
-	}while ( pVideoGroup->m_playType == PLAY_LOOP );
+	}while ( pVideoGroup->m_playType == PLAY_LOOP || pVideoGroup->m_uPlayBeginTime++ < pVideoGroup->m_uPlayTimes );
 
+END:
 	pVideoGroup->m_curVideoObj = NULL;
 	//CloseHandle(pVideoGroup->m_hThread);
 	pVideoGroup->m_hThread = NULL;
@@ -319,7 +281,8 @@ void CVideoGroup::Stop(void)
 {
 //	if (m_curVideoObj) m_curVideoObj->StopMovie();
 	if (m_curVideoObj)
-	{
+	{	
+		m_StopTimeExpire = 0;
 		m_playEvent = PLAY_TERMINATE;
 		m_curVideoObj->SeekToPosition(m_curVideoObj->GetDuration(), TRUE);
 	}
@@ -434,9 +397,28 @@ LONG CVideoGroup::SetPlayMode(ULONG uPlayMode)
 	if (PLAY_THROUGH == uPlayMode || PLAY_LOOP == uPlayMode)
 	{
 		m_playType = (PLAY_TYPE)uPlayMode;
+		if( PLAY_THROUGH == uPlayMode )
+			m_uPlayTimes = 0;
 		return 0;
 	}
 	return -1;
+}
+
+LONG CVideoGroup::SetPlayTimes(ULONG uPlayTimes)
+{
+	m_uPlayBeginTime = 1;
+	m_uPlayTimes = uPlayTimes;
+
+	m_StopTimeExpire = 0;
+
+	m_playType = (PLAY_TYPE)PLAY_THROUGH;
+	return 0;
+}
+
+LONG CVideoGroup::SetPlayTimeout(ULONG uTimeout_s)
+{
+	m_StopTimeExpire = GetTickCount() + uTimeout_s * 1000;
+	return 0;
 }
 
 LONG CVideoGroup::Previous()
@@ -508,6 +490,8 @@ void CVideoGroup::Draw()
 {
 	CVideoObject * pMovie = m_curVideoObj;
 
+	if( !m_bVisibility )
+		return;
 	if( !pMovie || !pMovie->m_lpDDTexture )
 		return;
 
@@ -564,4 +548,34 @@ LONG CVideoGroup::GetCurrentPlayingPos(ULONG * uCurPos)
 	else
 		*uCurPos = 0;
 	return 0;
+}
+
+LONG CVideoGroup::SetVideoFile(CVideoObject * pObject, ULONG uOldFileID)
+{
+	list<CVideoObject*>::iterator i = m_videos.begin();
+	while (i != m_videos.end())
+	{
+		CVideoObject* pVideoObject = *i;
+		if (pVideoObject->GetObjectID() == uOldFileID )
+		{
+			m_threadIter = m_videos.erase(i);
+
+			m_videos.insert(m_threadIter, pObject);
+
+			m_pMultiSAP->m_movieList.Delete(pVideoObject->m_dwUserID);
+			if( pVideoObject == m_curVideoObj )  // if del the current playing video
+			{
+				Next();
+			}
+
+			ReleaseFilter(pVideoObject);
+
+			delete pVideoObject;
+
+
+			return 0;
+		}
+		i++;
+	}
+	return -1;
 }

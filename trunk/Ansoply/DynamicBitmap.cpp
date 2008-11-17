@@ -86,6 +86,9 @@ void CDynamicBitmap::SetSurface(IDirectDrawSurface7* pSurface)
 
 void CDynamicBitmap::Draw()
 {
+	if( !m_bVisibility )
+		return;
+
 	EnterCriticalSection(&m_CS);
 	IDirectDrawSurface7* pDDS = GetSurface();
 	if (pDDS)

@@ -70,6 +70,10 @@ __interface IAnsoplyInterface : public IDispatch
 	[id(53), helpstring("method GetCurrentFileID")] HRESULT GetCurrentFileID(ULONG uGroupID, LONG* uFileID);
 	[id(54), helpstring("method GetCurrentPlayingPos")] HRESULT GetCurrentPlayingPos(ULONG uGroupID, ULONG * uCurPos);
 	[id(55), helpstring("method SetTextInRegion")] HRESULT SetTextInRegion(ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight);
+	[id(56), helpstring("method SetVideoFile")] HRESULT SetVideoFile(ULONG uGroupID, BSTR sFileName, ULONG uOldFileID, ULONG * uNewFileID);
+	[id(57), helpstring("method SetVisibility")] HRESULT SetVisibility(ULONG uObjectID, ULONG bVisibility);
+	[id(58), helpstring("method SetPlayTimes")] HRESULT SetPlayTimes(ULONG uGroupID, ULONG uPlayTimes);
+	[id(59), helpstring("method SetPlayTimeout")] HRESULT SetPlayTimeout(ULONG uGroupID, ULONG uTimeout_s);
 };
 
 
@@ -238,5 +242,9 @@ public:
 	STDMETHOD(GetCurrentFileID)(ULONG uGroupID, LONG* uFileID);
 	STDMETHOD(GetCurrentPlayingPos)(ULONG uGroupID, ULONG * uCurPos);
 	STDMETHOD(SetTextInRegion)(ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight);
+	STDMETHOD(SetVideoFile)(ULONG uGroupID, BSTR sFileName, ULONG uOldFileID, ULONG * uNewFileID);
+	STDMETHOD(SetVisibility)(ULONG uObjectID, ULONG bVisibility);
+	STDMETHOD(SetPlayTimes)(ULONG uGroupID, ULONG uPlayTimes);
+	STDMETHOD(SetPlayTimeout)(ULONG uGroupID, ULONG uTimeout_s);
 };
 
