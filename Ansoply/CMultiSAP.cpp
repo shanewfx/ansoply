@@ -12,6 +12,7 @@
 #include "videogroup.h"
 #include "idgenerator.h"
 #include "bitmapobject.h"
+#include "EffectBitmap.h"
 #include "textobject.h"
 #include ".\dynamicbitmap.h"
 #include "D3DHelpers/d3dutil.h"
@@ -3113,3 +3114,156 @@ LONG CMultiSAP::SetPlayTimeout(ULONG uGroupID, ULONG uTimeout_s)
 	return 0;
 }
 
+LONG CMultiSAP::SetEffectBitmap(
+						  LPCTSTR sBitmapFilePath,
+						  ULONG uAlpha,
+						  ULONG uTransparentColor,   
+						  ULONG uX,
+						  ULONG uY,
+						  ULONG uWidth,
+						  ULONG uHeight,
+						  ULONG uOriginalSize,
+						  ULONG uDrawSytle
+						  )
+{
+	CEffectBitmap* pBitmapObject = new CEffectBitmap();
+
+	if ( pBitmapObject->SetBitmap(sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uDrawSytle, m_hwndApp) == -1)
+		return -1;
+
+	pBitmapObject->m_pMultiSAP = this;
+	pBitmapObject->SetAlphaBlt(m_pAlphaBlt);
+
+	HRESULT hr = DD_OK;
+	//	if( !m_lpDDSBitmapCache ) 
+	IDirectDrawSurface7* pDDS = NULL;
+	//	hr = DDARGB32SurfaceInit(&m_lpDDSBitmapCache, TRUE, 640, 480);
+	HBITMAP hBmp;
+	Color backColor;
+
+	BITMAP bm;
+
+	if (uOriginalSize == 1)
+	{
+		pBitmapObject->m_pBitmap->GetHBITMAP(backColor, &hBmp);
+		GetObject( hBmp, sizeof(BITMAP), &bm );
+	}
+
+	// Get the bitmap structure (to extract width, height, and bpp)
+
+
+	ULONG Width, Height;
+	if( uOriginalSize == 1 )
+	{
+
+		Width  = bm.bmWidth;
+		Height = bm.bmHeight;
+	}
+	else
+	{
+		Width  = uWidth;
+		Height = uHeight;
+	}
+
+	hr = DDARGB32SurfaceInit(&pDDS, TRUE, Width, Height);
+	if(hr == DD_OK)
+	{
+		HDC hdcDest;
+		//		m_lpDDSBitmapCache->GetDC(&hdcDest);
+		pDDS->GetDC(&hdcDest);
+
+		// Get a DC for the bitmap
+		HDC hdcBitmap = CreateCompatibleDC( NULL );
+		if( NULL == hdcBitmap )
+			return -1;
+
+		if( uOriginalSize == 1)
+		{
+			::SelectObject( hdcBitmap, hBmp );
+			BitBlt( hdcDest, 0, 0, Width, Height, hdcBitmap, 0, 0, SRCCOPY );
+		}
+		else
+		{
+			USES_CONVERSION;
+			/*
+			Bitmap originalBMP(T2W(sBitmapFilePath));
+			Bitmap resizeBMP(Width, Height);
+			Graphics graphic(&resizeBMP);
+			graphic.DrawImage(&originalBMP, 0, 0, Width, Height, 
+			originalBMP.GetWidth(),
+			originalBMP.GetHeight(), UnitPixel);
+			*/
+			Bitmap originalBMP(T2W(sBitmapFilePath));
+			Graphics g(hdcDest);
+
+			//			g.DrawImage(&originalBMP, 0, 0, Width, Height, 
+			//				originalBMP.GetWidth(), originalBMP.GetHeight(), UnitPixel);
+
+			g.DrawImage(&originalBMP, Rect(0, 0, Width, Height), 0, 0, 
+				originalBMP.GetWidth(), originalBMP.GetHeight(), UnitPixel, NULL );
+
+			//			BitBlt( hdcDest, 0, 0, Width, Height, g.GetHDC(), 0, 0, SRCCOPY );
+
+			//			StretchBlt( hdcDest, 0, 0, Width, Height, hdcBitmap, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY );
+		}
+
+		if( uOriginalSize == 1)
+		{
+			DeleteObject( hBmp );
+		}
+		pDDS->ReleaseDC(hdcDest);
+
+		DWORD dwFlags = D3DTEXTR_TRANSPARENTWHITE;
+		if( dwFlags & (D3DTEXTR_TRANSPARENTWHITE|D3DTEXTR_TRANSPARENTBLACK) )
+		{
+			// Lock the texture surface
+			DDSURFACEDESC2 ddsdAlpha={0};
+			ddsdAlpha.dwSize = sizeof(ddsdAlpha);
+			pDDS->Lock( NULL, &ddsdAlpha, 0, NULL );
+
+			//DWORD dwAlphaMask = ddsdAlpha.ddpfPixelFormat.dwRGBAlphaBitMask;
+			DWORD dwAlphaMask = uAlpha << 24;
+			DWORD dwRGBMask   = ( ddsdAlpha.ddpfPixelFormat.dwRBitMask |
+				ddsdAlpha.ddpfPixelFormat.dwGBitMask |
+				ddsdAlpha.ddpfPixelFormat.dwBBitMask );
+			//DWORD dwColorkey  = 0x00000000; // Colorkey on black
+			DWORD dwColorkey  = uTransparentColor;
+
+			//if( dwFlags & D3DTEXTR_TRANSPARENTWHITE )
+			//	dwColorkey = dwRGBMask;     // Colorkey on white
+
+			// Add an opaque alpha value to each non-colorkeyed pixel
+			for( DWORD y = 0; y < Height; y++ )
+			{
+				WORD*  p16 =  (WORD*)((BYTE*)ddsdAlpha.lpSurface + y*ddsdAlpha.lPitch);
+				DWORD* p32 = (DWORD*)((BYTE*)ddsdAlpha.lpSurface + y*ddsdAlpha.lPitch);
+
+				for( DWORD x = 0; x < Width; x++ )
+				{
+					if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 16 )
+					{
+						if( ( *p16 &= dwRGBMask ) != dwColorkey )
+							*p16 |= dwAlphaMask;
+						p16++;
+					}
+					if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 32 || ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 24)
+					{
+						if( ( *p32 &= dwRGBMask ) != dwColorkey )
+							*p32 |= dwAlphaMask;
+						p32++;
+					}
+				}
+			}
+			pDDS->Unlock( NULL );
+			DeleteDC( hdcBitmap );
+			pDDS->ReleaseDC(hdcDest);
+		}
+		pDDS->ReleaseDC(hdcDest);
+		m_bitmapObject[pBitmapObject->GetObjectID()] = pBitmapObject;
+		pBitmapObject->SetSurface(pDDS);
+		m_drawList.AddHead(pBitmapObject);
+		return pBitmapObject->GetObjectID();
+	}
+
+	return -1;
+}

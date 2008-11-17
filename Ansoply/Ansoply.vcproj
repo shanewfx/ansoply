@@ -36,7 +36,7 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/FORCE:MULTIPLE"
-				AdditionalDependencies=".\lib\tinyxmld.lib gdiplus.lib strmbasd.lib wmvcore.lib strmiids.lib quartz.lib odbc32.lib odbccp32.lib winmm.lib comctl32.lib Kernel32.lib"
+				AdditionalDependencies=".\lib\tinyxmld.lib .\lib\EffectDraw.lib gdiplus.lib strmbasd.lib wmvcore.lib strmiids.lib quartz.lib odbc32.lib odbccp32.lib winmm.lib comctl32.lib Kernel32.lib"
 				OutputFile="$(OutDir)/Ansoply.dll"
 				LinkIncremental="2"
 				IgnoreDefaultLibraryNames="libcmtd"
@@ -102,7 +102,7 @@
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
 				AdditionalOptions="/FORCE:MULTIPLE"
-				AdditionalDependencies=".\lib\tinyxmld.lib gdiplus.lib strmbase.lib wmvcore.lib strmiids.lib quartz.lib odbc32.lib odbccp32.lib winmm.lib comctl32.lib Kernel32.lib"
+				AdditionalDependencies=".\lib\tinyxmld.lib .\lib\EffectDraw.lib gdiplus.lib strmbase.lib wmvcore.lib strmiids.lib quartz.lib odbc32.lib odbccp32.lib winmm.lib comctl32.lib Kernel32.lib"
 				OutputFile="$(OutDir)/Ansoply.dll"
 				LinkIncremental="1"
 				MergedIDLBaseFileName="_Ansoply.idl"
@@ -192,6 +192,9 @@
 				RelativePath=".\Effects\Effect.cpp">
 			</File>
 			<File
+				RelativePath=".\EffectBitmap.cpp">
+			</File>
+			<File
 				RelativePath=".\IDGenerator.cpp">
 			</File>
 			<File
@@ -261,6 +264,9 @@
 			</File>
 			<File
 				RelativePath=".\Effects\Effect.h">
+			</File>
+			<File
+				RelativePath=".\EffectBitmap.h">
 			</File>
 			<File
 				RelativePath=".\error.h">

@@ -110,6 +110,18 @@ public:
 		ULONG uOriginalSize,
 		ULONG uMilli);
 
+	LONG SetEffectBitmap(
+		LPCTSTR sBitmapFilePath,
+		ULONG uAlpha,
+		ULONG uTransparentColor,   
+		ULONG uX,
+		ULONG uY,
+		ULONG uWidth,
+		ULONG uHeight,
+		ULONG uOriginalSize,
+		ULONG uDrawSytle
+		);
+
 	LONG BringToFront(ULONG uGroupID);
 
 	LONG SendToBack(ULONG uGroupID);

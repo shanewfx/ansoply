@@ -1,5 +1,6 @@
 #pragma once
 #include "ansoplyobject.h"
+#include "project.h"
 #include <string>
 using namespace std;
 
@@ -8,6 +9,10 @@ typedef enum _TRANSPARENT_TYPE_
 	ALPHA_BLENDING,
 	BACKGROUND_TRANSPARENT
 }TRANSPARENT_TYPE;
+
+//class CAlphaBlt;
+//class IDirectDrawSurface7;
+//class Bitmap;
 
 class CBitmapObject :
 	public CAnsoplyObject
@@ -26,7 +31,7 @@ public:
 		m_pAlphaBlt = pAlphaBlt;
 	}
 	virtual void Draw();
-private:
+protected:
 	TRANSPARENT_TYPE m_TransparentType;
 	CAlphaBlt* m_pAlphaBlt;
 public:

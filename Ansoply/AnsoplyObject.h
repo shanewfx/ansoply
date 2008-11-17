@@ -18,7 +18,8 @@ typedef enum _AnsoplyObjectType
 	video,
 	bitmap,
 	dynamicbitmap,
-	text
+	text,
+	effectbitmap
 }AnsoplyObjectType;
 
 class CAnsoplyObject

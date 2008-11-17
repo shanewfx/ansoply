@@ -1,5 +1,5 @@
 #include "StdAfx.h"
-#include "project.h"
+//#include "project.h"
 #include "bitmapobject.h"
 
 CBitmapObject::CBitmapObject() : 
