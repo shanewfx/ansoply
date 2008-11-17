@@ -598,3 +598,16 @@ STDMETHODIMP CAnsoplyInterface::SetPlayTimeout(ULONG uGroupID, ULONG uTimeout_s)
 		return E_FAIL;
 	return m_pMultiSAP->SetPlayTimeout(uGroupID, uTimeout_s);
 }
+
+STDMETHODIMP CAnsoplyInterface::SetEffectBitmap(ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG DrawSytle)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+
+	LONG lRetCode = -1;
+	lRetCode = m_pMultiSAP->SetEffectBitmap(_com_util::ConvertBSTRToString(sBitmapFilePath),
+		uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, DrawSytle);
+	*uBitmapID = lRetCode;
+	return lRetCode != -1 ? S_OK : E_FAIL;
+}

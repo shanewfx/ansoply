@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Wed Oct 29 20:48:08 2008
+/* at Mon Nov 17 12:33:42 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -371,6 +371,18 @@ EXTERN_C const IID IID_IAnsoplyInterface;
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetPlayTimeout( 
             /* [in] */ ULONG uGroupID,
             /* [in] */ ULONG uTimeout_s) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetEffectBitmap( 
+            /* [in] */ ULONG *uBitmapID,
+            /* [in] */ BSTR sBitmapFilePath,
+            /* [in] */ ULONG uAlpha,
+            /* [in] */ ULONG uTransparentColor,
+            /* [in] */ ULONG uX,
+            /* [in] */ ULONG uY,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uOriginalSize,
+            /* [in] */ ULONG DrawSytle) = 0;
         
     };
     
@@ -759,6 +771,19 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uGroupID,
             /* [in] */ ULONG uTimeout_s);
         
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SetEffectBitmap )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG *uBitmapID,
+            /* [in] */ BSTR sBitmapFilePath,
+            /* [in] */ ULONG uAlpha,
+            /* [in] */ ULONG uTransparentColor,
+            /* [in] */ ULONG uX,
+            /* [in] */ ULONG uY,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uOriginalSize,
+            /* [in] */ ULONG DrawSytle);
+        
         END_INTERFACE
     } IAnsoplyInterfaceVtbl;
 
@@ -971,6 +996,9 @@ EXTERN_C const IID IID_IAnsoplyInterface;
 
 #define IAnsoplyInterface_SetPlayTimeout(This,uGroupID,uTimeout_s)	\
     (This)->lpVtbl -> SetPlayTimeout(This,uGroupID,uTimeout_s)
+
+#define IAnsoplyInterface_SetEffectBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize,DrawSytle)	\
+    (This)->lpVtbl -> SetEffectBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize,DrawSytle)
 
 #endif /* COBJMACROS */
 
@@ -1784,6 +1812,27 @@ void __RPC_STUB IAnsoplyInterface_SetPlayTimes_Stub(
 
 
 void __RPC_STUB IAnsoplyInterface_SetPlayTimeout_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetEffectBitmap_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG *uBitmapID,
+    /* [in] */ BSTR sBitmapFilePath,
+    /* [in] */ ULONG uAlpha,
+    /* [in] */ ULONG uTransparentColor,
+    /* [in] */ ULONG uX,
+    /* [in] */ ULONG uY,
+    /* [in] */ ULONG uWidth,
+    /* [in] */ ULONG uHeight,
+    /* [in] */ ULONG uOriginalSize,
+    /* [in] */ ULONG DrawSytle);
+
+
+void __RPC_STUB IAnsoplyInterface_SetEffectBitmap_Stub(
     IRpcStubBuffer *This,
     IRpcChannelBuffer *_pRpcChannelBuffer,
     PRPC_MESSAGE _pRpcMessage,

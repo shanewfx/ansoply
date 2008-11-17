@@ -74,6 +74,7 @@ __interface IAnsoplyInterface : public IDispatch
 	[id(57), helpstring("method SetVisibility")] HRESULT SetVisibility(ULONG uObjectID, ULONG bVisibility);
 	[id(58), helpstring("method SetPlayTimes")] HRESULT SetPlayTimes(ULONG uGroupID, ULONG uPlayTimes);
 	[id(59), helpstring("method SetPlayTimeout")] HRESULT SetPlayTimeout(ULONG uGroupID, ULONG uTimeout_s);
+	[id(60), helpstring("method SetEffectBitmap")] HRESULT SetEffectBitmap(ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG DrawSytle);
 };
 
 
@@ -246,5 +247,6 @@ public:
 	STDMETHOD(SetVisibility)(ULONG uObjectID, ULONG bVisibility);
 	STDMETHOD(SetPlayTimes)(ULONG uGroupID, ULONG uPlayTimes);
 	STDMETHOD(SetPlayTimeout)(ULONG uGroupID, ULONG uTimeout_s);
+	STDMETHOD(SetEffectBitmap)(ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG DrawSytle);
 };
 
