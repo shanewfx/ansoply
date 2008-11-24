@@ -10,6 +10,7 @@ CAnsoplyObject::CAnsoplyObject()
 	SetRect(&m_rect, 0, 0, 0, 0);
 	m_bVisibility = TRUE;
 	m_playType = PLAY_THROUGH;
+	m_StopTimeExpire = 0;
 }
 
 CAnsoplyObject::~CAnsoplyObject(void)

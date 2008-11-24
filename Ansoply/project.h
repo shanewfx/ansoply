@@ -108,3 +108,4 @@ typedef struct Tag_BitmapType_
 
 #define WM_PLAY WM_USER + 100
 
+typedef BOOL (WINAPI *EFFECTDRAWPROC)(HDC hdcDst, HDC hdcSrc, const RECT aRect, int Step, int Progress);

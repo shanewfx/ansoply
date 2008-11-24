@@ -281,7 +281,13 @@ void CTestAnsoplyDlg::OnBnClickedButton5()
 	{
 		CString name = fileDlg.GetPathName();
 		ULONG id;
-		m_ansoply.SetEffectBitmap(&id, name, 0xFF, 0xFFFF00, 0, 0, 500, 500, 1, 1);
+
+		m_ansoply.SetEffectBitmap(&id, name, 0x96, 0xFFFFFF, 50, 50, 200, 200, 1, 3, 10);
+		m_ansoply.SetPlayMode(id, 3);
+		//m_ansoply.SetPlayTimes(id, 3);
+		//m_ansoply.SetPlayTimeout(id, 5);
+		m_ansoply.SetEffectEndTime(id, 3);
+		//m_ansoply.SetEffectPlayRange(id, 7, 4, 8);
 	}
 
 	//m_ansoply.SetVisibility(m_uGroupID, 0);
@@ -325,6 +331,13 @@ void CTestAnsoplyDlg::OnBnClickedButton7()
 //	m_ansoply.SelectObject(m_uBitmapID, 0xFFFFFF00);
 
 //	m_ansoply.DelVideoFile(m_uGroupID, m_uFileID);
+
+	ULONG id;
+//	m_ansoply.SetTextInRegion(0, 0, "123513242341", "宋体\0", 0, 0, 0, 100, 100, RGB(255, 255, 0), &id, 500, 500);
+	m_ansoply.SetEffectTextInRegion(0, 0, "好好好好好好时代发生大幅", "宋体\0", 0, 0, 0, 80, 80, RGB(255, 255, 0), &id, 200, 200, 2, 50);
+	m_ansoply.SetEffectEndTime(id, 5);
+	//m_ansoply.SetPlayMode(id, 3);
+	m_ansoply.SetEffectPlayRange(id, 8, 4, 8);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton8()

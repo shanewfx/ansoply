@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Mon Nov 17 12:33:42 2008
+/* at Sat Nov 22 17:12:31 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -382,7 +382,39 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uWidth,
             /* [in] */ ULONG uHeight,
             /* [in] */ ULONG uOriginalSize,
-            /* [in] */ ULONG DrawSytle) = 0;
+            /* [in] */ ULONG DrawStyle,
+            /* [in] */ ULONG uDelay) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetEffectBitmapStyle( 
+            /* [in] */ ULONG uID,
+            /* [in] */ ULONG uStyle) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetEffectTextInRegion( 
+            /* [in] */ ULONG uX,
+            /* [in] */ ULONG uY,
+            /* [in] */ BSTR sOutputText,
+            /* [in] */ BSTR sFaceName,
+            /* [in] */ ULONG uItalic,
+            /* [in] */ ULONG uBold,
+            /* [in] */ ULONG uUnderLine,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uColor,
+            /* [in] */ ULONG *uObjectID,
+            /* [in] */ ULONG uRegionWidth,
+            /* [in] */ ULONG uRegionHeight,
+            /* [in] */ ULONG uDrawStyle,
+            /* [in] */ ULONG uDelay) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetEffectPlayRange( 
+            /* [in] */ ULONG uID,
+            /* [in] */ ULONG uPlayMode,
+            /* [in] */ ULONG uRangeStart,
+            /* [in] */ ULONG uRangeEnd) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetEffectEndTime( 
+            /* [in] */ ULONG uID,
+            /* [in] */ LONG EndTime) = 0;
         
     };
     
@@ -782,7 +814,43 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uWidth,
             /* [in] */ ULONG uHeight,
             /* [in] */ ULONG uOriginalSize,
-            /* [in] */ ULONG DrawSytle);
+            /* [in] */ ULONG DrawStyle,
+            /* [in] */ ULONG uDelay);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SetEffectBitmapStyle )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uID,
+            /* [in] */ ULONG uStyle);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SetEffectTextInRegion )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uX,
+            /* [in] */ ULONG uY,
+            /* [in] */ BSTR sOutputText,
+            /* [in] */ BSTR sFaceName,
+            /* [in] */ ULONG uItalic,
+            /* [in] */ ULONG uBold,
+            /* [in] */ ULONG uUnderLine,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uColor,
+            /* [in] */ ULONG *uObjectID,
+            /* [in] */ ULONG uRegionWidth,
+            /* [in] */ ULONG uRegionHeight,
+            /* [in] */ ULONG uDrawStyle,
+            /* [in] */ ULONG uDelay);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SetEffectPlayRange )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uID,
+            /* [in] */ ULONG uPlayMode,
+            /* [in] */ ULONG uRangeStart,
+            /* [in] */ ULONG uRangeEnd);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SetEffectEndTime )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uID,
+            /* [in] */ LONG EndTime);
         
         END_INTERFACE
     } IAnsoplyInterfaceVtbl;
@@ -997,8 +1065,20 @@ EXTERN_C const IID IID_IAnsoplyInterface;
 #define IAnsoplyInterface_SetPlayTimeout(This,uGroupID,uTimeout_s)	\
     (This)->lpVtbl -> SetPlayTimeout(This,uGroupID,uTimeout_s)
 
-#define IAnsoplyInterface_SetEffectBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize,DrawSytle)	\
-    (This)->lpVtbl -> SetEffectBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize,DrawSytle)
+#define IAnsoplyInterface_SetEffectBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize,DrawStyle,uDelay)	\
+    (This)->lpVtbl -> SetEffectBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize,DrawStyle,uDelay)
+
+#define IAnsoplyInterface_SetEffectBitmapStyle(This,uID,uStyle)	\
+    (This)->lpVtbl -> SetEffectBitmapStyle(This,uID,uStyle)
+
+#define IAnsoplyInterface_SetEffectTextInRegion(This,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight,uDrawStyle,uDelay)	\
+    (This)->lpVtbl -> SetEffectTextInRegion(This,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight,uDrawStyle,uDelay)
+
+#define IAnsoplyInterface_SetEffectPlayRange(This,uID,uPlayMode,uRangeStart,uRangeEnd)	\
+    (This)->lpVtbl -> SetEffectPlayRange(This,uID,uPlayMode,uRangeStart,uRangeEnd)
+
+#define IAnsoplyInterface_SetEffectEndTime(This,uID,EndTime)	\
+    (This)->lpVtbl -> SetEffectEndTime(This,uID,EndTime)
 
 #endif /* COBJMACROS */
 
@@ -1829,10 +1909,78 @@ void __RPC_STUB IAnsoplyInterface_SetPlayTimeout_Stub(
     /* [in] */ ULONG uWidth,
     /* [in] */ ULONG uHeight,
     /* [in] */ ULONG uOriginalSize,
-    /* [in] */ ULONG DrawSytle);
+    /* [in] */ ULONG DrawStyle,
+    /* [in] */ ULONG uDelay);
 
 
 void __RPC_STUB IAnsoplyInterface_SetEffectBitmap_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetEffectBitmapStyle_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uID,
+    /* [in] */ ULONG uStyle);
+
+
+void __RPC_STUB IAnsoplyInterface_SetEffectBitmapStyle_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetEffectTextInRegion_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uX,
+    /* [in] */ ULONG uY,
+    /* [in] */ BSTR sOutputText,
+    /* [in] */ BSTR sFaceName,
+    /* [in] */ ULONG uItalic,
+    /* [in] */ ULONG uBold,
+    /* [in] */ ULONG uUnderLine,
+    /* [in] */ ULONG uWidth,
+    /* [in] */ ULONG uHeight,
+    /* [in] */ ULONG uColor,
+    /* [in] */ ULONG *uObjectID,
+    /* [in] */ ULONG uRegionWidth,
+    /* [in] */ ULONG uRegionHeight,
+    /* [in] */ ULONG uDrawStyle,
+    /* [in] */ ULONG uDelay);
+
+
+void __RPC_STUB IAnsoplyInterface_SetEffectTextInRegion_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetEffectPlayRange_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uID,
+    /* [in] */ ULONG uPlayMode,
+    /* [in] */ ULONG uRangeStart,
+    /* [in] */ ULONG uRangeEnd);
+
+
+void __RPC_STUB IAnsoplyInterface_SetEffectPlayRange_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetEffectEndTime_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uID,
+    /* [in] */ LONG EndTime);
+
+
+void __RPC_STUB IAnsoplyInterface_SetEffectEndTime_Stub(
     IRpcStubBuffer *This,
     IRpcChannelBuffer *_pRpcChannelBuffer,
     PRPC_MESSAGE _pRpcMessage,

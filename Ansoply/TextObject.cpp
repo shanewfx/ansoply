@@ -1,5 +1,4 @@
 #include "StdAfx.h"
-#include "project.h"
 #include "textobject.h"
 
 CTextObject::CTextObject() :

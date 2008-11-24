@@ -9,7 +9,9 @@ typedef enum _PLAY_TYPE_
 	PLAY_LOOP,
 	PLAY_PREVIOUS,
 	PLAY_NEXT,
-	PLAY_TERMINATE
+	PLAY_TERMINATE,
+	PLAY_RANDOM,
+	PLAY_SEQUENCE
 }PLAY_TYPE;
 
 typedef enum _AnsoplyObjectType
@@ -19,7 +21,8 @@ typedef enum _AnsoplyObjectType
 	bitmap,
 	dynamicbitmap,
 	text,
-	effectbitmap
+	effectbitmap,
+	effecttext
 }AnsoplyObjectType;
 
 class CAnsoplyObject
