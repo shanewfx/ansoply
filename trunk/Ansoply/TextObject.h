@@ -1,5 +1,6 @@
 #pragma once
 #include "ansoplyobject.h"
+#include "project.h"
 
 class CTextObject : 
 	public CAnsoplyObject
@@ -48,7 +49,7 @@ public:
 	ULONG       m_uRegionWidth;
 	ULONG       m_uRegionHeight;
 
-private:
+protected:
 	IDirectDrawSurface7* m_pDDSFontCache;
 	LOGFONT     m_logFont;
 	TCHAR*      m_text;        // hold the text

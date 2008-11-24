@@ -14,12 +14,14 @@
 #include "bitmapobject.h"
 #include "EffectBitmap.h"
 #include "textobject.h"
+#include "EffectText.h"
 #include ".\dynamicbitmap.h"
 #include "D3DHelpers/d3dutil.h"
 #include ".\tinyxml\tinyxml.h"
 #include <stdio.h>
 #include <comutil.h>
 #include <string>
+#include <time.h>
 using namespace std;
 
 //CMultiSAP * g_pMultiSAP;
@@ -167,6 +169,7 @@ void CMultiSAP::DeleteAllMovies()
 //-------------------------------------------------------------------------
 HRESULT CMultiSAP::Initialize()
 {
+	srand((unsigned)time(NULL));
     HRESULT hr = CoInitialize(NULL);
     if (hr == S_FALSE)
         CoUninitialize();
@@ -1415,6 +1418,33 @@ LONG CMultiSAP::SetPlayMode(ULONG uGroupID, ULONG uPlayMode)
 		}
 	}
 
+	CBitmapObject * pBitmap;
+	if( m_bitmapObject.Lookup(uGroupID, pBitmap) )
+	{
+		if (PLAY_THROUGH == uPlayMode || PLAY_LOOP == uPlayMode)
+		{
+			CEffectBitmap * pEB = static_cast<CEffectBitmap*>(pBitmap);
+			pEB->m_bPlayEnd = FALSE;
+			pBitmap->m_playType = (PLAY_TYPE)uPlayMode;	
+			if( PLAY_THROUGH == uPlayMode )
+				pBitmap->m_uPlayTimes = 0;
+			return 0;
+		}
+	}
+
+	CTextObject * pText;
+	if( m_textObject.Lookup(uGroupID, pText) )
+	{
+		if (PLAY_THROUGH == uPlayMode || PLAY_LOOP == uPlayMode)
+		{
+			CEffectText * pET = static_cast<CEffectText*>(pText);
+			pET->m_bPlayEnd = FALSE;
+			pText->m_playType = (PLAY_TYPE)uPlayMode;
+			if( PLAY_THROUGH == uPlayMode )
+				pText->m_uPlayTimes = 0;
+			return 0;
+		}
+	}
 	return -1;
 }
 
@@ -1561,26 +1591,10 @@ LONG CMultiSAP::SetBitmap(
 		else
 		{
 			USES_CONVERSION;
-/*
-			Bitmap originalBMP(T2W(sBitmapFilePath));
-			Bitmap resizeBMP(Width, Height);
-			Graphics graphic(&resizeBMP);
-			graphic.DrawImage(&originalBMP, 0, 0, Width, Height, 
-							  originalBMP.GetWidth(),
-							  originalBMP.GetHeight(), UnitPixel);
-*/
 			Bitmap originalBMP(T2W(sBitmapFilePath));
 			Graphics g(hdcDest);
-
-//			g.DrawImage(&originalBMP, 0, 0, Width, Height, 
-//				originalBMP.GetWidth(), originalBMP.GetHeight(), UnitPixel);
-
 			g.DrawImage(&originalBMP, Rect(0, 0, Width, Height), 0, 0, 
 				originalBMP.GetWidth(), originalBMP.GetHeight(), UnitPixel, NULL );
-
-//			BitBlt( hdcDest, 0, 0, Width, Height, g.GetHDC(), 0, 0, SRCCOPY );
-
-//			StretchBlt( hdcDest, 0, 0, Width, Height, hdcBitmap, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY );
 		}
 
 		if( uOriginalSize == 1)
@@ -2085,12 +2099,12 @@ CMultiSAP::CreateFontCache(int cyFont, CTextObject* pTextObject, IDirectDrawSurf
 	// Delete the old font and assign the new one
 	//
 	//	m_lpDDSFontCache.Release();
-	if(m_hFont)
-	{
-		DeleteObject(m_hFont);
-	}
+	//if(m_hFont)
+	//{
+	//	DeleteObject(m_hFont);
+	//}
 	//	m_cxFont = size.cx; m_cyFont = size.cy;
-	m_hFont = hFont;
+	//m_hFont = hFont;
 
 
 	//
@@ -2108,7 +2122,7 @@ CMultiSAP::CreateFontCache(int cyFont, CTextObject* pTextObject, IDirectDrawSurf
 		//
 		// Select the font into the DDraw surface and draw the characters
 		//
-		m_hFont = (HFONT)::SelectObject(hdcDest, m_hFont);
+		(HFONT)::SelectObject(hdcDest, hFont);
 		SetTextColor(hdcDest, RGB(255, 255, 255));
 		SetBkColor(hdcDest, RGB(0,0,0));
 		SetBkMode(hdcDest, TRANSPARENT);
@@ -2132,8 +2146,7 @@ CMultiSAP::CreateFontCache(int cyFont, CTextObject* pTextObject, IDirectDrawSurf
 			rt.bottom = pTextObject->GetYCoordinate() + pTextObject->m_uRegionHeight;
 			DrawText(hdcDest, pTextObject->GetText(), pTextObject->GetTextLen(), &rt, DT_WORDBREAK);
 		}
-
-
+		DeleteFont(hFont);
 		
 		//		}
 
@@ -2313,10 +2326,72 @@ LONG CMultiSAP::SetTextInRegion(
 	pTextObject->SetLogFont( &lfChar );
 
 	hr = pTextObject->SetText(uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor);
-	//	if (m_lpDDSFontCache != NULL) m_lpDDSFontCache.Release();
+
 	IDirectDrawSurface7* pDDS = NULL;
 	hr = CreateFontCache(32, pTextObject, &pDDS, TRUE);
+
 	pTextObject->SetDDSFontCache(pDDS);
+	return hr;
+}
+
+LONG CMultiSAP::SetEffectTextInRegion(
+								ULONG uX,
+								ULONG uY,
+								LPCTSTR sOutputText,
+								LPCTSTR  sFaceName,
+								ULONG    uItalic,
+								ULONG   uBold,
+								ULONG   uUnderLine,
+								ULONG   uWidth,
+								ULONG   uHeight,
+								ULONG   uColor,
+								ULONG*  uID,
+								ULONG   uRegionWidth,
+								ULONG   uRegionHeight,
+								ULONG   uDrawStyle,
+								ULONG   uDelay)
+{
+	HRESULT hr;
+	CEffectText* pTextObject = new CEffectText();
+	m_textObject[pTextObject->GetObjectID()] = pTextObject;
+	*uID = pTextObject->GetObjectID();
+
+	pTextObject->m_pMultiSAP = this;
+
+	pTextObject->SetAlphaBlt(m_pAlphaBlt);
+	pTextObject->m_uSurfaceWidth  = m_uSurfaceWidth;
+	pTextObject->m_uSurfaceHeight = m_uSurfaceHeight;
+	pTextObject->m_uRegionWidth   = uRegionWidth;
+	pTextObject->m_uRegionHeight  = uRegionHeight;
+//	m_drawList.AddHead(pTextObject);
+
+	LOGFONT lfChar;
+	ZeroMemory(&lfChar, sizeof(lfChar));
+	lfChar.lfWidth          = uWidth;
+	lfChar.lfHeight         = uHeight;
+	if( uItalic == 1) lfChar.lfItalic         = TRUE;
+	if( uUnderLine == 1) lfChar.lfUnderline   = TRUE;
+	lfChar.lfCharSet        = DEFAULT_CHARSET;
+	lfChar.lfPitchAndFamily = DEFAULT_PITCH;
+	StringCchCopy(lfChar.lfFaceName, NUMELMS(lfChar.lfFaceName), sFaceName);
+	if( uBold == 1)	
+		lfChar.lfWeight        = FW_BOLD;
+	else	
+		lfChar.lfWeight        = FW_NORMAL;
+	lfChar.lfOutPrecision  = OUT_DEFAULT_PRECIS;
+	lfChar.lfClipPrecision = CLIP_DEFAULT_PRECIS;
+	lfChar.lfQuality       = ANTIALIASED_QUALITY;
+	pTextObject->SetLogFont( &lfChar );
+
+	hr = pTextObject->SetText(uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uDrawStyle, uDelay);
+
+	IDirectDrawSurface7* pDDS = NULL;
+	//hr = CreateFontCache(32, pTextObject, &pDDS, TRUE);
+	//hr = DDARGB32SurfaceInit(&pDDS, TRUE, m_uSurfaceWidth, m_uSurfaceHeight);
+	hr = DDARGB32SurfaceInit(&pDDS, TRUE, uRegionWidth, uRegionHeight);
+	pTextObject->SetDDSFontCache(pDDS);
+
+	m_drawList.AddHead(pTextObject);
 	return hr;
 }
 
@@ -2763,11 +2838,11 @@ void CMultiSAP::ChangeDynamicBitmap(LPVOID param)
 			//	iter = pDynamicBitmap->m_BitmapList.begin();
 
 			iter++;
-			OutputDebugString("iter\n");
+			//OutputDebugString("iter\n");
 
 			LeaveCriticalSection(&pDynamicBitmap->m_CS);
 			Sleep(milli);
-			if( pDynamicBitmap->m_StopTimeExpire &&GetTickCount() > pDynamicBitmap->m_StopTimeExpire )
+			if( pDynamicBitmap->m_StopTimeExpire && GetTickCount() > pDynamicBitmap->m_StopTimeExpire )
 			{
 				bBreak = TRUE;
 				break;
@@ -3094,6 +3169,33 @@ LONG CMultiSAP::SetPlayTimes(ULONG uGroupID, ULONG uPlayTimes)
 		return 0;
 	}
 
+	CBitmapObject * pBitmap;
+	if( m_bitmapObject.Lookup(uGroupID, pBitmap) )
+	{
+		CEffectBitmap * pEB = static_cast<CEffectBitmap*>(pBitmap);
+		pEB->m_bPlayEnd = FALSE;
+		pBitmap->m_uPlayBeginTime = 1;
+		pBitmap->m_uPlayTimes = uPlayTimes;
+
+		pBitmap->m_StopTimeExpire = 0;
+
+		pBitmap->m_playType = (PLAY_TYPE)PLAY_THROUGH;
+		return 0;
+	}
+
+	CTextObject * pText;
+	if( m_textObject.Lookup(uGroupID, pText) )
+	{
+		CEffectText * pET = static_cast<CEffectText*>(pText);
+		pET->m_bPlayEnd = FALSE;
+		pText->m_uPlayBeginTime = 1;
+		pText->m_uPlayTimes = uPlayTimes;
+
+		pBitmap->m_StopTimeExpire = 0;
+
+		pText->m_playType = (PLAY_TYPE)PLAY_THROUGH;
+		return 0;
+	}
 	return 0;
 }
 
@@ -3110,8 +3212,86 @@ LONG CMultiSAP::SetPlayTimeout(ULONG uGroupID, ULONG uTimeout_s)
 		pDynamicBitmap->m_StopTimeExpire = GetTickCount() + uTimeout_s * 1000;
 		return 0;
 	}
+	CBitmapObject * pBitmap;
+	if( m_bitmapObject.Lookup(uGroupID, pBitmap) )
+	{
+		pBitmap->m_StopTimeExpire = GetTickCount() + uTimeout_s * 1000;
+		return 0;
+	}
+
+	CTextObject * pText;
+	if( m_textObject.Lookup(uGroupID, pText) )
+	{
+		pText->m_StopTimeExpire = GetTickCount() + uTimeout_s * 1000;
+		return 0;
+	}
 
 	return 0;
+}
+
+LONG CMultiSAP::SetEffectBitmapStyle(ULONG uID, ULONG uStyle)
+{
+	CBitmapObject * pBitmap;
+	if( m_bitmapObject.Lookup(uID, pBitmap) )
+	{
+		CEffectBitmap * pEB = static_cast<CEffectBitmap*>(pBitmap);
+		pEB->m_uDrawStyle = uStyle;
+		pEB->m_drawtype = PLAY_NONE;  // discard the random or sequence play mode
+		return 0;
+	}
+	CTextObject * pText;
+	if( m_textObject.Lookup(uID, pText) )
+	{
+		CEffectText * pET = static_cast<CEffectText*>(pText);
+		pET->m_uDrawStyle = uStyle;
+		pET->m_drawtype = PLAY_NONE;  // discard the random or sequence play mode
+		return 0;
+	}
+	return -1;
+}
+
+LONG CMultiSAP::SetEffectPlayRange(ULONG uID, ULONG uPlayMode, ULONG uRangeStart, ULONG uRangeEnd)
+{
+	CBitmapObject * pBitmap;
+	if( m_bitmapObject.Lookup(uID, pBitmap) )
+	{
+		CEffectBitmap * pEB = static_cast<CEffectBitmap*>(pBitmap);
+		pEB->m_drawtype = (PLAY_TYPE)uPlayMode;
+		pEB->m_uDrawStyleBegin = uRangeStart;
+		pEB->m_uDrawStyleEnd = uRangeEnd;
+		pEB->m_playType = PLAY_NONE;
+		return 0;
+	}
+	CTextObject * pText;
+	if( m_textObject.Lookup(uID, pText) )
+	{
+		CEffectText * pET = static_cast<CEffectText*>(pText);
+		pET->m_drawtype = (PLAY_TYPE)uPlayMode;
+		pET->m_uDrawStyleBegin = uRangeStart;
+		pET->m_uDrawStyleEnd = uRangeEnd;
+		pET->m_playType = PLAY_NONE;
+		return 0;
+	}
+	return -1;
+}
+
+LONG CMultiSAP::SetEffectEndTime(ULONG uID, LONG EndTime)
+{
+	CBitmapObject * pBitmap;
+	if( m_bitmapObject.Lookup(uID, pBitmap) )
+	{
+		CEffectBitmap * pEB = static_cast<CEffectBitmap*>(pBitmap);
+		pEB->m_endtime = EndTime * 1000;
+		return 0;
+	}
+	CTextObject * pText;
+	if( m_textObject.Lookup(uID, pText) )
+	{
+		CEffectText * pET = static_cast<CEffectText*>(pText);
+		pET->m_endtime = EndTime * 1000;
+		return 0;
+	}
+	return -1;
 }
 
 LONG CMultiSAP::SetEffectBitmap(
@@ -3123,12 +3303,13 @@ LONG CMultiSAP::SetEffectBitmap(
 						  ULONG uWidth,
 						  ULONG uHeight,
 						  ULONG uOriginalSize,
-						  ULONG uDrawSytle
+						  ULONG uDrawStyle,
+						  ULONG uDelay
 						  )
 {
 	CEffectBitmap* pBitmapObject = new CEffectBitmap();
 
-	if ( pBitmapObject->SetBitmap(sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uDrawSytle, m_hwndApp) == -1)
+	if ( pBitmapObject->SetBitmap(sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uDrawStyle, uDelay, m_hwndApp) == -1)
 		return -1;
 
 	pBitmapObject->m_pMultiSAP = this;
@@ -3168,97 +3349,97 @@ LONG CMultiSAP::SetEffectBitmap(
 	hr = DDARGB32SurfaceInit(&pDDS, TRUE, Width, Height);
 	if(hr == DD_OK)
 	{
-		HDC hdcDest;
-		//		m_lpDDSBitmapCache->GetDC(&hdcDest);
-		pDDS->GetDC(&hdcDest);
+	//	HDC hdcDest;
+	//	//		m_lpDDSBitmapCache->GetDC(&hdcDest);
+	//	pDDS->GetDC(&hdcDest);
 
-		// Get a DC for the bitmap
-		HDC hdcBitmap = CreateCompatibleDC( NULL );
-		if( NULL == hdcBitmap )
-			return -1;
+	//	// Get a DC for the bitmap
+	//	HDC hdcBitmap = CreateCompatibleDC( NULL );
+	//	if( NULL == hdcBitmap )
+	//		return -1;
 
-		if( uOriginalSize == 1)
-		{
-			::SelectObject( hdcBitmap, hBmp );
-			BitBlt( hdcDest, 0, 0, Width, Height, hdcBitmap, 0, 0, SRCCOPY );
-		}
-		else
-		{
-			USES_CONVERSION;
-			/*
-			Bitmap originalBMP(T2W(sBitmapFilePath));
-			Bitmap resizeBMP(Width, Height);
-			Graphics graphic(&resizeBMP);
-			graphic.DrawImage(&originalBMP, 0, 0, Width, Height, 
-			originalBMP.GetWidth(),
-			originalBMP.GetHeight(), UnitPixel);
-			*/
-			Bitmap originalBMP(T2W(sBitmapFilePath));
-			Graphics g(hdcDest);
+	//	if( uOriginalSize == 1)
+	//	{
+	//		::SelectObject( hdcBitmap, hBmp );
+	//		BitBlt( hdcDest, 0, 0, Width, Height, hdcBitmap, 0, 0, SRCCOPY );
+	//	}
+	//	else
+	//	{
+	//		USES_CONVERSION;
+	//		/*
+	//		Bitmap originalBMP(T2W(sBitmapFilePath));
+	//		Bitmap resizeBMP(Width, Height);
+	//		Graphics graphic(&resizeBMP);
+	//		graphic.DrawImage(&originalBMP, 0, 0, Width, Height, 
+	//		originalBMP.GetWidth(),
+	//		originalBMP.GetHeight(), UnitPixel);
+	//		*/
+	//		Bitmap originalBMP(T2W(sBitmapFilePath));
+	//		Graphics g(hdcDest);
 
-			//			g.DrawImage(&originalBMP, 0, 0, Width, Height, 
-			//				originalBMP.GetWidth(), originalBMP.GetHeight(), UnitPixel);
+	//		//			g.DrawImage(&originalBMP, 0, 0, Width, Height, 
+	//		//				originalBMP.GetWidth(), originalBMP.GetHeight(), UnitPixel);
 
-			g.DrawImage(&originalBMP, Rect(0, 0, Width, Height), 0, 0, 
-				originalBMP.GetWidth(), originalBMP.GetHeight(), UnitPixel, NULL );
+	//		g.DrawImage(&originalBMP, Rect(0, 0, Width, Height), 0, 0, 
+	//			originalBMP.GetWidth(), originalBMP.GetHeight(), UnitPixel, NULL );
 
-			//			BitBlt( hdcDest, 0, 0, Width, Height, g.GetHDC(), 0, 0, SRCCOPY );
+	//		//			BitBlt( hdcDest, 0, 0, Width, Height, g.GetHDC(), 0, 0, SRCCOPY );
 
-			//			StretchBlt( hdcDest, 0, 0, Width, Height, hdcBitmap, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY );
-		}
+	//		//			StretchBlt( hdcDest, 0, 0, Width, Height, hdcBitmap, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY );
+	//	}
 
-		if( uOriginalSize == 1)
-		{
-			DeleteObject( hBmp );
-		}
-		pDDS->ReleaseDC(hdcDest);
+	//	if( uOriginalSize == 1)
+	//	{
+	//		DeleteObject( hBmp );
+	//	}
+	//	pDDS->ReleaseDC(hdcDest);
 
-		DWORD dwFlags = D3DTEXTR_TRANSPARENTWHITE;
-		if( dwFlags & (D3DTEXTR_TRANSPARENTWHITE|D3DTEXTR_TRANSPARENTBLACK) )
-		{
-			// Lock the texture surface
-			DDSURFACEDESC2 ddsdAlpha={0};
-			ddsdAlpha.dwSize = sizeof(ddsdAlpha);
-			pDDS->Lock( NULL, &ddsdAlpha, 0, NULL );
+	//	DWORD dwFlags = D3DTEXTR_TRANSPARENTWHITE;
+	//	if( dwFlags & (D3DTEXTR_TRANSPARENTWHITE|D3DTEXTR_TRANSPARENTBLACK) )
+	//	{
+	//		// Lock the texture surface
+	//		DDSURFACEDESC2 ddsdAlpha={0};
+	//		ddsdAlpha.dwSize = sizeof(ddsdAlpha);
+	//		pDDS->Lock( NULL, &ddsdAlpha, 0, NULL );
 
-			//DWORD dwAlphaMask = ddsdAlpha.ddpfPixelFormat.dwRGBAlphaBitMask;
-			DWORD dwAlphaMask = uAlpha << 24;
-			DWORD dwRGBMask   = ( ddsdAlpha.ddpfPixelFormat.dwRBitMask |
-				ddsdAlpha.ddpfPixelFormat.dwGBitMask |
-				ddsdAlpha.ddpfPixelFormat.dwBBitMask );
-			//DWORD dwColorkey  = 0x00000000; // Colorkey on black
-			DWORD dwColorkey  = uTransparentColor;
+	//		//DWORD dwAlphaMask = ddsdAlpha.ddpfPixelFormat.dwRGBAlphaBitMask;
+	//		DWORD dwAlphaMask = uAlpha << 24;
+	//		DWORD dwRGBMask   = ( ddsdAlpha.ddpfPixelFormat.dwRBitMask |
+	//			ddsdAlpha.ddpfPixelFormat.dwGBitMask |
+	//			ddsdAlpha.ddpfPixelFormat.dwBBitMask );
+	//		//DWORD dwColorkey  = 0x00000000; // Colorkey on black
+	//		DWORD dwColorkey  = uTransparentColor;
 
-			//if( dwFlags & D3DTEXTR_TRANSPARENTWHITE )
-			//	dwColorkey = dwRGBMask;     // Colorkey on white
+	//		//if( dwFlags & D3DTEXTR_TRANSPARENTWHITE )
+	//		//	dwColorkey = dwRGBMask;     // Colorkey on white
 
-			// Add an opaque alpha value to each non-colorkeyed pixel
-			for( DWORD y = 0; y < Height; y++ )
-			{
-				WORD*  p16 =  (WORD*)((BYTE*)ddsdAlpha.lpSurface + y*ddsdAlpha.lPitch);
-				DWORD* p32 = (DWORD*)((BYTE*)ddsdAlpha.lpSurface + y*ddsdAlpha.lPitch);
+	//		// Add an opaque alpha value to each non-colorkeyed pixel
+	//		for( DWORD y = 0; y < Height; y++ )
+	//		{
+	//			WORD*  p16 =  (WORD*)((BYTE*)ddsdAlpha.lpSurface + y*ddsdAlpha.lPitch);
+	//			DWORD* p32 = (DWORD*)((BYTE*)ddsdAlpha.lpSurface + y*ddsdAlpha.lPitch);
 
-				for( DWORD x = 0; x < Width; x++ )
-				{
-					if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 16 )
-					{
-						if( ( *p16 &= dwRGBMask ) != dwColorkey )
-							*p16 |= dwAlphaMask;
-						p16++;
-					}
-					if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 32 || ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 24)
-					{
-						if( ( *p32 &= dwRGBMask ) != dwColorkey )
-							*p32 |= dwAlphaMask;
-						p32++;
-					}
-				}
-			}
-			pDDS->Unlock( NULL );
-			DeleteDC( hdcBitmap );
-			pDDS->ReleaseDC(hdcDest);
-		}
-		pDDS->ReleaseDC(hdcDest);
+	//			for( DWORD x = 0; x < Width; x++ )
+	//			{
+	//				if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 16 )
+	//				{
+	//					if( ( *p16 &= dwRGBMask ) != dwColorkey )
+	//						*p16 |= dwAlphaMask;
+	//					p16++;
+	//				}
+	//				if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 32 || ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 24)
+	//				{
+	//					if( ( *p32 &= dwRGBMask ) != dwColorkey )
+	//						*p32 |= dwAlphaMask;
+	//					p32++;
+	//				}
+	//			}
+	//		}
+	//		pDDS->Unlock( NULL );
+	//		DeleteDC( hdcBitmap );
+	//		pDDS->ReleaseDC(hdcDest);
+	//	}
+	//	pDDS->ReleaseDC(hdcDest);
 		m_bitmapObject[pBitmapObject->GetObjectID()] = pBitmapObject;
 		pBitmapObject->SetSurface(pDDS);
 		m_drawList.AddHead(pBitmapObject);

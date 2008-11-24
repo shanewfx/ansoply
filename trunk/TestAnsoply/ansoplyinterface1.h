@@ -337,10 +337,30 @@ public:
 		static BYTE parms[] = VTS_UI4 VTS_UI4 ;
 		InvokeHelper(0x3b, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uTimeout_s);
 	}
-	void SetEffectBitmap(unsigned long * uBitmapID, LPCTSTR sBitmapFilePath, unsigned long uAlpha, unsigned long uTransparentColor, unsigned long uX, unsigned long uY, unsigned long uWidth, unsigned long uHeight, unsigned long uOriginalSize, unsigned long DrawSytle)
+	void SetEffectBitmap(unsigned long * uBitmapID, LPCTSTR sBitmapFilePath, unsigned long uAlpha, unsigned long uTransparentColor, unsigned long uX, unsigned long uY, unsigned long uWidth, unsigned long uHeight, unsigned long uOriginalSize, unsigned long DrawStyle, unsigned long uDelay)
 	{
-		static BYTE parms[] = VTS_PUI4 VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
-		InvokeHelper(0x3c, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uBitmapID, sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, DrawSytle);
+		static BYTE parms[] = VTS_PUI4 VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x3c, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uBitmapID, sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, DrawStyle, uDelay);
+	}
+	void SetEffectBitmapStyle(unsigned long uID, unsigned long uStyle)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x3d, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uID, uStyle);
+	}
+	void SetEffectTextInRegion(unsigned long uX, unsigned long uY, LPCTSTR sOutputText, LPCTSTR sFaceName, unsigned long uItalic, unsigned long uBold, unsigned long uUnderLine, unsigned long uWidth, unsigned long uHeight, unsigned long uColor, unsigned long * uObjectID, unsigned long uRegionWidth, unsigned long uRegionHeight, unsigned long uDrawStyle, unsigned long uDelay)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_BSTR VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_PUI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x3e, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uObjectID, uRegionWidth, uRegionHeight, uDrawStyle, uDelay);
+	}
+	void SetEffectPlayRange(unsigned long uID, unsigned long uPlayMode, unsigned long uRangeStart, unsigned long uRangeEnd)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x3f, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uID, uPlayMode, uRangeStart, uRangeEnd);
+	}
+	void SetEffectEndTime(unsigned long uID, long EndTime)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_I4 ;
+		InvokeHelper(0x40, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uID, EndTime);
 	}
 
 // Properties

@@ -74,7 +74,11 @@ __interface IAnsoplyInterface : public IDispatch
 	[id(57), helpstring("method SetVisibility")] HRESULT SetVisibility(ULONG uObjectID, ULONG bVisibility);
 	[id(58), helpstring("method SetPlayTimes")] HRESULT SetPlayTimes(ULONG uGroupID, ULONG uPlayTimes);
 	[id(59), helpstring("method SetPlayTimeout")] HRESULT SetPlayTimeout(ULONG uGroupID, ULONG uTimeout_s);
-	[id(60), helpstring("method SetEffectBitmap")] HRESULT SetEffectBitmap(ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG DrawSytle);
+	[id(60), helpstring("method SetEffectBitmap")] HRESULT SetEffectBitmap(ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG DrawStyle, ULONG uDelay);
+	[id(61), helpstring("method SetEffectBitmapStyle")] HRESULT SetEffectBitmapStyle(ULONG uID, ULONG uStyle);
+	[id(62), helpstring("method SetEffectTextInRegion")] HRESULT SetEffectTextInRegion(ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay);
+	[id(63), helpstring("method SetEffectPlayRange")] HRESULT SetEffectPlayRange(ULONG uID, ULONG uPlayMode, ULONG uRangeStart, ULONG uRangeEnd);
+	[id(64), helpstring("method SetEffectEndTime")] HRESULT SetEffectEndTime(ULONG uID, LONG EndTime);
 };
 
 
@@ -247,6 +251,10 @@ public:
 	STDMETHOD(SetVisibility)(ULONG uObjectID, ULONG bVisibility);
 	STDMETHOD(SetPlayTimes)(ULONG uGroupID, ULONG uPlayTimes);
 	STDMETHOD(SetPlayTimeout)(ULONG uGroupID, ULONG uTimeout_s);
-	STDMETHOD(SetEffectBitmap)(ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG DrawSytle);
+	STDMETHOD(SetEffectBitmap)(ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG DrawStyle, ULONG uDelay);
+	STDMETHOD(SetEffectBitmapStyle)(ULONG uID, ULONG uStyle);
+	STDMETHOD(SetEffectTextInRegion)(ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay);
+	STDMETHOD(SetEffectPlayRange)(ULONG uID, ULONG uPlayMode, ULONG uRangeStart, ULONG uRangeEnd);
+	STDMETHOD(SetEffectEndTime)(ULONG uID, LONG EndTime);
 };
 

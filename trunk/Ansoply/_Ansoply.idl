@@ -13,9 +13,9 @@ import "C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\inclu
 	helpstring("IAnsoplyInterface Interface"),
 	pointer_default(unique)
 ] 
-#line 16 "d:\\ansoply project\\ansoply project\\ansoply\\ansoplyinterface.h"
+#line 16 "d:\\ansoply\\ansoply\\ansoplyinterface.h"
 interface IAnsoplyInterface : IDispatch {
-#line 18 "d:\\ansoply project\\ansoply project\\ansoply\\ansoplyinterface.h"
+#line 18 "d:\\ansoply\\ansoply\\ansoplyinterface.h"
 	[id(1),helpstring("method CreateVideoGroup")] HRESULT  CreateVideoGroup([in]ULONG *uNewGroupID);
 	[id(2),helpstring("method DelVideoGroup")] HRESULT  DelVideoGroup([in]ULONG uGroupID);
 	[id(3),helpstring("method AddVideoFile")] HRESULT  AddVideoFile([in]ULONG uGroupID, [in]BSTR sFilePathName, [in]ULONG *uFileObjectID);
@@ -75,7 +75,11 @@ interface IAnsoplyInterface : IDispatch {
 	[id(57),helpstring("method SetVisibility")] HRESULT  SetVisibility([in]ULONG uObjectID, [in]ULONG bVisibility);
 	[id(58),helpstring("method SetPlayTimes")] HRESULT  SetPlayTimes([in]ULONG uGroupID, [in]ULONG uPlayTimes);
 	[id(59),helpstring("method SetPlayTimeout")] HRESULT  SetPlayTimeout([in]ULONG uGroupID, [in]ULONG uTimeout_s);
-	[id(60),helpstring("method SetEffectBitmap")] HRESULT  SetEffectBitmap([in]ULONG *uBitmapID, [in]BSTR sBitmapFilePath, [in]ULONG uAlpha, [in]ULONG uTransparentColor, [in]ULONG uX, [in]ULONG uY, [in]ULONG uWidth, [in]ULONG uHeight, [in]ULONG uOriginalSize, [in]ULONG DrawSytle);
+	[id(60),helpstring("method SetEffectBitmap")] HRESULT  SetEffectBitmap([in]ULONG *uBitmapID, [in]BSTR sBitmapFilePath, [in]ULONG uAlpha, [in]ULONG uTransparentColor, [in]ULONG uX, [in]ULONG uY, [in]ULONG uWidth, [in]ULONG uHeight, [in]ULONG uOriginalSize, [in]ULONG DrawStyle, [in]ULONG uDelay);
+	[id(61),helpstring("method SetEffectBitmapStyle")] HRESULT  SetEffectBitmapStyle([in]ULONG uID, [in]ULONG uStyle);
+	[id(62),helpstring("method SetEffectTextInRegion")] HRESULT  SetEffectTextInRegion([in]ULONG uX, [in]ULONG uY, [in]BSTR sOutputText, [in]BSTR sFaceName, [in]ULONG uItalic, [in]ULONG uBold, [in]ULONG uUnderLine, [in]ULONG uWidth, [in]ULONG uHeight, [in]ULONG uColor, [in]ULONG *uObjectID, [in]ULONG uRegionWidth, [in]ULONG uRegionHeight, [in]ULONG uDrawStyle, [in]ULONG uDelay);
+	[id(63),helpstring("method SetEffectPlayRange")] HRESULT  SetEffectPlayRange([in]ULONG uID, [in]ULONG uPlayMode, [in]ULONG uRangeStart, [in]ULONG uRangeEnd);
+	[id(64),helpstring("method SetEffectEndTime")] HRESULT  SetEffectEndTime([in]ULONG uID, [in]LONG EndTime);
 };
 
 
@@ -90,7 +94,7 @@ library Ansoply
 		uuid(D1EBA581-03B3-42EA-B097-7F97F0ADB87B),
 		helpstring("AnsoplyInterface Class")
 	] 
-#line 93 "d:\\ansoply project\\ansoply project\\ansoply\\ansoplyinterface.h"
+#line 97 "d:\\ansoply\\ansoply\\ansoplyinterface.h"
 	coclass CAnsoplyInterface {
 		interface IAnsoplyInterface;
 	};

@@ -119,7 +119,8 @@ public:
 		ULONG uWidth,
 		ULONG uHeight,
 		ULONG uOriginalSize,
-		ULONG uDrawSytle
+		ULONG uDrawStyle,
+		ULONG uDelay
 		);
 
 	LONG BringToFront(ULONG uGroupID);
@@ -209,6 +210,23 @@ public:
 		ULONG    uRegionWidth,
 		ULONG    uRegionHeight);
 
+	LONG SetEffectTextInRegion(
+		ULONG uX,
+		ULONG uY,
+		LPCTSTR sOutputText,
+		LPCTSTR  sFaceName,
+		ULONG    uItalic,
+		ULONG    uBold,
+		ULONG    uUnderLine,
+		ULONG    uWidth,
+		ULONG    uHeight,
+		ULONG    uColor,
+		ULONG*   uID,
+		ULONG    uRegionWidth,
+		ULONG    uRegionHeight,
+		ULONG    uDrawStyle,
+		ULONG    uDelay);
+
 	LONG DelText(ULONG uID);
 
 	void RenderVideo();
@@ -223,6 +241,9 @@ public:
 	LONG SetVisibility(ULONG uObjectID, ULONG bVisibility);
 	LONG SetPlayTimes(ULONG uGroupID, ULONG uPlayTimes);
 	LONG SetPlayTimeout(ULONG uGroupID, ULONG uTimeout_s);
+	LONG SetEffectBitmapStyle(ULONG uID, ULONG uStyle);
+	LONG SetEffectPlayRange(ULONG uID, ULONG uPlayMode, ULONG uRangeStart, ULONG uRangeEnd);
+	LONG SetEffectEndTime(ULONG uID, LONG EndTime);
 
 	LONG SavePlayList(LPCTSTR sFile);
 	LONG LoadPlayList(LPCTSTR sFile);
@@ -263,7 +284,7 @@ public:
 //	CComPtr<IDirectDrawSurface7> m_lpDDSBitmapCache;
 //	CComPtr<IDirectDrawSurface7> m_lpDDSDynamicBitmapCache;
 	CAlphaBlt* m_pAlphaBlt;
-	HFONT m_hFont;
+//	HFONT m_hFont;
 //	int m_cxFont;
 //	int m_cyFont;
 //	int           m_cxFontImg;

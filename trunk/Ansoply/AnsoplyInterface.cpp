@@ -599,7 +599,7 @@ STDMETHODIMP CAnsoplyInterface::SetPlayTimeout(ULONG uGroupID, ULONG uTimeout_s)
 	return m_pMultiSAP->SetPlayTimeout(uGroupID, uTimeout_s);
 }
 
-STDMETHODIMP CAnsoplyInterface::SetEffectBitmap(ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG DrawSytle)
+STDMETHODIMP CAnsoplyInterface::SetEffectBitmap(ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG DrawStyle, ULONG uDelay)
 {
 	// TODO: Add your implementation code here
 	if( !m_pMultiSAP )
@@ -607,7 +607,52 @@ STDMETHODIMP CAnsoplyInterface::SetEffectBitmap(ULONG* uBitmapID, BSTR sBitmapFi
 
 	LONG lRetCode = -1;
 	lRetCode = m_pMultiSAP->SetEffectBitmap(_com_util::ConvertBSTRToString(sBitmapFilePath),
-		uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, DrawSytle);
+		uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, DrawStyle, uDelay);
 	*uBitmapID = lRetCode;
 	return lRetCode != -1 ? S_OK : E_FAIL;
+}
+
+STDMETHODIMP CAnsoplyInterface::SetEffectBitmapStyle(ULONG uID, ULONG uStyle)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->SetEffectBitmapStyle(uID, uStyle) != -1 ? S_OK : E_FAIL;
+}
+
+STDMETHODIMP CAnsoplyInterface::SetEffectTextInRegion(ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->SetEffectTextInRegion(uX, uY,
+		_com_util::ConvertBSTRToString(sOutputText),
+		_com_util::ConvertBSTRToString(sFaceName),
+		uItalic,
+		uBold,
+		uUnderLine,
+		uWidth,
+		uHeight,
+		uColor, 
+		uObjectID,
+		uRegionWidth,
+		uRegionHeight,
+		uDrawStyle,
+		uDelay);
+}
+
+STDMETHODIMP CAnsoplyInterface::SetEffectPlayRange(ULONG uID, ULONG uPlayMode, ULONG uRangeStart, ULONG uRangeEnd)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->SetEffectPlayRange(uID, uPlayMode, uRangeStart, uRangeEnd);
+}
+
+STDMETHODIMP CAnsoplyInterface::SetEffectEndTime(ULONG uID, LONG EndTime)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->SetEffectEndTime(uID, EndTime);
 }
