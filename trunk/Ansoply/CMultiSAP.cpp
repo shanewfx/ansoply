@@ -1280,6 +1280,7 @@ LONG CMultiSAP::CreateVideoGroup()
 //	size_t nCount = m_videoGroups.GetCount();
 //	if ( nCount < 8)
 	//	{
+
 	CVideoGroup* pVideoGroup = new CVideoGroup();
 	pVideoGroup->m_uSurfaceHeight = m_uSurfaceHeight;
 	pVideoGroup->m_uSurfaceWidth  = m_uSurfaceWidth;
@@ -1287,7 +1288,9 @@ LONG CMultiSAP::CreateVideoGroup()
 	pVideoGroup->m_rcDst          = m_rcDst;
 	pVideoGroup->m_pMultiSAP      = this;
 	m_videoGroups.AddTail(pVideoGroup);
+	EnterCriticalSection(&m_videoGroupsCS);
 	m_drawList.AddHead(pVideoGroup);
+	LeaveCriticalSection(&m_videoGroupsCS);
 	return pVideoGroup->GetObjectID();
 //	}
 //	return -1;
@@ -1651,7 +1654,10 @@ LONG CMultiSAP::SetBitmap(
 		pDDS->ReleaseDC(hdcDest);
 		m_bitmapObject[pBitmapObject->GetObjectID()] = pBitmapObject;
 		pBitmapObject->SetSurface(pDDS);
+
+		EnterCriticalSection(&m_videoGroupsCS);
 		m_drawList.AddHead(pBitmapObject);
+		LeaveCriticalSection(&m_videoGroupsCS);
 		return pBitmapObject->GetObjectID();
 	}
 
@@ -1751,7 +1757,7 @@ LONG CMultiSAP::BringUp(ULONG uGroupID)
 		CAnsoplyObject * pObject = m_drawList.GetAt(m_drawList.FindIndex(i));
 		int j = 0;
 	}*/
-//	EnterCriticalSection(&m_videoGroupsCS);
+	EnterCriticalSection(&m_videoGroupsCS);
 	for ( int i = 0; i < m_drawList.GetCount(); i++ )
 	{
 		CAnsoplyObject * pObject = m_drawList.GetAt(m_drawList.FindIndex(i));
@@ -1765,7 +1771,7 @@ LONG CMultiSAP::BringUp(ULONG uGroupID)
 			break;
 		}
 	}
-//	LeaveCriticalSection(&m_videoGroupsCS);
+	LeaveCriticalSection(&m_videoGroupsCS);
 	return 0;
 }
 
@@ -2250,7 +2256,6 @@ LONG CMultiSAP::SetText(
 	pTextObject->SetAlphaBlt(m_pAlphaBlt);
 	pTextObject->m_uSurfaceWidth  = m_uSurfaceWidth;
 	pTextObject->m_uSurfaceHeight = m_uSurfaceHeight;
-	m_drawList.AddHead(pTextObject);
 
 	LOGFONT lfChar;
 	ZeroMemory(&lfChar, sizeof(lfChar));
@@ -2275,6 +2280,10 @@ LONG CMultiSAP::SetText(
 	IDirectDrawSurface7* pDDS = NULL;
 	hr = CreateFontCache(32, pTextObject, &pDDS, FALSE);
 	pTextObject->SetDDSFontCache(pDDS);
+
+	EnterCriticalSection(&m_videoGroupsCS);
+	m_drawList.AddHead(pTextObject);
+	LeaveCriticalSection(&m_videoGroupsCS);
 	return hr;
 }
 
@@ -2305,7 +2314,7 @@ LONG CMultiSAP::SetTextInRegion(
 	pTextObject->m_uSurfaceHeight = m_uSurfaceHeight;
 	pTextObject->m_uRegionWidth   = uRegionWidth;
 	pTextObject->m_uRegionHeight  = uRegionHeight;
-	m_drawList.AddHead(pTextObject);
+
 
 	LOGFONT lfChar;
 	ZeroMemory(&lfChar, sizeof(lfChar));
@@ -2331,6 +2340,9 @@ LONG CMultiSAP::SetTextInRegion(
 	hr = CreateFontCache(32, pTextObject, &pDDS, TRUE);
 
 	pTextObject->SetDDSFontCache(pDDS);
+	EnterCriticalSection(&m_videoGroupsCS);
+	m_drawList.AddHead(pTextObject);
+	LeaveCriticalSection(&m_videoGroupsCS);
 	return hr;
 }
 
@@ -2390,8 +2402,9 @@ LONG CMultiSAP::SetEffectTextInRegion(
 	//hr = DDARGB32SurfaceInit(&pDDS, TRUE, m_uSurfaceWidth, m_uSurfaceHeight);
 	hr = DDARGB32SurfaceInit(&pDDS, TRUE, uRegionWidth, uRegionHeight);
 	pTextObject->SetDDSFontCache(pDDS);
-
+	EnterCriticalSection(&m_videoGroupsCS);
 	m_drawList.AddHead(pTextObject);
+	LeaveCriticalSection(&m_videoGroupsCS);
 	return hr;
 }
 
@@ -2711,7 +2724,9 @@ LONG CMultiSAP::SetDynamicBitmap(
 	m_dynamicBitmap[pDyanmicBitmapObject->GetObjectID()] = pDyanmicBitmapObject;
 	*uObjectID = pDyanmicBitmapObject->GetObjectID();
 
+	EnterCriticalSection(&m_videoGroupsCS);
 	m_drawList.AddHead(pDyanmicBitmapObject);
+	LeaveCriticalSection(&m_videoGroupsCS);
 
 	//	AfxBeginThread( ChangeDynamicBitmap, this );
 
@@ -3064,7 +3079,7 @@ void CMultiSAP::SetDefaultThread(LPVOID param)
 	pVideoGroup->m_uWidth  = x;
 	pVideoGroup->m_uHeight = y;
 
-	ATLTRACE("%d %d\n", x, y);
+//	ATLTRACE("%d %d\n", x, y);
 
 	CoUninitialize();
 }
@@ -3086,9 +3101,9 @@ void CMultiSAP::Refresh()
 		HRESULT hr = m_pWC->RepaintVideo(m_hwndApp, hDC);
 		EndPaint(m_hwndApp, &Paint);
 
-		CString str;
-		str.Format("HRESULT:%d", hr);
-		OutputDebugString(str);
+		//CString str;
+		//str.Format("HRESULT:%d", hr);
+		//OutputDebugString(str);
 	}
 }
 
@@ -3138,6 +3153,7 @@ LONG CMultiSAP::SetVideoFile(ULONG uGroupID, LPCTSTR sFileName, ULONG uOldFileID
 
 LONG CMultiSAP::SetVisibility(ULONG uObjectID, ULONG bVisibility)
 {
+	EnterCriticalSection(&m_videoGroupsCS);
 	POSITION pos = m_drawList.GetHeadPosition();
 	while (pos)
 	{
@@ -3147,6 +3163,7 @@ LONG CMultiSAP::SetVisibility(ULONG uObjectID, ULONG bVisibility)
 			pAnsoplyObj->m_bVisibility = (BOOL)bVisibility;
 		}
 	}
+	LeaveCriticalSection(&m_videoGroupsCS);
 	return 0;
 }
 
