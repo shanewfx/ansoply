@@ -66,17 +66,21 @@ CMovie::~CMovie()
 //-------------------------------------------------------------------------
 void CMovie::Release()
 {
-    if( m_SAN)
-    {
-        m_SAN->AdviseSurfaceAllocator(m_dwUserID, NULL);
-    }
-    if( m_Mc )
-    {
-        m_Mc->Stop();
-    }
-
-    SAFERELEASE( m_pAP );
-    m_bInitialized = false;
+	try
+	{
+		if( m_SAN)
+		{
+			m_SAN->AdviseSurfaceAllocator(m_dwUserID, NULL);
+		}
+		if( m_Mc )
+		{
+			m_Mc->Stop();
+		}
+		SAFERELEASE( m_pAP );
+		m_bInitialized = false;
+	}
+	catch(...)
+	{}
 }
 
 // configuring functions
