@@ -76,14 +76,21 @@ void   CVideoGroup::ReleaseFilter(CVideoObject * pObject)
 	}
 	pObject->m_SAN->AdviseSurfaceAllocator(pObject->m_dwUserID, NULL);
 
-	pObject->m_Gb = NULL;
-	pObject->m_Bf = NULL;
-	pObject->m_Fg = NULL;
-	pObject->m_SAN = NULL;
-	pObject->m_pAP = NULL;
+	try
+	{
+		pObject->m_Gb = NULL;
+		pObject->m_Bf = NULL;
+		pObject->m_Fg = NULL;
+		pObject->m_SAN = NULL;
+		pObject->m_pAP = NULL;
 
-	pObject->m_lpDDTexture = NULL ;
-	pObject->m_lpDDDecode = NULL;
+		pObject->m_lpDDTexture = NULL ;
+		pObject->m_lpDDDecode = NULL;
+	}
+	catch (...)
+	{
+	}
+
 
 	//pObject->m_Mc = NULL;
 	//pObject->m_Ms = NULL;

@@ -3,6 +3,7 @@
 #include "project.h"
 #include "EffectDraw.h"
 #include <time.h>
+#include <sstream>
 
 CEffectBitmap::CEffectBitmap(void)
 {
@@ -35,7 +36,7 @@ void CEffectBitmap::Draw()
 		return;
 	if( !m_bVisibility )
 		return;
-
+	RECT rt = {0, 0, m_uWidth, m_uHeight};
 	int nStep = 1;
 	EFFECTDRAWPROC drawproc = ::GetEffectProc(m_uDrawStyle);
 
@@ -54,7 +55,7 @@ void CEffectBitmap::Draw()
 		if( GetTickCount() - m_nStart > m_uDelay )
 		{
 			m_nProgress += nStep;
-			RECT rt = {0, 0, m_uWidth, m_uHeight};
+			//RECT rt = {0, 0, m_uWidth, m_uHeight};
 			::SelectObject( hdcBitmap, m_hBmp );
 			if( m_bPlayEnd )
 			{
@@ -177,27 +178,38 @@ void CEffectBitmap::Draw()
 		//DWORD dwColorkey  = 0x00000000; // Colorkey on black
 		DWORD dwColorkey  = m_uTransparentColor;
 
-		if( dwFlags & D3DTEXTR_TRANSPARENTWHITE )
-			dwColorkey = dwRGBMask;     // Colorkey on white
 
 		// Add an opaque alpha value to each non-colorkeyed pixel
 		for( DWORD y = 0; y < m_uHeight; y++ )
 		{
-			WORD*  p16 =  (WORD*)((BYTE*)ddsdAlpha.lpSurface + y*ddsdAlpha.lPitch);
+			WORD*  p16 = (WORD*)((BYTE*)ddsdAlpha.lpSurface + y*ddsdAlpha.lPitch);
 			DWORD* p32 = (DWORD*)((BYTE*)ddsdAlpha.lpSurface + y*ddsdAlpha.lPitch);
 
 			for( DWORD x = 0; x < m_uWidth; x++ )
 			{
-				if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 16 )
+
+				if( *p32 != 0 )
 				{
-					if( ( *p16 &= dwRGBMask ) != dwColorkey )
-						*p16 |= dwAlphaMask;
+					if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 16 )
+					{
+						if( ( *p16 &= dwRGBMask ) != dwColorkey )
+							*p16 |= dwAlphaMask;
+						p16++;
+					}
+					else if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 32 || ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 24)
+					{
+
+						if( ( *p32 &= dwRGBMask ) != dwColorkey )
+							*p32 |= dwAlphaMask;
+						p32++;
+					}
+				}
+				else if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 16 )
+				{
 					p16++;
 				}
-				if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 32 || ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 24)
+				else if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 32 || ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 24)
 				{
-					if( ( *p32 &= dwRGBMask ) != dwColorkey )
-						*p32 |= dwAlphaMask;
 					p32++;
 				}
 			}

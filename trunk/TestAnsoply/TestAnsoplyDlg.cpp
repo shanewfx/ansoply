@@ -282,7 +282,7 @@ void CTestAnsoplyDlg::OnBnClickedButton5()
 		CString name = fileDlg.GetPathName();
 		ULONG id;
 
-		m_ansoply.SetEffectBitmap(&id, name, 0x96, 0xFFFFFF, 50, 50, 200, 200, 1, 3, 10);
+		m_ansoply.SetEffectBitmap(&id, name, 0x96, 0xFFFFFF, 50, 50, 200, 200, 1, 233, 10);
 		m_ansoply.SetPlayMode(id, 3);
 		//m_ansoply.SetPlayTimes(id, 3);
 		//m_ansoply.SetPlayTimeout(id, 5);
