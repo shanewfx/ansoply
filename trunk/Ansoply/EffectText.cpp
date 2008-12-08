@@ -24,6 +24,7 @@ CEffectText::CEffectText(void)
 CEffectText::~CEffectText(void)
 {
 	DeleteFont(m_hFont);
+	DeleteDC(m_hdcText);
 }
 
 void CEffectText::Draw()
@@ -58,20 +59,20 @@ void CEffectText::Draw()
 			rt.left = GetXCoordinate();
 			rt.right = GetXCoordinate() + m_uRegionWidth;
 			rt.bottom = GetYCoordinate() + m_uRegionHeight;
-			HDC hdcText = CreateCompatibleDC( NULL );
-			if( NULL == hdcText )
-				return;
-			HBITMAP hbmp = CreateCompatibleBitmap(hdcDest, m_uRegionWidth, m_uRegionHeight);
+			//HDC hdcText = CreateCompatibleDC( NULL );
+			//if( NULL == hdcText )
+			//	return;
+			//HBITMAP hbmp = CreateCompatibleBitmap(hdcDest, m_uRegionWidth, m_uRegionHeight);
 
-			SelectObject(hdcText, hbmp);
+			//SelectObject(hdcText, hbmp);
 
-			::SelectObject(hdcText, m_hFont);
-			SetTextColor(hdcText, RGB(255, 255, 255));
-			SetBkColor(hdcText, RGB(0,0,0));
-			SetBkMode(hdcText, TRANSPARENT);
+			//::SelectObject(hdcText, m_hFont);
+			//SetTextColor(hdcText, RGB(255, 255, 255));
+			//SetBkColor(hdcText, RGB(0,0,0));
+			//SetBkMode(hdcText, TRANSPARENT);
 
 
-			DrawText(hdcText, GetText(), GetTextLen(), &rt, DT_WORDBREAK);
+			//DrawText(hdcText, GetText(), GetTextLen(), &rt, DT_WORDBREAK);
 			if( GetTickCount() - m_nStart > m_uDelay )
 			{
 				m_nProgress += nStep;
@@ -120,7 +121,7 @@ void CEffectText::Draw()
 					else
 						m_nProgress = 100;
 				}
-				drawproc(hdcDest, hdcText, rt, nStep, m_nProgress);
+				drawproc(hdcDest, m_hdcText, rt, nStep, m_nProgress);
 
 				m_nStart = GetTickCount();
 				if( m_nProgress > 100 || m_bClear )
@@ -156,8 +157,8 @@ void CEffectText::Draw()
 			}
 			if( m_StopTimeExpire && GetTickCount() > m_StopTimeExpire )
 				m_actualPlayEnd = TRUE;
-			DeleteDC(hdcText);
-			DeleteBitmap(hbmp);
+			//DeleteDC(hdcText);
+			//DeleteBitmap(hbmp);
 		}
 
 		m_pDDSFontCache->ReleaseDC(hdcDest);
@@ -234,6 +235,32 @@ LONG CEffectText::SetText(ULONG uX,
 
 	m_uDrawStyle = uDrawStyle;
 	m_uDelay = uDelay;
+
+	HDC hdcDest;
+
+	m_pDDSFontCache->GetDC(&hdcDest);
+
+	m_hdcText = CreateCompatibleDC( NULL );
+
+	HBITMAP hbmp = CreateCompatibleBitmap(hdcDest, m_uRegionWidth, m_uRegionHeight);
+
+	SelectObject(m_hdcText, hbmp);
+
+	::SelectObject(m_hdcText, m_hFont);
+	SetTextColor(m_hdcText, RGB(255, 255, 255));
+	SetBkColor(m_hdcText, RGB(0,0,0));
+	SetBkMode(m_hdcText, TRANSPARENT);
+
+	m_pDDSFontCache->ReleaseDC(hdcDest);
+
+	RECT rt;
+	rt.top = GetYCoordinate();
+	rt.left = GetXCoordinate();
+	rt.right = GetXCoordinate() + m_uRegionWidth;
+	rt.bottom = GetYCoordinate() + m_uRegionHeight;
+	DrawText(m_hdcText, GetText(), GetTextLen(), &rt, DT_WORDBREAK);
+
+	DeleteBitmap(hbmp);
 
 	return 0;
 }

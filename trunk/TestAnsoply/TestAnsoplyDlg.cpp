@@ -311,14 +311,14 @@ void CTestAnsoplyDlg::OnBnClickedButton5()
 void CTestAnsoplyDlg::OnBnClickedButton6()
 {
 	// TODO: Add your control notification handler code here
-	m_ansoply.SetVisibility(m_uBitmapID, 0);
-	//CFileDialog fileDlg(TRUE);
-	//if(fileDlg.DoModal() == IDOK)
-	//{
-	//	CString name = fileDlg.GetPathName();
-	//	ULONG id;
-	//	m_ansoply.SetBitmap(&m_uBitmapID, name, 0xFF, 0xFFFF00, 0, 0, 500, 500, 1);
-	//}
+	//m_ansoply.SetVisibility(m_uBitmapID, 0);
+	CFileDialog fileDlg(TRUE);
+	if(fileDlg.DoModal() == IDOK)
+	{
+		CString name = fileDlg.GetPathName();
+		ULONG id;
+		m_ansoply.SetBitmap(&m_uBitmapID, name, 0xFF, 0xFFFF00, 0, 0, 500, 500, 1);
+	}
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton7()
@@ -334,7 +334,7 @@ void CTestAnsoplyDlg::OnBnClickedButton7()
 
 	ULONG id;
 //	m_ansoply.SetTextInRegion(0, 0, "123513242341", "宋体\0", 0, 0, 0, 100, 100, RGB(255, 255, 0), &id, 500, 500);
-	m_ansoply.SetEffectTextInRegion(0, 0, "好好好好好好时代发生大幅", "宋体\0", 0, 0, 0, 80, 80, RGB(255, 255, 0), &id, 200, 200, 2, 50);
+	m_ansoply.SetEffectTextInRegion(0, 0, "好好好好好好时代发生大幅", "宋体\0", 0, 0, 0, 40, 40, RGB(255, 255, 0), &id, 200, 200, 2, 50);
 	m_ansoply.SetEffectEndTime(id, 5);
 	//m_ansoply.SetPlayMode(id, 3);
 	m_ansoply.SetEffectPlayRange(id, 8, 4, 8);

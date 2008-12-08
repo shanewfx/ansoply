@@ -22,12 +22,17 @@ CEffectBitmap::CEffectBitmap(void)
 	m_bLoopPlayEnd = FALSE;
 	m_bClear = FALSE;
 	m_bChangeStyle = FALSE;
+
+	m_hbrFill = CreateSolidBrush(RGB(0, 0, 0));
+	m_bNxDraw = TRUE;
 }
 
 CEffectBitmap::~CEffectBitmap(void)
 {
-//	::DeleteEffectDraw(m_effectDraw);
-	DeleteObject( m_hBmp );
+//	::DeleteEffectDraw(m_efectDraw);
+	DeleteBitmap( m_hBmp );
+	DeleteDC( m_hdcBitmap );
+	DeleteBrush( m_hbrFill );
 }
 
 void CEffectBitmap::Draw()
@@ -41,13 +46,18 @@ void CEffectBitmap::Draw()
 	EFFECTDRAWPROC drawproc = ::GetEffectProc(m_uDrawStyle);
 
 	IDirectDrawSurface7* pDDS = GetSurface();
-	HDC hdcDest;
-	pDDS->GetDC(&hdcDest);
+	HDC hdcDest = NULL;
+	if( m_bNxDraw )
+	{
+
+		pDDS->GetDC(&hdcDest);
+	}
+
 
 	// Get a DC for the bitmap
-	HDC hdcBitmap = CreateCompatibleDC( NULL );
-	if( NULL == hdcBitmap )
-		return;
+	//HDC hdcBitmap = CreateCompatibleDC( NULL );
+	//if( NULL == hdcBitmap )
+	//	return;
 
 	//if( uOriginalSize == 1)
 	{
@@ -56,7 +66,7 @@ void CEffectBitmap::Draw()
 		{
 			m_nProgress += nStep;
 			//RECT rt = {0, 0, m_uWidth, m_uHeight};
-			::SelectObject( hdcBitmap, m_hBmp );
+			///::SelectObject( hdcBitmap, m_hBmp );
 			if( m_bPlayEnd )
 			{
 				if( !m_endCountTime ) 
@@ -100,16 +110,26 @@ void CEffectBitmap::Draw()
 					drawproc = ::GetEffectProc(m_uDrawStyle);
 				}
 				else
+				{
+					//m_bNxDraw = FALSE;
 					m_nProgress = 100;
+				}
 			}
-			drawproc(hdcDest, hdcBitmap, rt, nStep, m_nProgress);
 
+			if( m_nProgress <= 100 )
+				drawproc(hdcDest, m_hdcBitmap, rt, nStep, m_nProgress);
+	
 			m_nStart = GetTickCount();
 
 			if( m_nProgress > 100 || m_bClear )
 			{
-				HBRUSH hbrFill = CreateSolidBrush(RGB(0, 0, 0));
-				FillRect(hdcDest, &rt, hbrFill);
+				//HBRUSH hbrFill = CreateSolidBrush(RGB(0, 0, 0));
+				FillRect(hdcDest, &rt, m_hbrFill);
+
+				//CString str;
+				//str.Format("progress:%d\n", m_nProgress);
+				//OutputDebugString(str);
+
 				m_uPlayBeginTime++;
 				if( m_drawtype == PLAY_RANDOM && m_nProgress)
 				{
@@ -146,6 +166,14 @@ void CEffectBitmap::Draw()
 			//	m_bPlayEnd = TRUE;
 			m_actualPlayEnd = TRUE;
 		}
+
+		//if( !m_bNxDraw )
+		//	BitBlt( hdcDest, 0, 0, m_uWidth, m_uHeight, m_hdcBitmap, 0, 0, SRCCOPY );
+		//	//drawproc(hdcDest, m_hdcBitmap, rt, nStep, 100);
+		//if( m_endtime != -1 && GetTickCount() - m_endCountTime > m_endtime )
+		//{
+		//	m_bNxDraw = TRUE;
+		//}
 		
 		//BitBlt( hdcDest, 0, 0, m_uWidth, m_uHeight, hdcBitmap, 0, 0, SRCCOPY );
 	}
@@ -159,9 +187,8 @@ void CEffectBitmap::Draw()
 	}
 
 
-	DeleteDC( hdcBitmap );
+	//DeleteDC( hdcBitmap );
 	pDDS->ReleaseDC(hdcDest);
-
 	DWORD dwFlags = D3DTEXTR_TRANSPARENTWHITE;
 	if( dwFlags & (D3DTEXTR_TRANSPARENTWHITE|D3DTEXTR_TRANSPARENTBLACK) )
 	{
@@ -215,7 +242,7 @@ void CEffectBitmap::Draw()
 			}
 		}
 		pDDS->Unlock( NULL );
-		DeleteDC( hdcBitmap );
+//		DeleteDC( hdcBitmap );
 		pDDS->ReleaseDC(hdcDest);
 	}
 	pDDS->ReleaseDC(hdcDest);
@@ -237,8 +264,9 @@ void CEffectBitmap::Draw()
 		BOOL bSelected = FALSE;
 		if( m_pMultiSAP->m_lSelectGroupID == GetObjectID() )
 			bSelected = TRUE;
-
+		
 		m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0x00, bSelected, m_pMultiSAP->m_uSelectFrameColor);
+		
 	}
 }
 
@@ -253,6 +281,9 @@ LONG CEffectBitmap::SetBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTran
 	//HBITMAP hBmp;
 	Color backColor;
 	m_pBitmap->GetHBITMAP(backColor, &m_hBmp);
+
+	m_hdcBitmap = CreateCompatibleDC( NULL );
+	SelectObject(m_hdcBitmap, m_hBmp);
 
 	//SetParams(m_effectDraw, hWnd, hBmp, ED_HBITMAPWNDBK, NULL, ED_STRETCHED|ED_TRANSPARENT, 0, ED_TITLED, 0);
 
