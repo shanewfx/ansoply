@@ -35,6 +35,8 @@ public:
 	ULONG m_uDrawStyleEnd;
 	LONG  m_endtime;
 	DWORD m_endCountTime;
+
+	HDC m_hdcText;
 private:
 
 	ULONG m_uDelay;

@@ -19,12 +19,18 @@ public:
 	BOOL  m_bClear;
 	BOOL  m_bChangeStyle;
 
+	BOOL  m_bNxDraw;
+
+	HDC m_hdcBitmap;
+
 	PLAY_TYPE m_drawtype;
 	ULONG m_uDrawStyleBegin;
 	ULONG m_uDrawStyleEnd;
 
 	LONG m_endtime;
 	DWORD m_endCountTime;
+
+	HBRUSH m_hbrFill;
 private:
 //	HEFFECTDRAW m_effectDraw;
 

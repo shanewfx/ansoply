@@ -2395,13 +2395,18 @@ LONG CMultiSAP::SetEffectTextInRegion(
 	lfChar.lfQuality       = ANTIALIASED_QUALITY;
 	pTextObject->SetLogFont( &lfChar );
 
-	hr = pTextObject->SetText(uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uDrawStyle, uDelay);
+//	hr = pTextObject->SetText(uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uDrawStyle, uDelay);
 
 	IDirectDrawSurface7* pDDS = NULL;
 	//hr = CreateFontCache(32, pTextObject, &pDDS, TRUE);
 	//hr = DDARGB32SurfaceInit(&pDDS, TRUE, m_uSurfaceWidth, m_uSurfaceHeight);
 	hr = DDARGB32SurfaceInit(&pDDS, TRUE, uRegionWidth, uRegionHeight);
 	pTextObject->SetDDSFontCache(pDDS);
+
+
+	hr = pTextObject->SetText(uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uDrawStyle, uDelay);
+
+
 	EnterCriticalSection(&m_videoGroupsCS);
 	m_drawList.AddHead(pTextObject);
 	LeaveCriticalSection(&m_videoGroupsCS);
@@ -3205,12 +3210,12 @@ LONG CMultiSAP::SetPlayTimes(ULONG uGroupID, ULONG uPlayTimes)
 	{
 		CEffectText * pET = static_cast<CEffectText*>(pText);
 		pET->m_bPlayEnd = FALSE;
-		pText->m_uPlayBeginTime = 1;
-		pText->m_uPlayTimes = uPlayTimes;
+		pET->m_uPlayBeginTime = 1;
+		pET->m_uPlayTimes = uPlayTimes;
 
-		pBitmap->m_StopTimeExpire = 0;
+		pET->m_StopTimeExpire = 0;
 
-		pText->m_playType = (PLAY_TYPE)PLAY_THROUGH;
+		pET->m_playType = (PLAY_TYPE)PLAY_THROUGH;
 		return 0;
 	}
 	return 0;
@@ -3366,100 +3371,11 @@ LONG CMultiSAP::SetEffectBitmap(
 	hr = DDARGB32SurfaceInit(&pDDS, TRUE, Width, Height);
 	if(hr == DD_OK)
 	{
-	//	HDC hdcDest;
-	//	//		m_lpDDSBitmapCache->GetDC(&hdcDest);
-	//	pDDS->GetDC(&hdcDest);
-
-	//	// Get a DC for the bitmap
-	//	HDC hdcBitmap = CreateCompatibleDC( NULL );
-	//	if( NULL == hdcBitmap )
-	//		return -1;
-
-	//	if( uOriginalSize == 1)
-	//	{
-	//		::SelectObject( hdcBitmap, hBmp );
-	//		BitBlt( hdcDest, 0, 0, Width, Height, hdcBitmap, 0, 0, SRCCOPY );
-	//	}
-	//	else
-	//	{
-	//		USES_CONVERSION;
-	//		/*
-	//		Bitmap originalBMP(T2W(sBitmapFilePath));
-	//		Bitmap resizeBMP(Width, Height);
-	//		Graphics graphic(&resizeBMP);
-	//		graphic.DrawImage(&originalBMP, 0, 0, Width, Height, 
-	//		originalBMP.GetWidth(),
-	//		originalBMP.GetHeight(), UnitPixel);
-	//		*/
-	//		Bitmap originalBMP(T2W(sBitmapFilePath));
-	//		Graphics g(hdcDest);
-
-	//		//			g.DrawImage(&originalBMP, 0, 0, Width, Height, 
-	//		//				originalBMP.GetWidth(), originalBMP.GetHeight(), UnitPixel);
-
-	//		g.DrawImage(&originalBMP, Rect(0, 0, Width, Height), 0, 0, 
-	//			originalBMP.GetWidth(), originalBMP.GetHeight(), UnitPixel, NULL );
-
-	//		//			BitBlt( hdcDest, 0, 0, Width, Height, g.GetHDC(), 0, 0, SRCCOPY );
-
-	//		//			StretchBlt( hdcDest, 0, 0, Width, Height, hdcBitmap, 0, 0, bm.bmWidth, bm.bmHeight, SRCCOPY );
-	//	}
-
-	//	if( uOriginalSize == 1)
-	//	{
-	//		DeleteObject( hBmp );
-	//	}
-	//	pDDS->ReleaseDC(hdcDest);
-
-	//	DWORD dwFlags = D3DTEXTR_TRANSPARENTWHITE;
-	//	if( dwFlags & (D3DTEXTR_TRANSPARENTWHITE|D3DTEXTR_TRANSPARENTBLACK) )
-	//	{
-	//		// Lock the texture surface
-	//		DDSURFACEDESC2 ddsdAlpha={0};
-	//		ddsdAlpha.dwSize = sizeof(ddsdAlpha);
-	//		pDDS->Lock( NULL, &ddsdAlpha, 0, NULL );
-
-	//		//DWORD dwAlphaMask = ddsdAlpha.ddpfPixelFormat.dwRGBAlphaBitMask;
-	//		DWORD dwAlphaMask = uAlpha << 24;
-	//		DWORD dwRGBMask   = ( ddsdAlpha.ddpfPixelFormat.dwRBitMask |
-	//			ddsdAlpha.ddpfPixelFormat.dwGBitMask |
-	//			ddsdAlpha.ddpfPixelFormat.dwBBitMask );
-	//		//DWORD dwColorkey  = 0x00000000; // Colorkey on black
-	//		DWORD dwColorkey  = uTransparentColor;
-
-	//		//if( dwFlags & D3DTEXTR_TRANSPARENTWHITE )
-	//		//	dwColorkey = dwRGBMask;     // Colorkey on white
-
-	//		// Add an opaque alpha value to each non-colorkeyed pixel
-	//		for( DWORD y = 0; y < Height; y++ )
-	//		{
-	//			WORD*  p16 =  (WORD*)((BYTE*)ddsdAlpha.lpSurface + y*ddsdAlpha.lPitch);
-	//			DWORD* p32 = (DWORD*)((BYTE*)ddsdAlpha.lpSurface + y*ddsdAlpha.lPitch);
-
-	//			for( DWORD x = 0; x < Width; x++ )
-	//			{
-	//				if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 16 )
-	//				{
-	//					if( ( *p16 &= dwRGBMask ) != dwColorkey )
-	//						*p16 |= dwAlphaMask;
-	//					p16++;
-	//				}
-	//				if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 32 || ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 24)
-	//				{
-	//					if( ( *p32 &= dwRGBMask ) != dwColorkey )
-	//						*p32 |= dwAlphaMask;
-	//					p32++;
-	//				}
-	//			}
-	//		}
-	//		pDDS->Unlock( NULL );
-	//		DeleteDC( hdcBitmap );
-	//		pDDS->ReleaseDC(hdcDest);
-	//	}
-	//	pDDS->ReleaseDC(hdcDest);
-		m_bitmapObject[pBitmapObject->GetObjectID()] = pBitmapObject;
+			m_bitmapObject[pBitmapObject->GetObjectID()] = pBitmapObject;
 		pBitmapObject->SetSurface(pDDS);
+		EnterCriticalSection(&m_videoGroupsCS);
 		m_drawList.AddHead(pBitmapObject);
+		LeaveCriticalSection(&m_videoGroupsCS);
 		return pBitmapObject->GetObjectID();
 	}
 
