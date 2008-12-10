@@ -345,7 +345,7 @@ void CTestAnsoplyDlg::OnBnClickedButton8()
 	// TODO: Add your control notification handler code here
 	ULONG id = 0;
 
-	m_ansoply.SetDynamicBitmap(&m_uBitmapID, "F:\\Temp5\\3.jpg;F:\\Temp5\\2.JPG;", 0xA0, RGB(255, 255, 0), 0, 0, 100, 100, 1, 1000);
+	m_ansoply.SetDynamicBitmap(&m_uBitmapID, "F:\\Temp5\\3.jpg;F:\\Temp5\\2.JPG;", 0xA0, RGB(255, 255, 0), 0, 0, 100, 100, 1, 2000);
 //	m_ansoply.SetPlayTimes(m_uBitmapID, 5);
 	m_ansoply.SetPlayMode(m_uBitmapID, 3);
 //	m_ansoply.SetPlayTimeout(m_uBitmapID, 5);
@@ -356,7 +356,13 @@ void CTestAnsoplyDlg::OnBnClickedButton9()
 	// TODO: Add your control notification handler code here
 	//m_ansoply.DelBitmap(m_uBitmapID);
 //	m_ansoply.CreateVideoGroup(&m_uGroupID);
-	m_ansoply.SelectObject(m_uGroupID, 0xFFFFFF00);
+//	m_ansoply.SelectObject(m_uGroupID, 0xFFFFFF00);
+
+	m_ansoply.SetDynamicEffectBitmap(&m_uBitmapID, "F:\\Temp\\001.jpg;F:\\Temp\\002.JPG;", 0xA0, RGB(255, 255, 0), 0, 0, 400, 400, 1, 4);
+	//	m_ansoply.SetPlayTimes(m_uBitmapID, 5);
+	m_ansoply.SetPlayMode(m_uBitmapID, 3);
+	m_ansoply.SetEffectEndTime(m_uBitmapID, 5);
+	m_ansoply.SetPlayTimes(m_uBitmapID, 3);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton10()

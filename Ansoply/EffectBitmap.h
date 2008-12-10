@@ -31,7 +31,7 @@ public:
 	DWORD m_endCountTime;
 
 	HBRUSH m_hbrFill;
-private:
+
 //	HEFFECTDRAW m_effectDraw;
 
 	ULONG m_uDelay;

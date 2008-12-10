@@ -656,3 +656,13 @@ STDMETHODIMP CAnsoplyInterface::SetEffectEndTime(ULONG uID, LONG EndTime)
 		return E_FAIL;
 	return m_pMultiSAP->SetEffectEndTime(uID, EndTime);
 }
+
+STDMETHODIMP CAnsoplyInterface::SetDynamicEffectBitmap(ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->SetDynamicEffectBitmap(uBitmapID, 
+		_com_util::ConvertBSTRToString(sBitmapFilePath),
+		uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uDrawStyle);
+}
