@@ -362,6 +362,11 @@ public:
 		static BYTE parms[] = VTS_UI4 VTS_I4 ;
 		InvokeHelper(0x40, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uID, EndTime);
 	}
+	void SetDynamicEffectBitmap(unsigned long * uBitmapID, LPCTSTR sBitmapFilePath, unsigned long uAlpha, unsigned long uTransparentColor, unsigned long uX, unsigned long uY, unsigned long uWidth, unsigned long uHeight, unsigned long uOriginalSize, unsigned long uDrawStyle)
+	{
+		static BYTE parms[] = VTS_PUI4 VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x41, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uBitmapID, sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uDrawStyle);
+	}
 
 // Properties
 //

@@ -12,6 +12,7 @@
 #include "BltAlpha.h"
 // #define MAXMOVIES 7
 class CDynamicBitmap;
+class CDynamicEffectBitmap;
 class CTextObject;
 class CBitmapObject;
 class CVideoGroup;
@@ -99,6 +100,18 @@ public:
 	LONG DelDynamicBitmap(ULONG uDynamicBitmapID);
 
 	LONG SetDynamicBitmap(
+		ULONG *  uObjectID,
+		LPCTSTR sBitmapFilePath,
+		ULONG uAlpha,
+		ULONG uTransparentColor,   
+		ULONG uX,
+		ULONG uY,
+		ULONG uWidth,
+		ULONG uHeight,
+		ULONG uOriginalSize,
+		ULONG uMilli);
+
+	LONG SetDynamicEffectBitmap(
 		ULONG *  uObjectID,
 		LPCTSTR sBitmapFilePath,
 		ULONG uAlpha,
@@ -264,6 +277,7 @@ protected:
 	HRESULT CreateFontCache(int cyFont, CTextObject* pTextObject, IDirectDrawSurface7** pDDSurface, BOOL bRegion);
 
 	static void ChangeDynamicBitmap(void* param);
+	static void ChangeDynamicEffectBitmap(void* param);
 public:
 	CVideoGroup *                   m_pBGVideo;
 	CAtlList<CVideoGroup*>			m_videoGroups;
@@ -272,6 +286,7 @@ public:
 	CAtlMap<ULONG, CBitmapObject*>  m_bitmapObject;
 	CAtlMap<ULONG, CTextObject*>    m_textObject;
 	CAtlMap<ULONG, CDynamicBitmap*> m_dynamicBitmap;
+	CAtlMap<ULONG, CDynamicEffectBitmap*> m_dynamicEffectBitmap;
 
 	// the key is the type
 	// 1: VideoGroup

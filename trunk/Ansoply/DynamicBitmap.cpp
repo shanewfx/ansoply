@@ -106,7 +106,7 @@ void CDynamicBitmap::Draw()
 
 		BOOL bSelected = FALSE;
 		if( m_pMultiSAP->m_lSelectGroupID == GetObjectID() )
-				bSelected = TRUE;
+			bSelected = TRUE;
 
 		m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0xFF, bSelected, m_pMultiSAP->m_uSelectFrameColor);
 	}

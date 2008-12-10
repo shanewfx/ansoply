@@ -38,7 +38,7 @@ public:
 	//ULONG m_uHeight;
 	ULONG m_uOriginalSize;
 
-	DWORD m_dwRender;
+//	DWORD m_dwRender;
 
 	ULONG           m_MilliSec;
 	vector<CString> m_bitmapFileArray;

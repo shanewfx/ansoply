@@ -15,6 +15,7 @@
 #include "EffectBitmap.h"
 #include "textobject.h"
 #include "EffectText.h"
+#include "DynamicEffectBitmap.h"
 #include ".\dynamicbitmap.h"
 #include "D3DHelpers/d3dutil.h"
 #include ".\tinyxml\tinyxml.h"
@@ -1448,6 +1449,19 @@ LONG CMultiSAP::SetPlayMode(ULONG uGroupID, ULONG uPlayMode)
 			return 0;
 		}
 	}
+
+	CDynamicEffectBitmap * pDEBitmap;
+	if( m_dynamicEffectBitmap.Lookup(uGroupID, pDEBitmap) )
+	{
+		if (PLAY_THROUGH == uPlayMode || PLAY_LOOP == uPlayMode)
+		{
+			pDEBitmap->m_bPlayEnd = FALSE;
+			pDEBitmap->m_playType = (PLAY_TYPE)uPlayMode;
+			if( PLAY_THROUGH == uPlayMode )
+				pDEBitmap->m_uPlayTimes = 0;
+			return 0;
+		}
+	}
 	return -1;
 }
 
@@ -2743,6 +2757,123 @@ LONG CMultiSAP::SetDynamicBitmap(
 	return 0;
 }
 
+LONG CMultiSAP::SetDynamicEffectBitmap(
+								 ULONG  * uObjectID,
+								 LPCTSTR sBitmapFilePath,
+								 ULONG uAlpha,
+								 ULONG uTransparentColor,   
+								 ULONG uX,
+								 ULONG uY,
+								 ULONG uWidth,
+								 ULONG uHeight,
+								 ULONG uOriginalSize,
+								 ULONG uDrawStyle)
+{
+	CDynamicEffectBitmap * pDyanmicBitmapObject = new CDynamicEffectBitmap();
+	pDyanmicBitmapObject->SetDynamicEffectBitmap(sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uDrawStyle);
+
+	pDyanmicBitmapObject->m_pMultiSAP = this;
+	pDyanmicBitmapObject->SetAlphaBlt(m_pAlphaBlt);
+
+	HRESULT hr = DD_OK;
+	//if( !m_lpDDSBitmapCache )
+	IDirectDrawSurface7* pDDS = NULL;
+	hr = DDARGB32SurfaceInit(&pDDS, TRUE, 640, 480);
+	pDyanmicBitmapObject->SetSurface(pDDS);
+
+	m_dynamicEffectBitmap[pDyanmicBitmapObject->GetObjectID()] = pDyanmicBitmapObject;
+	*uObjectID = pDyanmicBitmapObject->GetObjectID();
+
+	EnterCriticalSection(&m_videoGroupsCS);
+	m_drawList.AddHead(pDyanmicBitmapObject);
+	LeaveCriticalSection(&m_videoGroupsCS);
+
+
+	//DYNAMIC_STRUCT * dy_struct = new DYNAMIC_STRUCT;
+	//dy_struct->pMultiSAP     = this;
+	//dy_struct->nObjectMapKey = pDyanmicBitmapObject->GetObjectID();
+	//dy_struct->nMilli        = uMilli;
+//	_beginthread(ChangeDynamicEffectBitmap, 0, dy_struct);
+	return 0;
+}
+
+void CMultiSAP::ChangeDynamicEffectBitmap(LPVOID param)
+{
+/*	DYNAMIC_STRUCT * pDy_struct = (DYNAMIC_STRUCT*)param;
+
+	CMultiSAP * pMultiSAP =  pDy_struct->pMultiSAP;
+	ULONG key = pDy_struct->nObjectMapKey;
+	ULONG milli = pDy_struct->nMilli;
+
+	//it's important to delete the memory
+	delete pDy_struct;
+
+	POSITION pos = pMultiSAP->m_dynamicBitmap.GetStartPosition();
+	CDynamicEffectBitmap * pDynamicBitmap;
+
+	if( !pMultiSAP->m_dynamicEffectBitmap.Lookup(key, pDynamicBitmap) )
+		return;
+
+	do
+	{
+		BOOL bBreak = FALSE;
+		std::list<BitmapType>::iterator iter = pDynamicBitmap->m_BitmapList.begin();
+		while ( iter != pDynamicBitmap->m_BitmapList.end() )
+		{
+			EnterCriticalSection(&pDynamicBitmap->m_CS);
+			HDC hdcDest;
+			//IDirectDrawSurface7 * pDDS = pDynamicBitmap->GetSurface();
+			//if( DD_OK != pDDS->GetDC(&hdcDest) )
+			//	return;
+
+			Color backColor;
+			HBITMAP hBmp;
+			BitmapType bmpType = (*iter);
+			Bitmap * bmp = bmpType.pBitmap;
+			bmp->GetHBITMAP(backColor, &hBmp);
+			// Get the bitmap structure (to extract width, height, and bpp)
+			BITMAP bm;
+			GetObject( hBmp, sizeof(BITMAP), &bm );
+
+			// Get a DC for the bitmap
+			//HDC hdcBitmap = CreateCompatibleDC( NULL );
+			//if( NULL == hdcBitmap )
+			//	return;
+
+			if( pDynamicBitmap->m_uOriginalSize == 1 )
+			{
+				::SelectObject( pDynamicBitmap->m_hdcBitmap, hBmp );
+				pDynamicBitmap->m_uWidth = bm.bmWidth;
+				pDynamicBitmap->m_uHeight = bm.bmHeight;
+				//BitBlt( hdcDest, 0, 0, bm.bmWidth, bm.bmHeight, hdcBitmap, 0, 0, SRCCOPY );
+			}
+			else
+			{
+				//USES_CONVERSION;
+				////Bitmap originalBMP(T2W(sBitmapFilePath));
+				//Graphics g(hdcDest);
+
+				//g.DrawImage(bmp, Rect(0, 0, pDynamicBitmap->m_uWidth, pDynamicBitmap->m_uHeight), 0, 0, 
+				//	bmp->GetWidth(), bmp->GetHeight(), UnitPixel, NULL );
+			}
+			DeleteObject( hBmp );
+
+			iter++;
+
+			LeaveCriticalSection(&pDynamicBitmap->m_CS);
+			Sleep(milli);
+			if( pDynamicBitmap->m_StopTimeExpire && GetTickCount() > pDynamicBitmap->m_StopTimeExpire )
+			{
+				bBreak = TRUE;
+				break;
+			}
+		}
+		if( bBreak )
+			break;
+	}while( pDynamicBitmap->m_playType == PLAY_LOOP || pDynamicBitmap->m_uPlayBeginTime++ < pDynamicBitmap->m_uPlayTimes);
+*/
+}
+
 void CMultiSAP::ChangeDynamicBitmap(LPVOID param)
 {
 //	CMultiSAP * pMultiSAP = (CMultiSAP*)param;
@@ -3091,6 +3222,9 @@ void CMultiSAP::SetDefaultThread(LPVOID param)
 
 void CMultiSAP::Refresh()
 {
+#define WM_FIN WM_USER+10
+	SendMessage(m_hwndApp, WM_FIN, 0, 0);
+
 	if( m_pWC )
 	{
 		//HDC hDC = ::GetDC(m_hwndApp);
@@ -3218,6 +3352,19 @@ LONG CMultiSAP::SetPlayTimes(ULONG uGroupID, ULONG uPlayTimes)
 		pET->m_playType = (PLAY_TYPE)PLAY_THROUGH;
 		return 0;
 	}
+
+	CDynamicEffectBitmap * pDEBitmap;
+	if( m_dynamicEffectBitmap.Lookup(uGroupID, pDEBitmap) )
+	{
+		pDEBitmap->m_bPlayEnd = FALSE;
+		pDEBitmap->m_uPlayBeginTime = 1;
+		pDEBitmap->m_uPlayTimes = uPlayTimes;
+
+		pDEBitmap->m_StopTimeExpire = 0;
+
+		//pDEBitmap->m_playType = (PLAY_TYPE)PLAY_THROUGH;
+		return 0;
+	}
 	return 0;
 }
 
@@ -3248,6 +3395,13 @@ LONG CMultiSAP::SetPlayTimeout(ULONG uGroupID, ULONG uTimeout_s)
 		return 0;
 	}
 
+	CDynamicEffectBitmap * pDEBitmap;
+	if( m_dynamicEffectBitmap.Lookup(uGroupID, pDEBitmap) )
+	{
+		pDEBitmap->m_StopTimeExpire = GetTickCount() + uTimeout_s * 1000;
+		return 0;
+	}
+
 	return 0;
 }
 
@@ -3267,6 +3421,14 @@ LONG CMultiSAP::SetEffectBitmapStyle(ULONG uID, ULONG uStyle)
 		CEffectText * pET = static_cast<CEffectText*>(pText);
 		pET->m_uDrawStyle = uStyle;
 		pET->m_drawtype = PLAY_NONE;  // discard the random or sequence play mode
+		return 0;
+	}
+
+	CDynamicEffectBitmap * pDEBitmap;
+	if( m_dynamicEffectBitmap.Lookup(uID, pDEBitmap) )
+	{
+		pDEBitmap->m_uDrawStyle = uStyle;
+		pDEBitmap->m_drawtype = PLAY_NONE;  // discard the random or sequence play mode
 		return 0;
 	}
 	return -1;
@@ -3294,6 +3456,16 @@ LONG CMultiSAP::SetEffectPlayRange(ULONG uID, ULONG uPlayMode, ULONG uRangeStart
 		pET->m_playType = PLAY_NONE;
 		return 0;
 	}
+
+	CDynamicEffectBitmap * pDEBitmap;
+	if( m_dynamicEffectBitmap.Lookup(uID, pDEBitmap) )
+	{
+		pDEBitmap->m_drawtype = (PLAY_TYPE)uPlayMode;
+		pDEBitmap->m_uDrawStyleBegin = uRangeStart;
+		pDEBitmap->m_uDrawStyleEnd = uRangeEnd;
+		pDEBitmap->m_playType = PLAY_NONE;
+		return 0;
+	}
 	return -1;
 }
 
@@ -3313,6 +3485,14 @@ LONG CMultiSAP::SetEffectEndTime(ULONG uID, LONG EndTime)
 		pET->m_endtime = EndTime * 1000;
 		return 0;
 	}
+
+	CDynamicEffectBitmap * pDEBitmap;
+	if( m_dynamicEffectBitmap.Lookup(uID, pDEBitmap) )
+	{
+		pDEBitmap->m_endtime = EndTime * 1000;
+		return 0;
+	}
+
 	return -1;
 }
 
@@ -3371,7 +3551,7 @@ LONG CMultiSAP::SetEffectBitmap(
 	hr = DDARGB32SurfaceInit(&pDDS, TRUE, Width, Height);
 	if(hr == DD_OK)
 	{
-			m_bitmapObject[pBitmapObject->GetObjectID()] = pBitmapObject;
+		m_bitmapObject[pBitmapObject->GetObjectID()] = pBitmapObject;
 		pBitmapObject->SetSurface(pDDS);
 		EnterCriticalSection(&m_videoGroupsCS);
 		m_drawList.AddHead(pBitmapObject);

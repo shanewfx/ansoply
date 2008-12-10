@@ -189,6 +189,9 @@
 				RelativePath=".\DynamicBitmap.cpp">
 			</File>
 			<File
+				RelativePath=".\DynamicEffectBitmap.cpp">
+			</File>
+			<File
 				RelativePath=".\Effects\Effect.cpp">
 			</File>
 			<File
@@ -264,6 +267,9 @@
 			</File>
 			<File
 				RelativePath=".\DynamicBitmap.h">
+			</File>
+			<File
+				RelativePath=".\DynamicEffectBitmap.h">
 			</File>
 			<File
 				RelativePath=".\Effects\Effect.h">

@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Wed Dec 03 10:50:53 2008
+/* at Wed Dec 10 20:48:12 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -44,7 +44,7 @@
 #include "_Ansoply.h"
 
 #define TYPE_FORMAT_STRING_SIZE   69                                
-#define PROC_FORMAT_STRING_SIZE   3097                              
+#define PROC_FORMAT_STRING_SIZE   3187                              
 #define TRANSMIT_AS_TABLE_SIZE    0            
 #define WIRE_MARSHAL_TABLE_SIZE   1            
 
@@ -2984,6 +2984,99 @@ static const MIDL_PROC_FORMAT_STRING __MIDL_ProcFormatString =
 /* 3094 */	0x8,		/* FC_LONG */
 			0x0,		/* 0 */
 
+	/* Procedure SetDynamicEffectBitmap */
+
+/* 3096 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 3098 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 3102 */	NdrFcShort( 0x47 ),	/* 71 */
+/* 3104 */	NdrFcShort( 0x30 ),	/* x86 Stack size/offset = 48 */
+/* 3106 */	NdrFcShort( 0x5c ),	/* 92 */
+/* 3108 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 3110 */	0x46,		/* Oi2 Flags:  clt must size, has return, has ext, */
+			0xb,		/* 11 */
+/* 3112 */	0x8,		/* 8 */
+			0x5,		/* Ext Flags:  new corr desc, srv corr check, */
+/* 3114 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 3116 */	NdrFcShort( 0x1 ),	/* 1 */
+/* 3118 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uBitmapID */
+
+/* 3120 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 3122 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 3124 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter sBitmapFilePath */
+
+/* 3126 */	NdrFcShort( 0x8b ),	/* Flags:  must size, must free, in, by val, */
+/* 3128 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 3130 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Parameter uAlpha */
+
+/* 3132 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3134 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 3136 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uTransparentColor */
+
+/* 3138 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3140 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 3142 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uX */
+
+/* 3144 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3146 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 3148 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uY */
+
+/* 3150 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3152 */	NdrFcShort( 0x18 ),	/* x86 Stack size/offset = 24 */
+/* 3154 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uWidth */
+
+/* 3156 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3158 */	NdrFcShort( 0x1c ),	/* x86 Stack size/offset = 28 */
+/* 3160 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uHeight */
+
+/* 3162 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3164 */	NdrFcShort( 0x20 ),	/* x86 Stack size/offset = 32 */
+/* 3166 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uOriginalSize */
+
+/* 3168 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3170 */	NdrFcShort( 0x24 ),	/* x86 Stack size/offset = 36 */
+/* 3172 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uDrawStyle */
+
+/* 3174 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3176 */	NdrFcShort( 0x28 ),	/* x86 Stack size/offset = 40 */
+/* 3178 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 3180 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 3182 */	NdrFcShort( 0x2c ),	/* x86 Stack size/offset = 44 */
+/* 3184 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
 			0x0
         }
     };
@@ -3144,7 +3237,8 @@ static const unsigned short IAnsoplyInterface_FormatStringOffsetTable[] =
     2838,
     2880,
     3000,
-    3054
+    3054,
+    3096
     };
 
 static const MIDL_STUBLESS_PROXY_INFO IAnsoplyInterface_ProxyInfo =
@@ -3168,7 +3262,7 @@ static const MIDL_SERVER_INFO IAnsoplyInterface_ServerInfo =
     0,
     0,
     0};
-CINTERFACE_PROXY_VTABLE(71) _IAnsoplyInterfaceProxyVtbl = 
+CINTERFACE_PROXY_VTABLE(72) _IAnsoplyInterfaceProxyVtbl = 
 {
     &IAnsoplyInterface_ProxyInfo,
     &IID_IAnsoplyInterface,
@@ -3242,7 +3336,8 @@ CINTERFACE_PROXY_VTABLE(71) _IAnsoplyInterfaceProxyVtbl =
     (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetEffectBitmapStyle */ ,
     (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetEffectTextInRegion */ ,
     (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetEffectPlayRange */ ,
-    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetEffectEndTime */
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetEffectEndTime */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetDynamicEffectBitmap */
 };
 
 
@@ -3315,6 +3410,7 @@ static const PRPC_STUB_FUNCTION IAnsoplyInterface_table[] =
     NdrStubCall2,
     NdrStubCall2,
     NdrStubCall2,
+    NdrStubCall2,
     NdrStubCall2
 };
 
@@ -3322,7 +3418,7 @@ CInterfaceStubVtbl _IAnsoplyInterfaceStubVtbl =
 {
     &IID_IAnsoplyInterface,
     &IAnsoplyInterface_ServerInfo,
-    71,
+    72,
     &IAnsoplyInterface_table[-3],
     CStdStubBuffer_DELEGATING_METHODS
 };
