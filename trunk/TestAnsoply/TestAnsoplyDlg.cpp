@@ -359,10 +359,10 @@ void CTestAnsoplyDlg::OnBnClickedButton9()
 //	m_ansoply.SelectObject(m_uGroupID, 0xFFFFFF00);
 
 	m_ansoply.SetDynamicEffectBitmap(&m_uBitmapID, "F:\\Temp\\001.jpg;F:\\Temp\\002.JPG;", 0xA0, RGB(255, 255, 0), 0, 0, 400, 400, 1, 4);
-	//	m_ansoply.SetPlayTimes(m_uBitmapID, 5);
 	m_ansoply.SetPlayMode(m_uBitmapID, 3);
 	m_ansoply.SetEffectEndTime(m_uBitmapID, 5);
 	m_ansoply.SetPlayTimes(m_uBitmapID, 3);
+	m_ansoply.SetEffectPlayRange(m_uBitmapID, 7, 4, 8);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton10()
