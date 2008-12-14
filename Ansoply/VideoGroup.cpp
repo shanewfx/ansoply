@@ -539,6 +539,7 @@ void CVideoGroup::Draw()
 		bSelectedChannel,
 		m_pMultiSAP->m_uSelectFrameColor);
 }
+
 LONG CVideoGroup::GetCurrentFileID(LONG * uFileID)
 {
 	if( m_curVideoObj )

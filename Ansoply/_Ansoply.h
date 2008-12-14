@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Wed Dec 10 23:48:17 2008
+/* at Sat Dec 13 00:09:41 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -427,6 +427,23 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uHeight,
             /* [in] */ ULONG uOriginalSize,
             /* [in] */ ULONG uDrawStyle) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE CreateBitmapGroup( 
+            /* [in] */ ULONG *uGroupID) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE AddBitmap( 
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ ULONG *uBitmapID,
+            /* [in] */ BSTR sBitmapFilePath,
+            /* [in] */ ULONG uAlpha,
+            /* [in] */ ULONG uTransparentColor,
+            /* [in] */ ULONG uX,
+            /* [in] */ ULONG uY,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uOriginalSize,
+            /* [in] */ ULONG uDrawStyle,
+            /* [in] */ ULONG uDelay) = 0;
         
     };
     
@@ -877,6 +894,25 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uOriginalSize,
             /* [in] */ ULONG uDrawStyle);
         
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *CreateBitmapGroup )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG *uGroupID);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *AddBitmap )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ ULONG *uBitmapID,
+            /* [in] */ BSTR sBitmapFilePath,
+            /* [in] */ ULONG uAlpha,
+            /* [in] */ ULONG uTransparentColor,
+            /* [in] */ ULONG uX,
+            /* [in] */ ULONG uY,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uOriginalSize,
+            /* [in] */ ULONG uDrawStyle,
+            /* [in] */ ULONG uDelay);
+        
         END_INTERFACE
     } IAnsoplyInterfaceVtbl;
 
@@ -1107,6 +1143,12 @@ EXTERN_C const IID IID_IAnsoplyInterface;
 
 #define IAnsoplyInterface_SetDynamicEffectBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize,uDrawStyle)	\
     (This)->lpVtbl -> SetDynamicEffectBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize,uDrawStyle)
+
+#define IAnsoplyInterface_CreateBitmapGroup(This,uGroupID)	\
+    (This)->lpVtbl -> CreateBitmapGroup(This,uGroupID)
+
+#define IAnsoplyInterface_AddBitmap(This,uGroupID,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize,uDrawStyle,uDelay)	\
+    (This)->lpVtbl -> AddBitmap(This,uGroupID,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize,uDrawStyle,uDelay)
 
 #endif /* COBJMACROS */
 
@@ -2030,6 +2072,41 @@ void __RPC_STUB IAnsoplyInterface_SetEffectEndTime_Stub(
 
 
 void __RPC_STUB IAnsoplyInterface_SetDynamicEffectBitmap_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_CreateBitmapGroup_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG *uGroupID);
+
+
+void __RPC_STUB IAnsoplyInterface_CreateBitmapGroup_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_AddBitmap_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uGroupID,
+    /* [in] */ ULONG *uBitmapID,
+    /* [in] */ BSTR sBitmapFilePath,
+    /* [in] */ ULONG uAlpha,
+    /* [in] */ ULONG uTransparentColor,
+    /* [in] */ ULONG uX,
+    /* [in] */ ULONG uY,
+    /* [in] */ ULONG uWidth,
+    /* [in] */ ULONG uHeight,
+    /* [in] */ ULONG uOriginalSize,
+    /* [in] */ ULONG uDrawStyle,
+    /* [in] */ ULONG uDelay);
+
+
+void __RPC_STUB IAnsoplyInterface_AddBitmap_Stub(
     IRpcStubBuffer *This,
     IRpcChannelBuffer *_pRpcChannelBuffer,
     PRPC_MESSAGE _pRpcMessage,

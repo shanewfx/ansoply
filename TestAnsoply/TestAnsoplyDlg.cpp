@@ -358,19 +358,28 @@ void CTestAnsoplyDlg::OnBnClickedButton9()
 //	m_ansoply.CreateVideoGroup(&m_uGroupID);
 //	m_ansoply.SelectObject(m_uGroupID, 0xFFFFFF00);
 
-	m_ansoply.SetDynamicEffectBitmap(&m_uBitmapID, "F:\\Temp\\001.jpg;F:\\Temp\\002.JPG;", 0xA0, RGB(255, 255, 0), 0, 0, 400, 400, 1, 4);
-	m_ansoply.SetPlayMode(m_uBitmapID, 3);
-	m_ansoply.SetEffectEndTime(m_uBitmapID, 5);
-	m_ansoply.SetPlayTimes(m_uBitmapID, 3);
-	m_ansoply.SetEffectPlayRange(m_uBitmapID, 7, 4, 8);
+	//m_ansoply.SetDynamicEffectBitmap(&m_uBitmapID, "F:\\Temp\\001.jpg;F:\\Temp\\002.JPG;", 0xA0, RGB(255, 255, 0), 0, 0, 400, 400, 1, 4);
+	//m_ansoply.SetPlayMode(m_uBitmapID, 3);
+	//m_ansoply.SetEffectEndTime(m_uBitmapID, 5);
+	//m_ansoply.SetPlayTimes(m_uBitmapID, 3);
+	//m_ansoply.SetEffectPlayRange(m_uBitmapID, 7, 4, 8);
+	
+	m_ansoply.CreateBitmapGroup(&groupID);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton10()
 {
 	// TODO: Add your control notification handler code here
 //	m_ansoply.SetDefaultVideoSize(m_uGroupID, 0, 0);
-	m_ansoply.SetMediaFilePath("c:\\");
-	m_ansoply.LoadPlayList("D:\\Ansoply Project\\abc2.xml");
+//	m_ansoply.SetMediaFilePath("c:\\");
+//	m_ansoply.LoadPlayList("D:\\Ansoply Project\\abc2.xml");
+
+	CFileDialog fileDlg(TRUE);
+	if(fileDlg.DoModal() == IDOK)
+	{
+		CString name = fileDlg.GetPathName();
+		m_ansoply.AddBitmap(groupID, &bitmapid, name, 0x96, 0xFFFFFF, 50, 50, 200, 200, 1, 3, 50);
+	}
 /*
 	LONG videoGroupFirstGroupID = 0;
 	LONG videoGroupNextGroupID = 0;

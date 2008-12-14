@@ -367,6 +367,16 @@ public:
 		static BYTE parms[] = VTS_PUI4 VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
 		InvokeHelper(0x41, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uBitmapID, sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uDrawStyle);
 	}
+	void CreateBitmapGroup(unsigned long * uGroupID)
+	{
+		static BYTE parms[] = VTS_PUI4 ;
+		InvokeHelper(0x42, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID);
+	}
+	void AddBitmap(unsigned long uGroupID, unsigned long * uBitmapID, LPCTSTR sBitmapFilePath, unsigned long uAlpha, unsigned long uTransparentColor, unsigned long uX, unsigned long uY, unsigned long uWidth, unsigned long uHeight, unsigned long uOriginalSize, unsigned long uDrawStyle, unsigned long uDelay)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_PUI4 VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x43, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uBitmapID, sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uDrawStyle, uDelay);
+	}
 
 // Properties
 //
