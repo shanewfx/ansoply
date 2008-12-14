@@ -81,6 +81,8 @@ interface IAnsoplyInterface : IDispatch {
 	[id(63),helpstring("method SetEffectPlayRange")] HRESULT  SetEffectPlayRange([in]ULONG uID, [in]ULONG uPlayMode, [in]ULONG uRangeStart, [in]ULONG uRangeEnd);
 	[id(64),helpstring("method SetEffectEndTime")] HRESULT  SetEffectEndTime([in]ULONG uID, [in]LONG EndTime);
 	[id(65),helpstring("method SetDynamicEffectBitmap")] HRESULT  SetDynamicEffectBitmap([in]ULONG *uBitmapID, [in]BSTR sBitmapFilePath, [in]ULONG uAlpha, [in]ULONG uTransparentColor, [in]ULONG uX, [in]ULONG uY, [in]ULONG uWidth, [in]ULONG uHeight, [in]ULONG uOriginalSize, [in]ULONG uDrawStyle);
+	[id(66),helpstring("method CreateBitmapGroup")] HRESULT  CreateBitmapGroup([in]ULONG *uGroupID);
+	[id(67),helpstring("method AddBitmap")] HRESULT  AddBitmap([in]ULONG uGroupID, [in]ULONG *uBitmapID, [in]BSTR sBitmapFilePath, [in]ULONG uAlpha, [in]ULONG uTransparentColor, [in]ULONG uX, [in]ULONG uY, [in]ULONG uWidth, [in]ULONG uHeight, [in]ULONG uOriginalSize, [in]ULONG uDrawStyle, [in]ULONG uDelay);
 };
 
 
@@ -95,7 +97,7 @@ library Ansoply
 		uuid(D1EBA581-03B3-42EA-B097-7F97F0ADB87B),
 		helpstring("AnsoplyInterface Class")
 	] 
-#line 98 "d:\\ansoply project\\ansoply project\\ansoply\\ansoplyinterface.h"
+#line 100 "d:\\ansoply project\\ansoply project\\ansoply\\ansoplyinterface.h"
 	coclass CAnsoplyInterface {
 		interface IAnsoplyInterface;
 	};

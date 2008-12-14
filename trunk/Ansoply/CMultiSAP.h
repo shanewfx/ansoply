@@ -18,6 +18,7 @@ class CBitmapObject;
 class CVideoGroup;
 class CAnsoplyObject;
 struct sDialogInfo;
+class CDynaEfBmpGroup;
 
 #define CHK_RANGE( n, size, err, expr)\
 if( n<0 || n> size-1 ) { return err; } else { return (expr); }
@@ -51,6 +52,9 @@ public:
 	LONG AddVideoFile(ULONG uGroupID, LPCTSTR sFilePathName);
 	LONG DelVideoFile(ULONG uGroupID, ULONG uFileID);
 	LONG DelVideoGroup(ULONG uGroupID);
+
+	LONG Create_Dy_Ef_Bmp_Group();
+	LONG AddDynamicEffectBmp(ULONG uGroupID, LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
 
 	LONG GetVideoGroupCount();
 	LONG GetFirstVideoGroupID();
@@ -282,6 +286,7 @@ public:
 	CVideoGroup *                   m_pBGVideo;
 	CAtlList<CVideoGroup*>			m_videoGroups;
 	CRITICAL_SECTION                m_videoGroupsCS;
+	CAtlMap<ULONG, CDynaEfBmpGroup*> m_dy_ef_bmp_Group;
 
 	CAtlMap<ULONG, CBitmapObject*>  m_bitmapObject;
 	CAtlMap<ULONG, CTextObject*>    m_textObject;

@@ -15,6 +15,7 @@
 #include "EffectBitmap.h"
 #include "textobject.h"
 #include "EffectText.h"
+#include "DynaEfBmpGroup.h"
 #include "DynamicEffectBitmap.h"
 #include ".\dynamicbitmap.h"
 #include "D3DHelpers/d3dutil.h"
@@ -1295,6 +1296,75 @@ LONG CMultiSAP::CreateVideoGroup()
 	return pVideoGroup->GetObjectID();
 //	}
 //	return -1;
+}
+
+LONG CMultiSAP::Create_Dy_Ef_Bmp_Group()
+{
+	CDynaEfBmpGroup * pGroup = new CDynaEfBmpGroup();
+
+	m_dy_ef_bmp_Group[pGroup->GetObjectID()] = pGroup;
+	EnterCriticalSection(&m_videoGroupsCS);
+	m_drawList.AddHead(pGroup);
+	LeaveCriticalSection(&m_videoGroupsCS);
+	return pGroup->GetObjectID();
+}
+
+LONG CMultiSAP::AddDynamicEffectBmp(ULONG uGroupID, LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay)
+{
+	CDynaEfBmpGroup * pGroup;
+	if( m_dy_ef_bmp_Group.Lookup(uGroupID, pGroup) )
+	{
+		CEffectBitmap * pEffectBitmap = new CEffectBitmap();
+
+
+		if ( pEffectBitmap->SetBitmap(sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uDrawStyle, uDelay, m_hwndApp) == -1)
+			return -1;
+
+		pEffectBitmap->m_pMultiSAP = this;
+		pEffectBitmap->SetAlphaBlt(m_pAlphaBlt);
+
+		HRESULT hr = DD_OK;
+		//	if( !m_lpDDSBitmapCache ) 
+		IDirectDrawSurface7* pDDS = NULL;
+		//	hr = DDARGB32SurfaceInit(&m_lpDDSBitmapCache, TRUE, 640, 480);
+		HBITMAP hBmp;
+		Color backColor;
+
+		BITMAP bm;
+
+		if (uOriginalSize == 1)
+		{
+			pEffectBitmap->m_pBitmap->GetHBITMAP(backColor, &hBmp);
+			GetObject( hBmp, sizeof(BITMAP), &bm );
+		}
+
+		// Get the bitmap structure (to extract width, height, and bpp)
+
+
+		ULONG Width, Height;
+		if( uOriginalSize == 1 )
+		{
+
+			Width  = bm.bmWidth;
+			Height = bm.bmHeight;
+		}
+		else
+		{
+			Width  = uWidth;
+			Height = uHeight;
+		}
+
+		hr = DDARGB32SurfaceInit(&pDDS, TRUE, Width, Height);
+		if(hr == DD_OK)
+		{
+
+			pEffectBitmap->SetSurface(pDDS);
+		}
+
+		pGroup->AddBitmap(pEffectBitmap);
+		return 0;
+	}
+	return -1;
 }
 
 LONG CMultiSAP::AddVideoFile(ULONG uGroupID, LPCTSTR sFilePathName)

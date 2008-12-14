@@ -186,6 +186,9 @@
 				RelativePath=".\DDrawSupport.cpp">
 			</File>
 			<File
+				RelativePath=".\DynaEfBmpGroup.cpp">
+			</File>
+			<File
 				RelativePath=".\DynamicBitmap.cpp">
 			</File>
 			<File
@@ -264,6 +267,9 @@
 			</File>
 			<File
 				RelativePath=".\DDrawSupport.h">
+			</File>
+			<File
+				RelativePath=".\DynaEfBmpGroup.h">
 			</File>
 			<File
 				RelativePath=".\DynamicBitmap.h">

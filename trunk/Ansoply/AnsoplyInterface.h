@@ -80,6 +80,8 @@ __interface IAnsoplyInterface : public IDispatch
 	[id(63), helpstring("method SetEffectPlayRange")] HRESULT SetEffectPlayRange(ULONG uID, ULONG uPlayMode, ULONG uRangeStart, ULONG uRangeEnd);
 	[id(64), helpstring("method SetEffectEndTime")] HRESULT SetEffectEndTime(ULONG uID, LONG EndTime);
 	[id(65), helpstring("method SetDynamicEffectBitmap")] HRESULT SetDynamicEffectBitmap(ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle);
+	[id(66), helpstring("method CreateBitmapGroup")] HRESULT CreateBitmapGroup(ULONG* uGroupID);
+	[id(67), helpstring("method AddBitmap")] HRESULT AddBitmap(ULONG uGroupID, ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
 };
 
 
@@ -258,5 +260,7 @@ public:
 	STDMETHOD(SetEffectPlayRange)(ULONG uID, ULONG uPlayMode, ULONG uRangeStart, ULONG uRangeEnd);
 	STDMETHOD(SetEffectEndTime)(ULONG uID, LONG EndTime);
 	STDMETHOD(SetDynamicEffectBitmap)(ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle);
+	STDMETHOD(CreateBitmapGroup)(ULONG* uGroupID);
+	STDMETHOD(AddBitmap)(ULONG uGroupID, ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
 };
 

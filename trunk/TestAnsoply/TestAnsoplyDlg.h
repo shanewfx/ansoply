@@ -26,6 +26,8 @@ public:
 	ULONG m_uBitmapID;
 
 	ULONG m_uTextID;
+	ULONG groupID;
+	ULONG bitmapid;
 
 	void  LoadVideoObject(LONG groupID);
 
