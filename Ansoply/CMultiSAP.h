@@ -20,6 +20,7 @@ class CVideoGroup;
 class CAnsoplyObject;
 struct sDialogInfo;
 class CDynaEfBmpGroup;
+class CEffectTextGroup;
 
 #define CHK_RANGE( n, size, err, expr)\
 if( n<0 || n> size-1 ) { return err; } else { return (expr); }
@@ -58,6 +59,11 @@ public:
 	LONG AddDynamicEffectBmp(ULONG uGroupID, LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
 	LONG InsertDynamicEffectBmp(ULONG uGroupID, ULONG uWhere, LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
 	LONG DelBitmapGroup(ULONG uGroupID);
+
+	LONG CreateTextGroup();
+	LONG AddText(ULONG uGroupID, ULONG uX, ULONG uY, LPCTSTR sOutputText, LPCTSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay);
+	LONG DelTextGroup(ULONG uGroupID);
+
 
 	LONG GetVideoGroupCount();
 	LONG GetFirstVideoGroupID();
@@ -247,6 +253,25 @@ public:
 		ULONG    uDrawStyle,
 		ULONG    uDelay);
 
+	LONG InsertEffectTextInRegion(
+		ULONG uGroupID,
+		ULONG uWhere,
+		ULONG uX,
+		ULONG uY,
+		LPCTSTR sOutputText,
+		LPCTSTR  sFaceName,
+		ULONG    uItalic,
+		ULONG    uBold,
+		ULONG    uUnderLine,
+		ULONG    uWidth,
+		ULONG    uHeight,
+		ULONG    uColor,
+		ULONG*   uID,
+		ULONG    uRegionWidth,
+		ULONG    uRegionHeight,
+		ULONG    uDrawStyle,
+		ULONG    uDelay);
+
 	LONG DelText(ULONG uID);
 
 	void RenderVideo();
@@ -290,6 +315,8 @@ public:
 	CAtlList<CVideoGroup*>			m_videoGroups;
 	CRITICAL_SECTION                m_videoGroupsCS;
 	std::map<ULONG, CDynaEfBmpGroup*> m_dy_ef_bmp_Group;
+
+	std::map<ULONG, CEffectTextGroup*> m_EffectTextGroup;
 
 	CAtlMap<ULONG, CBitmapObject*>  m_bitmapObject;
 	CAtlMap<ULONG, CTextObject*>    m_textObject;

@@ -207,6 +207,12 @@
 				RelativePath=".\EffectText.cpp">
 			</File>
 			<File
+				RelativePath=".\EffectTextEx.cpp">
+			</File>
+			<File
+				RelativePath=".\EffectTextGroup.cpp">
+			</File>
+			<File
 				RelativePath=".\IDGenerator.cpp">
 			</File>
 			<File
@@ -291,6 +297,12 @@
 			</File>
 			<File
 				RelativePath=".\EffectText.h">
+			</File>
+			<File
+				RelativePath=".\EffectTextEx.h">
+			</File>
+			<File
+				RelativePath=".\EffectTextGroup.h">
 			</File>
 			<File
 				RelativePath=".\error.h">

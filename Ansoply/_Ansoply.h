@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Sun Dec 14 15:21:05 2008
+/* at Tue Dec 16 00:38:51 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -462,6 +462,49 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uOriginalSize,
             /* [in] */ ULONG uDrawStyle,
             /* [in] */ ULONG uDelay) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE CreateTextGroup( 
+            /* [in] */ ULONG *uGroupID) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE AddText( 
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ ULONG uX,
+            /* [in] */ ULONG uY,
+            /* [in] */ BSTR sOutputText,
+            /* [in] */ BSTR sFaceName,
+            /* [in] */ ULONG uItalic,
+            /* [in] */ ULONG uBold,
+            /* [in] */ ULONG uUnderLine,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uColor,
+            /* [in] */ ULONG *uObjectID,
+            /* [in] */ ULONG uRegionWidth,
+            /* [in] */ ULONG uRegionHeight,
+            /* [in] */ ULONG uDrawStyle,
+            /* [in] */ ULONG uDelay) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE DelTextGroup( 
+            /* [in] */ ULONG uGroupID) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE InsertText( 
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ ULONG uWhere,
+            /* [in] */ ULONG uX,
+            /* [in] */ ULONG uY,
+            /* [in] */ BSTR sOutputText,
+            /* [in] */ BSTR sFaceName,
+            /* [in] */ ULONG uItalic,
+            /* [in] */ ULONG uBold,
+            /* [in] */ ULONG uUnderLine,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uColor,
+            /* [in] */ ULONG *uObjectID,
+            /* [in] */ ULONG uRegionWidth,
+            /* [in] */ ULONG uRegionHeight,
+            /* [in] */ ULONG uDrawStyle,
+            /* [in] */ LONG uDelay) = 0;
         
     };
     
@@ -951,6 +994,53 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uDrawStyle,
             /* [in] */ ULONG uDelay);
         
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *CreateTextGroup )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG *uGroupID);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *AddText )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ ULONG uX,
+            /* [in] */ ULONG uY,
+            /* [in] */ BSTR sOutputText,
+            /* [in] */ BSTR sFaceName,
+            /* [in] */ ULONG uItalic,
+            /* [in] */ ULONG uBold,
+            /* [in] */ ULONG uUnderLine,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uColor,
+            /* [in] */ ULONG *uObjectID,
+            /* [in] */ ULONG uRegionWidth,
+            /* [in] */ ULONG uRegionHeight,
+            /* [in] */ ULONG uDrawStyle,
+            /* [in] */ ULONG uDelay);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *DelTextGroup )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uGroupID);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *InsertText )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ ULONG uWhere,
+            /* [in] */ ULONG uX,
+            /* [in] */ ULONG uY,
+            /* [in] */ BSTR sOutputText,
+            /* [in] */ BSTR sFaceName,
+            /* [in] */ ULONG uItalic,
+            /* [in] */ ULONG uBold,
+            /* [in] */ ULONG uUnderLine,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uColor,
+            /* [in] */ ULONG *uObjectID,
+            /* [in] */ ULONG uRegionWidth,
+            /* [in] */ ULONG uRegionHeight,
+            /* [in] */ ULONG uDrawStyle,
+            /* [in] */ LONG uDelay);
+        
         END_INTERFACE
     } IAnsoplyInterfaceVtbl;
 
@@ -1193,6 +1283,18 @@ EXTERN_C const IID IID_IAnsoplyInterface;
 
 #define IAnsoplyInterface_InsertBitmap(This,uGroupID,uWhere,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize,uDrawStyle,uDelay)	\
     (This)->lpVtbl -> InsertBitmap(This,uGroupID,uWhere,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize,uDrawStyle,uDelay)
+
+#define IAnsoplyInterface_CreateTextGroup(This,uGroupID)	\
+    (This)->lpVtbl -> CreateTextGroup(This,uGroupID)
+
+#define IAnsoplyInterface_AddText(This,uGroupID,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight,uDrawStyle,uDelay)	\
+    (This)->lpVtbl -> AddText(This,uGroupID,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight,uDrawStyle,uDelay)
+
+#define IAnsoplyInterface_DelTextGroup(This,uGroupID)	\
+    (This)->lpVtbl -> DelTextGroup(This,uGroupID)
+
+#define IAnsoplyInterface_InsertText(This,uGroupID,uWhere,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight,uDrawStyle,uDelay)	\
+    (This)->lpVtbl -> InsertText(This,uGroupID,uWhere,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight,uDrawStyle,uDelay)
 
 #endif /* COBJMACROS */
 
@@ -2187,6 +2289,85 @@ void __RPC_STUB IAnsoplyInterface_DelBitmapGroup_Stub(
 
 
 void __RPC_STUB IAnsoplyInterface_InsertBitmap_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_CreateTextGroup_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG *uGroupID);
+
+
+void __RPC_STUB IAnsoplyInterface_CreateTextGroup_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_AddText_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uGroupID,
+    /* [in] */ ULONG uX,
+    /* [in] */ ULONG uY,
+    /* [in] */ BSTR sOutputText,
+    /* [in] */ BSTR sFaceName,
+    /* [in] */ ULONG uItalic,
+    /* [in] */ ULONG uBold,
+    /* [in] */ ULONG uUnderLine,
+    /* [in] */ ULONG uWidth,
+    /* [in] */ ULONG uHeight,
+    /* [in] */ ULONG uColor,
+    /* [in] */ ULONG *uObjectID,
+    /* [in] */ ULONG uRegionWidth,
+    /* [in] */ ULONG uRegionHeight,
+    /* [in] */ ULONG uDrawStyle,
+    /* [in] */ ULONG uDelay);
+
+
+void __RPC_STUB IAnsoplyInterface_AddText_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_DelTextGroup_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uGroupID);
+
+
+void __RPC_STUB IAnsoplyInterface_DelTextGroup_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_InsertText_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uGroupID,
+    /* [in] */ ULONG uWhere,
+    /* [in] */ ULONG uX,
+    /* [in] */ ULONG uY,
+    /* [in] */ BSTR sOutputText,
+    /* [in] */ BSTR sFaceName,
+    /* [in] */ ULONG uItalic,
+    /* [in] */ ULONG uBold,
+    /* [in] */ ULONG uUnderLine,
+    /* [in] */ ULONG uWidth,
+    /* [in] */ ULONG uHeight,
+    /* [in] */ ULONG uColor,
+    /* [in] */ ULONG *uObjectID,
+    /* [in] */ ULONG uRegionWidth,
+    /* [in] */ ULONG uRegionHeight,
+    /* [in] */ ULONG uDrawStyle,
+    /* [in] */ LONG uDelay);
+
+
+void __RPC_STUB IAnsoplyInterface_InsertText_Stub(
     IRpcStubBuffer *This,
     IRpcChannelBuffer *_pRpcChannelBuffer,
     PRPC_MESSAGE _pRpcMessage,
