@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Sat Dec 13 00:09:41 2008
+/* at Sun Dec 14 15:21:05 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -44,7 +44,7 @@
 #include "_Ansoply.h"
 
 #define TYPE_FORMAT_STRING_SIZE   69                                
-#define PROC_FORMAT_STRING_SIZE   3325                              
+#define PROC_FORMAT_STRING_SIZE   3469                              
 #define TRANSMIT_AS_TABLE_SIZE    0            
 #define WIRE_MARSHAL_TABLE_SIZE   1            
 
@@ -3215,6 +3215,151 @@ static const MIDL_PROC_FORMAT_STRING __MIDL_ProcFormatString =
 /* 3322 */	0x8,		/* FC_LONG */
 			0x0,		/* 0 */
 
+	/* Procedure DelBitmapGroup */
+
+/* 3324 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 3326 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 3330 */	NdrFcShort( 0x4a ),	/* 74 */
+/* 3332 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 3334 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 3336 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 3338 */	0x44,		/* Oi2 Flags:  has return, has ext, */
+			0x2,		/* 2 */
+/* 3340 */	0x8,		/* 8 */
+			0x1,		/* Ext Flags:  new corr desc, */
+/* 3342 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 3344 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 3346 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 3348 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3350 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 3352 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 3354 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 3356 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 3358 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Procedure InsertBitmap */
+
+/* 3360 */	0x33,		/* FC_AUTO_HANDLE */
+			0x6c,		/* Old Flags:  object, Oi2 */
+/* 3362 */	NdrFcLong( 0x0 ),	/* 0 */
+/* 3366 */	NdrFcShort( 0x4b ),	/* 75 */
+/* 3368 */	NdrFcShort( 0x3c ),	/* x86 Stack size/offset = 60 */
+/* 3370 */	NdrFcShort( 0x74 ),	/* 116 */
+/* 3372 */	NdrFcShort( 0x8 ),	/* 8 */
+/* 3374 */	0x46,		/* Oi2 Flags:  clt must size, has return, has ext, */
+			0xe,		/* 14 */
+/* 3376 */	0x8,		/* 8 */
+			0x5,		/* Ext Flags:  new corr desc, srv corr check, */
+/* 3378 */	NdrFcShort( 0x0 ),	/* 0 */
+/* 3380 */	NdrFcShort( 0x1 ),	/* 1 */
+/* 3382 */	NdrFcShort( 0x0 ),	/* 0 */
+
+	/* Parameter uGroupID */
+
+/* 3384 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3386 */	NdrFcShort( 0x4 ),	/* x86 Stack size/offset = 4 */
+/* 3388 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uWhere */
+
+/* 3390 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3392 */	NdrFcShort( 0x8 ),	/* x86 Stack size/offset = 8 */
+/* 3394 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uBitmapID */
+
+/* 3396 */	NdrFcShort( 0x148 ),	/* Flags:  in, base type, simple ref, */
+/* 3398 */	NdrFcShort( 0xc ),	/* x86 Stack size/offset = 12 */
+/* 3400 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter sBitmapFilePath */
+
+/* 3402 */	NdrFcShort( 0x8b ),	/* Flags:  must size, must free, in, by val, */
+/* 3404 */	NdrFcShort( 0x10 ),	/* x86 Stack size/offset = 16 */
+/* 3406 */	NdrFcShort( 0x20 ),	/* Type Offset=32 */
+
+	/* Parameter uAlpha */
+
+/* 3408 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3410 */	NdrFcShort( 0x14 ),	/* x86 Stack size/offset = 20 */
+/* 3412 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uTransparentColor */
+
+/* 3414 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3416 */	NdrFcShort( 0x18 ),	/* x86 Stack size/offset = 24 */
+/* 3418 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uX */
+
+/* 3420 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3422 */	NdrFcShort( 0x1c ),	/* x86 Stack size/offset = 28 */
+/* 3424 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uY */
+
+/* 3426 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3428 */	NdrFcShort( 0x20 ),	/* x86 Stack size/offset = 32 */
+/* 3430 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uWidth */
+
+/* 3432 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3434 */	NdrFcShort( 0x24 ),	/* x86 Stack size/offset = 36 */
+/* 3436 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uHeight */
+
+/* 3438 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3440 */	NdrFcShort( 0x28 ),	/* x86 Stack size/offset = 40 */
+/* 3442 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uOriginalSize */
+
+/* 3444 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3446 */	NdrFcShort( 0x2c ),	/* x86 Stack size/offset = 44 */
+/* 3448 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uDrawStyle */
+
+/* 3450 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3452 */	NdrFcShort( 0x30 ),	/* x86 Stack size/offset = 48 */
+/* 3454 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Parameter uDelay */
+
+/* 3456 */	NdrFcShort( 0x48 ),	/* Flags:  in, base type, */
+/* 3458 */	NdrFcShort( 0x34 ),	/* x86 Stack size/offset = 52 */
+/* 3460 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
+	/* Return value */
+
+/* 3462 */	NdrFcShort( 0x70 ),	/* Flags:  out, return, base type, */
+/* 3464 */	NdrFcShort( 0x38 ),	/* x86 Stack size/offset = 56 */
+/* 3466 */	0x8,		/* FC_LONG */
+			0x0,		/* 0 */
+
 			0x0
         }
     };
@@ -3378,7 +3523,9 @@ static const unsigned short IAnsoplyInterface_FormatStringOffsetTable[] =
     3054,
     3096,
     3186,
-    3222
+    3222,
+    3324,
+    3360
     };
 
 static const MIDL_STUBLESS_PROXY_INFO IAnsoplyInterface_ProxyInfo =
@@ -3402,7 +3549,7 @@ static const MIDL_SERVER_INFO IAnsoplyInterface_ServerInfo =
     0,
     0,
     0};
-CINTERFACE_PROXY_VTABLE(74) _IAnsoplyInterfaceProxyVtbl = 
+CINTERFACE_PROXY_VTABLE(76) _IAnsoplyInterfaceProxyVtbl = 
 {
     &IAnsoplyInterface_ProxyInfo,
     &IID_IAnsoplyInterface,
@@ -3479,7 +3626,9 @@ CINTERFACE_PROXY_VTABLE(74) _IAnsoplyInterfaceProxyVtbl =
     (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetEffectEndTime */ ,
     (void *) (INT_PTR) -1 /* IAnsoplyInterface::SetDynamicEffectBitmap */ ,
     (void *) (INT_PTR) -1 /* IAnsoplyInterface::CreateBitmapGroup */ ,
-    (void *) (INT_PTR) -1 /* IAnsoplyInterface::AddBitmap */
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::AddBitmap */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::DelBitmapGroup */ ,
+    (void *) (INT_PTR) -1 /* IAnsoplyInterface::InsertBitmap */
 };
 
 
@@ -3555,6 +3704,8 @@ static const PRPC_STUB_FUNCTION IAnsoplyInterface_table[] =
     NdrStubCall2,
     NdrStubCall2,
     NdrStubCall2,
+    NdrStubCall2,
+    NdrStubCall2,
     NdrStubCall2
 };
 
@@ -3562,7 +3713,7 @@ CInterfaceStubVtbl _IAnsoplyInterfaceStubVtbl =
 {
     &IID_IAnsoplyInterface,
     &IAnsoplyInterface_ServerInfo,
-    74,
+    76,
     &IAnsoplyInterface_table[-3],
     CStdStubBuffer_DELEGATING_METHODS
 };

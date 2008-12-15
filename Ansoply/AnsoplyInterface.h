@@ -82,6 +82,8 @@ __interface IAnsoplyInterface : public IDispatch
 	[id(65), helpstring("method SetDynamicEffectBitmap")] HRESULT SetDynamicEffectBitmap(ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle);
 	[id(66), helpstring("method CreateBitmapGroup")] HRESULT CreateBitmapGroup(ULONG* uGroupID);
 	[id(67), helpstring("method AddBitmap")] HRESULT AddBitmap(ULONG uGroupID, ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
+	[id(68), helpstring("method DelBitmapGroup")] HRESULT DelBitmapGroup(ULONG uGroupID);
+	[id(69), helpstring("method InsertBitmap")] HRESULT InsertBitmap(ULONG uGroupID, ULONG uWhere, ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
 };
 
 
@@ -262,5 +264,7 @@ public:
 	STDMETHOD(SetDynamicEffectBitmap)(ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle);
 	STDMETHOD(CreateBitmapGroup)(ULONG* uGroupID);
 	STDMETHOD(AddBitmap)(ULONG uGroupID, ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
+	STDMETHOD(DelBitmapGroup)(ULONG uGroupID);
+	STDMETHOD(InsertBitmap)(ULONG uGroupID, ULONG uWhere, ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
 };
 

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class CEffectBitmap;
+class CEffectBitmapEx;
 
 class CDynaEfBmpGroup :
 	public CAnsoplyObject
@@ -15,9 +15,10 @@ public:
 
 	virtual void Draw();
 
-	void AddBitmap(CEffectBitmap * pEffectBitmap);
+	void AddBitmap(CEffectBitmapEx * pEffectBitmap);
+	void InsertBitmap(ULONG uWhere, CEffectBitmapEx * pEffectBitmap);
 
-	list<CEffectBitmap*> m_effectbmplist;
-	list<CEffectBitmap*>::iterator m_iter;
+	list<CEffectBitmapEx*> m_effectbmplist;
+	list<CEffectBitmapEx*>::iterator m_iter;
 	CRITICAL_SECTION m_cs;
 };

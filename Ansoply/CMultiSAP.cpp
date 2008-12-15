@@ -17,6 +17,7 @@
 #include "EffectText.h"
 #include "DynaEfBmpGroup.h"
 #include "DynamicEffectBitmap.h"
+#include "EffectBitmapEx.h"
 #include ".\dynamicbitmap.h"
 #include "D3DHelpers/d3dutil.h"
 #include ".\tinyxml\tinyxml.h"
@@ -1312,9 +1313,13 @@ LONG CMultiSAP::Create_Dy_Ef_Bmp_Group()
 LONG CMultiSAP::AddDynamicEffectBmp(ULONG uGroupID, LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay)
 {
 	CDynaEfBmpGroup * pGroup;
-	if( m_dy_ef_bmp_Group.Lookup(uGroupID, pGroup) )
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.find(uGroupID);
+	//if( m_dy_ef_bmp_Group.Lookup(uGroupID, pGroup) )
+
+	if( iter != m_dy_ef_bmp_Group.end() )
 	{
-		CEffectBitmap * pEffectBitmap = new CEffectBitmap();
+		pGroup = iter->second;
+		CEffectBitmapEx * pEffectBitmap = new CEffectBitmapEx();
 
 
 		if ( pEffectBitmap->SetBitmap(sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uDrawStyle, uDelay, m_hwndApp) == -1)
@@ -1362,7 +1367,69 @@ LONG CMultiSAP::AddDynamicEffectBmp(ULONG uGroupID, LPCTSTR sBitmapFilePath, ULO
 		}
 
 		pGroup->AddBitmap(pEffectBitmap);
-		return 0;
+		return pEffectBitmap->GetObjectID();
+	}
+	return -1;
+}
+
+
+LONG CMultiSAP::InsertDynamicEffectBmp(ULONG uGroupID, ULONG uWhere, LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay)
+{
+	CDynaEfBmpGroup * pGroup;
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.find(uGroupID);
+
+	if( iter != m_dy_ef_bmp_Group.end() )
+	{
+		pGroup = iter->second;
+		CEffectBitmapEx * pEffectBitmap = new CEffectBitmapEx();
+
+
+		if ( pEffectBitmap->SetBitmap(sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uDrawStyle, uDelay, m_hwndApp) == -1)
+			return -1;
+
+		pEffectBitmap->m_pMultiSAP = this;
+		pEffectBitmap->SetAlphaBlt(m_pAlphaBlt);
+
+		HRESULT hr = DD_OK;
+		//	if( !m_lpDDSBitmapCache ) 
+		IDirectDrawSurface7* pDDS = NULL;
+		//	hr = DDARGB32SurfaceInit(&m_lpDDSBitmapCache, TRUE, 640, 480);
+		HBITMAP hBmp;
+		Color backColor;
+
+		BITMAP bm;
+
+		if (uOriginalSize == 1)
+		{
+			pEffectBitmap->m_pBitmap->GetHBITMAP(backColor, &hBmp);
+			GetObject( hBmp, sizeof(BITMAP), &bm );
+		}
+
+		// Get the bitmap structure (to extract width, height, and bpp)
+
+
+		ULONG Width, Height;
+		if( uOriginalSize == 1 )
+		{
+
+			Width  = bm.bmWidth;
+			Height = bm.bmHeight;
+		}
+		else
+		{
+			Width  = uWidth;
+			Height = uHeight;
+		}
+
+		hr = DDARGB32SurfaceInit(&pDDS, TRUE, Width, Height);
+		if(hr == DD_OK)
+		{
+
+			pEffectBitmap->SetSurface(pDDS);
+		}
+
+		pGroup->InsertBitmap(uWhere, pEffectBitmap);
+		return pEffectBitmap->GetObjectID();
 	}
 	return -1;
 }
@@ -2733,6 +2800,31 @@ LONG CMultiSAP::DelBitmap(ULONG uBitmapID)
 		m_bitmapObject.RemoveKey(uBitmapID);
 		ret = 0;
 	}
+
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.begin();
+	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
+	{
+		CDynaEfBmpGroup * pGroup = iter->second;
+		std::list<CEffectBitmapEx*>::iterator iterinner = pGroup->m_effectbmplist.begin();
+		for (; iterinner != pGroup->m_effectbmplist.end(); ++iterinner)
+		{
+			CEffectBitmapEx * pBitmap = *iterinner;
+			if(pBitmap->GetObjectID() == uBitmapID)
+			{
+				EnterCriticalSection(&pGroup->m_cs);
+				if( pGroup->m_iter == iterinner )
+				{
+					// current playing
+					pGroup->m_iter = pGroup->m_effectbmplist.erase(iterinner);
+				}
+				else
+					pGroup->m_effectbmplist.erase(iterinner);
+				LeaveCriticalSection(&pGroup->m_cs);
+				break;
+			}
+		}
+	}
+
 	//////////////////////////////////////////////////////////////////////////
 	POSITION pos = m_drawList.GetHeadPosition();
 	while( pos )
@@ -2742,6 +2834,7 @@ LONG CMultiSAP::DelBitmap(ULONG uBitmapID)
 		if( pObject && pObject->GetObjectID() == uBitmapID )
 		{
 			m_drawList.RemoveAt( tempPos );
+			delete pObject;
 			ret = 0;
 			break;
 		}
@@ -2771,6 +2864,7 @@ LONG CMultiSAP::DelDynamicBitmap(ULONG uDynamicBitmapID)
 		if( pObject && pObject->GetObjectID() == uDynamicBitmapID )
 		{
 			m_drawList.RemoveAt( tempPos );
+			delete pObject;
 			ret = 0;
 			break;
 		}
@@ -3292,8 +3386,8 @@ void CMultiSAP::SetDefaultThread(LPVOID param)
 
 void CMultiSAP::Refresh()
 {
-#define WM_FIN WM_USER+10
-	SendMessage(m_hwndApp, WM_FIN, 0, 0);
+//#define WM_FIN WM_USER+10
+//	SendMessage(m_hwndApp, WM_FIN, 0, 0);
 
 	if( m_pWC )
 	{
@@ -3435,7 +3529,27 @@ LONG CMultiSAP::SetPlayTimes(ULONG uGroupID, ULONG uPlayTimes)
 		//pDEBitmap->m_playType = (PLAY_TYPE)PLAY_THROUGH;
 		return 0;
 	}
-	return 0;
+
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.begin();
+	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
+	{
+		CDynaEfBmpGroup * pGroup = iter->second;
+		std::list<CEffectBitmapEx*>::iterator iterinner = pGroup->m_effectbmplist.begin();
+		for (; iterinner != pGroup->m_effectbmplist.end(); ++iterinner)
+		{
+			CEffectBitmapEx * pBitmap = *iterinner;
+			if(pBitmap->GetObjectID() == uGroupID)
+			{
+				pBitmap->m_bPlayEnd = FALSE;
+				pBitmap->m_uPlayBeginTime = 1;
+				pBitmap->m_uPlayTimes = uPlayTimes;
+
+				pBitmap->m_StopTimeExpire = 0;
+				return 0;
+			}
+		}
+	}
+	return -1;
 }
 
 LONG CMultiSAP::SetPlayTimeout(ULONG uGroupID, ULONG uTimeout_s)
@@ -3472,6 +3586,22 @@ LONG CMultiSAP::SetPlayTimeout(ULONG uGroupID, ULONG uTimeout_s)
 		return 0;
 	}
 
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.begin();
+	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
+	{
+		CDynaEfBmpGroup * pGroup = iter->second;
+		std::list<CEffectBitmapEx*>::iterator iterinner = pGroup->m_effectbmplist.begin();
+		for (; iterinner != pGroup->m_effectbmplist.end(); ++iterinner)
+		{
+			CEffectBitmapEx * pBitmap = *iterinner;
+			if(pBitmap->GetObjectID() == uGroupID)
+			{
+				pBitmap->m_StopTimeExpire = GetTickCount() + uTimeout_s * 1000;
+				return 0;
+			}
+		}
+	}
+
 	return 0;
 }
 
@@ -3500,6 +3630,23 @@ LONG CMultiSAP::SetEffectBitmapStyle(ULONG uID, ULONG uStyle)
 		pDEBitmap->m_uDrawStyle = uStyle;
 		pDEBitmap->m_drawtype = PLAY_NONE;  // discard the random or sequence play mode
 		return 0;
+	}
+
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.begin();
+	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
+	{
+		CDynaEfBmpGroup * pGroup = iter->second;
+		std::list<CEffectBitmapEx*>::iterator iterinner = pGroup->m_effectbmplist.begin();
+		for (; iterinner != pGroup->m_effectbmplist.end(); ++iterinner)
+		{
+			CEffectBitmapEx * pBitmap = *iterinner;
+			if(pBitmap->GetObjectID() == uID)
+			{
+				pBitmap->m_uDrawStyle = uStyle;
+				pBitmap->m_drawtype = PLAY_NONE;
+				return 0;
+			}
+		}
 	}
 	return -1;
 }
@@ -3536,6 +3683,25 @@ LONG CMultiSAP::SetEffectPlayRange(ULONG uID, ULONG uPlayMode, ULONG uRangeStart
 		pDEBitmap->m_playType = PLAY_NONE;
 		return 0;
 	}
+
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.begin();
+	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
+	{
+		CDynaEfBmpGroup * pGroup = iter->second;
+		std::list<CEffectBitmapEx*>::iterator iterinner = pGroup->m_effectbmplist.begin();
+		for (; iterinner != pGroup->m_effectbmplist.end(); ++iterinner)
+		{
+			CEffectBitmapEx * pBitmap = *iterinner;
+			if(pBitmap->GetObjectID() == uID)
+			{
+				pBitmap->m_drawtype = (PLAY_TYPE)uPlayMode;
+				pBitmap->m_uDrawStyleBegin = uRangeStart;
+				pBitmap->m_uDrawStyleEnd = uRangeEnd;
+				pBitmap->m_playType = PLAY_NONE;
+				return 0;
+			}
+		}
+	}
 	return -1;
 }
 
@@ -3561,6 +3727,22 @@ LONG CMultiSAP::SetEffectEndTime(ULONG uID, LONG EndTime)
 	{
 		pDEBitmap->m_endtime = EndTime * 1000;
 		return 0;
+	}
+
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.begin();
+	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
+	{
+		CDynaEfBmpGroup * pGroup = iter->second;
+		std::list<CEffectBitmapEx*>::iterator iterinner = pGroup->m_effectbmplist.begin();
+		for (; iterinner != pGroup->m_effectbmplist.end(); ++iterinner)
+		{
+			CEffectBitmapEx * pBitmap = *iterinner;
+			if(pBitmap->GetObjectID() == uID)
+			{
+				pBitmap->m_endtime = EndTime * 1000;
+				return 0;
+			}
+		}
 	}
 
 	return -1;
@@ -3630,4 +3812,34 @@ LONG CMultiSAP::SetEffectBitmap(
 	}
 
 	return -1;
+}
+
+LONG CMultiSAP::DelBitmapGroup(ULONG uGroupID)
+{
+	LONG ret = -1;
+	EnterCriticalSection(&m_videoGroupsCS);
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.begin();
+	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
+	{
+		CDynaEfBmpGroup * pGroup = iter->second;
+		if (pGroup->GetObjectID() == uGroupID )
+		{
+			m_dy_ef_bmp_Group.erase(iter);
+		}
+	}
+	POSITION pos = m_drawList.GetHeadPosition();
+	while( pos )
+	{
+		POSITION tempPos = pos;
+		CAnsoplyObject * pObject = m_drawList.GetNext( pos );
+		if( pObject && pObject->GetObjectID() == uGroupID )
+		{
+			m_drawList.RemoveAt( tempPos );
+			delete pObject;
+			ret = 0;
+			break;
+		}
+	}
+	LeaveCriticalSection(&m_videoGroupsCS);
+	return ret;
 }

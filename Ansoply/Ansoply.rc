@@ -53,8 +53,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,61
- PRODUCTVERSION 1,0,0,61
+ FILEVERSION 1,0,0,63
+ PRODUCTVERSION 1,0,0,63
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -71,12 +71,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Magic"
             VALUE "FileDescription", "Ansoply Compositon Module"
-            VALUE "FileVersion", "1.0.0.61"
+            VALUE "FileVersion", "1.0.0.63"
             VALUE "InternalName", "Ansoply.dll"
             VALUE "LegalCopyright", "Magic Reserve CopyRight"
             VALUE "OriginalFilename", "Ansoply.dll"
             VALUE "ProductName", "Ansoply"
-            VALUE "ProductVersion", "1.0.0.61"
+            VALUE "ProductVersion", "1.0.0.63"
         END
     END
     BLOCK "VarFileInfo"

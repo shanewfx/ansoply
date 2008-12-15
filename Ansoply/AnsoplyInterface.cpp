@@ -694,3 +694,24 @@ STDMETHODIMP CAnsoplyInterface::AddBitmap(ULONG uGroupID, ULONG* uBitmapID, BSTR
 	*uBitmapID = lRetCode;
 	return lRetCode != -1 ? S_OK : E_FAIL;
 }
+
+STDMETHODIMP CAnsoplyInterface::DelBitmapGroup(ULONG uGroupID)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->DelBitmapGroup(uGroupID);
+}
+
+STDMETHODIMP CAnsoplyInterface::InsertBitmap(ULONG uGroupID, ULONG uWhere, ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+
+	LONG lRetCode = -1;
+	lRetCode = m_pMultiSAP->InsertDynamicEffectBmp(uGroupID, uWhere,  _com_util::ConvertBSTRToString(sBitmapFilePath),
+		uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uDrawStyle, uDelay);
+	*uBitmapID = lRetCode;
+	return lRetCode != -1 ? S_OK : E_FAIL;
+}

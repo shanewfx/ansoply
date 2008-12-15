@@ -124,7 +124,8 @@ void CEffectBitmap::Draw()
 			if( m_nProgress > 100 || m_bClear )
 			{
 				//HBRUSH hbrFill = CreateSolidBrush(RGB(0, 0, 0));
-				FillRect(hdcDest, &rt, m_hbrFill);
+				if( m_bClear )
+					FillRect(hdcDest, &rt, m_hbrFill);
 
 				//CString str;
 				//str.Format("progress:%d\n", m_nProgress);
