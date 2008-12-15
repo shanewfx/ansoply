@@ -10,6 +10,7 @@
 
 #include "project.h"
 #include "BltAlpha.h"
+#include <map>
 // #define MAXMOVIES 7
 class CDynamicBitmap;
 class CDynamicEffectBitmap;
@@ -55,6 +56,8 @@ public:
 
 	LONG Create_Dy_Ef_Bmp_Group();
 	LONG AddDynamicEffectBmp(ULONG uGroupID, LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
+	LONG InsertDynamicEffectBmp(ULONG uGroupID, ULONG uWhere, LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
+	LONG DelBitmapGroup(ULONG uGroupID);
 
 	LONG GetVideoGroupCount();
 	LONG GetFirstVideoGroupID();
@@ -286,7 +289,7 @@ public:
 	CVideoGroup *                   m_pBGVideo;
 	CAtlList<CVideoGroup*>			m_videoGroups;
 	CRITICAL_SECTION                m_videoGroupsCS;
-	CAtlMap<ULONG, CDynaEfBmpGroup*> m_dy_ef_bmp_Group;
+	std::map<ULONG, CDynaEfBmpGroup*> m_dy_ef_bmp_Group;
 
 	CAtlMap<ULONG, CBitmapObject*>  m_bitmapObject;
 	CAtlMap<ULONG, CTextObject*>    m_textObject;

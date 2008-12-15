@@ -201,6 +201,9 @@
 				RelativePath=".\EffectBitmap.cpp">
 			</File>
 			<File
+				RelativePath=".\EffectBitmapEx.cpp">
+			</File>
+			<File
 				RelativePath=".\EffectText.cpp">
 			</File>
 			<File
@@ -282,6 +285,9 @@
 			</File>
 			<File
 				RelativePath=".\EffectBitmap.h">
+			</File>
+			<File
+				RelativePath=".\EffectBitmapEx.h">
 			</File>
 			<File
 				RelativePath=".\EffectText.h">

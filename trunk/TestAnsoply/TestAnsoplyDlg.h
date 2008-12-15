@@ -29,6 +29,8 @@ public:
 	ULONG groupID;
 	ULONG bitmapid;
 
+	ULONG dyefbitmapid[5];
+
 	void  LoadVideoObject(LONG groupID);
 
 // й╣ож
