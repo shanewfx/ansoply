@@ -715,3 +715,67 @@ STDMETHODIMP CAnsoplyInterface::InsertBitmap(ULONG uGroupID, ULONG uWhere, ULONG
 	*uBitmapID = lRetCode;
 	return lRetCode != -1 ? S_OK : E_FAIL;
 }
+
+STDMETHODIMP CAnsoplyInterface::CreateTextGroup(ULONG* uGroupID)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+
+	LONG tempGroupID = m_pMultiSAP->CreateTextGroup();
+	if ( tempGroupID == -1 )
+		return E_FAIL;
+
+	*uGroupID = tempGroupID;
+	return S_OK;
+}
+
+STDMETHODIMP CAnsoplyInterface::AddText(ULONG uGroupID, ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->AddText(uGroupID, uX, uY,
+		_com_util::ConvertBSTRToString(sOutputText),
+		_com_util::ConvertBSTRToString(sFaceName),
+		uItalic,
+		uBold,
+		uUnderLine,
+		uWidth,
+		uHeight,
+		uColor, 
+		uObjectID,
+		uRegionWidth,
+		uRegionHeight,
+		uDrawStyle,
+		uDelay);
+}
+
+STDMETHODIMP CAnsoplyInterface::DelTextGroup(ULONG uGroupID)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->DelTextGroup(uGroupID);
+}
+
+STDMETHODIMP CAnsoplyInterface::InsertText(ULONG uGroupID, ULONG uWhere, ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, LONG uDelay)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->InsertEffectTextInRegion(uGroupID, uWhere, uX, uY,
+		_com_util::ConvertBSTRToString(sOutputText),
+		_com_util::ConvertBSTRToString(sFaceName),
+		uItalic,
+		uBold,
+		uUnderLine,
+		uWidth,
+		uHeight,
+		uColor, 
+		uObjectID,
+		uRegionWidth,
+		uRegionHeight,
+		uDrawStyle,
+		uDelay);
+}

@@ -387,6 +387,16 @@ public:
 		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_PUI4 VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
 		InvokeHelper(0x45, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uWhere, uBitmapID, sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uDrawStyle, uDelay);
 	}
+	void CreateTextGroup(unsigned long * uGroupID)
+	{
+		static BYTE parms[] = VTS_PUI4 ;
+		InvokeHelper(0x46, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID);
+	}
+	void AddText(unsigned long uGroupID, unsigned long uX, unsigned long uY, LPCTSTR sOutputText, LPCTSTR sFaceName, unsigned long uItalic, unsigned long uBold, unsigned long uUnderLine, unsigned long uWidth, unsigned long uHeight, unsigned long uColor, unsigned long * uObjectID, unsigned long uRegionWidth, unsigned long uRegionHeight, unsigned long uDrawStyle, unsigned long uDelay)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_UI4 VTS_BSTR VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_PUI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x47, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uObjectID, uRegionWidth, uRegionHeight, uDrawStyle, uDelay);
+	}
 
 // Properties
 //

@@ -16,8 +16,10 @@
 #include "textobject.h"
 #include "EffectText.h"
 #include "DynaEfBmpGroup.h"
+#include "EffectTextGroup.h"
 #include "DynamicEffectBitmap.h"
 #include "EffectBitmapEx.h"
+#include "EffectTextEx.h"
 #include ".\dynamicbitmap.h"
 #include "D3DHelpers/d3dutil.h"
 #include ".\tinyxml\tinyxml.h"
@@ -3549,6 +3551,26 @@ LONG CMultiSAP::SetPlayTimes(ULONG uGroupID, ULONG uPlayTimes)
 			}
 		}
 	}
+
+	std::map<ULONG, CEffectTextGroup*>::iterator textiter = m_EffectTextGroup.begin();
+	for( ; textiter != m_EffectTextGroup.end(); ++textiter )
+	{
+		CEffectTextGroup * pGroup = textiter->second;
+		std::list<CEffectTextEx*>::iterator iterinner = pGroup->m_effectextlist.begin();
+		for (; iterinner != pGroup->m_effectextlist.end(); ++iterinner)
+		{
+			CEffectTextEx * pText = *iterinner;
+			if(pText->GetObjectID() == uGroupID)
+			{
+				pText->m_bPlayEnd = FALSE;
+				pText->m_uPlayBeginTime = 1;
+				pText->m_uPlayTimes = uPlayTimes;
+
+				pText->m_StopTimeExpire = 0;
+				return 0;
+			}
+		}
+	}
 	return -1;
 }
 
@@ -3602,6 +3624,22 @@ LONG CMultiSAP::SetPlayTimeout(ULONG uGroupID, ULONG uTimeout_s)
 		}
 	}
 
+	std::map<ULONG, CEffectTextGroup*>::iterator textiter = m_EffectTextGroup.begin();
+	for( ; textiter != m_EffectTextGroup.end(); ++textiter )
+	{
+		CEffectTextGroup * pGroup = textiter->second;
+		std::list<CEffectTextEx*>::iterator iterinner = pGroup->m_effectextlist.begin();
+		for (; iterinner != pGroup->m_effectextlist.end(); ++iterinner)
+		{
+			CEffectTextEx * pText = *iterinner;
+			if(pText->GetObjectID() == uGroupID)
+			{
+				pText->m_StopTimeExpire = GetTickCount() + uTimeout_s * 1000;
+				return 0;
+			}
+		}
+	}
+
 	return 0;
 }
 
@@ -3644,6 +3682,23 @@ LONG CMultiSAP::SetEffectBitmapStyle(ULONG uID, ULONG uStyle)
 			{
 				pBitmap->m_uDrawStyle = uStyle;
 				pBitmap->m_drawtype = PLAY_NONE;
+				return 0;
+			}
+		}
+	}
+
+	std::map<ULONG, CEffectTextGroup*>::iterator textiter = m_EffectTextGroup.begin();
+	for( ; textiter != m_EffectTextGroup.end(); ++textiter )
+	{
+		CEffectTextGroup * pGroup = textiter->second;
+		std::list<CEffectTextEx*>::iterator iterinner = pGroup->m_effectextlist.begin();
+		for (; iterinner != pGroup->m_effectextlist.end(); ++iterinner)
+		{
+			CEffectTextEx * pText = *iterinner;
+			if(pText->GetObjectID() == uID)
+			{
+				pText->m_uDrawStyle = uStyle;
+				pText->m_drawtype = PLAY_NONE;
 				return 0;
 			}
 		}
@@ -3702,6 +3757,25 @@ LONG CMultiSAP::SetEffectPlayRange(ULONG uID, ULONG uPlayMode, ULONG uRangeStart
 			}
 		}
 	}
+
+	std::map<ULONG, CEffectTextGroup*>::iterator textiter = m_EffectTextGroup.begin();
+	for( ; textiter != m_EffectTextGroup.end(); ++textiter )
+	{
+		CEffectTextGroup * pGroup = textiter->second;
+		std::list<CEffectTextEx*>::iterator iterinner = pGroup->m_effectextlist.begin();
+		for (; iterinner != pGroup->m_effectextlist.end(); ++iterinner)
+		{
+			CEffectTextEx * pText = *iterinner;
+			if(pText->GetObjectID() == uID)
+			{
+				pText->m_drawtype = (PLAY_TYPE)uPlayMode;
+				pText->m_uDrawStyleBegin = uRangeStart;
+				pText->m_uDrawStyleEnd = uRangeEnd;
+				pText->m_playType = PLAY_NONE;
+				return 0;
+			}
+		}
+	}
 	return -1;
 }
 
@@ -3740,6 +3814,22 @@ LONG CMultiSAP::SetEffectEndTime(ULONG uID, LONG EndTime)
 			if(pBitmap->GetObjectID() == uID)
 			{
 				pBitmap->m_endtime = EndTime * 1000;
+				return 0;
+			}
+		}
+	}
+
+	std::map<ULONG, CEffectTextGroup*>::iterator textiter = m_EffectTextGroup.begin();
+	for( ; textiter != m_EffectTextGroup.end(); ++textiter )
+	{
+		CEffectTextGroup * pGroup = textiter->second;
+		std::list<CEffectTextEx*>::iterator iterinner = pGroup->m_effectextlist.begin();
+		for (; iterinner != pGroup->m_effectextlist.end(); ++iterinner)
+		{
+			CEffectTextEx * pText = *iterinner;
+			if(pText->GetObjectID() == uID)
+			{
+				pText->m_endtime = EndTime * 1000;
 				return 0;
 			}
 		}
@@ -3825,6 +3915,189 @@ LONG CMultiSAP::DelBitmapGroup(ULONG uGroupID)
 		if (pGroup->GetObjectID() == uGroupID )
 		{
 			m_dy_ef_bmp_Group.erase(iter);
+		}
+	}
+	POSITION pos = m_drawList.GetHeadPosition();
+	while( pos )
+	{
+		POSITION tempPos = pos;
+		CAnsoplyObject * pObject = m_drawList.GetNext( pos );
+		if( pObject && pObject->GetObjectID() == uGroupID )
+		{
+			m_drawList.RemoveAt( tempPos );
+			delete pObject;
+			ret = 0;
+			break;
+		}
+	}
+	LeaveCriticalSection(&m_videoGroupsCS);
+	return ret;
+}
+
+LONG CMultiSAP::CreateTextGroup()
+{
+	CEffectTextGroup * pGroup = new CEffectTextGroup();
+
+	m_EffectTextGroup[pGroup->GetObjectID()] = pGroup;
+	EnterCriticalSection(&m_videoGroupsCS);
+	m_drawList.AddHead(pGroup);
+	LeaveCriticalSection(&m_videoGroupsCS);
+	return pGroup->GetObjectID();
+}
+
+LONG CMultiSAP::AddText(ULONG uGroupID, ULONG uX, ULONG uY, LPCTSTR sOutputText, LPCTSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay)
+{
+	//HRESULT hr;
+	//CEffectTextEx* pTextObject = new CEffectTextEx();
+	//m_textObject[pTextObject->GetObjectID()] = pTextObject;
+
+	CEffectTextGroup * pGroup;
+	std::map<ULONG, CEffectTextGroup*>::iterator iter = m_EffectTextGroup.find(uGroupID);
+	//if( m_dy_ef_bmp_Group.Lookup(uGroupID, pGroup) )
+
+	if( iter != m_EffectTextGroup.end() )
+	{
+		pGroup = iter->second;
+		CEffectTextEx * pTextObject = new CEffectTextEx();
+		*uObjectID = pTextObject->GetObjectID();
+
+		pTextObject->m_pMultiSAP = this;
+
+		pTextObject->SetAlphaBlt(m_pAlphaBlt);
+		pTextObject->m_uSurfaceWidth  = m_uSurfaceWidth;
+		pTextObject->m_uSurfaceHeight = m_uSurfaceHeight;
+		pTextObject->m_uRegionWidth   = uRegionWidth;
+		pTextObject->m_uRegionHeight  = uRegionHeight;
+		//	m_drawList.AddHead(pTextObject);
+
+		LOGFONT lfChar;
+		ZeroMemory(&lfChar, sizeof(lfChar));
+		lfChar.lfWidth          = uWidth;
+		lfChar.lfHeight         = uHeight;
+		if( uItalic == 1) lfChar.lfItalic         = TRUE;
+		if( uUnderLine == 1) lfChar.lfUnderline   = TRUE;
+		lfChar.lfCharSet        = DEFAULT_CHARSET;
+		lfChar.lfPitchAndFamily = DEFAULT_PITCH;
+		StringCchCopy(lfChar.lfFaceName, NUMELMS(lfChar.lfFaceName), sFaceName);
+		if( uBold == 1)	
+			lfChar.lfWeight        = FW_BOLD;
+		else	
+			lfChar.lfWeight        = FW_NORMAL;
+		lfChar.lfOutPrecision  = OUT_DEFAULT_PRECIS;
+		lfChar.lfClipPrecision = CLIP_DEFAULT_PRECIS;
+		lfChar.lfQuality       = ANTIALIASED_QUALITY;
+		pTextObject->SetLogFont( &lfChar );
+
+		//	hr = pTextObject->SetText(uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uDrawStyle, uDelay);
+
+		IDirectDrawSurface7* pDDS = NULL;
+		//hr = CreateFontCache(32, pTextObject, &pDDS, TRUE);
+		//hr = DDARGB32SurfaceInit(&pDDS, TRUE, m_uSurfaceWidth, m_uSurfaceHeight);
+		DDARGB32SurfaceInit(&pDDS, TRUE, uRegionWidth, uRegionHeight);
+		pTextObject->SetDDSFontCache(pDDS);
+
+
+		pTextObject->SetText(uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uDrawStyle, uDelay);
+
+		pGroup->AddText(pTextObject);
+
+		//EnterCriticalSection(&m_videoGroupsCS);
+		//m_drawList.AddHead(pTextObject);
+		//LeaveCriticalSection(&m_videoGroupsCS);
+		return 0;
+	}
+	return -1;
+}
+
+LONG CMultiSAP::InsertEffectTextInRegion(
+							  ULONG uGroupID,
+							  ULONG uWhere,
+							  ULONG uX,
+							  ULONG uY,
+							  LPCTSTR sOutputText,
+							  LPCTSTR  sFaceName,
+							  ULONG    uItalic,
+							  ULONG    uBold,
+							  ULONG    uUnderLine,
+							  ULONG    uWidth,
+							  ULONG    uHeight,
+							  ULONG    uColor,
+							  ULONG*   uID,
+							  ULONG    uRegionWidth,
+							  ULONG    uRegionHeight,
+							  ULONG    uDrawStyle,
+							  ULONG    uDelay)
+{
+
+	CEffectTextGroup * pGroup;
+	std::map<ULONG, CEffectTextGroup*>::iterator iter = m_EffectTextGroup.find(uGroupID);
+	//if( m_dy_ef_bmp_Group.Lookup(uGroupID, pGroup) )
+
+	if( iter != m_EffectTextGroup.end() )
+	{
+		pGroup = iter->second;
+		CEffectTextEx * pTextObject = new CEffectTextEx();
+		*uID = pTextObject->GetObjectID();
+
+		pTextObject->m_pMultiSAP = this;
+
+		pTextObject->SetAlphaBlt(m_pAlphaBlt);
+		pTextObject->m_uSurfaceWidth  = m_uSurfaceWidth;
+		pTextObject->m_uSurfaceHeight = m_uSurfaceHeight;
+		pTextObject->m_uRegionWidth   = uRegionWidth;
+		pTextObject->m_uRegionHeight  = uRegionHeight;
+		//	m_drawList.AddHead(pTextObject);
+
+		LOGFONT lfChar;
+		ZeroMemory(&lfChar, sizeof(lfChar));
+		lfChar.lfWidth          = uWidth;
+		lfChar.lfHeight         = uHeight;
+		if( uItalic == 1) lfChar.lfItalic         = TRUE;
+		if( uUnderLine == 1) lfChar.lfUnderline   = TRUE;
+		lfChar.lfCharSet        = DEFAULT_CHARSET;
+		lfChar.lfPitchAndFamily = DEFAULT_PITCH;
+		StringCchCopy(lfChar.lfFaceName, NUMELMS(lfChar.lfFaceName), sFaceName);
+		if( uBold == 1)	
+			lfChar.lfWeight        = FW_BOLD;
+		else	
+			lfChar.lfWeight        = FW_NORMAL;
+		lfChar.lfOutPrecision  = OUT_DEFAULT_PRECIS;
+		lfChar.lfClipPrecision = CLIP_DEFAULT_PRECIS;
+		lfChar.lfQuality       = ANTIALIASED_QUALITY;
+		pTextObject->SetLogFont( &lfChar );
+
+		//	hr = pTextObject->SetText(uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uDrawStyle, uDelay);
+
+		IDirectDrawSurface7* pDDS = NULL;
+		//hr = CreateFontCache(32, pTextObject, &pDDS, TRUE);
+		//hr = DDARGB32SurfaceInit(&pDDS, TRUE, m_uSurfaceWidth, m_uSurfaceHeight);
+		DDARGB32SurfaceInit(&pDDS, TRUE, uRegionWidth, uRegionHeight);
+		pTextObject->SetDDSFontCache(pDDS);
+
+
+		pTextObject->SetText(uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uDrawStyle, uDelay);
+
+		pGroup->InsertText(uWhere, pTextObject);
+
+		//EnterCriticalSection(&m_videoGroupsCS);
+		//m_drawList.AddHead(pTextObject);
+		//LeaveCriticalSection(&m_videoGroupsCS);
+		return 0;
+	}
+	return -1;
+}
+
+LONG CMultiSAP::DelTextGroup(ULONG uGroupID)
+{
+	LONG ret = -1;
+	EnterCriticalSection(&m_videoGroupsCS);
+	std::map<ULONG, CEffectTextGroup*>::iterator iter = m_EffectTextGroup.begin();
+	for( ; iter != m_EffectTextGroup.end(); ++iter )
+	{
+		CEffectTextGroup * pGroup = iter->second;
+		if (pGroup->GetObjectID() == uGroupID )
+		{
+			m_EffectTextGroup.erase(iter);
 		}
 	}
 	POSITION pos = m_drawList.GetHeadPosition();

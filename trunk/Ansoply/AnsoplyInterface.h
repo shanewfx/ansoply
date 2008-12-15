@@ -84,6 +84,10 @@ __interface IAnsoplyInterface : public IDispatch
 	[id(67), helpstring("method AddBitmap")] HRESULT AddBitmap(ULONG uGroupID, ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
 	[id(68), helpstring("method DelBitmapGroup")] HRESULT DelBitmapGroup(ULONG uGroupID);
 	[id(69), helpstring("method InsertBitmap")] HRESULT InsertBitmap(ULONG uGroupID, ULONG uWhere, ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
+	[id(70), helpstring("method CreateTextGroup")] HRESULT CreateTextGroup(ULONG* uGroupID);
+	[id(71), helpstring("method AddText")] HRESULT AddText(ULONG uGroupID, ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay);
+	[id(72), helpstring("method DelTextGroup")] HRESULT DelTextGroup(ULONG uGroupID);
+	[id(73), helpstring("method InsertText")] HRESULT InsertText(ULONG uGroupID, ULONG uWhere, ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, LONG uDelay);
 };
 
 
@@ -266,5 +270,9 @@ public:
 	STDMETHOD(AddBitmap)(ULONG uGroupID, ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
 	STDMETHOD(DelBitmapGroup)(ULONG uGroupID);
 	STDMETHOD(InsertBitmap)(ULONG uGroupID, ULONG uWhere, ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
+	STDMETHOD(CreateTextGroup)(ULONG* uGroupID);
+	STDMETHOD(AddText)(ULONG uGroupID, ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay);
+	STDMETHOD(DelTextGroup)(ULONG uGroupID);
+	STDMETHOD(InsertText)(ULONG uGroupID, ULONG uWhere, ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, LONG uDelay);
 };
 
