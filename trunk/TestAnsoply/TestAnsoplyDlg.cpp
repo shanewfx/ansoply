@@ -502,7 +502,8 @@ void CTestAnsoplyDlg::OnBnClickedButton14()
 //	_com_util::ConvertBSTRToString(a);
 //	m_ansoply.Stop(m_uGroupID);
 	//m_ansoply.BringUp(m_uBitmapID);
-	m_ansoply.Next(groupID);
+	//m_ansoply.Next(groupID);
+	m_ansoply.Stop(groupID);
 }
 
 void CTestAnsoplyDlg::OnLvnItemchangedGroupList(NMHDR *pNMHDR, LRESULT *pResult)

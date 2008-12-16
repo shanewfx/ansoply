@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Tue Dec 16 16:29:11 2008
+/* at Wed Dec 17 00:14:56 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)

@@ -154,8 +154,11 @@ void CEffectTextEx::Draw()
 						m_bChangeStyle = TRUE;
 						m_endCountTime = GetTickCount();
 					}
-					if( m_playType == PLAY_THROUGH && m_uPlayBeginTime > m_uPlayTimes )
+					if( m_playType == PLAY_THROUGH && m_nProgress /*m_uPlayBeginTime > m_uPlayTimes*/ )
+					{
 						m_bPlayEnd = TRUE;
+						m_endCountTime = GetTickCount();
+					}
 					else if( m_playType == PLAY_LOOP && !m_bLoopPlayEnd && m_nProgress )
 					{
 						m_endCountTime = GetTickCount();
