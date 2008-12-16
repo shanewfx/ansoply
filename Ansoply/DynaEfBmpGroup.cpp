@@ -4,6 +4,7 @@
 
 CDynaEfBmpGroup::CDynaEfBmpGroup(void)
 {
+	m_bPlay = FALSE;
 	m_iter = m_effectbmplist.begin();
 	InitializeCriticalSection(&m_cs);
 }
@@ -17,6 +18,10 @@ void CDynaEfBmpGroup::Draw()
 {
 	if( m_effectbmplist.size() == 0 )
 		return;
+
+	//if( !m_bPlay )
+	//	return;
+
 	EnterCriticalSection(&m_cs);
 	if( m_iter == m_effectbmplist.end() )
 		m_iter = m_effectbmplist.begin();
@@ -24,10 +29,12 @@ void CDynaEfBmpGroup::Draw()
 	CEffectBitmapEx * pEffectBitmap = *m_iter;
 	if( GetTickCount() - pEffectBitmap->m_nStart > pEffectBitmap->m_uDelay )
 	{
-		pEffectBitmap->m_nProgress += 1;
+		if( m_bPlay )
+			pEffectBitmap->m_nProgress += 1;
 	}
 
 	//if( pEffectBitmap->m_uPlayBeginTime > pEffectBitmap->m_uPlayTimes )
+	if( m_bPlay )
 	{
 		//////////////////////////////////////////////////////////////////////////
 		if( pEffectBitmap->m_bPlayEnd )
@@ -116,8 +123,8 @@ void CDynaEfBmpGroup::Draw()
 		//////////////////////////////////////////////////////////////////////////
 
 	}
-
-	pEffectBitmap->Draw();
+	if( m_bPlay || pEffectBitmap->m_nProgress != 0 )
+		pEffectBitmap->Draw();
 
 	LeaveCriticalSection(&m_cs);
 

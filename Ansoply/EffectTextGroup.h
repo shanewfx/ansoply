@@ -21,4 +21,6 @@ public:
 	list<CEffectTextEx*> m_effectextlist;
 	list<CEffectTextEx*>::iterator m_iter;
 	CRITICAL_SECTION m_cs;
+
+	BOOL m_bPlay;
 };

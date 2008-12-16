@@ -1611,6 +1611,28 @@ LONG CMultiSAP::Play(ULONG uGroupID)
 	{
 		return pVideoGroup->Play();
 	}
+
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.begin();
+	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
+	{
+		CDynaEfBmpGroup * pGroup = iter->second;
+		if( pGroup->GetObjectID() == uGroupID )
+		{
+			pGroup->m_bPlay = TRUE;
+			return 0;
+		}
+	}
+
+	std::map<ULONG, CEffectTextGroup*>::iterator itertext = m_EffectTextGroup.begin();
+	for( ; itertext != m_EffectTextGroup.end(); ++itertext )
+	{
+		CEffectTextGroup * pGroup = itertext->second;
+		if( pGroup->GetObjectID() == uGroupID )
+		{
+			pGroup->m_bPlay = FALSE;
+			return 0;
+		}
+	}
 	return -1;
 }
 
@@ -1621,6 +1643,45 @@ LONG CMultiSAP::Next(ULONG uGroupID)
 	{
 		return pVideoGroup->Next();
 	}
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.begin();
+	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
+	{
+		CDynaEfBmpGroup * pGroup = iter->second;
+		if( pGroup->GetObjectID() == uGroupID )
+		{
+			if( pGroup->m_iter != pGroup->m_effectbmplist.end() )
+			{
+				pGroup->m_iter++;
+				if( pGroup->m_iter != pGroup->m_effectbmplist.end() )
+				{
+					CEffectBitmapEx * pBitmap = *pGroup->m_iter;
+					pBitmap->m_nProgress = 0;
+					pBitmap->Clear();
+				}
+			}
+			return 0;
+		}
+	}
+
+	std::map<ULONG, CEffectTextGroup*>::iterator itertext = m_EffectTextGroup.begin();
+	for( ; itertext != m_EffectTextGroup.end(); ++itertext )
+	{
+		CEffectTextGroup * pGroup = itertext->second;
+		if( pGroup->GetObjectID() == uGroupID )
+		{
+			if( pGroup->m_iter != pGroup->m_effectextlist.end() )
+			{
+				pGroup->m_iter++;
+				if( pGroup->m_iter != pGroup->m_effectextlist.end() )
+				{
+					CEffectTextEx * pText = *pGroup->m_iter;
+					pText->m_nProgress = 0;
+					pText->Clear();
+				}
+			}
+			return 0;
+		}
+	}
 	return -1;
 }
 
@@ -1630,6 +1691,46 @@ LONG CMultiSAP::Previous(ULONG uGroupID)
 	if (pVideoGroup)
 	{
 		return pVideoGroup->Previous();
+	}
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.begin();
+	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
+	{
+		CDynaEfBmpGroup * pGroup = iter->second;
+		if( pGroup->GetObjectID() == uGroupID )
+		{
+			if( pGroup->m_iter != pGroup->m_effectbmplist.begin() )
+			{
+				pGroup->m_iter--;
+				//if( pGroup->m_iter != pGroup->m_effectbmplist.begin() )
+				{
+					CEffectBitmapEx * pBitmap = *pGroup->m_iter;
+					pBitmap->m_nProgress = 0;
+					pBitmap->Clear();
+				}
+			}
+
+			return 0;
+		}
+	}
+
+	std::map<ULONG, CEffectTextGroup*>::iterator itertext = m_EffectTextGroup.begin();
+	for( ; itertext != m_EffectTextGroup.end(); ++itertext )
+	{
+		CEffectTextGroup * pGroup = itertext->second;
+		if( pGroup->GetObjectID() == uGroupID )
+		{
+			if( pGroup->m_iter != pGroup->m_effectextlist.end() )
+			{
+				pGroup->m_iter++;
+				if( pGroup->m_iter != pGroup->m_effectextlist.end() )
+				{
+					CEffectTextEx * pText = *pGroup->m_iter;
+					pText->m_nProgress = 0;
+					pText->Clear();
+				}
+			}
+			return 0;
+		}
 	}
 	return -1;
 }
@@ -1661,6 +1762,28 @@ LONG CMultiSAP::Pause(ULONG uGroupID)
 	{
 		pVideoGroup->Pause();
 		return 0;
+	}
+
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.begin();
+	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
+	{
+		CDynaEfBmpGroup * pGroup = iter->second;
+		if( pGroup->GetObjectID() == uGroupID )
+		{
+			pGroup->m_bPlay = FALSE;
+			return 0;
+		}
+	}
+
+	std::map<ULONG, CEffectTextGroup*>::iterator itertext = m_EffectTextGroup.begin();
+	for( ; itertext != m_EffectTextGroup.end(); ++itertext )
+	{
+		CEffectTextGroup * pGroup = itertext->second;
+		if( pGroup->GetObjectID() == uGroupID )
+		{
+			pGroup->m_bPlay = FALSE;
+			return 0;
+		}
 	}
 	return -1;
 }
@@ -2578,6 +2701,31 @@ LONG CMultiSAP::DelText(ULONG uID)
 		m_textObject.RemoveKey(uID);
 		ret = 0;
 	}
+
+	std::map<ULONG, CEffectTextGroup*>::iterator iter = m_EffectTextGroup.begin();
+	for( ; iter != m_EffectTextGroup.end(); ++iter )
+	{
+		CEffectTextGroup * pGroup = iter->second;
+		std::list<CEffectTextEx*>::iterator iterinner = pGroup->m_effectextlist.begin();
+		for (; iterinner != pGroup->m_effectextlist.end(); ++iterinner)
+		{
+			CEffectTextEx * pText = *iterinner;
+			if(pText->GetObjectID() == uID)
+			{
+				EnterCriticalSection(&pGroup->m_cs);
+				if( pGroup->m_iter == iterinner )
+				{
+					// current playing
+					pGroup->m_iter = pGroup->m_effectextlist.erase(iterinner);
+				}
+				else
+					pGroup->m_effectextlist.erase(iterinner);
+				LeaveCriticalSection(&pGroup->m_cs);
+				break;
+			}
+		}
+	}
+
 	//////////////////////////////////////////////////////////////////////////
 	POSITION pos = m_drawList.GetHeadPosition();
 	while( pos )

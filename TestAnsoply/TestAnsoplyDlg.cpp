@@ -364,7 +364,8 @@ void CTestAnsoplyDlg::OnBnClickedButton9()
 	//m_ansoply.SetPlayTimes(m_uBitmapID, 3);
 	//m_ansoply.SetEffectPlayRange(m_uBitmapID, 7, 4, 8);
 	
-	m_ansoply.CreateTextGroup(&groupID);
+	m_ansoply.CreateBitmapGroup(&groupID);
+	//m_ansoply.CreateTextGroup(&groupID);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton10()
@@ -375,16 +376,19 @@ void CTestAnsoplyDlg::OnBnClickedButton10()
 //	m_ansoply.LoadPlayList("D:\\Ansoply Project\\abc2.xml");
 
 	static int i = 0;
-	//CFileDialog fileDlg(TRUE);
-	//if(fileDlg.DoModal() == IDOK)
+	CFileDialog fileDlg(TRUE);
+	if(fileDlg.DoModal() == IDOK)
 	{
-		//CString name = fileDlg.GetPathName();
+		CString name = fileDlg.GetPathName();
 		ULONG id;
-		m_ansoply.AddText(groupID, 0, 0, "好时代发生大幅", "宋体\0", 0, 0, 0, 40, 40, RGB(255, 255, 0), &id, 200, 200, 2, 50);
+		//m_ansoply.AddText(groupID, 0, 0, "好时代发生大幅", "宋体\0", 0, 0, 0, 40, 40, RGB(255, 255, 0), &id, 200, 200, 2, 50);
+
+		m_ansoply.AddBitmap(groupID, &dyefbitmapid[i], name, 0x96, 0xFFFFFF, 50, 50, 200, 200, 1, 233, 50);
 		
-		m_ansoply.SetPlayTimes(id, 3);
-		m_ansoply.SetEffectEndTime(id, 5);
-		m_ansoply.SetEffectPlayRange(id, 7, 4, 8);
+		m_ansoply.SetPlayTimes(dyefbitmapid[i], 3);
+		m_ansoply.SetEffectEndTime(dyefbitmapid[i], 5);
+		m_ansoply.SetEffectPlayRange(dyefbitmapid[i], 7, 4, 8);
+		i++;
 	}
 /*
 	LONG videoGroupFirstGroupID = 0;
@@ -438,15 +442,16 @@ void CTestAnsoplyDlg::OnBnClickedButton11()
 	// TODO: Add your control notification handler code here
 	//m_ansoply.SetDefaultVideoSize(m_uGroupID, 0, 0);
 	//m_ansoply.DelBitmap(dyefbitmapid[0]);
-	CFileDialog fileDlg(TRUE);
-	if(fileDlg.DoModal() == IDOK)
-	{
-		CString name = fileDlg.GetPathName();
-		m_ansoply.InsertBitmap(groupID, dyefbitmapid[1], &dyefbitmapid[4], name, 0x96, 0xFFFFFF, 50, 50, 200, 200, 1, 3, 50);
-		m_ansoply.SetPlayTimes(dyefbitmapid[4], 3);
-		m_ansoply.SetEffectEndTime(dyefbitmapid[4], 3);
-		m_ansoply.SetEffectPlayRange(dyefbitmapid[4], 7, 4, 8);
-	}
+	//CFileDialog fileDlg(TRUE);
+	//if(fileDlg.DoModal() == IDOK)
+	//{
+	//	CString name = fileDlg.GetPathName();
+	//	m_ansoply.InsertBitmap(groupID, dyefbitmapid[1], &dyefbitmapid[4], name, 0x96, 0xFFFFFF, 50, 50, 200, 200, 1, 3, 50);
+	//	m_ansoply.SetPlayTimes(dyefbitmapid[4], 3);
+	//	m_ansoply.SetEffectEndTime(dyefbitmapid[4], 3);
+	//	m_ansoply.SetEffectPlayRange(dyefbitmapid[4], 7, 4, 8);
+	//}
+	m_ansoply.Previous(groupID);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton12()
@@ -458,12 +463,15 @@ void CTestAnsoplyDlg::OnBnClickedButton12()
 	//ULONG uType = 0;
 	//m_ansoply.SelectObjectByCoordinate(&uID, &uType, 10, 10, 0xFFFFFF00);
 
-	ULONG id;
-	m_ansoply.AddText(groupID, 0, 0, "那时的机会", "宋体\0", 0, 0, 0, 40, 40, RGB(255, 255, 0), &id, 200, 200, 2, 50);
+	//ULONG id;
+	//m_ansoply.AddText(groupID, 0, 0, "那时的机会", "宋体\0", 0, 0, 0, 40, 40, RGB(255, 255, 0), &id, 200, 200, 2, 50);
 
-	m_ansoply.SetPlayTimes(id, 3);
-	m_ansoply.SetEffectEndTime(id, 5);
-	m_ansoply.SetEffectPlayRange(id, 7, 4, 8);
+	//m_ansoply.SetPlayTimes(id, 3);
+	//m_ansoply.SetEffectEndTime(id, 5);
+	//m_ansoply.SetEffectPlayRange(id, 7, 4, 8);
+
+	//m_ansoply.DelBitmap(dyefbitmapid[0]);
+	m_ansoply.Play(groupID);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton13()
@@ -484,7 +492,8 @@ void CTestAnsoplyDlg::OnBnClickedButton13()
 //	m_ansoply.SelectVideoGroup(m_uGroupID, 0xFF006E7F);
 //	m_ansoply.DelBitmap(m_uBitmapID);
 //	m_ansoply.BringUp(m_uGroupID);
-	m_ansoply.BringUp(m_uGroupID);
+	//m_ansoply.BringUp(m_uGroupID);
+	m_ansoply.Pause(groupID);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton14()
@@ -492,7 +501,8 @@ void CTestAnsoplyDlg::OnBnClickedButton14()
 //	BSTR a;
 //	_com_util::ConvertBSTRToString(a);
 //	m_ansoply.Stop(m_uGroupID);
-	m_ansoply.BringUp(m_uBitmapID);
+	//m_ansoply.BringUp(m_uBitmapID);
+	m_ansoply.Next(groupID);
 }
 
 void CTestAnsoplyDlg::OnLvnItemchangedGroupList(NMHDR *pNMHDR, LRESULT *pResult)

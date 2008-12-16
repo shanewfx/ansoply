@@ -21,4 +21,6 @@ public:
 	list<CEffectBitmapEx*> m_effectbmplist;
 	list<CEffectBitmapEx*>::iterator m_iter;
 	CRITICAL_SECTION m_cs;
+
+	BOOL m_bPlay;
 };
