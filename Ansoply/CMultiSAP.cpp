@@ -1796,6 +1796,35 @@ LONG CMultiSAP::Stop(ULONG uGroupID)
 		pVideoGroup->Stop();
 		return 0;
 	}
+
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.begin();
+	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
+	{
+		CDynaEfBmpGroup * pGroup = iter->second;
+		if( pGroup->GetObjectID() == uGroupID )
+		{
+			pGroup->m_bPlay = FALSE;
+			CEffectBitmapEx * pBitmap = *pGroup->m_iter;
+			pBitmap->Clear();
+			pBitmap->m_nProgress = 0;
+			return 0;
+		}
+	}
+
+	std::map<ULONG, CEffectTextGroup*>::iterator itertext = m_EffectTextGroup.begin();
+	for( ; itertext != m_EffectTextGroup.end(); ++itertext )
+	{
+		CEffectTextGroup * pGroup = itertext->second;
+		if( pGroup->GetObjectID() == uGroupID )
+		{
+			pGroup->m_bPlay = FALSE;
+			CEffectTextEx * pText = *pGroup->m_iter;
+			pText->Clear();
+			pText->m_nProgress = 0;
+			return 0;
+		}
+	}
+
 	return -1;
 }
 
