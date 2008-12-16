@@ -4,6 +4,7 @@
 
 CEffectTextGroup::CEffectTextGroup(void)
 {
+	m_bPlay = FALSE;
 	m_iter = m_effectextlist.begin();
 	InitializeCriticalSection(&m_cs);
 }
@@ -24,10 +25,12 @@ void CEffectTextGroup::Draw()
 	CEffectTextEx * pEffectText = *m_iter;
 	if( GetTickCount() - pEffectText->m_nStart > pEffectText->m_uDelay )
 	{
-		pEffectText->m_nProgress += 1;
+		if( m_bPlay )
+			pEffectText->m_nProgress += 1;
 	}
 
 	//if( pEffectBitmap->m_uPlayBeginTime > pEffectBitmap->m_uPlayTimes )
+	if( m_bPlay )
 	{
 		//////////////////////////////////////////////////////////////////////////
 		if( pEffectText->m_bPlayEnd )
@@ -117,7 +120,8 @@ void CEffectTextGroup::Draw()
 
 	}
 
-	pEffectText->Draw();
+	if( m_bPlay || pEffectText->m_nProgress != 0 )
+		pEffectText->Draw();
 
 	LeaveCriticalSection(&m_cs);
 
