@@ -24,6 +24,11 @@ public:
 	BOOL  m_bNxDraw;
 
 	HDC m_hdcBitmap;
+	HDC tmphdcBitmap;
+
+	Bitmap * m_pOriginalBMP;
+
+	Graphics * m_pGraphics;
 
 	PLAY_TYPE m_drawtype;
 	ULONG m_uDrawStyleBegin;
@@ -31,6 +36,8 @@ public:
 
 	LONG m_endtime;
 	DWORD m_endCountTime;
+
+	ULONG m_uOriginalSize;
 
 	HBRUSH m_hbrFill;
 
