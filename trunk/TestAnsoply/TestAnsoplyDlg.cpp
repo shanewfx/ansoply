@@ -364,8 +364,8 @@ void CTestAnsoplyDlg::OnBnClickedButton9()
 	//m_ansoply.SetPlayTimes(m_uBitmapID, 3);
 	//m_ansoply.SetEffectPlayRange(m_uBitmapID, 7, 4, 8);
 	
-	m_ansoply.CreateBitmapGroup(&groupID);
-	//m_ansoply.CreateTextGroup(&groupID);
+	//m_ansoply.CreateBitmapGroup(&groupID);
+	m_ansoply.CreateTextGroup(&groupID);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton10()
@@ -377,17 +377,20 @@ void CTestAnsoplyDlg::OnBnClickedButton10()
 
 	static int i = 0;
 	CFileDialog fileDlg(TRUE);
-	if(fileDlg.DoModal() == IDOK)
+	//if(fileDlg.DoModal() == IDOK)
 	{
 		CString name = fileDlg.GetPathName();
 		ULONG id;
-		//m_ansoply.AddText(groupID, 0, 0, "好时代发生大幅", "宋体\0", 0, 0, 0, 40, 40, RGB(255, 255, 0), &id, 200, 200, 2, 50);
+		m_ansoply.AddText(groupID, 0, 0, "好时代发生大幅", "宋体\0", 0, 0, 0, 40, 40, RGB(255, 255, 0), &id, 200, 200, 2, 50);
+		m_ansoply.SetPlayTimes(id, 3);
+		m_ansoply.SetEffectEndTime(id, 5);
+		m_ansoply.SetEffectPlayRange(id, 7, 4, 8);
 
-		m_ansoply.AddBitmap(groupID, &dyefbitmapid[i], name, 0x96, 0xFFFFFF, 50, 50, 200, 200, 1, 233, 50);
+		//m_ansoply.AddBitmap(groupID, &dyefbitmapid[i], name, 0x96, 0xFFFFFF, 50, 50, 200, 200, 1, 233, 50);
 		
-		m_ansoply.SetPlayTimes(dyefbitmapid[i], 3);
-		m_ansoply.SetEffectEndTime(dyefbitmapid[i], 5);
-		m_ansoply.SetEffectPlayRange(dyefbitmapid[i], 7, 4, 8);
+		//m_ansoply.SetPlayTimes(dyefbitmapid[i], 3);
+		//m_ansoply.SetEffectEndTime(dyefbitmapid[i], 5);
+		//m_ansoply.SetEffectPlayRange(dyefbitmapid[i], 7, 4, 8);
 		i++;
 	}
 /*

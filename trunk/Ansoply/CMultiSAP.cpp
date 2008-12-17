@@ -1629,7 +1629,7 @@ LONG CMultiSAP::Play(ULONG uGroupID)
 		CEffectTextGroup * pGroup = itertext->second;
 		if( pGroup->GetObjectID() == uGroupID )
 		{
-			pGroup->m_bPlay = FALSE;
+			pGroup->m_bPlay = TRUE;
 			return 0;
 		}
 	}
