@@ -25,6 +25,8 @@ CEffectBitmapEx::CEffectBitmapEx(void)
 
 	m_hbrFill = CreateSolidBrush(RGB(0, 0, 0));
 	m_bNxDraw = TRUE;
+	m_pOriginalBMP = NULL;
+	m_pGraphics = NULL;
 }
 
 CEffectBitmapEx::~CEffectBitmapEx(void)
@@ -32,6 +34,10 @@ CEffectBitmapEx::~CEffectBitmapEx(void)
 	DeleteBitmap( m_hBmp );
 	DeleteDC( m_hdcBitmap );
 	DeleteBrush( m_hbrFill );
+	if( m_pOriginalBMP )
+		delete m_pOriginalBMP;
+	if( m_pGraphics )
+		delete m_pGraphics;
 }
 
 
@@ -47,152 +53,57 @@ void CEffectBitmapEx::Draw()
 
 	IDirectDrawSurface7* pDDS = GetSurface();
 	HDC hdcDest = NULL;
-	//if( m_bNxDraw )
+	pDDS->GetDC(&hdcDest);
+
+	if( GetTickCount() - m_nStart > m_uDelay )
 	{
 
-		pDDS->GetDC(&hdcDest);
-	}
+		if( m_nProgress <= 100 )
+			drawproc(hdcDest, m_hdcBitmap, rt, nStep, m_nProgress);
 
+		m_nStart = GetTickCount();
 
-	// Get a DC for the bitmap
-	//HDC hdcBitmap = CreateCompatibleDC( NULL );
-	//if( NULL == hdcBitmap )
-	//	return;
-
-	//if( uOriginalSize == 1)
-	{
-
-		if( GetTickCount() - m_nStart > m_uDelay )
+		if( m_bClear )
 		{
-			//m_nProgress += nStep;
-			//RECT rt = {0, 0, m_uWidth, m_uHeight};
-			///::SelectObject( hdcBitmap, m_hBmp );
-			//if( m_bPlayEnd )
-			//{
-			//	if( !m_endCountTime ) 
-			//		m_endCountTime = GetTickCount();
-			//	if( m_endtime != -1 && GetTickCount() - m_endCountTime > m_endtime )
-			//		m_actualPlayEnd = TRUE;
-			//	m_nProgress = 100;
-			//}
-			//if( m_bLoopPlayEnd )
-			//{
-			//	if( !m_endCountTime ) 
-			//		m_endCountTime = GetTickCount();
-			//	if( m_endtime != -1 && GetTickCount() - m_endCountTime > m_endtime )
-			//	{
-			//		m_bLoopPlayEnd = FALSE;
-			//		m_nProgress = 0;
-			//		m_bClear = TRUE;
-			//	}
-			//	else
-			//		m_nProgress = 100;
-			//}
-			//if( m_bChangeStyle )
-			//{
-			//	if( !m_endCountTime ) 
-			//		m_endCountTime = GetTickCount();
-			//	if( m_endtime != -1 && GetTickCount() - m_endCountTime > m_endtime )
-			//	{
-			//		m_bChangeStyle = FALSE;
-			//		m_nProgress = 0;
-			//		m_bClear = TRUE;
-			//		if( m_drawtype == PLAY_RANDOM )
-			//		{
-			//			m_uDrawStyle = (rand() % 290) + 1;
-			//		}
-			//		else if( m_drawtype == PLAY_SEQUENCE )
-			//		{
-			//			m_uDrawStyle++;
-			//			if( m_uDrawStyle > m_uDrawStyleEnd )
-			//				m_uDrawStyle = m_uDrawStyleBegin;	
-			//		}
-			//		drawproc = ::GetEffectProc(m_uDrawStyle);
-			//	}
-			//	else
-			//	{
-			//		//m_bNxDraw = FALSE;
-			//		m_nProgress = 100;
-			//	}
-			//}
-
-			if( m_nProgress <= 100 )
-				drawproc(hdcDest, m_hdcBitmap, rt, nStep, m_nProgress);
-
-			m_nStart = GetTickCount();
-
-
-			//HBRUSH hbrFill = CreateSolidBrush(RGB(0, 0, 0));
-			if( m_bClear )
-			{
-				FillRect(hdcDest, &rt, m_hbrFill);
-				m_bClear = FALSE;
-			}
-			if( m_nProgress > 100  )
-			{
-				//CString str;
-				//str.Format("progress:%d\n", m_nProgress);
-				//OutputDebugString(str);
-
-				m_uPlayBeginTime++;
-				if( m_drawtype == PLAY_RANDOM && m_nProgress)
-				{
-					//m_uDrawStyle = (rand() % 290) + 1;
-					m_bChangeStyle = TRUE;
-					m_endCountTime = GetTickCount();
-				}
-				else if( m_drawtype == PLAY_SEQUENCE && m_nProgress )
-				{
-					//m_uDrawStyle++;
-					//if( m_uDrawStyle > m_uDrawStyleEnd )
-					//	m_uDrawStyle = m_uDrawStyleBegin;
-					m_bChangeStyle = TRUE;
-					m_endCountTime = GetTickCount();
-				}
-				if( m_playType == PLAY_THROUGH && m_nProgress /* && m_uPlayBeginTime > m_uPlayTimes */)
-				{
-					m_bPlayEnd = TRUE;
-					m_endCountTime = GetTickCount();
-				}
-				else if( m_playType == PLAY_LOOP && !m_bLoopPlayEnd && m_nProgress )
-				{
-					m_endCountTime = GetTickCount();
-					m_bLoopPlayEnd = TRUE;
-				}
-				m_nProgress = 0;
-				//m_bClear = FALSE;
-			}
+			FillRect(hdcDest, &rt, m_hbrFill);
+			m_bClear = FALSE;
 		}
-		if( m_StopTimeExpire && GetTickCount() > m_StopTimeExpire )
+		if( m_nProgress > 100  )
 		{
-			//if( !m_endCountTime) 
-			//	m_endCountTime = GetTickCount();
-			//if( m_endtime != -1 && GetTickCount() - m_endCountTime > m_endtime )
-			//	m_bPlayEnd = TRUE;
-			m_actualPlayEnd = TRUE;
+			m_uPlayBeginTime++;
+			if( m_drawtype == PLAY_RANDOM && m_nProgress)
+			{
+				//m_uDrawStyle = (rand() % 290) + 1;
+				m_bChangeStyle = TRUE;
+				m_endCountTime = GetTickCount();
+			}
+			else if( m_drawtype == PLAY_SEQUENCE && m_nProgress )
+			{
+				//m_uDrawStyle++;
+				//if( m_uDrawStyle > m_uDrawStyleEnd )
+				//	m_uDrawStyle = m_uDrawStyleBegin;
+				m_bChangeStyle = TRUE;
+				m_endCountTime = GetTickCount();
+			}
+			if( m_playType == PLAY_THROUGH && m_nProgress /* && m_uPlayBeginTime > m_uPlayTimes */)
+			{
+				m_bPlayEnd = TRUE;
+				m_endCountTime = GetTickCount();
+			}
+			else if( m_playType == PLAY_LOOP && !m_bLoopPlayEnd && m_nProgress )
+			{
+				m_endCountTime = GetTickCount();
+				m_bLoopPlayEnd = TRUE;
+			}
+			m_nProgress = 0;
+			//m_bClear = FALSE;
 		}
-
-		//if( !m_bNxDraw )
-		//	BitBlt( hdcDest, 0, 0, m_uWidth, m_uHeight, m_hdcBitmap, 0, 0, SRCCOPY );
-		//	//drawproc(hdcDest, m_hdcBitmap, rt, nStep, 100);
-		//if( m_endtime != -1 && GetTickCount() - m_endCountTime > m_endtime )
-		//{
-		//	m_bNxDraw = TRUE;
-		//}
-
-		//BitBlt( hdcDest, 0, 0, m_uWidth, m_uHeight, hdcBitmap, 0, 0, SRCCOPY );
 	}
-	//	else
+	if( m_StopTimeExpire && GetTickCount() > m_StopTimeExpire )
 	{
-		//USES_CONVERSION;
-		//Bitmap originalBMP(T2W(m_sFilePath.c_str()));
-		//Graphics g(hdcDest);
-		//g.DrawImage(&originalBMP, Rect(0, 0, m_uWidth, m_uHeight), 0, 0, 
-		//	originalBMP.GetWidth(), originalBMP.GetHeight(), UnitPixel, NULL );
+		m_actualPlayEnd = TRUE;
 	}
 
-
-	//DeleteDC( hdcBitmap );
 	pDDS->ReleaseDC(hdcDest);
 	DWORD dwFlags = D3DTEXTR_TRANSPARENTWHITE;
 	if( dwFlags & (D3DTEXTR_TRANSPARENTWHITE|D3DTEXTR_TRANSPARENTBLACK) )
@@ -210,7 +121,6 @@ void CEffectBitmapEx::Draw()
 		//DWORD dwColorkey  = 0x00000000; // Colorkey on black
 		DWORD dwColorkey  = m_uTransparentColor;
 
-
 		// Add an opaque alpha value to each non-colorkeyed pixel
 		for( DWORD y = 0; y < m_uHeight; y++ )
 		{
@@ -219,7 +129,6 @@ void CEffectBitmapEx::Draw()
 
 			for( DWORD x = 0; x < m_uWidth; x++ )
 			{
-
 				if( *p32 != 0 )
 				{
 					if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 16 )
@@ -230,7 +139,6 @@ void CEffectBitmapEx::Draw()
 					}
 					else if( ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 32 || ddsdAlpha.ddpfPixelFormat.dwRGBBitCount == 24)
 					{
-
 						if( ( *p32 &= dwRGBMask ) != dwColorkey )
 							*p32 |= dwAlphaMask;
 						p32++;
@@ -251,7 +159,6 @@ void CEffectBitmapEx::Draw()
 		pDDS->ReleaseDC(hdcDest);
 	}
 	pDDS->ReleaseDC(hdcDest);
-
 
 	if (pDDS)
 	{
@@ -287,19 +194,44 @@ LONG CEffectBitmapEx::SetBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTr
 	Color backColor;
 	m_pBitmap->GetHBITMAP(backColor, &m_hBmp);
 
+	m_uOriginalSize = uOriginalSize;
 	m_hdcBitmap = CreateCompatibleDC( NULL );
-	SelectObject(m_hdcBitmap, m_hBmp);
+	if( uOriginalSize != 1 )
+	{
+		//USES_CONVERSION;
+		//Bitmap originalBMP(T2W(m_sFilePath.c_str()));
+		//m_pOriginalBMP = new Bitmap(T2W(m_sFilePath.c_str()));
+		//Graphics g(m_hdcBitmap);
 
-	//SetParams(m_effectDraw, hWnd, hBmp, ED_HBITMAPWNDBK, NULL, ED_STRETCHED|ED_TRANSPARENT, 0, ED_TITLED, 0);
+		BITMAP bm;
+		GetObject( m_hBmp, sizeof(BITMAP), &bm );
 
-	//InstallCustomEffectProc((EFFECTDRAWPROC)CustomEffect);
-	//InstallEventProc(m_effectDraw, (EFFECTDRAWEVENTPROC)OnDrawClear);
+		HBITMAP bmp = CreateBitmap(m_uWidth, m_uHeight, bm.bmPlanes, bm.bmBitsPixel, NULL);
+		SelectObject(m_hdcBitmap, bmp);
+		m_pGraphics = new Graphics(m_hdcBitmap);
+		m_pGraphics->DrawImage(m_pBitmap, Rect(0, 0, m_uWidth, m_uHeight), 0, 0, 
+			m_pBitmap->GetWidth(), m_pBitmap->GetHeight(), UnitPixel, NULL );
 
-	//RandomSeed((unsigned int)time(NULL));
-	//SetRandomClearStyle(m_effectDraw);
-	//SetDrawStyle(m_effectDraw, 15);
 
-	//::Draw(m_effectDraw);
+		//BITMAP bm;
+		//GetObject( m_hBmp, sizeof(BITMAP), &bm );
+		//tmphdcBitmap = CreateCompatibleDC( NULL );
+
+		//HBITMAP bmp = CreateBitmap(m_uWidth, m_uHeight, bm.bmPlanes, bm.bmBitsPixel, NULL);
+		//SelectObject(m_hdcBitmap, bmp);
+
+		//SelectObject(tmphdcBitmap, m_hBmp);
+		//bRet = StretchBlt(m_hdcBitmap, 
+		//	0, 0, m_uWidth, m_uHeight, 
+		//	tmphdcBitmap,
+		//	0, 0, bm.bmWidth, bm.bmHeight,
+		//	SRCCOPY );
+
+	}
+	else
+	{
+		SelectObject(m_hdcBitmap, m_hBmp);
+	}
 
 	return 0;
 }
