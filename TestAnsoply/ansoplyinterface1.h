@@ -171,10 +171,10 @@ public:
 		static BYTE parms[] = VTS_PUI4 VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
 		InvokeHelper(0x19, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uBitmapID, sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize);
 	}
-	void GetBitmap(unsigned long uBitmapID, BSTR * sBitmapFilePath, unsigned long * uAlpha, unsigned long * uTransparentColor, unsigned long * uX, unsigned long * uY)
+	void GetBitmap(unsigned long uBitmapID, BSTR * sBitmapFilePath, unsigned long * uAlpha, unsigned long * uTransparentColor, unsigned long * uX, unsigned long * uY, unsigned long * uWidth, unsigned long * uHeight, unsigned long * uOriginalSize, unsigned long * uDrawStyle, unsigned long * uDelay)
 	{
-		static BYTE parms[] = VTS_UI4 VTS_PBSTR VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 ;
-		InvokeHelper(0x1a, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uBitmapID, sBitmapFilePath, uAlpha, uTransparentColor, uX, uY);
+		static BYTE parms[] = VTS_UI4 VTS_PBSTR VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 ;
+		InvokeHelper(0x1a, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uBitmapID, sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uDrawStyle, uDelay);
 	}
 	void DelBitmap(unsigned long uBitmapID)
 	{
@@ -196,10 +196,10 @@ public:
 		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_BSTR VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_PUI4 ;
 		InvokeHelper(0x1e, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uObjectID);
 	}
-	void GetText(unsigned long uObjectID, unsigned long * uX, unsigned long * uY, BSTR * sOutputText, BSTR * sFaceName, unsigned long * uItalic, unsigned long * uBold, unsigned long * uUnderLine, unsigned long * uWidth, unsigned long * uHeight, unsigned long * uColor)
+	void GetText(unsigned long uObjectID, unsigned long * uX, unsigned long * uY, BSTR * sOutputText, BSTR * sFaceName, unsigned long * uItalic, unsigned long * uBold, unsigned long * uUnderLine, unsigned long * uWidth, unsigned long * uHeight, unsigned long * uColor, unsigned long * uAlpha, unsigned long * uTransparentColor, unsigned long * uDrawStyle, unsigned long * uDelay)
 	{
-		static BYTE parms[] = VTS_UI4 VTS_PUI4 VTS_PUI4 VTS_PBSTR VTS_PBSTR VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 ;
-		InvokeHelper(0x1f, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uObjectID, uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor);
+		static BYTE parms[] = VTS_UI4 VTS_PUI4 VTS_PUI4 VTS_PBSTR VTS_PBSTR VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 VTS_PUI4 ;
+		InvokeHelper(0x1f, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uObjectID, uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uAlpha, uTransparentColor, uDrawStyle, uDelay);
 	}
 	void DelText(unsigned long uGroupID)
 	{
@@ -392,10 +392,40 @@ public:
 		static BYTE parms[] = VTS_PUI4 ;
 		InvokeHelper(0x46, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID);
 	}
-	void AddText(unsigned long uGroupID, unsigned long uX, unsigned long uY, LPCTSTR sOutputText, LPCTSTR sFaceName, unsigned long uItalic, unsigned long uBold, unsigned long uUnderLine, unsigned long uWidth, unsigned long uHeight, unsigned long uColor, unsigned long * uObjectID, unsigned long uRegionWidth, unsigned long uRegionHeight, unsigned long uDrawStyle, unsigned long uDelay)
+	void AddText(unsigned long uGroupID, unsigned long uX, unsigned long uY, LPCTSTR sOutputText, LPCTSTR sFaceName, unsigned long uItalic, unsigned long uBold, unsigned long uUnderLine, unsigned long uWidth, unsigned long uHeight, unsigned long uColor, unsigned long * uObjectID, unsigned long uRegionWidth, unsigned long uRegionHeight, unsigned long uDrawStyle, unsigned long uDelay, unsigned long uAlpha, unsigned long uTransparentColor)
 	{
-		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_UI4 VTS_BSTR VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_PUI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
-		InvokeHelper(0x47, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uObjectID, uRegionWidth, uRegionHeight, uDrawStyle, uDelay);
+		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_UI4 VTS_BSTR VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_PUI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x47, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uObjectID, uRegionWidth, uRegionHeight, uDrawStyle, uDelay, uAlpha, uTransparentColor);
+	}
+	void DelTextGroup(unsigned long uGroupID)
+	{
+		static BYTE parms[] = VTS_UI4 ;
+		InvokeHelper(0x48, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID);
+	}
+	void InsertText(unsigned long uGroupID, unsigned long uWhere, unsigned long uX, unsigned long uY, LPCTSTR sOutputText, LPCTSTR sFaceName, unsigned long uItalic, unsigned long uBold, unsigned long uUnderLine, unsigned long uWidth, unsigned long uHeight, unsigned long uColor, unsigned long * uObjectID, unsigned long uRegionWidth, unsigned long uRegionHeight, unsigned long uDrawStyle, long uDelay)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_BSTR VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_PUI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_I4 ;
+		InvokeHelper(0x49, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uWhere, uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uObjectID, uRegionWidth, uRegionHeight, uDrawStyle, uDelay);
+	}
+	void SetBitmapParam(unsigned long uBitmapID, unsigned long uAlpha, unsigned long uTransparentColor, unsigned long uX, unsigned long uY, unsigned long uWidth, unsigned long uHeight)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x4a, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uBitmapID, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight);
+	}
+	void SetTextParam(unsigned long uTextID, unsigned long uX, unsigned long uY, LPCTSTR sFaceName, unsigned long uItalic, unsigned long uBold, unsigned long uUnderLine, unsigned long uWidth, unsigned long uHeight, unsigned long uColor, unsigned long uAlpha, unsigned long uTransparentColor)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_UI4 VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x4b, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uTextID, uX, uY, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uAlpha, uTransparentColor);
+	}
+	void SetPlayParam(unsigned long uGroupID, unsigned long uID, unsigned long uDrawStyle)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x4c, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uID, uDrawStyle);
+	}
+	void GetPlayParam(unsigned long uGroupID, unsigned long * uID, unsigned long * uDrawStyle)
+	{
+		static BYTE parms[] = VTS_UI4 VTS_PUI4 VTS_PUI4 ;
+		InvokeHelper(0x4d, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uID, uDrawStyle);
 	}
 
 // Properties

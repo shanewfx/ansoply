@@ -23,4 +23,7 @@ public:
 	CRITICAL_SECTION m_cs;
 
 	BOOL m_bPlay;
+
+	PLAY_TYPE m_group_type;
+	ULONG m_group_draw_style;
 };

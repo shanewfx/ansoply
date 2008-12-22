@@ -381,16 +381,16 @@ void CTestAnsoplyDlg::OnBnClickedButton10()
 	{
 		CString name = fileDlg.GetPathName();
 		//ULONG id;
-		//m_ansoply.AddText(groupID, 0, 0, "好时代发生大幅", "宋体\0", 0, 0, 0, 40, 40, RGB(255, 255, 0), &id, 200, 200, 2, 50);
-		//m_ansoply.SetPlayTimes(id, 3);
-		//m_ansoply.SetEffectEndTime(id, 5);
-		//m_ansoply.SetEffectPlayRange(id, 7, 4, 8);
+		//m_ansoply.AddText(groupID, 0, 0, "好时代发生大幅", "宋体\0", 0, 0, 0, 40, 40, RGB(255, 255, 0), &dyefbitmapid[i], 200, 200, 2, 50);
+		//m_ansoply.SetPlayTimes(dyefbitmapid[i], 3);
+		//m_ansoply.SetEffectEndTime(dyefbitmapid[i], 5);
+		//m_ansoply.SetEffectPlayRange(dyefbitmapid[i], 7, 4, 8);
 
 		m_ansoply.AddBitmap(groupID, &dyefbitmapid[i], name, 0x96, 0xFFFFFF, 50, 50, 100, 100, 0, 233, 50);
 		
 		m_ansoply.SetPlayTimes(dyefbitmapid[i], 3);
 		m_ansoply.SetEffectEndTime(dyefbitmapid[i], 5);
-		m_ansoply.SetEffectPlayRange(dyefbitmapid[i], 7, 4, 8);
+		m_ansoply.SetEffectPlayRange(dyefbitmapid[i], 8, 4, 8);
 		i++;
 	}
 /*
@@ -454,7 +454,9 @@ void CTestAnsoplyDlg::OnBnClickedButton11()
 	//	m_ansoply.SetEffectEndTime(dyefbitmapid[4], 3);
 	//	m_ansoply.SetEffectPlayRange(dyefbitmapid[4], 7, 4, 8);
 	//}
-	m_ansoply.Previous(groupID);
+	//m_ansoply.Previous(groupID);
+	//m_ansoply.SetBitmapParam(dyefbitmapid[0], 0x46, 0xFFFFFF, 100, 100, 200, 200);
+//	m_ansoply.SetTextParam(dyefbitmapid[0], 100,100, "隶书\0", 0, 0, 0, 40, 40, RGB(255, 0, 0));
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton12()
@@ -496,7 +498,8 @@ void CTestAnsoplyDlg::OnBnClickedButton13()
 //	m_ansoply.DelBitmap(m_uBitmapID);
 //	m_ansoply.BringUp(m_uGroupID);
 	//m_ansoply.BringUp(m_uGroupID);
-	m_ansoply.Pause(groupID);
+	//m_ansoply.Pause(groupID);
+	m_ansoply.SetPlayParam(groupID, dyefbitmapid[0], 8);
 }
 
 void CTestAnsoplyDlg::OnBnClickedButton14()
@@ -506,7 +509,8 @@ void CTestAnsoplyDlg::OnBnClickedButton14()
 //	m_ansoply.Stop(m_uGroupID);
 	//m_ansoply.BringUp(m_uBitmapID);
 	//m_ansoply.Next(groupID);
-	m_ansoply.Stop(groupID);
+	//m_ansoply.Stop(groupID);
+	m_ansoply.SetPlayParam(groupID, 0, 8);
 }
 
 void CTestAnsoplyDlg::OnLvnItemchangedGroupList(NMHDR *pNMHDR, LRESULT *pResult)

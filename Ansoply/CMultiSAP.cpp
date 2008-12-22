@@ -1807,6 +1807,7 @@ LONG CMultiSAP::Stop(ULONG uGroupID)
 			CEffectBitmapEx * pBitmap = *pGroup->m_iter;
 			pBitmap->Clear();
 			pBitmap->m_nProgress = 0;
+			pGroup->m_iter = pGroup->m_effectbmplist.begin();
 			return 0;
 		}
 	}
@@ -1821,6 +1822,7 @@ LONG CMultiSAP::Stop(ULONG uGroupID)
 			CEffectTextEx * pText = *pGroup->m_iter;
 			pText->Clear();
 			pText->m_nProgress = 0;
+			pGroup->m_iter = pGroup->m_effectextlist.begin();
 			return 0;
 		}
 	}
@@ -2517,23 +2519,54 @@ LONG CMultiSAP::GetText(
 			 ULONG * uUnderLine,
 			 ULONG * uWidth,
 			 ULONG * uHeight,
-			 ULONG * uColor)
+			 ULONG * uColor,
+			 ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uDrawStyle, ULONG* uDelay)
 {
-	CTextObject* pTextObject = m_textObject[uID];
-	if (pTextObject)
+//	CTextObject* pTextObject = m_textObject[uID];
+//	if (pTextObject)
+//	{
+//		*uX = pTextObject->GetXCoordinate();
+//		*uY = pTextObject->GetYCoordinate();
+//		_tcscpy(sOutputText, pTextObject->GetText());
+//		_tcscpy(FaceName, pTextObject->GetFaceName());
+//		*uItalic = pTextObject->GetItalic();
+//		*uBold   = pTextObject->GetBold();
+//		*uUnderLine = pTextObject->GetUnderLine();
+//		*uWidth   = pTextObject->GetWidth();
+//		*uHeight  = pTextObject->GetHeight();
+////		memcpy(pFont, &pTextObject->GetFont(), sizeof(LOGFONT));
+//		*uColor = pTextObject->GetColor();
+//		return 0;
+//	}
+//	return -1;
+
+	std::map<ULONG, CEffectTextGroup*>::iterator textiter = m_EffectTextGroup.begin();
+	for( ; textiter != m_EffectTextGroup.end(); ++textiter )
 	{
-		*uX = pTextObject->GetXCoordinate();
-		*uY = pTextObject->GetYCoordinate();
-		_tcscpy(sOutputText, pTextObject->GetText());
-		_tcscpy(FaceName, pTextObject->GetFaceName());
-		*uItalic = pTextObject->GetItalic();
-		*uBold   = pTextObject->GetBold();
-		*uUnderLine = pTextObject->GetUnderLine();
-		*uWidth   = pTextObject->GetWidth();
-		*uHeight  = pTextObject->GetHeight();
-//		memcpy(pFont, &pTextObject->GetFont(), sizeof(LOGFONT));
-		*uColor = pTextObject->GetColor();
-		return 0;
+		CEffectTextGroup * pGroup = textiter->second;
+		std::list<CEffectTextEx*>::iterator iterinner = pGroup->m_effectextlist.begin();
+		for (; iterinner != pGroup->m_effectextlist.end(); ++iterinner)
+		{
+			CEffectTextEx * pTextObject = *iterinner;
+			if(pTextObject->GetObjectID() == uID)
+			{
+				*uX = pTextObject->GetXCoordinate();
+				*uY = pTextObject->GetYCoordinate();
+				_tcscpy(sOutputText, pTextObject->GetText());
+				_tcscpy(FaceName, pTextObject->GetFaceName());
+				*uItalic = pTextObject->GetItalic();
+				*uBold   = pTextObject->GetBold();
+				*uUnderLine = pTextObject->GetUnderLine();
+				*uWidth   = pTextObject->GetWidth();
+				*uHeight  = pTextObject->GetHeight();
+				*uColor = pTextObject->GetColor();
+				*uAlpha = pTextObject->m_uAlpha;
+				*uTransparentColor = pTextObject->m_uTransparentColor;
+				*uDrawStyle = pTextObject->m_uDrawStyle;
+				*uDelay = pTextObject->m_uDelay;
+				return 0;
+			}
+		}
 	}
 	return -1;
 }
@@ -2749,6 +2782,7 @@ LONG CMultiSAP::DelText(ULONG uID)
 				}
 				else
 					pGroup->m_effectextlist.erase(iterinner);
+				ret = 0;
 				LeaveCriticalSection(&pGroup->m_cs);
 				break;
 			}
@@ -2952,17 +2986,47 @@ LONG CMultiSAP::GetBitmap(
 			   ULONG* uAlpha, 
 			   ULONG* uTransparentColor, 
 			   ULONG* uX, 
-			   ULONG* uY)
+			   ULONG* uY,
+			   ULONG* uWidth,
+			   ULONG* uHeight,
+			   ULONG* uOriginalSize,
+			   ULONG* uDrawStyle,
+			   ULONG* uDelay)
 {
-	CBitmapObject* pBitmapObject = m_bitmapObject[uBitmapID];
-	if (pBitmapObject)
+	//CBitmapObject* pBitmapObject = m_bitmapObject[uBitmapID];
+	//if (pBitmapObject)
+	//{
+	//	*sBitmapFilePath = _com_util::ConvertStringToBSTR(pBitmapObject->m_sFilePath.c_str());
+	//	*uAlpha = pBitmapObject->m_uAlpha;
+	//	*uTransparentColor = pBitmapObject->m_uTransparentColor;
+	//	*uX = pBitmapObject->m_uX;
+	//	*uY = pBitmapObject->m_uY;
+	//	return 0;
+	//}
+
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.begin();
+	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
 	{
-		*sBitmapFilePath = _com_util::ConvertStringToBSTR(pBitmapObject->m_sFilePath.c_str());
-		*uAlpha = pBitmapObject->m_uAlpha;
-		*uTransparentColor = pBitmapObject->m_uTransparentColor;
-		*uX = pBitmapObject->m_uX;
-		*uY = pBitmapObject->m_uY;
-		return 0;
+		CDynaEfBmpGroup * pGroup = iter->second;
+		std::list<CEffectBitmapEx*>::iterator iterinner = pGroup->m_effectbmplist.begin();
+		for (; iterinner != pGroup->m_effectbmplist.end(); ++iterinner)
+		{
+			CEffectBitmapEx * pBitmapObject = *iterinner;
+			if(pBitmapObject->GetObjectID() == uBitmapID)
+			{
+				*sBitmapFilePath = _com_util::ConvertStringToBSTR(pBitmapObject->m_sFilePath.c_str());
+				*uAlpha = pBitmapObject->m_uAlpha;
+				*uTransparentColor = pBitmapObject->m_uTransparentColor;
+				*uX = pBitmapObject->m_uX;
+				*uY = pBitmapObject->m_uY;
+				*uWidth = pBitmapObject->m_uWidth;
+				*uHeight = pBitmapObject->m_uHeight;
+				*uOriginalSize = pBitmapObject->m_uOriginalSize;
+				*uDrawStyle = pBitmapObject->m_uDrawStyle;
+				*uDelay = pBitmapObject->m_uDelay;
+				return 0;
+			}
+		}
 	}
 	return -1;
 }
@@ -2999,6 +3063,7 @@ LONG CMultiSAP::DelBitmap(ULONG uBitmapID)
 				else
 					pGroup->m_effectbmplist.erase(iterinner);
 				LeaveCriticalSection(&pGroup->m_cs);
+				ret = 0;
 				break;
 			}
 		}
@@ -3858,7 +3923,7 @@ LONG CMultiSAP::SetEffectBitmapStyle(ULONG uID, ULONG uStyle)
 			if(pBitmap->GetObjectID() == uID)
 			{
 				pBitmap->m_uDrawStyle = uStyle;
-				pBitmap->m_drawtype = PLAY_NONE;
+				//pBitmap->m_drawtype = PLAY_NONE;
 				return 0;
 			}
 		}
@@ -3875,7 +3940,7 @@ LONG CMultiSAP::SetEffectBitmapStyle(ULONG uID, ULONG uStyle)
 			if(pText->GetObjectID() == uID)
 			{
 				pText->m_uDrawStyle = uStyle;
-				pText->m_drawtype = PLAY_NONE;
+				//pText->m_drawtype = PLAY_NONE;
 				return 0;
 			}
 		}
@@ -3920,6 +3985,7 @@ LONG CMultiSAP::SetEffectPlayRange(ULONG uID, ULONG uPlayMode, ULONG uRangeStart
 	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
 	{
 		CDynaEfBmpGroup * pGroup = iter->second;
+		pGroup->m_group_type = PLAY_NONE;
 		std::list<CEffectBitmapEx*>::iterator iterinner = pGroup->m_effectbmplist.begin();
 		for (; iterinner != pGroup->m_effectbmplist.end(); ++iterinner)
 		{
@@ -3939,6 +4005,7 @@ LONG CMultiSAP::SetEffectPlayRange(ULONG uID, ULONG uPlayMode, ULONG uRangeStart
 	for( ; textiter != m_EffectTextGroup.end(); ++textiter )
 	{
 		CEffectTextGroup * pGroup = textiter->second;
+		pGroup->m_group_type = PLAY_NONE;
 		std::list<CEffectTextEx*>::iterator iterinner = pGroup->m_effectextlist.begin();
 		for (; iterinner != pGroup->m_effectextlist.end(); ++iterinner)
 		{
@@ -4122,7 +4189,7 @@ LONG CMultiSAP::CreateTextGroup()
 	return pGroup->GetObjectID();
 }
 
-LONG CMultiSAP::AddText(ULONG uGroupID, ULONG uX, ULONG uY, LPCTSTR sOutputText, LPCTSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay)
+LONG CMultiSAP::AddText(ULONG uGroupID, ULONG uX, ULONG uY, LPCTSTR sOutputText, LPCTSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay, ULONG uAlpha, ULONG uTransparentColor)
 {
 	//HRESULT hr;
 	//CEffectTextEx* pTextObject = new CEffectTextEx();
@@ -4174,7 +4241,7 @@ LONG CMultiSAP::AddText(ULONG uGroupID, ULONG uX, ULONG uY, LPCTSTR sOutputText,
 		pTextObject->SetDDSFontCache(pDDS);
 
 
-		pTextObject->SetText(uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uDrawStyle, uDelay);
+		pTextObject->SetText(uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uDrawStyle, uDelay, uAlpha, uTransparentColor);
 
 		pGroup->AddText(pTextObject);
 
@@ -4252,7 +4319,7 @@ LONG CMultiSAP::InsertEffectTextInRegion(
 		pTextObject->SetDDSFontCache(pDDS);
 
 
-		pTextObject->SetText(uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uDrawStyle, uDelay);
+		pTextObject->SetText(uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uDrawStyle, uDelay, 0xFF, 0xFFFFF);
 
 		pGroup->InsertText(uWhere, pTextObject);
 
@@ -4292,4 +4359,146 @@ LONG CMultiSAP::DelTextGroup(ULONG uGroupID)
 	}
 	LeaveCriticalSection(&m_videoGroupsCS);
 	return ret;
+}
+
+LONG CMultiSAP::SetBitmapParam(ULONG uBitmapID, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight)
+{
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.begin();
+	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
+	{
+		CDynaEfBmpGroup * pGroup = iter->second;
+		std::list<CEffectBitmapEx*>::iterator iterinner = pGroup->m_effectbmplist.begin();
+		for (; iterinner != pGroup->m_effectbmplist.end(); ++iterinner)
+		{
+			CEffectBitmapEx * pBitmap = *iterinner;
+			if(pBitmap->GetObjectID() == uBitmapID)
+			{
+				pBitmap->SetBitmap(this, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight);
+				return 0;
+			}
+		}
+	}
+	return -1;
+}
+
+LONG CMultiSAP::SetTextParam(ULONG uTextID, ULONG uX, ULONG uY, LPCTSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG uAlpha, ULONG uTransparentColor)
+{
+	std::map<ULONG, CEffectTextGroup*>::iterator textiter = m_EffectTextGroup.begin();
+	for( ; textiter != m_EffectTextGroup.end(); ++textiter )
+	{
+		CEffectTextGroup * pGroup = textiter->second;
+		std::list<CEffectTextEx*>::iterator iterinner = pGroup->m_effectextlist.begin();
+		for (; iterinner != pGroup->m_effectextlist.end(); ++iterinner)
+		{
+			CEffectTextEx * pText = *iterinner;
+			if(pText->GetObjectID() == uTextID)
+			{
+				pText->SetText(this, uX, uY, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uAlpha, uTransparentColor);
+				return 0;
+			}
+		}
+	}
+	return -1;
+}
+
+LONG CMultiSAP::SetPlayParam(ULONG uGroupID, ULONG uID, ULONG uDrawStyle)
+{
+	int ret = -1;
+	do 
+	{
+		std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.find(uGroupID);
+		if( iter != m_dy_ef_bmp_Group.end() )
+		{
+			CDynaEfBmpGroup * pGroup = iter->second;
+			EnterCriticalSection(&pGroup->m_cs);
+			pGroup->m_group_type = PLAY_BY_GROUP;
+			pGroup->m_group_draw_style = uDrawStyle;
+			if( uID == 0 )
+			{
+				CEffectBitmapEx * pBitmap = *pGroup->m_iter;
+				pBitmap->m_nProgress = 0;
+				pBitmap->Clear();
+				//pBitmap->m_uDrawStyle = uDrawStyle;
+				ret = 0;
+				LeaveCriticalSection(&pGroup->m_cs);
+				break;
+			}
+			std::list<CEffectBitmapEx*>::iterator iterinner = pGroup->m_effectbmplist.begin();
+			for (; iterinner != pGroup->m_effectbmplist.end(); ++iterinner)
+			{
+				CEffectBitmapEx * pBitmap = *iterinner;
+				if(pBitmap->GetObjectID() == uID)
+				{
+					pGroup->m_iter = iterinner;
+					//pBitmap->m_uDrawStyle = uDrawStyle;				
+					ret = 0;
+				}
+			}
+			LeaveCriticalSection(&pGroup->m_cs);
+		}
+
+	} while (false);
+
+	do 
+	{
+		std::map<ULONG, CEffectTextGroup*>::iterator textiter = m_EffectTextGroup.find(uGroupID);
+		if( textiter != m_EffectTextGroup.end() )
+		{
+			CEffectTextGroup * pGroup = textiter->second;
+			EnterCriticalSection(&pGroup->m_cs);
+			pGroup->m_group_type = PLAY_BY_GROUP;
+			pGroup->m_group_draw_style = uDrawStyle;
+			if( uID == 0 )
+			{
+				CEffectTextEx * pText = *pGroup->m_iter;
+				//pText->m_uDrawStyle = uDrawStyle;
+				ret = 0;
+				LeaveCriticalSection(&pGroup->m_cs);
+				break;
+			}
+			std::list<CEffectTextEx*>::iterator iterinner = pGroup->m_effectextlist.begin();
+			for (; iterinner != pGroup->m_effectextlist.end(); ++iterinner)
+			{
+				CEffectTextEx * pText = *iterinner;
+				if(pText->GetObjectID() == uID)
+				{
+					pGroup->m_iter = iterinner;
+					//pText->m_uDrawStyle = uDrawStyle;	
+					ret = 0;
+				}
+			}
+			LeaveCriticalSection(&pGroup->m_cs);
+		}
+	} while (false);
+
+	return ret;
+}
+
+LONG CMultiSAP::GetPlayParam(ULONG uGroupID, ULONG* uID, ULONG* uDrawStyle)
+{
+	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.find(uGroupID);
+	if( iter != m_dy_ef_bmp_Group.end() )
+	{
+		CDynaEfBmpGroup * pGroup = iter->second;
+		EnterCriticalSection(&pGroup->m_cs);
+		CEffectBitmapEx * pBitmap = *pGroup->m_iter;
+		*uID = pBitmap->GetObjectID();
+		*uDrawStyle = pBitmap->m_uDrawStyle;
+		LeaveCriticalSection(&pGroup->m_cs);
+		return 0;
+	}
+
+	std::map<ULONG, CEffectTextGroup*>::iterator textiter = m_EffectTextGroup.find(uGroupID);
+	if( textiter != m_EffectTextGroup.end() )
+	{
+		CEffectTextGroup * pGroup = textiter->second;
+		EnterCriticalSection(&pGroup->m_cs);
+		CEffectTextEx * pText = *pGroup->m_iter;
+		*uID = pText->GetObjectID();
+		*uDrawStyle = pText->m_uDrawStyle;
+		LeaveCriticalSection(&pGroup->m_cs);
+		return 0;
+	}
+
+	return -1;
 }

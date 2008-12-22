@@ -5,6 +5,7 @@
 CDynaEfBmpGroup::CDynaEfBmpGroup(void)
 {
 	m_bPlay = FALSE;
+	m_group_type = PLAY_NONE;
 	m_iter = m_effectbmplist.begin();
 	InitializeCriticalSection(&m_cs);
 }
@@ -94,7 +95,15 @@ void CDynaEfBmpGroup::Draw()
 				pEffectBitmap->m_bChangeStyle = FALSE;
 				pEffectBitmap->m_nProgress = 0;
 				pEffectBitmap->m_bClear = TRUE;
-				if( pEffectBitmap->m_drawtype == PLAY_RANDOM )
+				if( m_group_type == PLAY_BY_GROUP )
+				{
+					pEffectBitmap->m_uDrawStyle = m_group_draw_style++;
+
+					//CString str;
+					//str.Format("%d\n", pEffectBitmap->m_uDrawStyle);
+					//OutputDebugString(str);
+				}
+				else if( pEffectBitmap->m_drawtype == PLAY_RANDOM )
 				{
 					pEffectBitmap->m_uDrawStyle = (rand() % 290) + 1;
 				}

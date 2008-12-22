@@ -90,7 +90,15 @@ void CEffectTextGroup::Draw()
 				pEffectText->m_bChangeStyle = FALSE;
 				pEffectText->m_nProgress = 0;
 				pEffectText->m_bClear = TRUE;
-				if( pEffectText->m_drawtype == PLAY_RANDOM )
+				if( m_group_type == PLAY_BY_GROUP )
+				{
+					pEffectText->m_uDrawStyle = m_group_draw_style++;
+
+					//CString str;
+					//str.Format("%d\n", pEffectText->m_uDrawStyle);
+					//OutputDebugString(str);
+				}
+				else if( pEffectText->m_drawtype == PLAY_RANDOM )
 				{
 					pEffectText->m_uDrawStyle = (rand() % 290) + 1;
 				}

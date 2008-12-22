@@ -59,11 +59,15 @@ public:
 	LONG AddDynamicEffectBmp(ULONG uGroupID, LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
 	LONG InsertDynamicEffectBmp(ULONG uGroupID, ULONG uWhere, LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
 	LONG DelBitmapGroup(ULONG uGroupID);
+	LONG SetBitmapParam(ULONG uBitmapID, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight);
 
 	LONG CreateTextGroup();
-	LONG AddText(ULONG uGroupID, ULONG uX, ULONG uY, LPCTSTR sOutputText, LPCTSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay);
+	LONG AddText(ULONG uGroupID, ULONG uX, ULONG uY, LPCTSTR sOutputText, LPCTSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay, ULONG uAlpha, ULONG uTransparentColor);
 	LONG DelTextGroup(ULONG uGroupID);
+	LONG SetTextParam(ULONG uTextID, ULONG uX, ULONG uY, LPCTSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG uAlpha, ULONG uTransparentColor);
 
+	LONG SetPlayParam(ULONG uGroupID, ULONG uID, ULONG uDrawStyle);
+	LONG GetPlayParam(ULONG uGroupID, ULONG* uID, ULONG* uDrawStyle);
 
 	LONG GetVideoGroupCount();
 	LONG GetFirstVideoGroupID();
@@ -107,7 +111,12 @@ public:
 		ULONG* uAlpha, 
 		ULONG* uTransparentColor, 
 		ULONG* uX, 
-		ULONG* uY);
+		ULONG* uY,
+		ULONG* uWidth,
+		ULONG* uHeight,
+		ULONG* uOriginalSize,
+		ULONG* uDrawStyle,
+		ULONG* uDelay);
 
 	LONG DelBitmap(ULONG uBitmapID);
 	LONG DelDynamicBitmap(ULONG uDynamicBitmapID);
@@ -206,7 +215,8 @@ public:
 		ULONG * uUnderLine,
 		ULONG * uWidth,
 		ULONG * uHeight,
-		ULONG * uColor);
+		ULONG * uColor,
+		ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uDrawStyle, ULONG* uDelay);
 
 	LONG SetText(
 		ULONG uX,
@@ -297,7 +307,7 @@ public:
 	static void __cdecl SetDefaultThread(LPVOID param);
 
 	void Close();
-protected:
+
 	TCHAR   m_MediaFilePath[MAX_PATH];
 	HRESULT DDARGB32SurfaceInit(
 		LPDIRECTDRAWSURFACE7* lplpDDS,

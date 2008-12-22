@@ -13,9 +13,9 @@ import "C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\inclu
 	helpstring("IAnsoplyInterface Interface"),
 	pointer_default(unique)
 ] 
-#line 16 "d:\\ansoply project\\ansoply project\\ansoply\\ansoplyinterface.h"
+#line 16 "d:\\ansoply\\ansoply\\ansoplyinterface.h"
 interface IAnsoplyInterface : IDispatch {
-#line 18 "d:\\ansoply project\\ansoply project\\ansoply\\ansoplyinterface.h"
+#line 18 "d:\\ansoply\\ansoply\\ansoplyinterface.h"
 	[id(1),helpstring("method CreateVideoGroup")] HRESULT  CreateVideoGroup([in]ULONG *uNewGroupID);
 	[id(2),helpstring("method DelVideoGroup")] HRESULT  DelVideoGroup([in]ULONG uGroupID);
 	[id(3),helpstring("method AddVideoFile")] HRESULT  AddVideoFile([in]ULONG uGroupID, [in]BSTR sFilePathName, [in]ULONG *uFileObjectID);
@@ -41,12 +41,12 @@ interface IAnsoplyInterface : IDispatch {
 	[id(23),helpstring("method SetVideoAlpha")] HRESULT  SetVideoAlpha([in] ULONG GroupID, [in] ULONG uAlpha);
 	[id(24),helpstring("method GetVideoAlpha")] HRESULT  GetVideoAlpha([in] ULONG uGroupID, [in]ULONG *uAlpha);
 	[id(25),helpstring("method SetBitmap")] HRESULT  SetBitmap([in]ULONG *uBitmapID, [in] BSTR sBitmapFilePath, [in] ULONG uAlpha, [in] ULONG uTransparentColor, [in] ULONG uX, [in] ULONG uY, [in]ULONG uWidth, [in]ULONG uHeight, [in]ULONG uOriginalSize);
-	[id(26),helpstring("method GetBitmap")] HRESULT  GetBitmap([in] ULONG uBitmapID, [in]BSTR *sBitmapFilePath , [in] ULONG *uAlpha, [in]ULONG *uTransparentColor, [in]ULONG *uX, [in]ULONG *uY);
+	[id(26),helpstring("method GetBitmap")] HRESULT  GetBitmap([in] ULONG uBitmapID, [in]BSTR *sBitmapFilePath , [in] ULONG *uAlpha, [in]ULONG *uTransparentColor, [in]ULONG *uX, [in]ULONG *uY, [in]ULONG *uWidth, [in]ULONG *uHeight, [in]ULONG *uOriginalSize, [in]ULONG *uDrawStyle, [in]ULONG *uDelay);
 	[id(27),helpstring("method DelBitmap")] HRESULT  DelBitmap([in] ULONG uBitmapID);
 	[id(28),helpstring("method SetDynamicBitmap")] HRESULT  SetDynamicBitmap([in]ULONG *uBitmapID, [in] BSTR sBitmapFilePath, [in] ULONG uAlpha, [in] ULONG uTransparentColor, [in] ULONG uX, [in] ULONG uY, [in] ULONG uWidth, [in] ULONG uHeight, [in] ULONG uOriginalSize, [in] ULONG uMilliSec);
 	[id(29),helpstring("method GetDynamicBitmap")] HRESULT  GetDynamicBitmap([in]ULONG uBitmapID, [in]BSTR *sBitmapFilePath , [in]ULONG *uAlpha, [in]ULONG *uTransparentColor, [in]ULONG *uX, [in]ULONG *uY, [in]ULONG *uMilliSec);
 	[id(30),helpstring("method SetText")] HRESULT  SetText([in] ULONG uX, [in] ULONG uY, [in] BSTR sOutputText, [in] BSTR sFaceName, [in] ULONG uItalic, [in] ULONG uBold, [in] ULONG uUnderLine, [in] ULONG uWidth, [in] ULONG uHeight, [in] ULONG uColor, [in] ULONG *uObjectID);
-	[id(31),helpstring("method GetText")] HRESULT  GetText([in] ULONG uObjectID, [in]ULONG *uX, [in]ULONG *uY, [in]BSTR *sOutputText , [in]BSTR *sFaceName , [in]ULONG *uItalic, [in]ULONG *uBold, [in]ULONG *uUnderLine, [in]ULONG *uWidth, [in]ULONG *uHeight, [in]ULONG *uColor);
+	[id(31),helpstring("method GetText")] HRESULT  GetText([in] ULONG uObjectID, [in]ULONG *uX, [in]ULONG *uY, [in]BSTR *sOutputText , [in]BSTR *sFaceName , [in]ULONG *uItalic, [in]ULONG *uBold, [in]ULONG *uUnderLine, [in]ULONG *uWidth, [in]ULONG *uHeight, [in]ULONG *uColor, [in]ULONG *uAlpha, [in]ULONG *uTransparentColor, [in]ULONG *uDrawStyle, [in]ULONG *uDelay);
 	[id(32),helpstring("method DelText")] HRESULT  DelText([in]ULONG uGroupID);
 	[id(33),helpstring("method GetLastError")] HRESULT  GetLastError();
 	[id(34),helpstring("method Init")] HRESULT  Init([in] LONG hWnd, [in]ULONG uWidth, [in]ULONG uHeight);
@@ -86,9 +86,13 @@ interface IAnsoplyInterface : IDispatch {
 	[id(68),helpstring("method DelBitmapGroup")] HRESULT  DelBitmapGroup([in]ULONG uGroupID);
 	[id(69),helpstring("method InsertBitmap")] HRESULT  InsertBitmap([in]ULONG uGroupID, [in]ULONG uWhere, [in]ULONG *uBitmapID, [in]BSTR sBitmapFilePath, [in]ULONG uAlpha, [in]ULONG uTransparentColor, [in]ULONG uX, [in]ULONG uY, [in]ULONG uWidth, [in]ULONG uHeight, [in]ULONG uOriginalSize, [in]ULONG uDrawStyle, [in]ULONG uDelay);
 	[id(70),helpstring("method CreateTextGroup")] HRESULT  CreateTextGroup([in]ULONG *uGroupID);
-	[id(71),helpstring("method AddText")] HRESULT  AddText([in]ULONG uGroupID, [in]ULONG uX, [in]ULONG uY, [in]BSTR sOutputText, [in]BSTR sFaceName, [in]ULONG uItalic, [in]ULONG uBold, [in]ULONG uUnderLine, [in]ULONG uWidth, [in]ULONG uHeight, [in]ULONG uColor, [in]ULONG *uObjectID, [in]ULONG uRegionWidth, [in]ULONG uRegionHeight, [in]ULONG uDrawStyle, [in]ULONG uDelay);
+	[id(71),helpstring("method AddText")] HRESULT  AddText([in]ULONG uGroupID, [in]ULONG uX, [in]ULONG uY, [in]BSTR sOutputText, [in]BSTR sFaceName, [in]ULONG uItalic, [in]ULONG uBold, [in]ULONG uUnderLine, [in]ULONG uWidth, [in]ULONG uHeight, [in]ULONG uColor, [in]ULONG *uObjectID, [in]ULONG uRegionWidth, [in]ULONG uRegionHeight, [in]ULONG uDrawStyle, [in]ULONG uDelay, [in]ULONG uAlpha, [in]ULONG uTransparentColor);
 	[id(72),helpstring("method DelTextGroup")] HRESULT  DelTextGroup([in]ULONG uGroupID);
 	[id(73),helpstring("method InsertText")] HRESULT  InsertText([in]ULONG uGroupID, [in]ULONG uWhere, [in]ULONG uX, [in]ULONG uY, [in]BSTR sOutputText, [in]BSTR sFaceName, [in]ULONG uItalic, [in]ULONG uBold, [in]ULONG uUnderLine, [in]ULONG uWidth, [in]ULONG uHeight, [in]ULONG uColor, [in]ULONG *uObjectID, [in]ULONG uRegionWidth, [in]ULONG uRegionHeight, [in]ULONG uDrawStyle, [in]LONG uDelay);
+	[id(74),helpstring("method SetBitmapParam")] HRESULT  SetBitmapParam([in]ULONG uBitmapID, [in]ULONG uAlpha, [in]ULONG uTransparentColor, [in]ULONG uX, [in]ULONG uY, [in]ULONG uWidth, [in]ULONG uHeight);
+	[id(75),helpstring("method SetTextParam")] HRESULT  SetTextParam([in]ULONG uTextID, [in]ULONG uX, [in]ULONG uY, [in]BSTR sFaceName, [in]ULONG uItalic, [in]ULONG uBold, [in]ULONG uUnderLine, [in]ULONG uWidth, [in]ULONG uHeight, [in]ULONG uColor, [in]ULONG uAlpha, [in]ULONG uTransparentColor);
+	[id(76),helpstring("method SetPlayParam")] HRESULT  SetPlayParam([in]ULONG uGroupID, [in]ULONG uID, [in]ULONG uDrawStyle);
+	[id(77),helpstring("method GetPlayParam")] HRESULT  GetPlayParam([in]ULONG uGroupID, [in]ULONG *uID, [in]ULONG *uDrawStyle);
 };
 
 
@@ -103,7 +107,7 @@ library Ansoply
 		uuid(D1EBA581-03B3-42EA-B097-7F97F0ADB87B),
 		helpstring("AnsoplyInterface Class")
 	] 
-#line 106 "d:\\ansoply project\\ansoply project\\ansoply\\ansoplyinterface.h"
+#line 110 "d:\\ansoply\\ansoply\\ansoplyinterface.h"
 	coclass CAnsoplyInterface {
 		interface IAnsoplyInterface;
 	};

@@ -257,11 +257,13 @@ STDMETHODIMP CAnsoplyInterface::SetBitmap(ULONG* uBitmapID, BSTR sBitmapFilePath
 	return lRetCode != -1 ? S_OK : E_FAIL;
 }
 
-STDMETHODIMP CAnsoplyInterface::GetBitmap(ULONG uBitmapID, BSTR* sBitmapFilePath, ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uX, ULONG* uY)
+STDMETHODIMP CAnsoplyInterface::GetBitmap(ULONG uBitmapID, BSTR* sBitmapFilePath, ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uX, ULONG* uY, ULONG* uWidth, ULONG* uHeight, ULONG* uOriginalSize, ULONG* uDrawStyle, ULONG* uDelay)
 {
 	// TODO: Add your implementation code here
 	if( !m_pMultiSAP )
 		return E_FAIL;
+	m_pMultiSAP->GetBitmap(uBitmapID, sBitmapFilePath, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize, uDrawStyle, uDelay);
+
 	return S_OK;
 }
 
@@ -317,7 +319,7 @@ STDMETHODIMP CAnsoplyInterface::SetText(ULONG uX, ULONG uY, BSTR sOutputText, BS
 		uObjectID);
 }
 
-STDMETHODIMP CAnsoplyInterface::GetText(ULONG uID, ULONG* uX, ULONG* uY, BSTR* sOutputText, BSTR* sFaceName, ULONG* uItalic, ULONG* uBold, ULONG* uUnderLine, ULONG* uWidth, ULONG* uHeight, ULONG* uColor)
+STDMETHODIMP CAnsoplyInterface::GetText(ULONG uID, ULONG* uX, ULONG* uY, BSTR* sOutputText, BSTR* sFaceName, ULONG* uItalic, ULONG* uBold, ULONG* uUnderLine, ULONG* uWidth, ULONG* uHeight, ULONG* uColor, ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uDrawStyle, ULONG* uDelay)
 {
 	// TODO: Add your implementation code here
 	if( !m_pMultiSAP )
@@ -326,7 +328,7 @@ STDMETHODIMP CAnsoplyInterface::GetText(ULONG uID, ULONG* uX, ULONG* uY, BSTR* s
 	TCHAR sText[1024];
 	TCHAR FaceName[1024] = {0};
 	ZeroMemory(sText, 1024);
-	if ( 0 == m_pMultiSAP->GetText(uID, uX, uY, sText, FaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor) )
+	if ( 0 == m_pMultiSAP->GetText(uID, uX, uY, sText, FaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uAlpha, uTransparentColor, uDrawStyle, uDelay) )
 	{
 		*sOutputText = _com_util::ConvertStringToBSTR(sText);
 		*sFaceName   = _com_util::ConvertStringToBSTR(FaceName);
@@ -730,7 +732,7 @@ STDMETHODIMP CAnsoplyInterface::CreateTextGroup(ULONG* uGroupID)
 	return S_OK;
 }
 
-STDMETHODIMP CAnsoplyInterface::AddText(ULONG uGroupID, ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay)
+STDMETHODIMP CAnsoplyInterface::AddText(ULONG uGroupID, ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay, ULONG uAlpha, ULONG uTransparentColor)
 {
 	// TODO: Add your implementation code here
 	if( !m_pMultiSAP )
@@ -748,7 +750,9 @@ STDMETHODIMP CAnsoplyInterface::AddText(ULONG uGroupID, ULONG uX, ULONG uY, BSTR
 		uRegionWidth,
 		uRegionHeight,
 		uDrawStyle,
-		uDelay);
+		uDelay,
+		uAlpha,
+		uTransparentColor);
 }
 
 STDMETHODIMP CAnsoplyInterface::DelTextGroup(ULONG uGroupID)
@@ -778,4 +782,45 @@ STDMETHODIMP CAnsoplyInterface::InsertText(ULONG uGroupID, ULONG uWhere, ULONG u
 		uRegionHeight,
 		uDrawStyle,
 		uDelay);
+}
+
+STDMETHODIMP CAnsoplyInterface::SetBitmapParam(ULONG uBitmapID, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->SetBitmapParam(uBitmapID, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight);
+}
+
+STDMETHODIMP CAnsoplyInterface::SetTextParam(ULONG uTextID, ULONG uX, ULONG uY, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG uAlpha, ULONG uTransparentColor)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->SetTextParam(uTextID,uX, uY,
+		_com_util::ConvertBSTRToString(sFaceName),
+		uItalic,
+		uBold,
+		uUnderLine,
+		uWidth,
+		uHeight,
+		uColor,
+		uAlpha,
+		uTransparentColor);
+}
+
+STDMETHODIMP CAnsoplyInterface::SetPlayParam(ULONG uGroupID, ULONG uID, ULONG uDrawStyle)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->SetPlayParam(uGroupID, uID, uDrawStyle);
+}
+
+STDMETHODIMP CAnsoplyInterface::GetPlayParam(ULONG uGroupID, ULONG* uID, ULONG* uDrawStyle)
+{
+	// TODO: Add your implementation code here
+	if( !m_pMultiSAP )
+		return E_FAIL;
+	return m_pMultiSAP->GetPlayParam(uGroupID, uID, uDrawStyle);
 }
