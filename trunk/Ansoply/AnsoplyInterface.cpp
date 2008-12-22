@@ -784,15 +784,15 @@ STDMETHODIMP CAnsoplyInterface::InsertText(ULONG uGroupID, ULONG uWhere, ULONG u
 		uDelay);
 }
 
-STDMETHODIMP CAnsoplyInterface::SetBitmapParam(ULONG uBitmapID, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight)
+STDMETHODIMP CAnsoplyInterface::SetBitmapParam(ULONG uBitmapID, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize)
 {
 	// TODO: Add your implementation code here
 	if( !m_pMultiSAP )
 		return E_FAIL;
-	return m_pMultiSAP->SetBitmapParam(uBitmapID, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight);
+	return m_pMultiSAP->SetBitmapParam(uBitmapID, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize);
 }
 
-STDMETHODIMP CAnsoplyInterface::SetTextParam(ULONG uTextID, ULONG uX, ULONG uY, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG uAlpha, ULONG uTransparentColor)
+STDMETHODIMP CAnsoplyInterface::SetTextParam(ULONG uTextID, ULONG uX, ULONG uY, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG uAlpha, ULONG uTransparentColor, ULONG uRegionWidth, ULONG uRegionHeight)
 {
 	// TODO: Add your implementation code here
 	if( !m_pMultiSAP )
@@ -806,7 +806,9 @@ STDMETHODIMP CAnsoplyInterface::SetTextParam(ULONG uTextID, ULONG uX, ULONG uY, 
 		uHeight,
 		uColor,
 		uAlpha,
-		uTransparentColor);
+		uTransparentColor,
+		uRegionWidth,
+		uRegionHeight);
 }
 
 STDMETHODIMP CAnsoplyInterface::SetPlayParam(ULONG uGroupID, ULONG uID, ULONG uDrawStyle)

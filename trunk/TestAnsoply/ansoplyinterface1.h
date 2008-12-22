@@ -407,10 +407,10 @@ public:
 		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_BSTR VTS_BSTR VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_PUI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_I4 ;
 		InvokeHelper(0x49, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uGroupID, uWhere, uX, uY, sOutputText, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uObjectID, uRegionWidth, uRegionHeight, uDrawStyle, uDelay);
 	}
-	void SetBitmapParam(unsigned long uBitmapID, unsigned long uAlpha, unsigned long uTransparentColor, unsigned long uX, unsigned long uY, unsigned long uWidth, unsigned long uHeight)
+	void SetBitmapParam(unsigned long uBitmapID, unsigned long uAlpha, unsigned long uTransparentColor, unsigned long uX, unsigned long uY, unsigned long uWidth, unsigned long uHeight, unsigned long uOriginalSize)
 	{
-		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
-		InvokeHelper(0x4a, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uBitmapID, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight);
+		static BYTE parms[] = VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 VTS_UI4 ;
+		InvokeHelper(0x4a, DISPATCH_METHOD, VT_EMPTY, NULL, parms, uBitmapID, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize);
 	}
 	void SetTextParam(unsigned long uTextID, unsigned long uX, unsigned long uY, LPCTSTR sFaceName, unsigned long uItalic, unsigned long uBold, unsigned long uUnderLine, unsigned long uWidth, unsigned long uHeight, unsigned long uColor, unsigned long uAlpha, unsigned long uTransparentColor)
 	{

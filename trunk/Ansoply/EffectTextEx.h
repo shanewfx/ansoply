@@ -40,7 +40,8 @@ public:
 		ULONG uHeight,
 		ULONG uColor,
 		ULONG uAlpha, 
-		ULONG uTransparentColor);
+		ULONG uTransparentColor,
+		ULONG uRegionWidth, ULONG uRegionHeight);
 
 	ULONG m_uDrawStyle;
 	BOOL  m_bPlayEnd;

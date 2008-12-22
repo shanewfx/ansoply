@@ -16,7 +16,7 @@ public:
 
 	LONG SetBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay, HWND hWnd);
 
-	LONG SetBitmap(CMultiSAP* pMultiSAP, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight);
+	LONG SetBitmap(CMultiSAP* pMultiSAP, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize);
 
 	ULONG m_uDrawStyle;
 	BOOL  m_bPlayEnd;

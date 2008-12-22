@@ -272,7 +272,7 @@ void CEffectBitmapEx::Clear()
 	}
 }
 
-LONG CEffectBitmapEx::SetBitmap(CMultiSAP* pMultiSAP, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight)
+LONG CEffectBitmapEx::SetBitmap(CMultiSAP* pMultiSAP, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize)
 {
 	EnterCriticalSection(&m_cs);
 	//Color backColor;
@@ -302,15 +302,36 @@ LONG CEffectBitmapEx::SetBitmap(CMultiSAP* pMultiSAP, ULONG uAlpha, ULONG uTrans
 
 	m_hdcBitmap = CreateCompatibleDC( NULL );
 
-	BITMAP bm;
-	GetObject( m_hBmp, sizeof(BITMAP), &bm );
+	if( uOriginalSize != 1 )
+	{
+		//USES_CONVERSION;
+		//Bitmap originalBMP(T2W(m_sFilePath.c_str()));
+		//m_pOriginalBMP = new Bitmap(T2W(m_sFilePath.c_str()));
+		//Graphics g(m_hdcBitmap);
 
-	HBITMAP bmp = CreateBitmap(m_uWidth, m_uHeight, bm.bmPlanes, bm.bmBitsPixel, NULL);
-	SelectObject(m_hdcBitmap, bmp);
-	m_pGraphics = new Graphics(m_hdcBitmap);
-	m_pGraphics->DrawImage(m_pBitmap, Rect(0, 0, m_uWidth, m_uHeight), 0, 0, 
-		m_pBitmap->GetWidth(), m_pBitmap->GetHeight(), UnitPixel, NULL );
-    
+		BITMAP bm;
+		GetObject( m_hBmp, sizeof(BITMAP), &bm );
+
+		HBITMAP bmp = CreateBitmap(m_uWidth, m_uHeight, bm.bmPlanes, bm.bmBitsPixel, NULL);
+		SelectObject(m_hdcBitmap, bmp);
+		m_pGraphics = new Graphics(m_hdcBitmap);
+		m_pGraphics->DrawImage(m_pBitmap, Rect(0, 0, m_uWidth, m_uHeight), 0, 0, 
+			m_pBitmap->GetWidth(), m_pBitmap->GetHeight(), UnitPixel, NULL );
+	}
+	else
+	{
+		SelectObject(m_hdcBitmap, m_hBmp);
+	}
+
+	//BITMAP bm;
+	//GetObject( m_hBmp, sizeof(BITMAP), &bm );
+
+	//HBITMAP bmp = CreateBitmap(m_uWidth, m_uHeight, bm.bmPlanes, bm.bmBitsPixel, NULL);
+	//SelectObject(m_hdcBitmap, bmp);
+	//m_pGraphics = new Graphics(m_hdcBitmap);
+	//m_pGraphics->DrawImage(m_pBitmap, Rect(0, 0, m_uWidth, m_uHeight), 0, 0, 
+	//	m_pBitmap->GetWidth(), m_pBitmap->GetHeight(), UnitPixel, NULL );
+  
 	LeaveCriticalSection(&m_cs);
 
 	return 0;
