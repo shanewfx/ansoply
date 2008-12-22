@@ -1,6 +1,8 @@
 #pragma once
 #include "bitmapobject.h"
 
+class CMultiSAP;
+
 class CEffectBitmapEx :
 	public CBitmapObject
 {
@@ -13,6 +15,8 @@ public:
 	void Clear();
 
 	LONG SetBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay, HWND hWnd);
+
+	LONG SetBitmap(CMultiSAP* pMultiSAP, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight);
 
 	ULONG m_uDrawStyle;
 	BOOL  m_bPlayEnd;
@@ -49,4 +53,6 @@ public:
 
 	int m_nProgress;
 	HBITMAP m_hBmp;
+
+	CRITICAL_SECTION m_cs;
 };

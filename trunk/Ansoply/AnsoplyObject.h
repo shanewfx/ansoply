@@ -11,7 +11,8 @@ typedef enum _PLAY_TYPE_
 	PLAY_NEXT,
 	PLAY_TERMINATE,
 	PLAY_RANDOM,
-	PLAY_SEQUENCE
+	PLAY_SEQUENCE,
+	PLAY_BY_GROUP
 }PLAY_TYPE;
 
 typedef enum _AnsoplyObjectType

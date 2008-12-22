@@ -2,6 +2,7 @@
 #include ".\effectbitmapex.h"
 #include "project.h"
 #include "EffectDraw.h"
+#include "CMultiSAP.h"
 #include <time.h>
 #include <sstream>
 
@@ -27,6 +28,8 @@ CEffectBitmapEx::CEffectBitmapEx(void)
 	m_bNxDraw = TRUE;
 	m_pOriginalBMP = NULL;
 	m_pGraphics = NULL;
+
+	InitializeCriticalSection(&m_cs);
 }
 
 CEffectBitmapEx::~CEffectBitmapEx(void)
@@ -38,6 +41,7 @@ CEffectBitmapEx::~CEffectBitmapEx(void)
 		delete m_pOriginalBMP;
 	if( m_pGraphics )
 		delete m_pGraphics;
+	DeleteCriticalSection(&m_cs);
 }
 
 
@@ -47,6 +51,7 @@ void CEffectBitmapEx::Draw()
 	//	return;
 	if( !m_bVisibility )
 		return;
+	EnterCriticalSection(&m_cs);
 	RECT rt = {0, 0, m_uWidth, m_uHeight};
 	int nStep = 1;
 	EFFECTDRAWPROC drawproc = ::GetEffectProc(m_uDrawStyle);
@@ -180,6 +185,7 @@ void CEffectBitmapEx::Draw()
 				m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0x00, bSelected, m_pMultiSAP->m_uSelectFrameColor);
 
 	}
+	LeaveCriticalSection(&m_cs);
 }
 
 LONG CEffectBitmapEx::SetBitmap(LPCTSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay, HWND hWnd)
@@ -264,4 +270,48 @@ void CEffectBitmapEx::Clear()
 				m_pAlphaBlt->AlphaBlt(&dstRECT, pDDS, &srcRECT, 0x00, bSelected, m_pMultiSAP->m_uSelectFrameColor);
 
 	}
+}
+
+LONG CEffectBitmapEx::SetBitmap(CMultiSAP* pMultiSAP, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight)
+{
+	EnterCriticalSection(&m_cs);
+	//Color backColor;
+	//m_pBitmap->GetHBITMAP(backColor, &m_hBmp);
+	if( m_hdcBitmap )
+		DeleteDC(m_hdcBitmap);
+
+	if( m_pOriginalBMP )
+		delete m_pOriginalBMP;
+
+	if( m_pGraphics )
+		delete m_pGraphics;
+
+	m_uX = uX;
+	m_uY = uY;
+	m_uAlpha = uAlpha;
+	m_uTransparentColor = uTransparentColor;
+	m_uWidth = uWidth;
+	m_uHeight = uHeight;
+
+	IDirectDrawSurface7* pDDS = NULL;
+	HRESULT hr = pMultiSAP->DDARGB32SurfaceInit(&pDDS, TRUE, m_uWidth, m_uHeight);
+	if(hr == DD_OK)
+	{
+		SetSurface(pDDS);
+	}
+
+	m_hdcBitmap = CreateCompatibleDC( NULL );
+
+	BITMAP bm;
+	GetObject( m_hBmp, sizeof(BITMAP), &bm );
+
+	HBITMAP bmp = CreateBitmap(m_uWidth, m_uHeight, bm.bmPlanes, bm.bmBitsPixel, NULL);
+	SelectObject(m_hdcBitmap, bmp);
+	m_pGraphics = new Graphics(m_hdcBitmap);
+	m_pGraphics->DrawImage(m_pBitmap, Rect(0, 0, m_uWidth, m_uHeight), 0, 0, 
+		m_pBitmap->GetWidth(), m_pBitmap->GetHeight(), UnitPixel, NULL );
+    
+	LeaveCriticalSection(&m_cs);
+
+	return 0;
 }

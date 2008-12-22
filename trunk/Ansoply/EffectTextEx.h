@@ -1,6 +1,8 @@
 #pragma once
 #include "textobject.h"
 
+class CMultiSAP;
+
 class CEffectTextEx :
 	public CTextObject
 {
@@ -23,7 +25,22 @@ public:
 		ULONG uHeight, 
 		ULONG uColor,
 		ULONG uDrawStyle,
-		ULONG uDelay);
+		ULONG uDelay, 
+		ULONG uAlpha, 
+		ULONG uTransparentColor);
+
+	LONG SetText(CMultiSAP * pMultiSAP,
+		ULONG uX,
+		ULONG uY,
+		LPCTSTR sFaceName,
+		ULONG uItalic,
+		ULONG uBold,
+		ULONG uUnderLine,
+		ULONG uWidth,
+		ULONG uHeight,
+		ULONG uColor,
+		ULONG uAlpha, 
+		ULONG uTransparentColor);
 
 	ULONG m_uDrawStyle;
 	BOOL  m_bPlayEnd;
@@ -49,4 +66,8 @@ public:
 	int m_nProgress;
 	HBITMAP m_hBmp;
 	HFONT m_hFont;
+
+	CRITICAL_SECTION m_cs;
+
+	ULONG m_uTransparentColor;
 };

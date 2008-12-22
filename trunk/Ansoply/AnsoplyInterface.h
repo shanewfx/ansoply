@@ -40,12 +40,12 @@ __interface IAnsoplyInterface : public IDispatch
 	[id(23), helpstring("method SetVideoAlpha")] HRESULT SetVideoAlpha([in] ULONG GroupID, [in] ULONG uAlpha);
 	[id(24), helpstring("method GetVideoAlpha")] HRESULT GetVideoAlpha([in] ULONG uGroupID, ULONG* uAlpha);
 	[id(25), helpstring("method SetBitmap")] HRESULT SetBitmap(ULONG* uBitmapID, [in] BSTR sBitmapFilePath, [in] ULONG uAlpha, [in] ULONG uTransparentColor, [in] ULONG uX, [in] ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize);
-	[id(26), helpstring("method GetBitmap")] HRESULT GetBitmap([in] ULONG uBitmapID, BSTR* sBitmapFilePath, [in] ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uX, ULONG* uY);
+	[id(26), helpstring("method GetBitmap")] HRESULT GetBitmap([in] ULONG uBitmapID, BSTR* sBitmapFilePath, [in] ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uX, ULONG* uY, ULONG* uWidth, ULONG* uHeight, ULONG* uOriginalSize, ULONG* uDrawStyle, ULONG* uDelay);
 	[id(27), helpstring("method DelBitmap")] HRESULT DelBitmap([in] ULONG uBitmapID);
 	[id(28), helpstring("method SetDynamicBitmap")] HRESULT SetDynamicBitmap(ULONG * uBitmapID, [in] BSTR sBitmapFilePath, [in] ULONG uAlpha, [in] ULONG uTransparentColor, [in] ULONG uX, [in] ULONG uY, [in] ULONG uWidth, [in] ULONG uHeight, [in] ULONG uOriginalSize, [in] ULONG uMilliSec);
 	[id(29), helpstring("method GetDynamicBitmap")] HRESULT GetDynamicBitmap(ULONG uBitmapID, BSTR* sBitmapFilePath, ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uX, ULONG* uY, ULONG* uMilliSec);
 	[id(30), helpstring("method SetText")] HRESULT SetText([in] ULONG uX, [in] ULONG uY, [in] BSTR sOutputText, [in] BSTR sFaceName, [in] ULONG uItalic, [in] ULONG uBold, [in] ULONG uUnderLine, [in]ULONG uWidth, [in] ULONG uHeight, [in] ULONG uColor, [in] ULONG* uObjectID);
-	[id(31), helpstring("method GetText")] HRESULT GetText([in] ULONG uObjectID, ULONG* uX, ULONG* uY, BSTR* sOutputText, BSTR* sFaceName, ULONG* uItalic, ULONG* uBold, ULONG* uUnderLine, ULONG* uWidth, ULONG* uHeight, ULONG* uColor);
+	[id(31), helpstring("method GetText")] HRESULT GetText([in] ULONG uObjectID, ULONG* uX, ULONG* uY, BSTR* sOutputText, BSTR* sFaceName, ULONG* uItalic, ULONG* uBold, ULONG* uUnderLine, ULONG* uWidth, ULONG* uHeight, ULONG* uColor, ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uDrawStyle, ULONG* uDelay);
 	[id(32), helpstring("method DelText")] HRESULT DelText(ULONG uGroupID);
 	[id(33), helpstring("method GetLastError")] HRESULT GetLastError(void);
 	[id(34), helpstring("method Init")] HRESULT Init([in] LONG hWnd, ULONG uWidth, ULONG uHeight);
@@ -85,9 +85,13 @@ __interface IAnsoplyInterface : public IDispatch
 	[id(68), helpstring("method DelBitmapGroup")] HRESULT DelBitmapGroup(ULONG uGroupID);
 	[id(69), helpstring("method InsertBitmap")] HRESULT InsertBitmap(ULONG uGroupID, ULONG uWhere, ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
 	[id(70), helpstring("method CreateTextGroup")] HRESULT CreateTextGroup(ULONG* uGroupID);
-	[id(71), helpstring("method AddText")] HRESULT AddText(ULONG uGroupID, ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay);
+	[id(71), helpstring("method AddText")] HRESULT AddText(ULONG uGroupID, ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay, ULONG uAlpha, ULONG uTransparentColor);
 	[id(72), helpstring("method DelTextGroup")] HRESULT DelTextGroup(ULONG uGroupID);
 	[id(73), helpstring("method InsertText")] HRESULT InsertText(ULONG uGroupID, ULONG uWhere, ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, LONG uDelay);
+	[id(74), helpstring("method SetBitmapParam")] HRESULT SetBitmapParam(ULONG uBitmapID, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight);
+	[id(75), helpstring("method SetTextParam")] HRESULT SetTextParam(ULONG uTextID, ULONG uX, ULONG uY, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG uAlpha, ULONG uTransparentColor);
+	[id(76), helpstring("method SetPlayParam")] HRESULT SetPlayParam(ULONG uGroupID, ULONG uID, ULONG uDrawStyle);
+	[id(77), helpstring("method GetPlayParam")] HRESULT GetPlayParam(ULONG uGroupID, ULONG* uID, ULONG* uDrawStyle);
 };
 
 
@@ -226,12 +230,12 @@ public:
 	STDMETHOD(SetVideoAlpha)(ULONG GroupID, ULONG uAlpha);
 	STDMETHOD(GetVideoAlpha)(ULONG uGroupID, ULONG* uAlpha);
 	STDMETHOD(SetBitmap)(ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize);
-	STDMETHOD(GetBitmap)(ULONG uBitmapID, BSTR* sBitmapFilePath, ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uX, ULONG* uY);
+	STDMETHOD(GetBitmap)(ULONG uBitmapID, BSTR* sBitmapFilePath, ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uX, ULONG* uY,  ULONG* uWidth, ULONG* uHeight, ULONG* uOriginalSize, ULONG* uDrawStyle, ULONG* uDelay);
 	STDMETHOD(DelBitmap)(ULONG uBitmapID);
 	STDMETHOD(SetDynamicBitmap)(ULONG * uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uMilliSec);
 	STDMETHOD(GetDynamicBitmap)(ULONG uBitmapID, BSTR* sBitmapFilePath, ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uX, ULONG* uY, ULONG* uMilliSec);
 	STDMETHOD(SetText)(ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID);
-	STDMETHOD(GetText)(ULONG uObjectID, ULONG* uX, ULONG* uY, BSTR* sOutputText, BSTR* sFaceName, ULONG* uItalic, ULONG* uBold, ULONG* uUnderLine, ULONG* uWidth, ULONG* uHeight, ULONG* uColor);
+	STDMETHOD(GetText)(ULONG uObjectID, ULONG* uX, ULONG* uY, BSTR* sOutputText, BSTR* sFaceName, ULONG* uItalic, ULONG* uBold, ULONG* uUnderLine, ULONG* uWidth, ULONG* uHeight, ULONG* uColor, ULONG* uAlpha, ULONG* uTransparentColor, ULONG* uDrawStyle, ULONG* uDelay);
 	STDMETHOD(DelText)(ULONG uGroupID);
 	STDMETHOD(GetLastError)(void);
 	STDMETHOD(Init)(LONG hWnd, ULONG uWidth, ULONG uHeight);
@@ -271,8 +275,12 @@ public:
 	STDMETHOD(DelBitmapGroup)(ULONG uGroupID);
 	STDMETHOD(InsertBitmap)(ULONG uGroupID, ULONG uWhere, ULONG* uBitmapID, BSTR sBitmapFilePath, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize, ULONG uDrawStyle, ULONG uDelay);
 	STDMETHOD(CreateTextGroup)(ULONG* uGroupID);
-	STDMETHOD(AddText)(ULONG uGroupID, ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay);
+	STDMETHOD(AddText)(ULONG uGroupID, ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, ULONG uDelay, ULONG uAlpha, ULONG uTransparentColor);
 	STDMETHOD(DelTextGroup)(ULONG uGroupID);
 	STDMETHOD(InsertText)(ULONG uGroupID, ULONG uWhere, ULONG uX, ULONG uY, BSTR sOutputText, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG* uObjectID, ULONG uRegionWidth, ULONG uRegionHeight, ULONG uDrawStyle, LONG uDelay);
+	STDMETHOD(SetBitmapParam)(ULONG uBitmapID, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight);
+	STDMETHOD(SetTextParam)(ULONG uTextID, ULONG uX, ULONG uY, BSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG uAlpha, ULONG uTransparentColor);
+	STDMETHOD(SetPlayParam)(ULONG uGroupID, ULONG uID, ULONG uDrawStyle);
+	STDMETHOD(GetPlayParam)(ULONG uGroupID, ULONG* uID, ULONG* uDrawStyle);
 };
 

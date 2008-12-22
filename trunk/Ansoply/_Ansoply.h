@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Wed Dec 17 22:36:57 2008
+/* at Mon Dec 22 11:57:08 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -206,7 +206,12 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG *uAlpha,
             /* [in] */ ULONG *uTransparentColor,
             /* [in] */ ULONG *uX,
-            /* [in] */ ULONG *uY) = 0;
+            /* [in] */ ULONG *uY,
+            /* [in] */ ULONG *uWidth,
+            /* [in] */ ULONG *uHeight,
+            /* [in] */ ULONG *uOriginalSize,
+            /* [in] */ ULONG *uDrawStyle,
+            /* [in] */ ULONG *uDelay) = 0;
         
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE DelBitmap( 
             /* [in] */ ULONG uBitmapID) = 0;
@@ -256,7 +261,11 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG *uUnderLine,
             /* [in] */ ULONG *uWidth,
             /* [in] */ ULONG *uHeight,
-            /* [in] */ ULONG *uColor) = 0;
+            /* [in] */ ULONG *uColor,
+            /* [in] */ ULONG *uAlpha,
+            /* [in] */ ULONG *uTransparentColor,
+            /* [in] */ ULONG *uDrawStyle,
+            /* [in] */ ULONG *uDelay) = 0;
         
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE DelText( 
             /* [in] */ ULONG uGroupID) = 0;
@@ -482,7 +491,9 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uRegionWidth,
             /* [in] */ ULONG uRegionHeight,
             /* [in] */ ULONG uDrawStyle,
-            /* [in] */ ULONG uDelay) = 0;
+            /* [in] */ ULONG uDelay,
+            /* [in] */ ULONG uAlpha,
+            /* [in] */ ULONG uTransparentColor) = 0;
         
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE DelTextGroup( 
             /* [in] */ ULONG uGroupID) = 0;
@@ -505,6 +516,39 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uRegionHeight,
             /* [in] */ ULONG uDrawStyle,
             /* [in] */ LONG uDelay) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetBitmapParam( 
+            /* [in] */ ULONG uBitmapID,
+            /* [in] */ ULONG uAlpha,
+            /* [in] */ ULONG uTransparentColor,
+            /* [in] */ ULONG uX,
+            /* [in] */ ULONG uY,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetTextParam( 
+            /* [in] */ ULONG uTextID,
+            /* [in] */ ULONG uX,
+            /* [in] */ ULONG uY,
+            /* [in] */ BSTR sFaceName,
+            /* [in] */ ULONG uItalic,
+            /* [in] */ ULONG uBold,
+            /* [in] */ ULONG uUnderLine,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uColor,
+            /* [in] */ ULONG uAlpha,
+            /* [in] */ ULONG uTransparentColor) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetPlayParam( 
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ ULONG uID,
+            /* [in] */ ULONG uDrawStyle) = 0;
+        
+        virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE GetPlayParam( 
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ ULONG *uID,
+            /* [in] */ ULONG *uDrawStyle) = 0;
         
     };
     
@@ -694,7 +738,12 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG *uAlpha,
             /* [in] */ ULONG *uTransparentColor,
             /* [in] */ ULONG *uX,
-            /* [in] */ ULONG *uY);
+            /* [in] */ ULONG *uY,
+            /* [in] */ ULONG *uWidth,
+            /* [in] */ ULONG *uHeight,
+            /* [in] */ ULONG *uOriginalSize,
+            /* [in] */ ULONG *uDrawStyle,
+            /* [in] */ ULONG *uDelay);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *DelBitmap )( 
             IAnsoplyInterface * This,
@@ -749,7 +798,11 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG *uUnderLine,
             /* [in] */ ULONG *uWidth,
             /* [in] */ ULONG *uHeight,
-            /* [in] */ ULONG *uColor);
+            /* [in] */ ULONG *uColor,
+            /* [in] */ ULONG *uAlpha,
+            /* [in] */ ULONG *uTransparentColor,
+            /* [in] */ ULONG *uDrawStyle,
+            /* [in] */ ULONG *uDelay);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *DelText )( 
             IAnsoplyInterface * This,
@@ -1015,7 +1068,9 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uRegionWidth,
             /* [in] */ ULONG uRegionHeight,
             /* [in] */ ULONG uDrawStyle,
-            /* [in] */ ULONG uDelay);
+            /* [in] */ ULONG uDelay,
+            /* [in] */ ULONG uAlpha,
+            /* [in] */ ULONG uTransparentColor);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *DelTextGroup )( 
             IAnsoplyInterface * This,
@@ -1040,6 +1095,43 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uRegionHeight,
             /* [in] */ ULONG uDrawStyle,
             /* [in] */ LONG uDelay);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SetBitmapParam )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uBitmapID,
+            /* [in] */ ULONG uAlpha,
+            /* [in] */ ULONG uTransparentColor,
+            /* [in] */ ULONG uX,
+            /* [in] */ ULONG uY,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SetTextParam )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uTextID,
+            /* [in] */ ULONG uX,
+            /* [in] */ ULONG uY,
+            /* [in] */ BSTR sFaceName,
+            /* [in] */ ULONG uItalic,
+            /* [in] */ ULONG uBold,
+            /* [in] */ ULONG uUnderLine,
+            /* [in] */ ULONG uWidth,
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uColor,
+            /* [in] */ ULONG uAlpha,
+            /* [in] */ ULONG uTransparentColor);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SetPlayParam )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ ULONG uID,
+            /* [in] */ ULONG uDrawStyle);
+        
+        /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *GetPlayParam )( 
+            IAnsoplyInterface * This,
+            /* [in] */ ULONG uGroupID,
+            /* [in] */ ULONG *uID,
+            /* [in] */ ULONG *uDrawStyle);
         
         END_INTERFACE
     } IAnsoplyInterfaceVtbl;
@@ -1152,8 +1244,8 @@ EXTERN_C const IID IID_IAnsoplyInterface;
 #define IAnsoplyInterface_SetBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize)	\
     (This)->lpVtbl -> SetBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize)
 
-#define IAnsoplyInterface_GetBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY)	\
-    (This)->lpVtbl -> GetBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY)
+#define IAnsoplyInterface_GetBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize,uDrawStyle,uDelay)	\
+    (This)->lpVtbl -> GetBitmap(This,uBitmapID,sBitmapFilePath,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize,uDrawStyle,uDelay)
 
 #define IAnsoplyInterface_DelBitmap(This,uBitmapID)	\
     (This)->lpVtbl -> DelBitmap(This,uBitmapID)
@@ -1167,8 +1259,8 @@ EXTERN_C const IID IID_IAnsoplyInterface;
 #define IAnsoplyInterface_SetText(This,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID)	\
     (This)->lpVtbl -> SetText(This,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID)
 
-#define IAnsoplyInterface_GetText(This,uObjectID,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor)	\
-    (This)->lpVtbl -> GetText(This,uObjectID,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor)
+#define IAnsoplyInterface_GetText(This,uObjectID,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uAlpha,uTransparentColor,uDrawStyle,uDelay)	\
+    (This)->lpVtbl -> GetText(This,uObjectID,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uAlpha,uTransparentColor,uDrawStyle,uDelay)
 
 #define IAnsoplyInterface_DelText(This,uGroupID)	\
     (This)->lpVtbl -> DelText(This,uGroupID)
@@ -1287,14 +1379,26 @@ EXTERN_C const IID IID_IAnsoplyInterface;
 #define IAnsoplyInterface_CreateTextGroup(This,uGroupID)	\
     (This)->lpVtbl -> CreateTextGroup(This,uGroupID)
 
-#define IAnsoplyInterface_AddText(This,uGroupID,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight,uDrawStyle,uDelay)	\
-    (This)->lpVtbl -> AddText(This,uGroupID,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight,uDrawStyle,uDelay)
+#define IAnsoplyInterface_AddText(This,uGroupID,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight,uDrawStyle,uDelay,uAlpha,uTransparentColor)	\
+    (This)->lpVtbl -> AddText(This,uGroupID,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight,uDrawStyle,uDelay,uAlpha,uTransparentColor)
 
 #define IAnsoplyInterface_DelTextGroup(This,uGroupID)	\
     (This)->lpVtbl -> DelTextGroup(This,uGroupID)
 
 #define IAnsoplyInterface_InsertText(This,uGroupID,uWhere,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight,uDrawStyle,uDelay)	\
     (This)->lpVtbl -> InsertText(This,uGroupID,uWhere,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight,uDrawStyle,uDelay)
+
+#define IAnsoplyInterface_SetBitmapParam(This,uBitmapID,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight)	\
+    (This)->lpVtbl -> SetBitmapParam(This,uBitmapID,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight)
+
+#define IAnsoplyInterface_SetTextParam(This,uTextID,uX,uY,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uAlpha,uTransparentColor)	\
+    (This)->lpVtbl -> SetTextParam(This,uTextID,uX,uY,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uAlpha,uTransparentColor)
+
+#define IAnsoplyInterface_SetPlayParam(This,uGroupID,uID,uDrawStyle)	\
+    (This)->lpVtbl -> SetPlayParam(This,uGroupID,uID,uDrawStyle)
+
+#define IAnsoplyInterface_GetPlayParam(This,uGroupID,uID,uDrawStyle)	\
+    (This)->lpVtbl -> GetPlayParam(This,uGroupID,uID,uDrawStyle)
 
 #endif /* COBJMACROS */
 
@@ -1643,7 +1747,12 @@ void __RPC_STUB IAnsoplyInterface_SetBitmap_Stub(
     /* [in] */ ULONG *uAlpha,
     /* [in] */ ULONG *uTransparentColor,
     /* [in] */ ULONG *uX,
-    /* [in] */ ULONG *uY);
+    /* [in] */ ULONG *uY,
+    /* [in] */ ULONG *uWidth,
+    /* [in] */ ULONG *uHeight,
+    /* [in] */ ULONG *uOriginalSize,
+    /* [in] */ ULONG *uDrawStyle,
+    /* [in] */ ULONG *uDelay);
 
 
 void __RPC_STUB IAnsoplyInterface_GetBitmap_Stub(
@@ -1738,7 +1847,11 @@ void __RPC_STUB IAnsoplyInterface_SetText_Stub(
     /* [in] */ ULONG *uUnderLine,
     /* [in] */ ULONG *uWidth,
     /* [in] */ ULONG *uHeight,
-    /* [in] */ ULONG *uColor);
+    /* [in] */ ULONG *uColor,
+    /* [in] */ ULONG *uAlpha,
+    /* [in] */ ULONG *uTransparentColor,
+    /* [in] */ ULONG *uDrawStyle,
+    /* [in] */ ULONG *uDelay);
 
 
 void __RPC_STUB IAnsoplyInterface_GetText_Stub(
@@ -2324,7 +2437,9 @@ void __RPC_STUB IAnsoplyInterface_CreateTextGroup_Stub(
     /* [in] */ ULONG uRegionWidth,
     /* [in] */ ULONG uRegionHeight,
     /* [in] */ ULONG uDrawStyle,
-    /* [in] */ ULONG uDelay);
+    /* [in] */ ULONG uDelay,
+    /* [in] */ ULONG uAlpha,
+    /* [in] */ ULONG uTransparentColor);
 
 
 void __RPC_STUB IAnsoplyInterface_AddText_Stub(
@@ -2368,6 +2483,75 @@ void __RPC_STUB IAnsoplyInterface_DelTextGroup_Stub(
 
 
 void __RPC_STUB IAnsoplyInterface_InsertText_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetBitmapParam_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uBitmapID,
+    /* [in] */ ULONG uAlpha,
+    /* [in] */ ULONG uTransparentColor,
+    /* [in] */ ULONG uX,
+    /* [in] */ ULONG uY,
+    /* [in] */ ULONG uWidth,
+    /* [in] */ ULONG uHeight);
+
+
+void __RPC_STUB IAnsoplyInterface_SetBitmapParam_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetTextParam_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uTextID,
+    /* [in] */ ULONG uX,
+    /* [in] */ ULONG uY,
+    /* [in] */ BSTR sFaceName,
+    /* [in] */ ULONG uItalic,
+    /* [in] */ ULONG uBold,
+    /* [in] */ ULONG uUnderLine,
+    /* [in] */ ULONG uWidth,
+    /* [in] */ ULONG uHeight,
+    /* [in] */ ULONG uColor,
+    /* [in] */ ULONG uAlpha,
+    /* [in] */ ULONG uTransparentColor);
+
+
+void __RPC_STUB IAnsoplyInterface_SetTextParam_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_SetPlayParam_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uGroupID,
+    /* [in] */ ULONG uID,
+    /* [in] */ ULONG uDrawStyle);
+
+
+void __RPC_STUB IAnsoplyInterface_SetPlayParam_Stub(
+    IRpcStubBuffer *This,
+    IRpcChannelBuffer *_pRpcChannelBuffer,
+    PRPC_MESSAGE _pRpcMessage,
+    DWORD *_pdwStubPhase);
+
+
+/* [helpstring][id] */ HRESULT STDMETHODCALLTYPE IAnsoplyInterface_GetPlayParam_Proxy( 
+    IAnsoplyInterface * This,
+    /* [in] */ ULONG uGroupID,
+    /* [in] */ ULONG *uID,
+    /* [in] */ ULONG *uDrawStyle);
+
+
+void __RPC_STUB IAnsoplyInterface_GetPlayParam_Stub(
     IRpcStubBuffer *This,
     IRpcChannelBuffer *_pRpcChannelBuffer,
     PRPC_MESSAGE _pRpcMessage,
