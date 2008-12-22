@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 6.00.0361 */
-/* at Mon Dec 22 11:57:08 2008
+/* at Mon Dec 22 23:52:00 2008
  */
 /* Compiler settings for _Ansoply.idl:
     Oicf, W1, Zp8, env=Win32 (32b run)
@@ -524,7 +524,8 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uX,
             /* [in] */ ULONG uY,
             /* [in] */ ULONG uWidth,
-            /* [in] */ ULONG uHeight) = 0;
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uOriginalSize) = 0;
         
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetTextParam( 
             /* [in] */ ULONG uTextID,
@@ -538,7 +539,9 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uHeight,
             /* [in] */ ULONG uColor,
             /* [in] */ ULONG uAlpha,
-            /* [in] */ ULONG uTransparentColor) = 0;
+            /* [in] */ ULONG uTransparentColor,
+            /* [in] */ ULONG uRegionWidth,
+            /* [in] */ ULONG uRegionHeight) = 0;
         
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE SetPlayParam( 
             /* [in] */ ULONG uGroupID,
@@ -1104,7 +1107,8 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uX,
             /* [in] */ ULONG uY,
             /* [in] */ ULONG uWidth,
-            /* [in] */ ULONG uHeight);
+            /* [in] */ ULONG uHeight,
+            /* [in] */ ULONG uOriginalSize);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SetTextParam )( 
             IAnsoplyInterface * This,
@@ -1119,7 +1123,9 @@ EXTERN_C const IID IID_IAnsoplyInterface;
             /* [in] */ ULONG uHeight,
             /* [in] */ ULONG uColor,
             /* [in] */ ULONG uAlpha,
-            /* [in] */ ULONG uTransparentColor);
+            /* [in] */ ULONG uTransparentColor,
+            /* [in] */ ULONG uRegionWidth,
+            /* [in] */ ULONG uRegionHeight);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE *SetPlayParam )( 
             IAnsoplyInterface * This,
@@ -1388,11 +1394,11 @@ EXTERN_C const IID IID_IAnsoplyInterface;
 #define IAnsoplyInterface_InsertText(This,uGroupID,uWhere,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight,uDrawStyle,uDelay)	\
     (This)->lpVtbl -> InsertText(This,uGroupID,uWhere,uX,uY,sOutputText,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uObjectID,uRegionWidth,uRegionHeight,uDrawStyle,uDelay)
 
-#define IAnsoplyInterface_SetBitmapParam(This,uBitmapID,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight)	\
-    (This)->lpVtbl -> SetBitmapParam(This,uBitmapID,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight)
+#define IAnsoplyInterface_SetBitmapParam(This,uBitmapID,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize)	\
+    (This)->lpVtbl -> SetBitmapParam(This,uBitmapID,uAlpha,uTransparentColor,uX,uY,uWidth,uHeight,uOriginalSize)
 
-#define IAnsoplyInterface_SetTextParam(This,uTextID,uX,uY,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uAlpha,uTransparentColor)	\
-    (This)->lpVtbl -> SetTextParam(This,uTextID,uX,uY,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uAlpha,uTransparentColor)
+#define IAnsoplyInterface_SetTextParam(This,uTextID,uX,uY,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uAlpha,uTransparentColor,uRegionWidth,uRegionHeight)	\
+    (This)->lpVtbl -> SetTextParam(This,uTextID,uX,uY,sFaceName,uItalic,uBold,uUnderLine,uWidth,uHeight,uColor,uAlpha,uTransparentColor,uRegionWidth,uRegionHeight)
 
 #define IAnsoplyInterface_SetPlayParam(This,uGroupID,uID,uDrawStyle)	\
     (This)->lpVtbl -> SetPlayParam(This,uGroupID,uID,uDrawStyle)
@@ -2497,7 +2503,8 @@ void __RPC_STUB IAnsoplyInterface_InsertText_Stub(
     /* [in] */ ULONG uX,
     /* [in] */ ULONG uY,
     /* [in] */ ULONG uWidth,
-    /* [in] */ ULONG uHeight);
+    /* [in] */ ULONG uHeight,
+    /* [in] */ ULONG uOriginalSize);
 
 
 void __RPC_STUB IAnsoplyInterface_SetBitmapParam_Stub(
@@ -2520,7 +2527,9 @@ void __RPC_STUB IAnsoplyInterface_SetBitmapParam_Stub(
     /* [in] */ ULONG uHeight,
     /* [in] */ ULONG uColor,
     /* [in] */ ULONG uAlpha,
-    /* [in] */ ULONG uTransparentColor);
+    /* [in] */ ULONG uTransparentColor,
+    /* [in] */ ULONG uRegionWidth,
+    /* [in] */ ULONG uRegionHeight);
 
 
 void __RPC_STUB IAnsoplyInterface_SetTextParam_Stub(

@@ -4361,7 +4361,7 @@ LONG CMultiSAP::DelTextGroup(ULONG uGroupID)
 	return ret;
 }
 
-LONG CMultiSAP::SetBitmapParam(ULONG uBitmapID, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight)
+LONG CMultiSAP::SetBitmapParam(ULONG uBitmapID, ULONG uAlpha, ULONG uTransparentColor, ULONG uX, ULONG uY, ULONG uWidth, ULONG uHeight, ULONG uOriginalSize)
 {
 	std::map<ULONG, CDynaEfBmpGroup*>::iterator iter = m_dy_ef_bmp_Group.begin();
 	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
@@ -4373,7 +4373,7 @@ LONG CMultiSAP::SetBitmapParam(ULONG uBitmapID, ULONG uAlpha, ULONG uTransparent
 			CEffectBitmapEx * pBitmap = *iterinner;
 			if(pBitmap->GetObjectID() == uBitmapID)
 			{
-				pBitmap->SetBitmap(this, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight);
+				pBitmap->SetBitmap(this, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize);
 				return 0;
 			}
 		}
@@ -4381,7 +4381,7 @@ LONG CMultiSAP::SetBitmapParam(ULONG uBitmapID, ULONG uAlpha, ULONG uTransparent
 	return -1;
 }
 
-LONG CMultiSAP::SetTextParam(ULONG uTextID, ULONG uX, ULONG uY, LPCTSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG uAlpha, ULONG uTransparentColor)
+LONG CMultiSAP::SetTextParam(ULONG uTextID, ULONG uX, ULONG uY, LPCTSTR sFaceName, ULONG uItalic, ULONG uBold, ULONG uUnderLine, ULONG uWidth, ULONG uHeight, ULONG uColor, ULONG uAlpha, ULONG uTransparentColor, ULONG uRegionWidth, ULONG uRegionHeight)
 {
 	std::map<ULONG, CEffectTextGroup*>::iterator textiter = m_EffectTextGroup.begin();
 	for( ; textiter != m_EffectTextGroup.end(); ++textiter )
@@ -4393,7 +4393,7 @@ LONG CMultiSAP::SetTextParam(ULONG uTextID, ULONG uX, ULONG uY, LPCTSTR sFaceNam
 			CEffectTextEx * pText = *iterinner;
 			if(pText->GetObjectID() == uTextID)
 			{
-				pText->SetText(this, uX, uY, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uAlpha, uTransparentColor);
+				pText->SetText(this, uX, uY, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uAlpha, uTransparentColor, uRegionWidth, uRegionHeight);
 				return 0;
 			}
 		}

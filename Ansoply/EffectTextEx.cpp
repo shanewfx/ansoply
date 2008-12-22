@@ -322,7 +322,8 @@ LONG CEffectTextEx::SetText(CMultiSAP * pMultiSAP,
 			 ULONG uUnderLine,
 			 ULONG uWidth,
 			 ULONG uHeight,
-			 ULONG uColor, ULONG uAlpha, ULONG uTransparentColor)
+			 ULONG uColor, ULONG uAlpha, ULONG uTransparentColor,
+			 ULONG uRegionWidth, ULONG uRegionHeight)
 {
 	EnterCriticalSection(&m_cs);
 	memset(m_facename, 0, 32);
@@ -338,6 +339,9 @@ LONG CEffectTextEx::SetText(CMultiSAP * pMultiSAP,
 
 	m_uAlpha = uAlpha;
 	m_uTransparentColor = uTransparentColor;
+
+	m_uRegionWidth = uRegionWidth;
+	m_uRegionHeight = uRegionHeight;
 
 	LOGFONT lfChar;
 	ZeroMemory(&lfChar, sizeof(lfChar));

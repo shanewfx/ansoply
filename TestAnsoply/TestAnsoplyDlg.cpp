@@ -455,7 +455,7 @@ void CTestAnsoplyDlg::OnBnClickedButton11()
 	//	m_ansoply.SetEffectPlayRange(dyefbitmapid[4], 7, 4, 8);
 	//}
 	//m_ansoply.Previous(groupID);
-	//m_ansoply.SetBitmapParam(dyefbitmapid[0], 0x46, 0xFFFFFF, 100, 100, 200, 200);
+	m_ansoply.SetBitmapParam(dyefbitmapid[0], 0x86, 0xFFFFFF, 100, 100, 200, 200, 0);
 //	m_ansoply.SetTextParam(dyefbitmapid[0], 100,100, "¡• È\0", 0, 0, 0, 40, 40, RGB(255, 0, 0));
 }
 
