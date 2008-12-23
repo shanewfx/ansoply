@@ -4367,6 +4367,7 @@ LONG CMultiSAP::SetBitmapParam(ULONG uBitmapID, ULONG uAlpha, ULONG uTransparent
 	for( ; iter != m_dy_ef_bmp_Group.end(); ++iter )
 	{
 		CDynaEfBmpGroup * pGroup = iter->second;
+		EnterCriticalSection(&pGroup->m_cs);
 		std::list<CEffectBitmapEx*>::iterator iterinner = pGroup->m_effectbmplist.begin();
 		for (; iterinner != pGroup->m_effectbmplist.end(); ++iterinner)
 		{
@@ -4374,9 +4375,11 @@ LONG CMultiSAP::SetBitmapParam(ULONG uBitmapID, ULONG uAlpha, ULONG uTransparent
 			if(pBitmap->GetObjectID() == uBitmapID)
 			{
 				pBitmap->SetBitmap(this, uAlpha, uTransparentColor, uX, uY, uWidth, uHeight, uOriginalSize);
+				LeaveCriticalSection(&pGroup->m_cs);
 				return 0;
 			}
 		}
+		LeaveCriticalSection(&pGroup->m_cs);
 	}
 	return -1;
 }
@@ -4387,6 +4390,7 @@ LONG CMultiSAP::SetTextParam(ULONG uTextID, ULONG uX, ULONG uY, LPCTSTR sFaceNam
 	for( ; textiter != m_EffectTextGroup.end(); ++textiter )
 	{
 		CEffectTextGroup * pGroup = textiter->second;
+		EnterCriticalSection(&pGroup->m_cs);
 		std::list<CEffectTextEx*>::iterator iterinner = pGroup->m_effectextlist.begin();
 		for (; iterinner != pGroup->m_effectextlist.end(); ++iterinner)
 		{
@@ -4394,9 +4398,11 @@ LONG CMultiSAP::SetTextParam(ULONG uTextID, ULONG uX, ULONG uY, LPCTSTR sFaceNam
 			if(pText->GetObjectID() == uTextID)
 			{
 				pText->SetText(this, uX, uY, sFaceName, uItalic, uBold, uUnderLine, uWidth, uHeight, uColor, uAlpha, uTransparentColor, uRegionWidth, uRegionHeight);
+				LeaveCriticalSection(&pGroup->m_cs);
 				return 0;
 			}
 		}
+		LeaveCriticalSection(&pGroup->m_cs);
 	}
 	return -1;
 }

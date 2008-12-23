@@ -290,8 +290,19 @@ LONG CEffectBitmapEx::SetBitmap(CMultiSAP* pMultiSAP, ULONG uAlpha, ULONG uTrans
 	m_uY = uY;
 	m_uAlpha = uAlpha;
 	m_uTransparentColor = uTransparentColor;
-	m_uWidth = uWidth;
-	m_uHeight = uHeight;
+	BITMAP bm;
+	GetObject( m_hBmp, sizeof(BITMAP), &bm );
+	if( uOriginalSize == 1 )
+	{
+		m_uWidth = bm.bmWidth;
+		m_uHeight = bm.bmHeight;
+	}
+	else
+	{
+		m_uWidth = uWidth;
+		m_uHeight = uHeight;
+	}
+
 
 	IDirectDrawSurface7* pDDS = NULL;
 	HRESULT hr = pMultiSAP->DDARGB32SurfaceInit(&pDDS, TRUE, m_uWidth, m_uHeight);
@@ -309,8 +320,8 @@ LONG CEffectBitmapEx::SetBitmap(CMultiSAP* pMultiSAP, ULONG uAlpha, ULONG uTrans
 		//m_pOriginalBMP = new Bitmap(T2W(m_sFilePath.c_str()));
 		//Graphics g(m_hdcBitmap);
 
-		BITMAP bm;
-		GetObject( m_hBmp, sizeof(BITMAP), &bm );
+		//BITMAP bm;
+		//GetObject( m_hBmp, sizeof(BITMAP), &bm );
 
 		HBITMAP bmp = CreateBitmap(m_uWidth, m_uHeight, bm.bmPlanes, bm.bmBitsPixel, NULL);
 		SelectObject(m_hdcBitmap, bmp);
